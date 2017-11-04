@@ -64,4 +64,4 @@ CTestTestfile.cmake
 cmake-build-*/
 
 #CLion project files
-.idea
+jni/.idea
