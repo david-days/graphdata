@@ -1,0 +1,21 @@
+#ifndef GRAPHDATA_H
+#define GRAPHDATA_H
+
+#define GRAPHDATA_VERSION_MAJOR @GRAPHDATA_VERSION_MAJOR@
+#define GRAPHDATA_VERSION_MINOR @GRAPHDATA_VERSION_MINOR@
+#define GRAPHDATA_VERSION_PATCH @GRAPHDATA_VERSION_PATCH@
+
+#include<stdio.h>
+
+
+
+enum GRAPHTYPE { UNDIRECTED, DIRECTED };
+enum GRAPHIMPL { ARRAY, LINKED };
+
+struct graph_t {
+    size_t nodecnt;
+    size_t labelcnt;
+
+};
+
+#endif //GRAPHDATA_H
