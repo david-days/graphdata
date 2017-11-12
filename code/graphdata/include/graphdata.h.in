@@ -8,14 +8,56 @@
 #include<stdio.h>
 
 
-
 enum GRAPHTYPE { UNDIRECTED, DIRECTED };
-enum GRAPHIMPL { ARRAY, LINKED };
+enum GRAPHIMPL { ARRAY, LINKED, HASHED };
+
+struct feature_t {
+    size_t featureid;
+    char *featurename;
+    double val;
+    struct feature_t *next;
+};
+
+typedef struct feature_t feature;
+
+struct node_t {
+    size_t nodeid;
+    struct feature *attrs;
+    struct edge *edges;
+    struct node *next;
+};
+
+typedef struct node_t node;
+
+struct edge_t {
+    size_t u;
+    size_t v;
+    double cap;
+    double flow;
+    double avail;
+    struct feature *attrs;
+    struct edge *next;
+};
+
+typedef struct edge_t edge;
 
 struct graph_t {
-    size_t nodecnt;
-    size_t labelcnt;
+    enum GRAPHTYPE gtype; //type of graph being represented
+    enum GRAPHIMPL gimpl; //backing implementation structures
+
+    size_t nodecnt; //node count
+    size_t labelcnt;//label count
+    size_t edgecnt; //edge count
+
+    struct node *nodes;
+    struct node *labels;
 
 };
+
+typedef struct graph_t graph;
+
+
+
+
 
 #endif //GRAPHDATA_H

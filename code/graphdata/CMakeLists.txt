@@ -9,7 +9,7 @@ set(PROJECT_AUTHOR "David C. Days")
 
 set(GRAPHDATA_VERSION_MAJOR 1)
 set(GRAPHDATA_VERSION_MINOR 0)
-set(GRAPHDATA_VERSION_PATH 0)
+set(GRAPHDATA_VERSION_PATCH 0)
 
 configure_file(
         "include/graphdata.h.in"
@@ -26,8 +26,12 @@ set(CMAKE_INCLUDE_PATH
 
 set(SOURCE_FILES
         #HEADERS
+        include/graphinit.h
+        include/util/hashes.h
 
         #CODE
+        src/graphinit.c
+        src/util/hashes.h
 
         #CONFIG
         conf/graphdata.conf
@@ -40,11 +44,14 @@ include_directories(
 add_library(${PROJECT_NAME} SHARED
         #Headers
         ${PROJECT_BINARY_DIR}/graphdata.h
+        include/graphinit.h
+        include/util/hashes.h
 
         #Sources
-        #${PROJECT_SOURCE_DIR}/erasurenotify.c
+        src/graphinit.c
+        src/util/hashes.c
 
-        include/graphinit.h src/graphinit.c)
+        include/graphops.h src/graphops.c)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_INCLUDE_PATH})
 
@@ -58,7 +65,7 @@ install(
         COMPONENT libraries
 )
 install(
-        FILES ${PROJECT_BINARY_DIR}/graphdata.h include/erasurenotify.h include/sg_unaligned.h
+        FILES ${PROJECT_BINARY_DIR}/graphdata.h include/graphinit.h include/util/hashes.h
         DESTINATION include
         COMPONENT headers
 )
