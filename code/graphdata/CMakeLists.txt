@@ -6,6 +6,7 @@ set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_FLAGS "-Wall -Werror -Wno-format-truncation")
 
 set(PROJECT_AUTHOR "David C. Days")
+set(PROJECT_VENDOR "Silicon Holler")
 
 set(GRAPHDATA_VERSION_MAJOR 1)
 set(GRAPHDATA_VERSION_MINOR 0)
@@ -28,10 +29,12 @@ set(SOURCE_FILES
         #HEADERS
         include/graphinit.h
         include/util/hashes.h
+        include/util/graphcomp.h
 
         #CODE
         src/graphinit.c
         src/util/hashes.h
+        src/util/graphcomp.c
 
         #CONFIG
         conf/graphdata.conf
@@ -45,13 +48,16 @@ add_library(${PROJECT_NAME} SHARED
         #Headers
         ${PROJECT_BINARY_DIR}/graphdata.h
         include/graphinit.h
+        include/graphops.h
         include/util/hashes.h
+        include/util/graphcomp.h
 
         #Sources
         src/graphinit.c
         src/util/hashes.c
+        src/util/graphcomp.c
 
-        include/graphops.h src/graphops.c)
+)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_INCLUDE_PATH})
 
@@ -65,8 +71,18 @@ install(
         COMPONENT libraries
 )
 install(
-        FILES ${PROJECT_BINARY_DIR}/graphdata.h include/graphinit.h include/util/hashes.h
+        FILES
+            ${PROJECT_BINARY_DIR}/graphdata.h
+            include/graphinit.h
+            include/graphops.h
         DESTINATION include
+        COMPONENT headers
+)
+install(
+        FILES
+            include/util/hashes.h
+            include/util/graphcomp.h
+        DESTINATION include/util
         COMPONENT headers
 )
 install(
@@ -96,8 +112,8 @@ set(CPACK_COMPONENT_LIBRARIES_GROUP "System Environment/Libraries")
 set(CPACK_COMPONENT_HEADERS_GROUP "System Environment/Libraries")
 
 #RPM-specific settings
-set(CPACK_RPM_PACKAGE_SUMMARY "Graph structures and operations shared libraries")
-set(CPACK_RPM_PACKAGE_DESCRIPTION "Shared libraries and headers for the graph functions and combinatorial operations")
+set(CPACK_RPM_PACKAGE_SUMMARY "Graph structures and operations shared library")
+set(CPACK_RPM_PACKAGE_DESCRIPTION "Shared libraries and headers for graph functions and basic combinatorial operations")
 set(CPACK_RPM_PACKAGE_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
 set(CPACK_RPM_PACKAGE_GROUP "System Environment/Libraries")
 set(CPACK_RPM_PACKAGE_LICENSE "GPLv2")

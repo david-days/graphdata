@@ -15,7 +15,9 @@ struct feature_t {
     size_t featureid;
     char *featurename;
     double val;
-    struct feature_t *next;
+    void *fdata;
+    struct feature *prev;
+    struct feature *next;
 };
 
 typedef struct feature_t feature;
@@ -24,6 +26,7 @@ struct node_t {
     size_t nodeid;
     struct feature *attrs;
     struct edge *edges;
+    struct node *prev;
     struct node *next;
 };
 
@@ -34,8 +37,8 @@ struct edge_t {
     size_t v;
     double cap;
     double flow;
-    double avail;
     struct feature *attrs;
+    struct edge *prev;
     struct edge *next;
 };
 
@@ -46,12 +49,15 @@ struct graph_t {
     enum GRAPHIMPL gimpl; //backing implementation structures
 
     size_t nodecnt; //node count
-    size_t labelcnt;//label count
     size_t edgecnt; //edge count
 
-    struct node *nodes;
-    struct node *labels;
+    struct node *nodes; //Generic node listing
+    struct node *edges; //Generic edge listing
 
+    void *nodeImpl; //Implementation-specific node data
+    void *edgeImpl; //Implementation-specific edge data
+    void *capImpl; //Implementation-specific capacity data
+    void *flowImpl; //Implementation-specific flow data
 };
 
 typedef struct graph_t graph;
