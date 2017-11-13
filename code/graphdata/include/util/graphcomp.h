@@ -6,6 +6,7 @@
 #define GRAPHDATA_GRAPHCOMP_H
 
 #include <stdio.h>
+#include <graphdata.h>
 
 /**
  * Compare to nodeid values, returning the minimum value (if different)
@@ -38,5 +39,19 @@ double * minVal(double *a, double *b);
  * @return pointer to the first value, if same or larger; otherwise, pointer to the second value
  */
 double * maxVal(double *a, double *b);
+
+/**
+ * Given an edge path, return the min capacity along that path.
+ * @param path linked-list of edges, representing a path
+ * @return minimum value along the given path, if path exists; otherwise, value < 0 if *path is NULL
+ */
+double minCapacity(const edge *path);
+
+/**
+ * Given an edge path, return the max capacity along that path.
+ * @param path  linked-listof edges, representing a path
+ * @return maximum value along the given path, if path exists; otherwise, value < 0 if *path is NULL
+ */
+double maxCapacity(const edge *path);
 
 #endif //GRAPHDATA_GRAPHCOMP_H

@@ -42,3 +42,46 @@ double * minVal(double *a, double *b) {
 double * maxVal(double *a, double *b) {
     return *a >= *b ? a:b;
 }
+
+/**
+ * Given an edge path, return the min capacity along that path.
+ * @param path linked-list of edges, representing a path
+ * @return minimum value along the given path, if path exists; otherwise, value < 0 if *path is NULL
+ */
+double minCapacity(const edge *path) {
+    double minCap = -1.0;
+    if (path != NULL) {
+        edge *curr, *next;
+        curr = (edge *)path;
+        next = (edge *)curr->next;
+        minCap = curr->cap;
+        while (next != NULL) {
+            minCap = *minVal(&minCap, &(next->cap));
+            curr = next;
+            next = (edge *)curr->next;
+        }
+    }
+    return minCap;
+}
+
+/**
+ * Given an edge path, return the max capacity along that path.
+ * @param path  linked-list of edges, representing a path
+ * @return maximum value along the given path, if path exists; otherwise, value < 0 if *path is NULL
+ */
+double maxCapacity(const edge *path) {
+    double maxCap = -1.0;
+    if (path != NULL) {
+        edge *curr = NULL;
+        edge *next = NULL;
+        curr = (edge *)path;
+        next = (edge *)curr->next;
+        maxCap = curr->cap;
+        while (next != NULL) {
+            maxCap = *maxVal(&maxCap, &(next->cap));
+            curr = next;
+            next = (edge *)curr->next;
+        }
+    }
+    return maxCap;
+}

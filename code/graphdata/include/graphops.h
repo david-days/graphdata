@@ -74,28 +74,30 @@ typedef edge * (funcGetEdgePath)(const size_t *uid, const size_t *vid, const gra
 
 //Write functions to modify graph
 /**
- *
- * @param nodeid
- * @param g
- * @return
+ * Function pointer to add a node to a given graph.  Not all implementations may use this (for example, fixed-size graphs such as ARRAY
+ * implementations).
+ * @param nodeid Node identifier to be added
+ * @param g Graph structure to add the node
+ * @return -1 if there was an error, 0 if the node was successfully added, 1 if the node already exists.
  */
 typedef int (*funcAddNode)(const size_t *nodeid, graph *g);
 /**
- *
- * @param uid
- * @param vid
- * @param cap
- * @param g
- * @return
+ * Function pointer to add an edge to a given graph.  Not all implementations may use this (for example, fixed-size ARRAY implementations
+ * representing a set domain of nodes and relationships).
+ * @param uid identifer for start of edge
+ * @param vid identifier for end of edge
+ * @param cap capacity value to be assigned
+ * @param g graph structure in question
+ * @return -1 if there was an error; 0 if the edge was successfully added; 1 if the edge already exists.
  */
 typedef int (*funcAddEdge)(const size_t *uid, const size_t *vid, double *cap, graph *g);
 /**
- *
- * @param uid
- * @param vid
- * @param cap
- * @param g
- * @return
+ * Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph.
+ * @param uid identifeer of the edge start
+ * @param vid identifier of the edge ending.
+ * @param cap capacity value to be set
+ * @param g Graph structure in question
+ * @return -1 if there was an error; 0 if the capacity was successfully set; 1 if the value was unchanged
  */
 typedef int (*funcSetCapacity)(const size_t *uid, const size_t *vid, const double *cap, graph *g);
 
