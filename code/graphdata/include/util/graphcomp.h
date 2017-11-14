@@ -1,6 +1,8 @@
-//
-// Created by david on 11/12/17.
-//
+/**
+ * Header for comparative and extraction functions (max, min, largest, smallest, etc).
+ * definitions and function here should relate directly to commonly-used utility functions, and try to avoid
+ * implementation-specific functions.
+ */
 
 #ifndef GRAPHDATA_GRAPHCOMP_H
 #define GRAPHDATA_GRAPHCOMP_H
