@@ -63,7 +63,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_INCLUDE_PATH})
 
 target_link_libraries(${PROJECT_NAME})
 
-# Test
 add_subdirectory(test)
 
 
