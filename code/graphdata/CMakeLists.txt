@@ -11,6 +11,7 @@ set(PROJECT_VENDOR "Silicon Holler")
 set(GRAPHDATA_VERSION_MAJOR 1)
 set(GRAPHDATA_VERSION_MINOR 0)
 set(GRAPHDATA_VERSION_PATCH 0)
+set(GRAPHDATA_VERSION ${GRAPHDATA_VERSION_MAJOR}.${GRAPHDATA_VERSION_MINOR}.${GRAPHDATA_VERSION_PATCH})
 
 configure_file(
         "include/graphdata.h.in"
@@ -57,6 +58,11 @@ add_library(${PROJECT_NAME} SHARED
         src/util/hashes.c
         src/util/graphcomp.c
 
+)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+        VERSION ${GRAPHDATA_VERSION}
+        SOVERSION ${GRAPHDATA_VERSION_MAJOR}
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_INCLUDE_PATH})
