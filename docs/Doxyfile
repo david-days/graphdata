@@ -1,0 +1,3 @@
+OUTPUT_DIRECTORY	= /home/david/devel/graphdata/code/graphdata/../../docs
+INPUT			= /home/david/devel/graphdata/code/graphdata/src /home/david/devel/graphdata/code/graphdata/include /home/david/devel/graphdata/code/graphdata/../../docs
+
