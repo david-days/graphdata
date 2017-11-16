@@ -5,32 +5,32 @@
 \begin{DoxyCompactItemize}
 \item 
 struct \hyperlink{structgraphops__t}{graphops\+\_\+t}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Structure relating graph data to implementations. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
 typedef size\+\_\+t($\ast$ \hyperlink{graphops_8h_a5f1ba03cba8efec39224db7b6afc8374}{func\+Node\+Count}) (\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
-\item 
+\begin{DoxyCompactList}\small\item\em Function pointer definition for getting the node count;. \end{DoxyCompactList}\item 
 typedef size\+\_\+t($\ast$ \hyperlink{graphops_8h_a9c7f99c0f38ebae08cb49e70ffe91fa1}{func\+Edge\+Count}) (\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
-\item 
+\begin{DoxyCompactList}\small\item\em Function pointer to extract count of edges. \end{DoxyCompactList}\item 
 typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node} $\ast$($\ast$ \hyperlink{graphops_8h_ab5b794bee2b91f62033011c8e4c867ec}{func\+Get\+Node}) (const size\+\_\+t $\ast$nodeid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
-\item 
+\begin{DoxyCompactList}\small\item\em Function pointer to retrieve a node structure reference. \end{DoxyCompactList}\item 
 typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge} $\ast$($\ast$ \hyperlink{graphops_8h_aed109d4861cfae4ea7721603770befca}{func\+Get\+Edge}) (const size\+\_\+t $\ast$u, const size\+\_\+t $\ast$v, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
-\item 
+\begin{DoxyCompactList}\small\item\em Function pointer to retrieve a edge structure reference. \end{DoxyCompactList}\item 
 typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node} $\ast$($\ast$ \hyperlink{graphops_8h_a201169542b84db39bcb68ae94223e773}{func\+Get\+Neighbors}) (const size\+\_\+t $\ast$nodeid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
-\item 
+\begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list of nodes that are currently defined as neighbors to the given node. \end{DoxyCompactList}\item 
 typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge} $\ast$($\ast$ \hyperlink{graphops_8h_af1e618623a0855f489ac957e5ae24ac0}{func\+Get\+Edges}) (const size\+\_\+t $\ast$nodeid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
-\item 
+\begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list of edges from a given node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
 typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node} $\ast$() \hyperlink{graphops_8h_a43aa084c4514d1f3c2179551905aa655}{func\+Get\+Node\+Path}(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
-\item 
+\begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list path of nodes from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
 typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge} $\ast$() \hyperlink{graphops_8h_ac2b0381c5a4018e52104e27c57fb5c2c}{func\+Get\+Edge\+Path}(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
-\item 
+\begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list of path edges from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
 typedef int($\ast$ \hyperlink{graphops_8h_ac3a2b8cb9dcf1f1a8cd4cb5f819e245a}{func\+Add\+Node}) (const size\+\_\+t $\ast$nodeid, \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
-\item 
+\begin{DoxyCompactList}\small\item\em Function pointer to add a node to a given graph. Not all implementations may use this (for example, fixed-\/size graphs such as spatial A\+R\+R\+AY implementations). \end{DoxyCompactList}\item 
 typedef int($\ast$ \hyperlink{graphops_8h_a7db3802ca9110f9f9095250ed85a39a5}{func\+Add\+Edge}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
-\item 
+\begin{DoxyCompactList}\small\item\em Function pointer to add an edge to a given graph. Not all implementations may use this (for example, fixed-\/size A\+R\+R\+AY implementations representing a set domain of nodes and relationships). \end{DoxyCompactList}\item 
 typedef int($\ast$ \hyperlink{graphops_8h_a7f161b975929757de2684535b39d60bb}{func\+Set\+Capacity}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
-\item 
+\begin{DoxyCompactList}\small\item\em Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph. \end{DoxyCompactList}\item 
 typedef struct \hyperlink{structgraphops__t}{graphops\+\_\+t} \hyperlink{graphops_8h_aa53f85b68af4cc05aee8bdad77e2e37c}{graphops}
 \end{DoxyCompactItemize}
 
@@ -42,7 +42,11 @@ typedef struct \hyperlink{structgraphops__t}{graphops\+\_\+t} \hyperlink{graphop
 \subsubsection{\texorpdfstring{func\+Add\+Edge}{funcAddEdge}}
 {\footnotesize\ttfamily typedef int($\ast$ func\+Add\+Edge) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
 
+
+
 Function pointer to add an edge to a given graph. Not all implementations may use this (for example, fixed-\/size A\+R\+R\+AY implementations representing a set domain of nodes and relationships). 
+
+
 \begin{DoxyParams}{Parameters}
 {\em uid} & identifer for start of edge \\
 \hline
@@ -62,7 +66,11 @@ Function pointer to add an edge to a given graph. Not all implementations may us
 \subsubsection{\texorpdfstring{func\+Add\+Node}{funcAddNode}}
 {\footnotesize\ttfamily typedef int($\ast$ func\+Add\+Node) (const size\+\_\+t $\ast$nodeid, \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
 
-Function pointer to add a node to a given graph. Not all implementations may use this (for example, fixed-\/size graphs such as A\+R\+R\+AY implementations). 
+
+
+Function pointer to add a node to a given graph. Not all implementations may use this (for example, fixed-\/size graphs such as spatial A\+R\+R\+AY implementations). 
+
+
 \begin{DoxyParams}{Parameters}
 {\em nodeid} & Node identifier to be added \\
 \hline
@@ -78,7 +86,11 @@ Function pointer to add a node to a given graph. Not all implementations may use
 \subsubsection{\texorpdfstring{func\+Edge\+Count}{funcEdgeCount}}
 {\footnotesize\ttfamily typedef size\+\_\+t($\ast$ func\+Edge\+Count) (\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
 
-Function pointer to extract count of edges 
+
+
+Function pointer to extract count of edges. 
+
+
 \begin{DoxyParams}{Parameters}
 {\em g} & Graph structure in question \\
 \hline
@@ -92,7 +104,11 @@ Count of edges, if graph is not null; otherwise, return 0
 \subsubsection{\texorpdfstring{func\+Get\+Edge}{funcGetEdge}}
 {\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge}$\ast$($\ast$ func\+Get\+Edge) (const size\+\_\+t $\ast$u, const size\+\_\+t $\ast$v, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
 
-Function pointer to retrieve a edge structure reference. Implementation-\/specific on wheter this structure is part of the original graph (L\+I\+N\+K-\/based implementations) or must use free() when usage is finished (A\+R\+R\+A\+Y-\/based). 
+
+
+Function pointer to retrieve a edge structure reference. 
+
+Implementation-\/specific on whether this structure is part of the original graph (L\+I\+N\+K-\/based implementations) or must use free() when usage is finished (A\+R\+R\+A\+Y-\/based). 
 \begin{DoxyParams}{Parameters}
 {\em u} & nodeid of the starting edge. \\
 \hline
@@ -110,7 +126,11 @@ pointer to the edge structure, if found; otherwise, pointer to N\+U\+LL.
 \subsubsection{\texorpdfstring{func\+Get\+Edge\+Path}{funcGetEdgePath}}
 {\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge}$\ast$() func\+Get\+Edge\+Path(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
 
+
+
 Function pointer to retrieve linked-\/list of path edges from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. 
+
+
 \begin{DoxyParams}{Parameters}
 {\em uid} & Path start identifier \\
 \hline
@@ -128,7 +148,11 @@ Linked-\/list of edges, starting from uid and ending at vid, if found; otherwise
 \subsubsection{\texorpdfstring{func\+Get\+Edges}{funcGetEdges}}
 {\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge}$\ast$($\ast$ func\+Get\+Edges) (const size\+\_\+t $\ast$nodeid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
 
+
+
 Function pointer to retrieve linked-\/list of edges from a given node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. 
+
+
 \begin{DoxyParams}{Parameters}
 {\em nodeid} & Identifier of the node in question \\
 \hline
@@ -144,7 +168,11 @@ linked-\/list of edges starting from the given node, if found; otherwise, pointe
 \subsubsection{\texorpdfstring{func\+Get\+Neighbors}{funcGetNeighbors}}
 {\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node}$\ast$($\ast$ func\+Get\+Neighbors) (const size\+\_\+t $\ast$nodeid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
 
-Function pointer to retrieve linked-\/list of nodes that are currently defined as neighbors to the given node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. 
+
+
+Function pointer to retrieve linked-\/list of nodes that are currently defined as neighbors to the given node. 
+
+Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. 
 \begin{DoxyParams}{Parameters}
 {\em nodeid} & Identifier of the node in question \\
 \hline
@@ -160,7 +188,11 @@ linked-\/list of node references, starting with the given node, if found; otherw
 \subsubsection{\texorpdfstring{func\+Get\+Node}{funcGetNode}}
 {\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node}$\ast$($\ast$ func\+Get\+Node) (const size\+\_\+t $\ast$nodeid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
 
-Function pointer to retrieve a node structure reference. Implementation-\/specific on whether this structure is part of the original graph (L\+I\+N\+K-\/based implementations) or must use free() when usage is finished (A\+R\+R\+A\+Y-\/based). 
+
+
+Function pointer to retrieve a node structure reference. 
+
+Implementation-\/specific on whether this structure is part of the original graph (L\+I\+N\+K-\/based implementations) or must use free() when usage is finished (A\+R\+R\+A\+Y-\/based). 
 \begin{DoxyParams}{Parameters}
 {\em nodeid} & Identifier of the node to be retrieved \\
 \hline
@@ -176,7 +208,11 @@ pointer to the node structure, if found; otherwise, pointer to N\+U\+LL
 \subsubsection{\texorpdfstring{func\+Get\+Node\+Path}{funcGetNodePath}}
 {\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node}$\ast$() func\+Get\+Node\+Path(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
 
+
+
 Function pointer to retrieve linked-\/list path of nodes from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. 
+
+
 \begin{DoxyParams}{Parameters}
 {\em uid} & Path start identifier \\
 \hline
@@ -194,7 +230,11 @@ Linked-\/list of nodes, starting from uid and ending at vid, if found; otherwise
 \subsubsection{\texorpdfstring{func\+Node\+Count}{funcNodeCount}}
 {\footnotesize\ttfamily typedef size\+\_\+t($\ast$ func\+Node\+Count) (\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
 
-Function pointer definition for getting the node count; 
+
+
+Function pointer definition for getting the node count;. 
+
+
 \begin{DoxyParams}{Parameters}
 {\em g} & Graph structure in question \\
 \hline
@@ -208,7 +248,11 @@ Count of nodes, if graph is not null; otherwise, return 0
 \subsubsection{\texorpdfstring{func\+Set\+Capacity}{funcSetCapacity}}
 {\footnotesize\ttfamily typedef int($\ast$ func\+Set\+Capacity) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
 
+
+
 Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph. 
+
+
 \begin{DoxyParams}{Parameters}
 {\em uid} & identifier of the edge start \\
 \hline

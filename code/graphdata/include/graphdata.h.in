@@ -232,7 +232,10 @@ typedef struct lables_t labeldata;
 
 
 /**
- * Structure containing the backing data for the graph representation.
+ * @brief Structure containing the backing data for the graph representation.
+ *
+ * This is the representation of the graph, with necessary metadata (type, spatial dimensions, etc) as necessary. Consumers
+ * choose the best implementation for their purposes, and pass around references as necessary.
  */
 struct graph_t {
     /**
@@ -280,6 +283,9 @@ struct graph_t {
     void *flowImpl; //Implementation-specific flow data
 };
 
+/**
+ * @brief Rename the graph_t structure.
+ */
 typedef struct graph_t graph;
 
 

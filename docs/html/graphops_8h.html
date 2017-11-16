@@ -77,31 +77,43 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgraphops__t.html">graphops_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure relating graph data to implementations.  <a href="structgraphops__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:a5f1ba03cba8efec39224db7b6afc8374"><td class="memItemLeft" align="right" valign="top">typedef size_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#a5f1ba03cba8efec39224db7b6afc8374">funcNodeCount</a>) (<a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
+<tr class="memdesc:a5f1ba03cba8efec39224db7b6afc8374"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer definition for getting the node count;.  <a href="#a5f1ba03cba8efec39224db7b6afc8374">More...</a><br /></td></tr>
 <tr class="separator:a5f1ba03cba8efec39224db7b6afc8374"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c7f99c0f38ebae08cb49e70ffe91fa1"><td class="memItemLeft" align="right" valign="top">typedef size_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#a9c7f99c0f38ebae08cb49e70ffe91fa1">funcEdgeCount</a>) (<a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
+<tr class="memdesc:a9c7f99c0f38ebae08cb49e70ffe91fa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to extract count of edges.  <a href="#a9c7f99c0f38ebae08cb49e70ffe91fa1">More...</a><br /></td></tr>
 <tr class="separator:a9c7f99c0f38ebae08cb49e70ffe91fa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5b794bee2b91f62033011c8e4c867ec"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="graphdata_8h.html#a85b4f4124a5616dea92c9e8a221a8db5">node</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#ab5b794bee2b91f62033011c8e4c867ec">funcGetNode</a>) (const size_t *nodeid, const <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
+<tr class="memdesc:ab5b794bee2b91f62033011c8e4c867ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to retrieve a node structure reference.  <a href="#ab5b794bee2b91f62033011c8e4c867ec">More...</a><br /></td></tr>
 <tr class="separator:ab5b794bee2b91f62033011c8e4c867ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed109d4861cfae4ea7721603770befca"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="graphdata_8h.html#a641a8a4cd064e02a13e6c15d1b2df541">edge</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#aed109d4861cfae4ea7721603770befca">funcGetEdge</a>) (const size_t *u, const size_t *v, const <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
+<tr class="memdesc:aed109d4861cfae4ea7721603770befca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to retrieve a edge structure reference.  <a href="#aed109d4861cfae4ea7721603770befca">More...</a><br /></td></tr>
 <tr class="separator:aed109d4861cfae4ea7721603770befca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a201169542b84db39bcb68ae94223e773"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="graphdata_8h.html#a85b4f4124a5616dea92c9e8a221a8db5">node</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#a201169542b84db39bcb68ae94223e773">funcGetNeighbors</a>) (const size_t *nodeid, const <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
+<tr class="memdesc:a201169542b84db39bcb68ae94223e773"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to retrieve linked-list of nodes that are currently defined as neighbors to the given node.  <a href="#a201169542b84db39bcb68ae94223e773">More...</a><br /></td></tr>
 <tr class="separator:a201169542b84db39bcb68ae94223e773"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1e618623a0855f489ac957e5ae24ac0"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="graphdata_8h.html#a641a8a4cd064e02a13e6c15d1b2df541">edge</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#af1e618623a0855f489ac957e5ae24ac0">funcGetEdges</a>) (const size_t *nodeid, const <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
+<tr class="memdesc:af1e618623a0855f489ac957e5ae24ac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to retrieve linked-list of edges from a given node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.  <a href="#af1e618623a0855f489ac957e5ae24ac0">More...</a><br /></td></tr>
 <tr class="separator:af1e618623a0855f489ac957e5ae24ac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43aa084c4514d1f3c2179551905aa655"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="graphdata_8h.html#a85b4f4124a5616dea92c9e8a221a8db5">node</a> *()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#a43aa084c4514d1f3c2179551905aa655">funcGetNodePath</a>(const size_t *uid, const size_t *vid, const <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
+<tr class="memdesc:a43aa084c4514d1f3c2179551905aa655"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to retrieve linked-list path of nodes from start to destination, beginning with the starting node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.  <a href="#a43aa084c4514d1f3c2179551905aa655">More...</a><br /></td></tr>
 <tr class="separator:a43aa084c4514d1f3c2179551905aa655"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2b0381c5a4018e52104e27c57fb5c2c"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="graphdata_8h.html#a641a8a4cd064e02a13e6c15d1b2df541">edge</a> *()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#ac2b0381c5a4018e52104e27c57fb5c2c">funcGetEdgePath</a>(const size_t *uid, const size_t *vid, const <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
+<tr class="memdesc:ac2b0381c5a4018e52104e27c57fb5c2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to retrieve linked-list of path edges from start to destination, beginning with the starting node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.  <a href="#ac2b0381c5a4018e52104e27c57fb5c2c">More...</a><br /></td></tr>
 <tr class="separator:ac2b0381c5a4018e52104e27c57fb5c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3a2b8cb9dcf1f1a8cd4cb5f819e245a"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#ac3a2b8cb9dcf1f1a8cd4cb5f819e245a">funcAddNode</a>) (const size_t *nodeid, <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
+<tr class="memdesc:ac3a2b8cb9dcf1f1a8cd4cb5f819e245a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to add a node to a given graph. Not all implementations may use this (for example, fixed-size graphs such as spatial ARRAY implementations).  <a href="#ac3a2b8cb9dcf1f1a8cd4cb5f819e245a">More...</a><br /></td></tr>
 <tr class="separator:ac3a2b8cb9dcf1f1a8cd4cb5f819e245a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7db3802ca9110f9f9095250ed85a39a5"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#a7db3802ca9110f9f9095250ed85a39a5">funcAddEdge</a>) (const size_t *uid, const size_t *vid, double *cap, <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
+<tr class="memdesc:a7db3802ca9110f9f9095250ed85a39a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to add an edge to a given graph. Not all implementations may use this (for example, fixed-size ARRAY implementations representing a set domain of nodes and relationships).  <a href="#a7db3802ca9110f9f9095250ed85a39a5">More...</a><br /></td></tr>
 <tr class="separator:a7db3802ca9110f9f9095250ed85a39a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f161b975929757de2684535b39d60bb"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#a7f161b975929757de2684535b39d60bb">funcSetCapacity</a>) (const size_t *uid, const size_t *vid, const double *cap, <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
+<tr class="memdesc:a7f161b975929757de2684535b39d60bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph.  <a href="#a7f161b975929757de2684535b39d60bb">More...</a><br /></td></tr>
 <tr class="separator:a7f161b975929757de2684535b39d60bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa53f85b68af4cc05aee8bdad77e2e37c"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structgraphops__t.html">graphops_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#aa53f85b68af4cc05aee8bdad77e2e37c">graphops</a></td></tr>
 <tr class="separator:aa53f85b68af4cc05aee8bdad77e2e37c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -118,7 +130,9 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Function pointer to add an edge to a given graph. Not all implementations may use this (for example, fixed-size ARRAY implementations representing a set domain of nodes and relationships). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Function pointer to add an edge to a given graph. Not all implementations may use this (for example, fixed-size ARRAY implementations representing a set domain of nodes and relationships). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uid</td><td>identifer for start of edge </td></tr>
     <tr><td class="paramname">vid</td><td>identifier for end of edge </td></tr>
@@ -142,7 +156,9 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Function pointer to add a node to a given graph. Not all implementations may use this (for example, fixed-size graphs such as ARRAY implementations). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Function pointer to add a node to a given graph. Not all implementations may use this (for example, fixed-size graphs such as spatial ARRAY implementations). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nodeid</td><td>Node identifier to be added </td></tr>
     <tr><td class="paramname">g</td><td>Graph structure to add the node </td></tr>
@@ -164,7 +180,9 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Function pointer to extract count of edges </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Function pointer to extract count of edges. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">g</td><td>Graph structure in question </td></tr>
   </table>
@@ -185,7 +203,9 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Function pointer to retrieve a edge structure reference. Implementation-specific on wheter this structure is part of the original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Function pointer to retrieve a edge structure reference. </p>
+<p>Implementation-specific on whether this structure is part of the original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">u</td><td>nodeid of the starting edge. </td></tr>
     <tr><td class="paramname">v</td><td>nodeid of the ending edge. </td></tr>
@@ -208,7 +228,9 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Function pointer to retrieve linked-list of path edges from start to destination, beginning with the starting node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Function pointer to retrieve linked-list of path edges from start to destination, beginning with the starting node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uid</td><td>Path start identifier </td></tr>
     <tr><td class="paramname">vid</td><td>Path end identifier </td></tr>
@@ -231,7 +253,9 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Function pointer to retrieve linked-list of edges from a given node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Function pointer to retrieve linked-list of edges from a given node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nodeid</td><td>Identifier of the node in question </td></tr>
     <tr><td class="paramname">g</td><td>Graph structure in question </td></tr>
@@ -253,7 +277,9 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Function pointer to retrieve linked-list of nodes that are currently defined as neighbors to the given node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Function pointer to retrieve linked-list of nodes that are currently defined as neighbors to the given node. </p>
+<p>Returned linked-list is distinct from the graph structure, and consumers must use free() when finished. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nodeid</td><td>Identifier of the node in question </td></tr>
     <tr><td class="paramname">g</td><td>Graph structure in question </td></tr>
@@ -275,7 +301,9 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Function pointer to retrieve a node structure reference. Implementation-specific on whether this structure is part of the original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Function pointer to retrieve a node structure reference. </p>
+<p>Implementation-specific on whether this structure is part of the original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nodeid</td><td>Identifier of the node to be retrieved </td></tr>
     <tr><td class="paramname">g</td><td>Graph structure in question </td></tr>
@@ -297,7 +325,9 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Function pointer to retrieve linked-list path of nodes from start to destination, beginning with the starting node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Function pointer to retrieve linked-list path of nodes from start to destination, beginning with the starting node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uid</td><td>Path start identifier </td></tr>
     <tr><td class="paramname">vid</td><td>Path end identifier </td></tr>
@@ -320,7 +350,9 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Function pointer definition for getting the node count; </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Function pointer definition for getting the node count;. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">g</td><td>Graph structure in question </td></tr>
   </table>
@@ -341,7 +373,9 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uid</td><td>identifier of the edge start </td></tr>
     <tr><td class="paramname">vid</td><td>identifier of the edge ending. </td></tr>
@@ -365,7 +399,7 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Simple renaming of <a class="el" href="structgraphops__t.html">graphops_t</a> type. </p>
+<p>Simple renaming of <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> type. </p>
 
 </div>
 </div>
