@@ -33,6 +33,9 @@ graph $\ast$ \hyperlink{structgraphops__t_ab8a78cf4f0bdfe6a65aa217a716ca537}{g}
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+This is the structure containing both a reference to the graph data and the supporting basic operations. Function pointers (according to the typedefs) are set if there is a function implementation associated with the type of graph and implementation. 
+
 \subsection{Field Documentation}
 \mbox{\Hypertarget{structgraphops__t_af9a74b6643b49f7799dfa78f4824aa22}\label{structgraphops__t_af9a74b6643b49f7799dfa78f4824aa22}} 
 \index{graphops\+\_\+t@{graphops\+\_\+t}!add\+Edge@{add\+Edge}}
@@ -40,73 +43,73 @@ graph $\ast$ \hyperlink{structgraphops__t_ab8a78cf4f0bdfe6a65aa217a716ca537}{g}
 \subsubsection{\texorpdfstring{add\+Edge}{addEdge}}
 {\footnotesize\ttfamily \hyperlink{graphops_8h_a7db3802ca9110f9f9095250ed85a39a5}{func\+Add\+Edge} graphops\+\_\+t\+::add\+Edge}
 
-\mbox{\Hypertarget{structgraphops__t_aa1fdab76a86ab2889415964b51f1738f}\label{structgraphops__t_aa1fdab76a86ab2889415964b51f1738f}} 
+Add an edge to the graph. Expected to be N\+U\+LL (no implementation) for fixed-\/size graph structures. \mbox{\Hypertarget{structgraphops__t_aa1fdab76a86ab2889415964b51f1738f}\label{structgraphops__t_aa1fdab76a86ab2889415964b51f1738f}} 
 \index{graphops\+\_\+t@{graphops\+\_\+t}!add\+Node@{add\+Node}}
 \index{add\+Node@{add\+Node}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection{\texorpdfstring{add\+Node}{addNode}}
 {\footnotesize\ttfamily \hyperlink{graphops_8h_ac3a2b8cb9dcf1f1a8cd4cb5f819e245a}{func\+Add\+Node} graphops\+\_\+t\+::add\+Node}
 
-\mbox{\Hypertarget{structgraphops__t_a5db6e2eee59ada7705fb54bf5f6b9ee1}\label{structgraphops__t_a5db6e2eee59ada7705fb54bf5f6b9ee1}} 
+Add a node to the graph. Expected to be N\+U\+LL (no implementation) for fixed-\/size graph structures. \mbox{\Hypertarget{structgraphops__t_a5db6e2eee59ada7705fb54bf5f6b9ee1}\label{structgraphops__t_a5db6e2eee59ada7705fb54bf5f6b9ee1}} 
 \index{graphops\+\_\+t@{graphops\+\_\+t}!edge\+Count@{edge\+Count}}
 \index{edge\+Count@{edge\+Count}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection{\texorpdfstring{edge\+Count}{edgeCount}}
 {\footnotesize\ttfamily \hyperlink{graphops_8h_a9c7f99c0f38ebae08cb49e70ffe91fa1}{func\+Edge\+Count} graphops\+\_\+t\+::edge\+Count}
 
-\mbox{\Hypertarget{structgraphops__t_ab0fdace070db2a1fa199e920b6136a04}\label{structgraphops__t_ab0fdace070db2a1fa199e920b6136a04}} 
+Return count of edges \mbox{\Hypertarget{structgraphops__t_ab0fdace070db2a1fa199e920b6136a04}\label{structgraphops__t_ab0fdace070db2a1fa199e920b6136a04}} 
 \index{graphops\+\_\+t@{graphops\+\_\+t}!edge\+Path@{edge\+Path}}
 \index{edge\+Path@{edge\+Path}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection{\texorpdfstring{edge\+Path}{edgePath}}
 {\footnotesize\ttfamily \hyperlink{graphops_8h_ac2b0381c5a4018e52104e27c57fb5c2c}{func\+Get\+Edge\+Path} graphops\+\_\+t\+::edge\+Path}
 
-\mbox{\Hypertarget{structgraphops__t_ab8a78cf4f0bdfe6a65aa217a716ca537}\label{structgraphops__t_ab8a78cf4f0bdfe6a65aa217a716ca537}} 
+Return a list of edges traversing from the start to finish. Means of finding the path is implementation-\/specific. \mbox{\Hypertarget{structgraphops__t_ab8a78cf4f0bdfe6a65aa217a716ca537}\label{structgraphops__t_ab8a78cf4f0bdfe6a65aa217a716ca537}} 
 \index{graphops\+\_\+t@{graphops\+\_\+t}!g@{g}}
 \index{g@{g}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection{\texorpdfstring{g}{g}}
 {\footnotesize\ttfamily graph$\ast$ graphops\+\_\+t\+::g}
 
-\mbox{\Hypertarget{structgraphops__t_aafbe3ec7bdce040b86d7748c953cf607}\label{structgraphops__t_aafbe3ec7bdce040b86d7748c953cf607}} 
+Graph data structure \mbox{\Hypertarget{structgraphops__t_aafbe3ec7bdce040b86d7748c953cf607}\label{structgraphops__t_aafbe3ec7bdce040b86d7748c953cf607}} 
 \index{graphops\+\_\+t@{graphops\+\_\+t}!get\+Edge@{get\+Edge}}
 \index{get\+Edge@{get\+Edge}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection{\texorpdfstring{get\+Edge}{getEdge}}
 {\footnotesize\ttfamily \hyperlink{graphops_8h_aed109d4861cfae4ea7721603770befca}{func\+Get\+Edge} graphops\+\_\+t\+::get\+Edge}
 
-\mbox{\Hypertarget{structgraphops__t_a87fec7e1150c05e54e34ab09fe401eaa}\label{structgraphops__t_a87fec7e1150c05e54e34ab09fe401eaa}} 
+Return a given edge (by start-\/end identifiers) \mbox{\Hypertarget{structgraphops__t_a87fec7e1150c05e54e34ab09fe401eaa}\label{structgraphops__t_a87fec7e1150c05e54e34ab09fe401eaa}} 
 \index{graphops\+\_\+t@{graphops\+\_\+t}!get\+Edges@{get\+Edges}}
 \index{get\+Edges@{get\+Edges}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection{\texorpdfstring{get\+Edges}{getEdges}}
 {\footnotesize\ttfamily \hyperlink{graphops_8h_af1e618623a0855f489ac957e5ae24ac0}{func\+Get\+Edges} graphops\+\_\+t\+::get\+Edges}
 
-\mbox{\Hypertarget{structgraphops__t_ac6c5bec2f102e4da5959cc3db66ac3c6}\label{structgraphops__t_ac6c5bec2f102e4da5959cc3db66ac3c6}} 
+Return a linked-\/list of edges starting at this node \mbox{\Hypertarget{structgraphops__t_ac6c5bec2f102e4da5959cc3db66ac3c6}\label{structgraphops__t_ac6c5bec2f102e4da5959cc3db66ac3c6}} 
 \index{graphops\+\_\+t@{graphops\+\_\+t}!get\+Neighbors@{get\+Neighbors}}
 \index{get\+Neighbors@{get\+Neighbors}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection{\texorpdfstring{get\+Neighbors}{getNeighbors}}
 {\footnotesize\ttfamily \hyperlink{graphops_8h_a201169542b84db39bcb68ae94223e773}{func\+Get\+Neighbors} graphops\+\_\+t\+::get\+Neighbors}
 
-\mbox{\Hypertarget{structgraphops__t_ab410442ef123fc79f1c8a431502e2a23}\label{structgraphops__t_ab410442ef123fc79f1c8a431502e2a23}} 
+Return a linked-\/list of neighbors \mbox{\Hypertarget{structgraphops__t_ab410442ef123fc79f1c8a431502e2a23}\label{structgraphops__t_ab410442ef123fc79f1c8a431502e2a23}} 
 \index{graphops\+\_\+t@{graphops\+\_\+t}!get\+Node@{get\+Node}}
 \index{get\+Node@{get\+Node}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection{\texorpdfstring{get\+Node}{getNode}}
 {\footnotesize\ttfamily \hyperlink{graphops_8h_ab5b794bee2b91f62033011c8e4c867ec}{func\+Get\+Node} graphops\+\_\+t\+::get\+Node}
 
-\mbox{\Hypertarget{structgraphops__t_a07801b43de87d48f426d7abf7959e738}\label{structgraphops__t_a07801b43de87d48f426d7abf7959e738}} 
+Return a given node (by identifier) \mbox{\Hypertarget{structgraphops__t_a07801b43de87d48f426d7abf7959e738}\label{structgraphops__t_a07801b43de87d48f426d7abf7959e738}} 
 \index{graphops\+\_\+t@{graphops\+\_\+t}!node\+Count@{node\+Count}}
 \index{node\+Count@{node\+Count}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection{\texorpdfstring{node\+Count}{nodeCount}}
 {\footnotesize\ttfamily \hyperlink{graphops_8h_a5f1ba03cba8efec39224db7b6afc8374}{func\+Node\+Count} graphops\+\_\+t\+::node\+Count}
 
-\mbox{\Hypertarget{structgraphops__t_afd2a0b194e922fa656b4352a8fed9e05}\label{structgraphops__t_afd2a0b194e922fa656b4352a8fed9e05}} 
+Return count of nodes \mbox{\Hypertarget{structgraphops__t_afd2a0b194e922fa656b4352a8fed9e05}\label{structgraphops__t_afd2a0b194e922fa656b4352a8fed9e05}} 
 \index{graphops\+\_\+t@{graphops\+\_\+t}!node\+Path@{node\+Path}}
 \index{node\+Path@{node\+Path}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection{\texorpdfstring{node\+Path}{nodePath}}
 {\footnotesize\ttfamily \hyperlink{graphops_8h_a43aa084c4514d1f3c2179551905aa655}{func\+Get\+Node\+Path} graphops\+\_\+t\+::node\+Path}
 
-\mbox{\Hypertarget{structgraphops__t_a6f05f8daf75bc380988e20e019681c0a}\label{structgraphops__t_a6f05f8daf75bc380988e20e019681c0a}} 
+Return a list of node (hops) from the start to the end. Means of finding the path is implementation-\/specific \mbox{\Hypertarget{structgraphops__t_a6f05f8daf75bc380988e20e019681c0a}\label{structgraphops__t_a6f05f8daf75bc380988e20e019681c0a}} 
 \index{graphops\+\_\+t@{graphops\+\_\+t}!set\+Capacity@{set\+Capacity}}
 \index{set\+Capacity@{set\+Capacity}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection{\texorpdfstring{set\+Capacity}{setCapacity}}
 {\footnotesize\ttfamily \hyperlink{graphops_8h_a7f161b975929757de2684535b39d60bb}{func\+Set\+Capacity} graphops\+\_\+t\+::set\+Capacity}
 
-
+Set the capacity for a given edge. 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

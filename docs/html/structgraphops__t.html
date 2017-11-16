@@ -95,7 +95,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:ab0fdace070db2a1fa199e920b6136a04"><td class="memItemLeft" align="right" valign="top"><a class="el" href="graphops_8h.html#ac2b0381c5a4018e52104e27c57fb5c2c">funcGetEdgePath</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgraphops__t.html#ab0fdace070db2a1fa199e920b6136a04">edgePath</a></td></tr>
 <tr class="separator:ab0fdace070db2a1fa199e920b6136a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Field Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This is the structure containing both a reference to the graph data and the supporting basic operations. Function pointers (according to the typedefs) are set if there is a function implementation associated with the type of graph and implementation. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
 <a id="af9a74b6643b49f7799dfa78f4824aa22"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af9a74b6643b49f7799dfa78f4824aa22">&#9670;&nbsp;</a></span>addEdge</h2>
 
@@ -107,6 +109,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Add an edge to the graph. Expected to be NULL (no implementation) for fixed-size graph structures. </p>
 
 </div>
 </div>
@@ -121,6 +124,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Add a node to the graph. Expected to be NULL (no implementation) for fixed-size graph structures. </p>
 
 </div>
 </div>
@@ -135,6 +139,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Return count of edges </p>
 
 </div>
 </div>
@@ -149,6 +154,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Return a list of edges traversing from the start to finish. Means of finding the path is implementation-specific. </p>
 
 </div>
 </div>
@@ -163,6 +169,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Graph data structure </p>
 
 </div>
 </div>
@@ -177,6 +184,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Return a given edge (by start-end identifiers) </p>
 
 </div>
 </div>
@@ -191,6 +199,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Return a linked-list of edges starting at this node </p>
 
 </div>
 </div>
@@ -205,6 +214,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Return a linked-list of neighbors </p>
 
 </div>
 </div>
@@ -219,6 +229,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Return a given node (by identifier) </p>
 
 </div>
 </div>
@@ -233,6 +244,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Return count of nodes </p>
 
 </div>
 </div>
@@ -247,6 +259,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Return a list of node (hops) from the start to the end. Means of finding the path is implementation-specific </p>
 
 </div>
 </div>
@@ -261,6 +274,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the capacity for a given edge. </p>
 
 </div>
 </div>

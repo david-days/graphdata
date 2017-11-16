@@ -1,3 +1,9 @@
+/**
+ * @brief Basic graph data definitions.
+ *
+ * This header contains the basic structures and definitions for graph data.
+ */
+
 #ifndef GRAPHDATA_H
 #define GRAPHDATA_H
 
@@ -7,56 +13,270 @@
 
 #include<stdio.h>
 
+/**
+ * @brief Basic graph type.
+ *
+ * Type of graph being implemented.  DIRECTED vs. UNDIRECTED gives appropriate hints to the graph operations that will
+ * be used, both to access the data and to minimize memory usage.
+ */
+enum GRAPHTYPE {
+    /**
+     * @brief Undirected graph (edge u->v == edge v->u, always).
+     *
+     * Structure implementations will make all efforts to ensure no duplicates, and only one representative edge will be used.
+     */
+    UNDIRECTED,
+    /**
+     * @brief Directed graph (edge u->v != edge v->u).
+     *
+     * Structure implementations will maintain separate values for each direction.  More memory, but (at times) faster or more explicit
+     * path operations.
+     */
+    DIRECTED
+};
 
-enum GRAPHTYPE { UNDIRECTED, DIRECTED };
-enum GRAPHIMPL { ARRAY, LINKED, HASHED };
+/**
+ * @brief Definition of backing implementation (array-based, linked-lists, hashtable/unique adjacency lists)
+ *
+ * Type of underlying graph implementation used.  Each type implies certain graph characteristics (fixed vs. dynamic) and
+ * drives the graphops function implementations
+ *
+ */
+enum GRAPHIMPL {
+    /**
+     * @brief Array-backed graph data.
+     *
+     * Nodes, edges, and capacities are maintained in adjacency array form.  The graph dimensions (counts, edges, membership)
+     * are expected to be fixed at initialization.
+     */
+    ARRAY,
+    /**
+     * @brief Linked-list backed graph data.
+     *
+     * Underlying graph structures are dynamically allocated and adjustable at runtime.
+     */
+    LINKED,
+    /**
+     * @brief Hashtable-based implementation of adjacency lists.
+     * Management of hashtables and id-lookups is handled by the graphops implementations.  Graph structure is dynamic and
+     * adjustable at runtime.
+     */
+    HASHED
+};
 
+/**
+ * @brief Feature/attribute structure for a graph item.
+ *
+ * Features hold attribute values for the associated graph structure member (node, edge).  This structure can be used
+ * to store additional information or computation results.
+ */
 struct feature_t {
-    size_t featureid;
+    /**
+     * @brief identifier for the feature type
+     *
+     * Feature identifier, unique for a feature type.  Basic concept is a hash of the feature name, though other implementations
+     * are possible.
+     */
+    size_t hashid;
+    /**
+     * @brief text name of the feature type.
+     */
     char *featurename;
+    /**
+     * Value of the feature.
+     */
     double val;
+    /**
+     * Associated feature data.
+     */
     void *fdata;
+    /**
+     * Previous feature in the list.
+     */
     struct feature *prev;
+    /**
+     * Next feature in the list.
+     */
     struct feature *next;
 };
 
+/**
+ * Rename the feature_t type.
+ */
 typedef struct feature_t feature;
 
+/**
+ * @brief Graph node structure
+ *
+ * This structure represents individual graph nodes and associated structures.  Actual usage of the structure associations
+ * is up to the individual implementations.
+ */
 struct node_t {
+    /**
+     * Node identifier
+     */
     size_t nodeid;
+    /**
+     * Attached features, if any.  Initialized as NULL for all implementations.
+     */
     struct feature *attrs;
+    /**
+     * Attached edges, if any.
+     */
     struct edge *edges;
+    /**
+     * @brief Previous  node, as required.  Typical usage would be in node-based path list.
+     */
     struct node *prev;
+    /**
+     * @brief Next node, as required.  Typical usage would be in node-based path list.
+     */
     struct node *next;
 };
 
+/**
+ * Rename node_t structure.
+ */
 typedef struct node_t node;
 
+/**
+ * @brief Graph edge structure, representing linkages between nodes.
+ *
+ * The interpretation of an edge (path, traversal, relationship, association) is usage-dependent.  In general, this structure contains
+ * enough information to carry out typical graph operations and algorithms.
+ */
 struct edge_t {
+    /**
+     * Starting node
+     */
     size_t u;
+    /**
+     * Ending node
+     */
     size_t v;
+    /**
+     * Baseline capacity or cost value.
+     */
     double cap;
+    /**
+     * Additional flow (change in capacity value) for the edge.
+     */
     double flow;
+    /**
+     * Features associated with the edge.
+     */
     struct feature *attrs;
+    /**
+     * @brief Previous edge in the list.
+     *
+     * Typical usage would be either for normal edge lists, or for edge-based path values.
+     */
     struct edge *prev;
+    /**
+     * @brief Next edge in the list.
+     *
+     * Typical usage would be either for normal adjacency lists, or for edge-based path values.
+     */
     struct edge *next;
 };
 
+/**
+ * Rename the edge_t structure.
+ */
 typedef struct edge_t edge;
 
+
+/**
+ * @brief Structure to hold values for dimensional graphs
+ *
+ * This structure holds values defining the boundaries of a dimensional graph, such as one representing a spatial domain.
+ */
+struct dimensions_t {
+    /**
+     * Number of dimensions represented.
+     */
+    size_t dimcount;
+    /**
+     * Array pointer containing the upper dimensional boundary values (width, height, depth, etc).
+     */
+    size_t *dimarr;
+};
+
+/**
+ * Rename the dimensions_t structure.
+ */
+typedef struct dimensions_t dimensions;
+
+/**
+ * @brief Structure holding identifiers for "label" nodes.
+ *
+ * Generally, a label node is one that holds a unique or preferential status within a graph.  For segmentation or partition operations,
+ * this may be the representative for a group.  For other operations, it may designate certain starting or ending points, or roots
+ * to max- or min-trees or forests.
+ */
+struct labels_t {
+    /**
+     * Number of labels in the graph.
+     */
+    size_t labelcount;
+    /**
+     * Array pointer to the labels.
+     */
+    size_t *labelarr;
+};
+
+/**
+ * Rename the labels_t structure
+ */
+typedef struct lables_t labeldata;
+
+
+/**
+ * Structure containing the backing data for the graph representation.
+ */
 struct graph_t {
-    enum GRAPHTYPE gtype; //type of graph being represented
-    enum GRAPHIMPL gimpl; //backing implementation structures
+    /**
+     * Type of graph being represented.
+     */
+    enum GRAPHTYPE gtype;
+    /**
+     * Backing implementation of graph data.
+     */
+    enum GRAPHIMPL gimpl;
 
-    size_t nodecnt; //node count
-    size_t edgecnt; //edge count
+    /**
+     * Dimensions structure for spatial graphs
+     */
+    struct dimensions *dims;
 
-    struct node *nodes; //Generic node listing
-    struct node *edges; //Generic edge listing
+    /**
+     * Label data for the graph.
+     */
+    struct labeldata *labels;
 
+    /**
+     * @brief Implementation-specific pointer to node backing data
+     *
+     * Central pointer to node data, to be interpreted by the specific graphops implementations
+     */
     void *nodeImpl; //Implementation-specific node data
+    /**
+     * @brief Implementation-specific pointer to the edge backing data
+     *
+     * Central pointer to the edge data, to be interpreted by the specific graphops implementations.
+     */
     void *edgeImpl; //Implementation-specific edge data
+    /**
+     * @brief Implementation-specific pointer to capacity data.
+     *
+     * Central pointer to the capacity values, to be interpreted by the specific graphops implementations.
+     */
     void *capImpl; //Implementation-specific capacity data
+    /**
+     * @brief Implementation-specific pointer to the flow data
+     *
+     * Central pointer to the flow values, to be interpreted by the specific graphops implementations.
+     */
     void *flowImpl; //Implementation-specific flow data
 };
 

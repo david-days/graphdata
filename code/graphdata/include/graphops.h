@@ -93,7 +93,7 @@ typedef int (*funcAddNode)(const size_t *nodeid, graph *g);
 typedef int (*funcAddEdge)(const size_t *uid, const size_t *vid, double *cap, graph *g);
 /**
  * Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph.
- * @param uid identifeer of the edge start
+ * @param uid identifier of the edge start
  * @param vid identifier of the edge ending.
  * @param cap capacity value to be set
  * @param g Graph structure in question
@@ -102,29 +102,72 @@ typedef int (*funcAddEdge)(const size_t *uid, const size_t *vid, double *cap, gr
 typedef int (*funcSetCapacity)(const size_t *uid, const size_t *vid, const double *cap, graph *g);
 
 
-
+/**
+ * This is the structure containing both a reference to the graph data and the supporting basic operations.
+ * Function pointers (according to the typedefs) are set if there is a function implementation associated with the type
+ * of graph and implementation.
+ */
 struct graphops_t {
     //Graph structure
+    /**
+     * Graph data structure
+     */
     graph *g;
 
     //Getters
+    /**
+     * Return count of nodes
+     */
     funcNodeCount nodeCount;
+    /**
+     * Return count of edges
+     */
     funcEdgeCount edgeCount;
+    /**
+     * Return a given node (by identifier)
+     */
     funcGetNode getNode;
+    /**
+     * Return a given edge (by start-end identifiers)
+     */
     funcGetEdge getEdge;
+    /**
+     * Return a linked-list of neighbors
+     */
     funcGetNeighbors getNeighbors;
+    /**
+     * Return a linked-list of edges starting at this node
+     */
     funcGetEdges getEdges;
 
     //Modifiers
+    /**
+     * Add a node to the graph.  Expected to be NULL (no implementation) for fixed-size graph structures.
+     */
     funcAddNode addNode;
+    /**
+     * Add an edge to the graph.  Expected to be NULL (no implementation) for fixed-size graph structures.
+     */
     funcAddEdge addEdge;
+    /**
+     * Set the capacity for a given edge.
+     */
     funcSetCapacity setCapacity;
 
     //Traverse functions
+    /**
+     * Return a list of node (hops) from the start to the end.  Means of finding the path is implementation-specific
+     */
     funcGetNodePath nodePath;
+    /**
+     * Return a list of edges traversing from the start to finish.  Means of finding the path is implementation-specific.
+     */
     funcGetEdgePath edgePath;
 };
 
+/**
+ * Simple renaming of graphops_t type.
+ */
 typedef struct graphops_t graphops;
 
 #endif //GRAPHDATA_GRAPHOPS_H
