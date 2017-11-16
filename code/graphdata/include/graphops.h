@@ -106,6 +106,19 @@ typedef int (*funcAddEdge)(const size_t *uid, const size_t *vid, double *cap, gr
  */
 typedef int (*funcSetCapacity)(const size_t *uid, const size_t *vid, const double *cap, graph *g);
 
+/**
+ * @brief Function pointer to "reset" the graph according to the given argument pointer.
+ *
+ * For some implementations, it is more efficient to reuse the existing graph structure and perform a "zero-out"
+ * of the data, rather than rebuilding from scratch.  This function pointer provides that option.
+ * @param g Graph structure to be zeroed or modified according to reset logic
+ * @param args Arguments to be used in the reset process, if necessary
+ * @param callback Callback to be executed when graph has been reset.
+ * @return -1 if there was an error during the reset; 0 if the reset completed; 1 if there was a change the requires re-evaluation
+ */
+typedef int (funcResetGraph)(graph *g, void *args, void (*callback)(void));
+
+
 
 /**
  * @brief Structure relating graph data to implementations
@@ -174,10 +187,16 @@ struct graphops_t {
      * Means of finding the path is implementation-specific.
      */
     funcGetEdgePath edgePath;
+    /**
+     * @brief Reset the graph to an initial state, according to implementation logic
+     * Means of resetting the graph to an initial state without having to re-implement cleanup logic
+     * or creating a new graph structure.
+     */
+    funcResetGraph resetGraph;
 };
 
 /**
- * Simple renaming of graphops_t type.
+ * @brief Simple renaming of graphops_t type.
  */
 typedef struct graphops_t graphops;
 

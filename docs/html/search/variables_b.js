@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['u',['u',['../structedge__t.html#a2bd21781f62242a78e70595ea781769c',1,'edge_t']]]
+  ['resetgraph',['resetGraph',['../structgraphops__t.html#a5e4e69eeeb8e25607c3af5dfcdbb88aa',1,'graphops_t']]]
 ];

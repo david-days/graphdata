@@ -31,8 +31,10 @@ typedef int($\ast$ \hyperlink{graphops_8h_a7db3802ca9110f9f9095250ed85a39a5}{fun
 \begin{DoxyCompactList}\small\item\em Function pointer to add an edge to a given graph. Not all implementations may use this (for example, fixed-\/size A\+R\+R\+AY implementations representing a set domain of nodes and relationships). \end{DoxyCompactList}\item 
 typedef int($\ast$ \hyperlink{graphops_8h_a7f161b975929757de2684535b39d60bb}{func\+Set\+Capacity}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph. \end{DoxyCompactList}\item 
+typedef int() \hyperlink{graphops_8h_aed8790e1c33f6823653357527e03c8c7}{func\+Reset\+Graph}(\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g, void $\ast$args, void($\ast$callback) (void))
+\begin{DoxyCompactList}\small\item\em Function pointer to \char`\"{}reset\char`\"{} the graph according to the given argument pointer. \end{DoxyCompactList}\item 
 typedef struct \hyperlink{structgraphops__t}{graphops\+\_\+t} \hyperlink{graphops_8h_aa53f85b68af4cc05aee8bdad77e2e37c}{graphops}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Simple renaming of \hyperlink{structgraphops__t}{graphops\+\_\+t} type. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Typedef Documentation}
@@ -242,6 +244,28 @@ Function pointer definition for getting the node count;.
 \begin{DoxyReturn}{Returns}
 Count of nodes, if graph is not null; otherwise, return 0 
 \end{DoxyReturn}
+\mbox{\Hypertarget{graphops_8h_aed8790e1c33f6823653357527e03c8c7}\label{graphops_8h_aed8790e1c33f6823653357527e03c8c7}} 
+\index{graphops.\+h@{graphops.\+h}!func\+Reset\+Graph@{func\+Reset\+Graph}}
+\index{func\+Reset\+Graph@{func\+Reset\+Graph}!graphops.\+h@{graphops.\+h}}
+\subsubsection{\texorpdfstring{func\+Reset\+Graph}{funcResetGraph}}
+{\footnotesize\ttfamily typedef int() func\+Reset\+Graph(\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g, void $\ast$args, void($\ast$callback)(void))}
+
+
+
+Function pointer to \char`\"{}reset\char`\"{} the graph according to the given argument pointer. 
+
+For some implementations, it is more efficient to reuse the existing graph structure and perform a \char`\"{}zero-\/out\char`\"{} of the data, rather than rebuilding from scratch. This function pointer provides that option. 
+\begin{DoxyParams}{Parameters}
+{\em g} & Graph structure to be zeroed or modified according to reset logic \\
+\hline
+{\em args} & Arguments to be used in the reset process, if necessary \\
+\hline
+{\em callback} & Callback to be executed when graph has been reset. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 if there was an error during the reset; 0 if the reset completed; 1 if there was a change the requires re-\/evaluation 
+\end{DoxyReturn}
 \mbox{\Hypertarget{graphops_8h_a7f161b975929757de2684535b39d60bb}\label{graphops_8h_a7f161b975929757de2684535b39d60bb}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Set\+Capacity@{func\+Set\+Capacity}}
 \index{func\+Set\+Capacity@{func\+Set\+Capacity}!graphops.\+h@{graphops.\+h}}
@@ -272,4 +296,7 @@ Function pointer to set the capacity (cost, weight, etc.) of an edge in the give
 \subsubsection{\texorpdfstring{graphops}{graphops}}
 {\footnotesize\ttfamily typedef struct \hyperlink{structgraphops__t}{graphops\+\_\+t} \hyperlink{graphops_8h_aa53f85b68af4cc05aee8bdad77e2e37c}{graphops}}
 
+
+
 Simple renaming of \hyperlink{structgraphops__t}{graphops\+\_\+t} type. 
+

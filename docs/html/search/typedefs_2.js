@@ -11,5 +11,6 @@ var searchData=
   ['funcgetnode',['funcGetNode',['../graphops_8h.html#ab5b794bee2b91f62033011c8e4c867ec',1,'graphops.h']]],
   ['funcgetnodepath',['funcGetNodePath',['../graphops_8h.html#a43aa084c4514d1f3c2179551905aa655',1,'graphops.h']]],
   ['funcnodecount',['funcNodeCount',['../graphops_8h.html#a5f1ba03cba8efec39224db7b6afc8374',1,'graphops.h']]],
+  ['funcresetgraph',['funcResetGraph',['../graphops_8h.html#aed8790e1c33f6823653357527e03c8c7',1,'graphops.h']]],
   ['funcsetcapacity',['funcSetCapacity',['../graphops_8h.html#a7f161b975929757de2684535b39d60bb',1,'graphops.h']]]
 ];

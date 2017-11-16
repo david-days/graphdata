@@ -74,13 +74,20 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a602be255ab0523e0a5fe28436a29159a"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="graphdata_8h.html#a384e88b524b782ff50439055cbc8a5c2">GRAPHTYPE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgraph__t.html#a602be255ab0523e0a5fe28436a29159a">gtype</a></td></tr>
+<tr class="memdesc:a602be255ab0523e0a5fe28436a29159a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of graph being represented.  <a href="#a602be255ab0523e0a5fe28436a29159a">More...</a><br /></td></tr>
 <tr class="separator:a602be255ab0523e0a5fe28436a29159a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a220aff118ba6d13c927486099988c03d"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6">GRAPHIMPL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgraph__t.html#a220aff118ba6d13c927486099988c03d">gimpl</a></td></tr>
+<tr class="memdesc:a220aff118ba6d13c927486099988c03d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Backing implementation of graph data.  <a href="#a220aff118ba6d13c927486099988c03d">More...</a><br /></td></tr>
 <tr class="separator:a220aff118ba6d13c927486099988c03d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0b7dd9b19e20a1564ba1f02ad41511e"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="graphdata_8h.html#a08b79828d8e700b1ff86fc235a83089f">dimensions</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgraph__t.html#ab0b7dd9b19e20a1564ba1f02ad41511e">dims</a></td></tr>
+<tr class="memdesc:ab0b7dd9b19e20a1564ba1f02ad41511e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dimensions structure for spatial graphs.  <a href="#ab0b7dd9b19e20a1564ba1f02ad41511e">More...</a><br /></td></tr>
 <tr class="separator:ab0b7dd9b19e20a1564ba1f02ad41511e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ea51094b5b0a3b3035895948ded5b44"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="graphdata_8h.html#a625fc818ed28f282dba71f20cd31b848">labeldata</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgraph__t.html#a2ea51094b5b0a3b3035895948ded5b44">labels</a></td></tr>
+<tr class="memdesc:a2ea51094b5b0a3b3035895948ded5b44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Label data for the graph.  <a href="#a2ea51094b5b0a3b3035895948ded5b44">More...</a><br /></td></tr>
 <tr class="separator:a2ea51094b5b0a3b3035895948ded5b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab11b23897ec5b39d38c3f85581bd313e"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgraph__t.html#ab11b23897ec5b39d38c3f85581bd313e">metaImpl</a></td></tr>
+<tr class="memdesc:ab11b23897ec5b39d38c3f85581bd313e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation-specific pointer to metadata for graph structure.  <a href="#ab11b23897ec5b39d38c3f85581bd313e">More...</a><br /></td></tr>
+<tr class="separator:ab11b23897ec5b39d38c3f85581bd313e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bf6344f03f4cbc69345d026da2e3368"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgraph__t.html#a3bf6344f03f4cbc69345d026da2e3368">nodeImpl</a></td></tr>
 <tr class="memdesc:a3bf6344f03f4cbc69345d026da2e3368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation-specific pointer to node backing data.  <a href="#a3bf6344f03f4cbc69345d026da2e3368">More...</a><br /></td></tr>
 <tr class="separator:a3bf6344f03f4cbc69345d026da2e3368"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,7 +133,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Dimensions structure for spatial graphs </p>
+
+<p>Dimensions structure for spatial graphs. </p>
 
 </div>
 </div>
@@ -175,6 +183,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
 <p>Backing implementation of graph data. </p>
 
 </div>
@@ -190,6 +199,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
 <p>Type of graph being represented. </p>
 
 </div>
@@ -205,7 +215,24 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
 <p>Label data for the graph. </p>
+
+</div>
+</div>
+<a id="ab11b23897ec5b39d38c3f85581bd313e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab11b23897ec5b39d38c3f85581bd313e">&#9670;&nbsp;</a></span>metaImpl</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* graph_t::metaImpl</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Implementation-specific pointer to metadata for graph structure. </p>
 
 </div>
 </div>

@@ -115,7 +115,11 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a7f161b975929757de2684535b39d60bb"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#a7f161b975929757de2684535b39d60bb">funcSetCapacity</a>) (const size_t *uid, const size_t *vid, const double *cap, <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
 <tr class="memdesc:a7f161b975929757de2684535b39d60bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph.  <a href="#a7f161b975929757de2684535b39d60bb">More...</a><br /></td></tr>
 <tr class="separator:a7f161b975929757de2684535b39d60bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed8790e1c33f6823653357527e03c8c7"><td class="memItemLeft" align="right" valign="top">typedef int()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#aed8790e1c33f6823653357527e03c8c7">funcResetGraph</a>(<a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g, void *args, void(*callback) (void))</td></tr>
+<tr class="memdesc:aed8790e1c33f6823653357527e03c8c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to "reset" the graph according to the given argument pointer.  <a href="#aed8790e1c33f6823653357527e03c8c7">More...</a><br /></td></tr>
+<tr class="separator:aed8790e1c33f6823653357527e03c8c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa53f85b68af4cc05aee8bdad77e2e37c"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structgraphops__t.html">graphops_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#aa53f85b68af4cc05aee8bdad77e2e37c">graphops</a></td></tr>
+<tr class="memdesc:aa53f85b68af4cc05aee8bdad77e2e37c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple renaming of <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> type.  <a href="#aa53f85b68af4cc05aee8bdad77e2e37c">More...</a><br /></td></tr>
 <tr class="separator:aa53f85b68af4cc05aee8bdad77e2e37c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
@@ -362,6 +366,31 @@ Typedefs</h2></td></tr>
 
 </div>
 </div>
+<a id="aed8790e1c33f6823653357527e03c8c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed8790e1c33f6823653357527e03c8c7">&#9670;&nbsp;</a></span>funcResetGraph</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int() funcResetGraph(<a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g, void *args, void(*callback)(void))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function pointer to "reset" the graph according to the given argument pointer. </p>
+<p>For some implementations, it is more efficient to reuse the existing graph structure and perform a "zero-out" of the data, rather than rebuilding from scratch. This function pointer provides that option. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">g</td><td>Graph structure to be zeroed or modified according to reset logic </td></tr>
+    <tr><td class="paramname">args</td><td>Arguments to be used in the reset process, if necessary </td></tr>
+    <tr><td class="paramname">callback</td><td>Callback to be executed when graph has been reset. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>-1 if there was an error during the reset; 0 if the reset completed; 1 if there was a change the requires re-evaluation </dd></dl>
+
+</div>
+</div>
 <a id="a7f161b975929757de2684535b39d60bb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f161b975929757de2684535b39d60bb">&#9670;&nbsp;</a></span>funcSetCapacity</h2>
 
@@ -399,6 +428,7 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
 <p>Simple renaming of <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> type. </p>
 
 </div>

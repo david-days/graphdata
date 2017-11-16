@@ -239,48 +239,53 @@ typedef struct lables_t labeldata;
  */
 struct graph_t {
     /**
-     * Type of graph being represented.
+     * @brief Type of graph being represented.
      */
     enum GRAPHTYPE gtype;
     /**
-     * Backing implementation of graph data.
+     * @brief Backing implementation of graph data.
      */
     enum GRAPHIMPL gimpl;
 
     /**
-     * Dimensions structure for spatial graphs
+     * @brief Dimensions structure for spatial graphs
      */
     struct dimensions *dims;
 
     /**
-     * Label data for the graph.
+     * @brief Label data for the graph.
      */
     struct labeldata *labels;
+
+    /**
+     * @brief Implementation-specific pointer to metadata for graph structure.
+     */
+    void *metaImpl;
 
     /**
      * @brief Implementation-specific pointer to node backing data
      *
      * Central pointer to node data, to be interpreted by the specific graphops implementations
      */
-    void *nodeImpl; //Implementation-specific node data
+    void *nodeImpl;
     /**
      * @brief Implementation-specific pointer to the edge backing data
      *
      * Central pointer to the edge data, to be interpreted by the specific graphops implementations.
      */
-    void *edgeImpl; //Implementation-specific edge data
+    void *edgeImpl;
     /**
      * @brief Implementation-specific pointer to capacity data.
      *
      * Central pointer to the capacity values, to be interpreted by the specific graphops implementations.
      */
-    void *capImpl; //Implementation-specific capacity data
+    void *capImpl;
     /**
      * @brief Implementation-specific pointer to the flow data
      *
      * Central pointer to the flow values, to be interpreted by the specific graphops implementations.
      */
-    void *flowImpl; //Implementation-specific flow data
+    void *flowImpl;
 };
 
 /**
