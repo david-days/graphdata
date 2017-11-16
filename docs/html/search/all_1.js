@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['edgecount',['edgeCount',['../structgraphops__t.html#a5db6e2eee59ada7705fb54bf5f6b9ee1',1,'graphops_t']]],
-  ['edgepath',['edgePath',['../structgraphops__t.html#ab0fdace070db2a1fa199e920b6136a04',1,'graphops_t']]]
+  ['cap',['cap',['../structedge__t.html#a008f610ba47f30e49b6350e4bb00d6aa',1,'edge_t']]],
+  ['capimpl',['capImpl',['../structgraph__t.html#ab85359c7dfbc46f84976a85c4104b1f5',1,'graph_t']]]
 ];

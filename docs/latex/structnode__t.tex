@@ -1,0 +1,75 @@
+\hypertarget{structnode__t}{}\section{node\+\_\+t Struct Reference}
+\label{structnode__t}\index{node\+\_\+t@{node\+\_\+t}}
+
+
+Graph node structure.  
+
+
+
+
+{\ttfamily \#include $<$graphdata.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \hyperlink{structnode__t_a3fe17f2fd1e7a7b2ec5f7bfae826816c}{nodeid}
+\item 
+struct \hyperlink{graphdata_8h_a068417678f021a74e911edd39f8d0bce}{feature} $\ast$ \hyperlink{structnode__t_afa07214493711b8865247610bc4b5bdf}{attrs}
+\item 
+struct \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge} $\ast$ \hyperlink{structnode__t_a5134fc88690d419dd465e34c9f7a69bb}{edges}
+\item 
+struct \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node} $\ast$ \hyperlink{structnode__t_a19f92ca38ac9aac34b076878b629398d}{prev}
+\begin{DoxyCompactList}\small\item\em Previous node, as required. Typical usage would be in node-\/based path list. \end{DoxyCompactList}\item 
+struct \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node} $\ast$ \hyperlink{structnode__t_a984d83b78d25abe09e7c4c953ef9d1ad}{next}
+\begin{DoxyCompactList}\small\item\em Next node, as required. Typical usage would be in node-\/based path list. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Graph node structure. 
+
+This structure represents individual graph nodes and associated structures. Actual usage of the structure associations is up to the individual implementations. 
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structnode__t_afa07214493711b8865247610bc4b5bdf}\label{structnode__t_afa07214493711b8865247610bc4b5bdf}} 
+\index{node\+\_\+t@{node\+\_\+t}!attrs@{attrs}}
+\index{attrs@{attrs}!node\+\_\+t@{node\+\_\+t}}
+\subsubsection{\texorpdfstring{attrs}{attrs}}
+{\footnotesize\ttfamily struct \hyperlink{graphdata_8h_a068417678f021a74e911edd39f8d0bce}{feature}$\ast$ node\+\_\+t\+::attrs}
+
+Attached features, if any. Initialized as N\+U\+LL for all implementations. \mbox{\Hypertarget{structnode__t_a5134fc88690d419dd465e34c9f7a69bb}\label{structnode__t_a5134fc88690d419dd465e34c9f7a69bb}} 
+\index{node\+\_\+t@{node\+\_\+t}!edges@{edges}}
+\index{edges@{edges}!node\+\_\+t@{node\+\_\+t}}
+\subsubsection{\texorpdfstring{edges}{edges}}
+{\footnotesize\ttfamily struct \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge}$\ast$ node\+\_\+t\+::edges}
+
+Attached edges, if any. \mbox{\Hypertarget{structnode__t_a984d83b78d25abe09e7c4c953ef9d1ad}\label{structnode__t_a984d83b78d25abe09e7c4c953ef9d1ad}} 
+\index{node\+\_\+t@{node\+\_\+t}!next@{next}}
+\index{next@{next}!node\+\_\+t@{node\+\_\+t}}
+\subsubsection{\texorpdfstring{next}{next}}
+{\footnotesize\ttfamily struct \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node}$\ast$ node\+\_\+t\+::next}
+
+
+
+Next node, as required. Typical usage would be in node-\/based path list. 
+
+\mbox{\Hypertarget{structnode__t_a3fe17f2fd1e7a7b2ec5f7bfae826816c}\label{structnode__t_a3fe17f2fd1e7a7b2ec5f7bfae826816c}} 
+\index{node\+\_\+t@{node\+\_\+t}!nodeid@{nodeid}}
+\index{nodeid@{nodeid}!node\+\_\+t@{node\+\_\+t}}
+\subsubsection{\texorpdfstring{nodeid}{nodeid}}
+{\footnotesize\ttfamily size\+\_\+t node\+\_\+t\+::nodeid}
+
+Node identifier \mbox{\Hypertarget{structnode__t_a19f92ca38ac9aac34b076878b629398d}\label{structnode__t_a19f92ca38ac9aac34b076878b629398d}} 
+\index{node\+\_\+t@{node\+\_\+t}!prev@{prev}}
+\index{prev@{prev}!node\+\_\+t@{node\+\_\+t}}
+\subsubsection{\texorpdfstring{prev}{prev}}
+{\footnotesize\ttfamily struct \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node}$\ast$ node\+\_\+t\+::prev}
+
+
+
+Previous node, as required. Typical usage would be in node-\/based path list. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{graphdata_8h}{graphdata.\+h}\end{DoxyCompactItemize}

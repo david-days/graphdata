@@ -1,0 +1,100 @@
+\hypertarget{structgraph__t}{}\section{graph\+\_\+t Struct Reference}
+\label{structgraph__t}\index{graph\+\_\+t@{graph\+\_\+t}}
+
+
+{\ttfamily \#include $<$graphdata.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{graphdata_8h_a384e88b524b782ff50439055cbc8a5c2}{G\+R\+A\+P\+H\+T\+Y\+PE} \hyperlink{structgraph__t_a602be255ab0523e0a5fe28436a29159a}{gtype}
+\item 
+enum \hyperlink{graphdata_8h_ad7f3a639f97221897a0429715dccefe6}{G\+R\+A\+P\+H\+I\+M\+PL} \hyperlink{structgraph__t_a220aff118ba6d13c927486099988c03d}{gimpl}
+\item 
+struct \hyperlink{graphdata_8h_a08b79828d8e700b1ff86fc235a83089f}{dimensions} $\ast$ \hyperlink{structgraph__t_ab0b7dd9b19e20a1564ba1f02ad41511e}{dims}
+\item 
+struct \hyperlink{graphdata_8h_a625fc818ed28f282dba71f20cd31b848}{labeldata} $\ast$ \hyperlink{structgraph__t_a2ea51094b5b0a3b3035895948ded5b44}{labels}
+\item 
+void $\ast$ \hyperlink{structgraph__t_a3bf6344f03f4cbc69345d026da2e3368}{node\+Impl}
+\begin{DoxyCompactList}\small\item\em Implementation-\/specific pointer to node backing data. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{structgraph__t_acadea26a56e788cb109413045138faba}{edge\+Impl}
+\begin{DoxyCompactList}\small\item\em Implementation-\/specific pointer to the edge backing data. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{structgraph__t_ab85359c7dfbc46f84976a85c4104b1f5}{cap\+Impl}
+\begin{DoxyCompactList}\small\item\em Implementation-\/specific pointer to capacity data. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{structgraph__t_aff85993441e72a7815da3fa1b048e5eb}{flow\+Impl}
+\begin{DoxyCompactList}\small\item\em Implementation-\/specific pointer to the flow data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Structure containing the backing data for the graph representation. 
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structgraph__t_ab85359c7dfbc46f84976a85c4104b1f5}\label{structgraph__t_ab85359c7dfbc46f84976a85c4104b1f5}} 
+\index{graph\+\_\+t@{graph\+\_\+t}!cap\+Impl@{cap\+Impl}}
+\index{cap\+Impl@{cap\+Impl}!graph\+\_\+t@{graph\+\_\+t}}
+\subsubsection{\texorpdfstring{cap\+Impl}{capImpl}}
+{\footnotesize\ttfamily void$\ast$ graph\+\_\+t\+::cap\+Impl}
+
+
+
+Implementation-\/specific pointer to capacity data. 
+
+Central pointer to the capacity values, to be interpreted by the specific graphops implementations. \mbox{\Hypertarget{structgraph__t_ab0b7dd9b19e20a1564ba1f02ad41511e}\label{structgraph__t_ab0b7dd9b19e20a1564ba1f02ad41511e}} 
+\index{graph\+\_\+t@{graph\+\_\+t}!dims@{dims}}
+\index{dims@{dims}!graph\+\_\+t@{graph\+\_\+t}}
+\subsubsection{\texorpdfstring{dims}{dims}}
+{\footnotesize\ttfamily struct \hyperlink{graphdata_8h_a08b79828d8e700b1ff86fc235a83089f}{dimensions}$\ast$ graph\+\_\+t\+::dims}
+
+Dimensions structure for spatial graphs \mbox{\Hypertarget{structgraph__t_acadea26a56e788cb109413045138faba}\label{structgraph__t_acadea26a56e788cb109413045138faba}} 
+\index{graph\+\_\+t@{graph\+\_\+t}!edge\+Impl@{edge\+Impl}}
+\index{edge\+Impl@{edge\+Impl}!graph\+\_\+t@{graph\+\_\+t}}
+\subsubsection{\texorpdfstring{edge\+Impl}{edgeImpl}}
+{\footnotesize\ttfamily void$\ast$ graph\+\_\+t\+::edge\+Impl}
+
+
+
+Implementation-\/specific pointer to the edge backing data. 
+
+Central pointer to the edge data, to be interpreted by the specific graphops implementations. \mbox{\Hypertarget{structgraph__t_aff85993441e72a7815da3fa1b048e5eb}\label{structgraph__t_aff85993441e72a7815da3fa1b048e5eb}} 
+\index{graph\+\_\+t@{graph\+\_\+t}!flow\+Impl@{flow\+Impl}}
+\index{flow\+Impl@{flow\+Impl}!graph\+\_\+t@{graph\+\_\+t}}
+\subsubsection{\texorpdfstring{flow\+Impl}{flowImpl}}
+{\footnotesize\ttfamily void$\ast$ graph\+\_\+t\+::flow\+Impl}
+
+
+
+Implementation-\/specific pointer to the flow data. 
+
+Central pointer to the flow values, to be interpreted by the specific graphops implementations. \mbox{\Hypertarget{structgraph__t_a220aff118ba6d13c927486099988c03d}\label{structgraph__t_a220aff118ba6d13c927486099988c03d}} 
+\index{graph\+\_\+t@{graph\+\_\+t}!gimpl@{gimpl}}
+\index{gimpl@{gimpl}!graph\+\_\+t@{graph\+\_\+t}}
+\subsubsection{\texorpdfstring{gimpl}{gimpl}}
+{\footnotesize\ttfamily enum \hyperlink{graphdata_8h_ad7f3a639f97221897a0429715dccefe6}{G\+R\+A\+P\+H\+I\+M\+PL} graph\+\_\+t\+::gimpl}
+
+Backing implementation of graph data. \mbox{\Hypertarget{structgraph__t_a602be255ab0523e0a5fe28436a29159a}\label{structgraph__t_a602be255ab0523e0a5fe28436a29159a}} 
+\index{graph\+\_\+t@{graph\+\_\+t}!gtype@{gtype}}
+\index{gtype@{gtype}!graph\+\_\+t@{graph\+\_\+t}}
+\subsubsection{\texorpdfstring{gtype}{gtype}}
+{\footnotesize\ttfamily enum \hyperlink{graphdata_8h_a384e88b524b782ff50439055cbc8a5c2}{G\+R\+A\+P\+H\+T\+Y\+PE} graph\+\_\+t\+::gtype}
+
+Type of graph being represented. \mbox{\Hypertarget{structgraph__t_a2ea51094b5b0a3b3035895948ded5b44}\label{structgraph__t_a2ea51094b5b0a3b3035895948ded5b44}} 
+\index{graph\+\_\+t@{graph\+\_\+t}!labels@{labels}}
+\index{labels@{labels}!graph\+\_\+t@{graph\+\_\+t}}
+\subsubsection{\texorpdfstring{labels}{labels}}
+{\footnotesize\ttfamily struct \hyperlink{graphdata_8h_a625fc818ed28f282dba71f20cd31b848}{labeldata}$\ast$ graph\+\_\+t\+::labels}
+
+Label data for the graph. \mbox{\Hypertarget{structgraph__t_a3bf6344f03f4cbc69345d026da2e3368}\label{structgraph__t_a3bf6344f03f4cbc69345d026da2e3368}} 
+\index{graph\+\_\+t@{graph\+\_\+t}!node\+Impl@{node\+Impl}}
+\index{node\+Impl@{node\+Impl}!graph\+\_\+t@{graph\+\_\+t}}
+\subsubsection{\texorpdfstring{node\+Impl}{nodeImpl}}
+{\footnotesize\ttfamily void$\ast$ graph\+\_\+t\+::node\+Impl}
+
+
+
+Implementation-\/specific pointer to node backing data. 
+
+Central pointer to node data, to be interpreted by the specific graphops implementations 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{graphdata_8h}{graphdata.\+h}\end{DoxyCompactItemize}

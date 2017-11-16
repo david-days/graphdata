@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['graphops',['graphops',['../graphops_8h.html#aa53f85b68af4cc05aee8bdad77e2e37c',1,'graphops.h']]]
+  ['edge',['edge',['../graphdata_8h.html#a641a8a4cd064e02a13e6c15d1b2df541',1,'graphdata.h']]]
 ];

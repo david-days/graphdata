@@ -1,16 +1,9 @@
 var searchData=
 [
-  ['g',['g',['../structgraphops__t.html#ab8a78cf4f0bdfe6a65aa217a716ca537',1,'graphops_t']]],
-  ['get16bits',['get16bits',['../hashes_8c.html#abc7d71657be8975a51684e41029b7964',1,'hashes.c']]],
-  ['getedge',['getEdge',['../structgraphops__t.html#aafbe3ec7bdce040b86d7748c953cf607',1,'graphops_t']]],
-  ['getedges',['getEdges',['../structgraphops__t.html#a87fec7e1150c05e54e34ab09fe401eaa',1,'graphops_t']]],
-  ['getneighbors',['getNeighbors',['../structgraphops__t.html#ac6c5bec2f102e4da5959cc3db66ac3c6',1,'graphops_t']]],
-  ['getnode',['getNode',['../structgraphops__t.html#ab410442ef123fc79f1c8a431502e2a23',1,'graphops_t']]],
-  ['graphcomp_2ec',['graphcomp.c',['../graphcomp_8c.html',1,'']]],
-  ['graphcomp_2eh',['graphcomp.h',['../graphcomp_8h.html',1,'']]],
-  ['graphinit_2ec',['graphinit.c',['../graphinit_8c.html',1,'']]],
-  ['graphinit_2eh',['graphinit.h',['../graphinit_8h.html',1,'']]],
-  ['graphops',['graphops',['../graphops_8h.html#aa53f85b68af4cc05aee8bdad77e2e37c',1,'graphops.h']]],
-  ['graphops_2eh',['graphops.h',['../graphops_8h.html',1,'']]],
-  ['graphops_5ft',['graphops_t',['../structgraphops__t.html',1,'']]]
+  ['edge',['edge',['../graphdata_8h.html#a641a8a4cd064e02a13e6c15d1b2df541',1,'graphdata.h']]],
+  ['edge_5ft',['edge_t',['../structedge__t.html',1,'']]],
+  ['edgecount',['edgeCount',['../structgraphops__t.html#a5db6e2eee59ada7705fb54bf5f6b9ee1',1,'graphops_t']]],
+  ['edgeimpl',['edgeImpl',['../structgraph__t.html#acadea26a56e788cb109413045138faba',1,'graph_t']]],
+  ['edgepath',['edgePath',['../structgraphops__t.html#ab0fdace070db2a1fa199e920b6136a04',1,'graphops_t']]],
+  ['edges',['edges',['../structnode__t.html#a5134fc88690d419dd465e34c9f7a69bb',1,'node_t']]]
 ];

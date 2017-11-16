@@ -1,9 +1,27 @@
 var searchData=
 [
-  ['maxcapacity',['maxCapacity',['../graphcomp_8c.html#aac3539ea9e370fe2d61b87ba72c319ad',1,'maxCapacity(const edge *path):&#160;graphcomp.c'],['../graphcomp_8h.html#aac3539ea9e370fe2d61b87ba72c319ad',1,'maxCapacity(const edge *path):&#160;graphcomp.c']]],
-  ['maxnode',['maxNode',['../graphcomp_8c.html#a4988fbc422b2dcdf1879810f103922a6',1,'maxNode(size_t *a, size_t *b):&#160;graphcomp.c'],['../graphcomp_8h.html#a4988fbc422b2dcdf1879810f103922a6',1,'maxNode(size_t *a, size_t *b):&#160;graphcomp.c']]],
-  ['maxval',['maxVal',['../graphcomp_8c.html#a4fcbba3a60a7bffa7fcb9c8e9bdcbbd9',1,'maxVal(double *a, double *b):&#160;graphcomp.c'],['../graphcomp_8h.html#a4fcbba3a60a7bffa7fcb9c8e9bdcbbd9',1,'maxVal(double *a, double *b):&#160;graphcomp.c']]],
-  ['mincapacity',['minCapacity',['../graphcomp_8c.html#adec41f8b48cf5c0751705fab09fd0de7',1,'minCapacity(const edge *path):&#160;graphcomp.c'],['../graphcomp_8h.html#adec41f8b48cf5c0751705fab09fd0de7',1,'minCapacity(const edge *path):&#160;graphcomp.c']]],
-  ['minnode',['minNode',['../graphcomp_8c.html#a44d818ea7139dae633df15872777edf3',1,'minNode(size_t *a, size_t *b):&#160;graphcomp.c'],['../graphcomp_8h.html#a44d818ea7139dae633df15872777edf3',1,'minNode(size_t *a, size_t *b):&#160;graphcomp.c']]],
-  ['minval',['minVal',['../graphcomp_8c.html#aa8b1aa46429eb87a9836ee3f9dd08911',1,'minVal(double *a, double *b):&#160;graphcomp.c'],['../graphcomp_8h.html#aa8b1aa46429eb87a9836ee3f9dd08911',1,'minVal(double *a, double *b):&#160;graphcomp.c']]]
+  ['g',['g',['../structgraphops__t.html#ab8a78cf4f0bdfe6a65aa217a716ca537',1,'graphops_t']]],
+  ['get16bits',['get16bits',['../hashes_8c.html#abc7d71657be8975a51684e41029b7964',1,'hashes.c']]],
+  ['getedge',['getEdge',['../structgraphops__t.html#aafbe3ec7bdce040b86d7748c953cf607',1,'graphops_t']]],
+  ['getedges',['getEdges',['../structgraphops__t.html#a87fec7e1150c05e54e34ab09fe401eaa',1,'graphops_t']]],
+  ['getneighbors',['getNeighbors',['../structgraphops__t.html#ac6c5bec2f102e4da5959cc3db66ac3c6',1,'graphops_t']]],
+  ['getnode',['getNode',['../structgraphops__t.html#ab410442ef123fc79f1c8a431502e2a23',1,'graphops_t']]],
+  ['gimpl',['gimpl',['../structgraph__t.html#a220aff118ba6d13c927486099988c03d',1,'graph_t']]],
+  ['graph',['graph',['../graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5',1,'graphdata.h']]],
+  ['graph_5ft',['graph_t',['../structgraph__t.html',1,'']]],
+  ['graphcomp_2ec',['graphcomp.c',['../graphcomp_8c.html',1,'']]],
+  ['graphcomp_2eh',['graphcomp.h',['../graphcomp_8h.html',1,'']]],
+  ['graphdata_2eh',['graphdata.h',['../graphdata_8h.html',1,'']]],
+  ['graphdata_5fversion_5fmajor',['GRAPHDATA_VERSION_MAJOR',['../graphdata_8h.html#a5c8d9e729183139874537b500b905c86',1,'graphdata.h']]],
+  ['graphdata_5fversion_5fminor',['GRAPHDATA_VERSION_MINOR',['../graphdata_8h.html#a8da108e36efe7497628097c65486dde1',1,'graphdata.h']]],
+  ['graphdata_5fversion_5fpatch',['GRAPHDATA_VERSION_PATCH',['../graphdata_8h.html#afe82eb665296ed2b05d144b702efae91',1,'graphdata.h']]],
+  ['graphimpl',['GRAPHIMPL',['../graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6',1,'graphdata.h']]],
+  ['graphinit_2ec',['graphinit.c',['../graphinit_8c.html',1,'']]],
+  ['graphinit_2eh',['graphinit.h',['../graphinit_8h.html',1,'']]],
+  ['graphops',['graphops',['../graphops_8h.html#aa53f85b68af4cc05aee8bdad77e2e37c',1,'graphops.h']]],
+  ['graphops_2eh',['graphops.h',['../graphops_8h.html',1,'']]],
+  ['graphops_5ft',['graphops_t',['../structgraphops__t.html',1,'']]],
+  ['graphtype',['GRAPHTYPE',['../graphdata_8h.html#a384e88b524b782ff50439055cbc8a5c2',1,'graphdata.h']]],
+  ['gtype',['gtype',['../structgraph__t.html#a602be255ab0523e0a5fe28436a29159a',1,'graph_t']]],
+  ['graph_20data_20implementation',['Graph Data Implementation',['../md__home_david_devel_graphdata_docs_index.html',1,'']]]
 ];
