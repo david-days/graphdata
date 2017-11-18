@@ -100,12 +100,12 @@ Typedefs</h2></td></tr>
 <tr class="memitem:af1e618623a0855f489ac957e5ae24ac0"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="graphdata_8h.html#a641a8a4cd064e02a13e6c15d1b2df541">edge</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#af1e618623a0855f489ac957e5ae24ac0">funcGetEdges</a>) (const size_t *nodeid, const <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
 <tr class="memdesc:af1e618623a0855f489ac957e5ae24ac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to retrieve linked-list of edges from a given node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.  <a href="#af1e618623a0855f489ac957e5ae24ac0">More...</a><br /></td></tr>
 <tr class="separator:af1e618623a0855f489ac957e5ae24ac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43aa084c4514d1f3c2179551905aa655"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="graphdata_8h.html#a85b4f4124a5616dea92c9e8a221a8db5">node</a> *()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#a43aa084c4514d1f3c2179551905aa655">funcGetNodePath</a>(const size_t *uid, const size_t *vid, const <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
-<tr class="memdesc:a43aa084c4514d1f3c2179551905aa655"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to retrieve linked-list path of nodes from start to destination, beginning with the starting node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.  <a href="#a43aa084c4514d1f3c2179551905aa655">More...</a><br /></td></tr>
-<tr class="separator:a43aa084c4514d1f3c2179551905aa655"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2b0381c5a4018e52104e27c57fb5c2c"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="graphdata_8h.html#a641a8a4cd064e02a13e6c15d1b2df541">edge</a> *()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#ac2b0381c5a4018e52104e27c57fb5c2c">funcGetEdgePath</a>(const size_t *uid, const size_t *vid, const <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
-<tr class="memdesc:ac2b0381c5a4018e52104e27c57fb5c2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to retrieve linked-list of path edges from start to destination, beginning with the starting node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.  <a href="#ac2b0381c5a4018e52104e27c57fb5c2c">More...</a><br /></td></tr>
-<tr class="separator:ac2b0381c5a4018e52104e27c57fb5c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05aa0581ad7ef49faa4529b746a24919"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="graphdata_8h.html#a85b4f4124a5616dea92c9e8a221a8db5">node</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#a05aa0581ad7ef49faa4529b746a24919">funcGetNodePath</a>) (const size_t *uid, const size_t *vid, const <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
+<tr class="memdesc:a05aa0581ad7ef49faa4529b746a24919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to retrieve linked-list path of nodes from start to destination, beginning with the starting node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.  <a href="#a05aa0581ad7ef49faa4529b746a24919">More...</a><br /></td></tr>
+<tr class="separator:a05aa0581ad7ef49faa4529b746a24919"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb3f07eaa86bfaf5e925e5d8c5f9da60"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="graphdata_8h.html#a641a8a4cd064e02a13e6c15d1b2df541">edge</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#adb3f07eaa86bfaf5e925e5d8c5f9da60">funcGetEdgePath</a>) (const size_t *uid, const size_t *vid, const <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
+<tr class="memdesc:adb3f07eaa86bfaf5e925e5d8c5f9da60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to retrieve linked-list of path edges from start to destination, beginning with the starting node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.  <a href="#adb3f07eaa86bfaf5e925e5d8c5f9da60">More...</a><br /></td></tr>
+<tr class="separator:adb3f07eaa86bfaf5e925e5d8c5f9da60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3a2b8cb9dcf1f1a8cd4cb5f819e245a"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#ac3a2b8cb9dcf1f1a8cd4cb5f819e245a">funcAddNode</a>) (const size_t *nodeid, <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
 <tr class="memdesc:ac3a2b8cb9dcf1f1a8cd4cb5f819e245a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to add a node to a given graph. Not all implementations may use this (for example, fixed-size graphs such as spatial ARRAY implementations).  <a href="#ac3a2b8cb9dcf1f1a8cd4cb5f819e245a">More...</a><br /></td></tr>
 <tr class="separator:ac3a2b8cb9dcf1f1a8cd4cb5f819e245a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,9 +115,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a7f161b975929757de2684535b39d60bb"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#a7f161b975929757de2684535b39d60bb">funcSetCapacity</a>) (const size_t *uid, const size_t *vid, const double *cap, <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td></tr>
 <tr class="memdesc:a7f161b975929757de2684535b39d60bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph.  <a href="#a7f161b975929757de2684535b39d60bb">More...</a><br /></td></tr>
 <tr class="separator:a7f161b975929757de2684535b39d60bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed8790e1c33f6823653357527e03c8c7"><td class="memItemLeft" align="right" valign="top">typedef int()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#aed8790e1c33f6823653357527e03c8c7">funcResetGraph</a>(<a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g, void *args, void(*callback) (void))</td></tr>
-<tr class="memdesc:aed8790e1c33f6823653357527e03c8c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to "reset" the graph according to the given argument pointer.  <a href="#aed8790e1c33f6823653357527e03c8c7">More...</a><br /></td></tr>
-<tr class="separator:aed8790e1c33f6823653357527e03c8c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac75d9a263f500ced65b32d2ca3ffa236"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#ac75d9a263f500ced65b32d2ca3ffa236">funcResetGraph</a>) (<a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g, void *args, void(*callback) (void))</td></tr>
+<tr class="memdesc:ac75d9a263f500ced65b32d2ca3ffa236"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to "reset" the graph according to the given argument pointer.  <a href="#ac75d9a263f500ced65b32d2ca3ffa236">More...</a><br /></td></tr>
+<tr class="separator:ac75d9a263f500ced65b32d2ca3ffa236"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa53f85b68af4cc05aee8bdad77e2e37c"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structgraphops__t.html">graphops_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphops_8h.html#aa53f85b68af4cc05aee8bdad77e2e37c">graphops</a></td></tr>
 <tr class="memdesc:aa53f85b68af4cc05aee8bdad77e2e37c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple renaming of <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> type.  <a href="#aa53f85b68af4cc05aee8bdad77e2e37c">More...</a><br /></td></tr>
 <tr class="separator:aa53f85b68af4cc05aee8bdad77e2e37c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -221,14 +221,14 @@ Typedefs</h2></td></tr>
 
 </div>
 </div>
-<a id="ac2b0381c5a4018e52104e27c57fb5c2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2b0381c5a4018e52104e27c57fb5c2c">&#9670;&nbsp;</a></span>funcGetEdgePath</h2>
+<a id="adb3f07eaa86bfaf5e925e5d8c5f9da60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb3f07eaa86bfaf5e925e5d8c5f9da60">&#9670;&nbsp;</a></span>funcGetEdgePath</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="graphdata_8h.html#a641a8a4cd064e02a13e6c15d1b2df541">edge</a>*() funcGetEdgePath(const size_t *uid, const size_t *vid, const <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td>
+          <td class="memname">typedef <a class="el" href="graphdata_8h.html#a641a8a4cd064e02a13e6c15d1b2df541">edge</a>*(* funcGetEdgePath) (const size_t *uid, const size_t *vid, const <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -318,14 +318,14 @@ Typedefs</h2></td></tr>
 
 </div>
 </div>
-<a id="a43aa084c4514d1f3c2179551905aa655"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43aa084c4514d1f3c2179551905aa655">&#9670;&nbsp;</a></span>funcGetNodePath</h2>
+<a id="a05aa0581ad7ef49faa4529b746a24919"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05aa0581ad7ef49faa4529b746a24919">&#9670;&nbsp;</a></span>funcGetNodePath</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="graphdata_8h.html#a85b4f4124a5616dea92c9e8a221a8db5">node</a>*() funcGetNodePath(const size_t *uid, const size_t *vid, const <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td>
+          <td class="memname">typedef <a class="el" href="graphdata_8h.html#a85b4f4124a5616dea92c9e8a221a8db5">node</a>*(* funcGetNodePath) (const size_t *uid, const size_t *vid, const <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -366,14 +366,14 @@ Typedefs</h2></td></tr>
 
 </div>
 </div>
-<a id="aed8790e1c33f6823653357527e03c8c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed8790e1c33f6823653357527e03c8c7">&#9670;&nbsp;</a></span>funcResetGraph</h2>
+<a id="ac75d9a263f500ced65b32d2ca3ffa236"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac75d9a263f500ced65b32d2ca3ffa236">&#9670;&nbsp;</a></span>funcResetGraph</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef int() funcResetGraph(<a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g, void *args, void(*callback)(void))</td>
+          <td class="memname">typedef int(* funcResetGraph) (<a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a> *g, void *args, void(*callback)(void))</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -21,9 +21,9 @@ typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node} $\ast$(
 \begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list of nodes that are currently defined as neighbors to the given node. \end{DoxyCompactList}\item 
 typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge} $\ast$($\ast$ \hyperlink{graphops_8h_af1e618623a0855f489ac957e5ae24ac0}{func\+Get\+Edges}) (const size\+\_\+t $\ast$nodeid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list of edges from a given node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
-typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node} $\ast$() \hyperlink{graphops_8h_a43aa084c4514d1f3c2179551905aa655}{func\+Get\+Node\+Path}(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
+typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node} $\ast$($\ast$ \hyperlink{graphops_8h_a05aa0581ad7ef49faa4529b746a24919}{func\+Get\+Node\+Path}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list path of nodes from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
-typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge} $\ast$() \hyperlink{graphops_8h_ac2b0381c5a4018e52104e27c57fb5c2c}{func\+Get\+Edge\+Path}(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
+typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge} $\ast$($\ast$ \hyperlink{graphops_8h_adb3f07eaa86bfaf5e925e5d8c5f9da60}{func\+Get\+Edge\+Path}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list of path edges from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
 typedef int($\ast$ \hyperlink{graphops_8h_ac3a2b8cb9dcf1f1a8cd4cb5f819e245a}{func\+Add\+Node}) (const size\+\_\+t $\ast$nodeid, \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to add a node to a given graph. Not all implementations may use this (for example, fixed-\/size graphs such as spatial A\+R\+R\+AY implementations). \end{DoxyCompactList}\item 
@@ -31,7 +31,7 @@ typedef int($\ast$ \hyperlink{graphops_8h_a7db3802ca9110f9f9095250ed85a39a5}{fun
 \begin{DoxyCompactList}\small\item\em Function pointer to add an edge to a given graph. Not all implementations may use this (for example, fixed-\/size A\+R\+R\+AY implementations representing a set domain of nodes and relationships). \end{DoxyCompactList}\item 
 typedef int($\ast$ \hyperlink{graphops_8h_a7f161b975929757de2684535b39d60bb}{func\+Set\+Capacity}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph. \end{DoxyCompactList}\item 
-typedef int() \hyperlink{graphops_8h_aed8790e1c33f6823653357527e03c8c7}{func\+Reset\+Graph}(\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g, void $\ast$args, void($\ast$callback) (void))
+typedef int($\ast$ \hyperlink{graphops_8h_ac75d9a263f500ced65b32d2ca3ffa236}{func\+Reset\+Graph}) (\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g, void $\ast$args, void($\ast$callback) (void))
 \begin{DoxyCompactList}\small\item\em Function pointer to \char`\"{}reset\char`\"{} the graph according to the given argument pointer. \end{DoxyCompactList}\item 
 typedef struct \hyperlink{structgraphops__t}{graphops\+\_\+t} \hyperlink{graphops_8h_aa53f85b68af4cc05aee8bdad77e2e37c}{graphops}
 \begin{DoxyCompactList}\small\item\em Simple renaming of \hyperlink{structgraphops__t}{graphops\+\_\+t} type. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -122,11 +122,11 @@ Implementation-\/specific on whether this structure is part of the original grap
 \begin{DoxyReturn}{Returns}
 pointer to the edge structure, if found; otherwise, pointer to N\+U\+LL. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphops_8h_ac2b0381c5a4018e52104e27c57fb5c2c}\label{graphops_8h_ac2b0381c5a4018e52104e27c57fb5c2c}} 
+\mbox{\Hypertarget{graphops_8h_adb3f07eaa86bfaf5e925e5d8c5f9da60}\label{graphops_8h_adb3f07eaa86bfaf5e925e5d8c5f9da60}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Get\+Edge\+Path@{func\+Get\+Edge\+Path}}
 \index{func\+Get\+Edge\+Path@{func\+Get\+Edge\+Path}!graphops.\+h@{graphops.\+h}}
 \subsubsection{\texorpdfstring{func\+Get\+Edge\+Path}{funcGetEdgePath}}
-{\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge}$\ast$() func\+Get\+Edge\+Path(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
+{\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge}$\ast$($\ast$ func\+Get\+Edge\+Path) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
 
 
 
@@ -204,11 +204,11 @@ Implementation-\/specific on whether this structure is part of the original grap
 \begin{DoxyReturn}{Returns}
 pointer to the node structure, if found; otherwise, pointer to N\+U\+LL 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphops_8h_a43aa084c4514d1f3c2179551905aa655}\label{graphops_8h_a43aa084c4514d1f3c2179551905aa655}} 
+\mbox{\Hypertarget{graphops_8h_a05aa0581ad7ef49faa4529b746a24919}\label{graphops_8h_a05aa0581ad7ef49faa4529b746a24919}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Get\+Node\+Path@{func\+Get\+Node\+Path}}
 \index{func\+Get\+Node\+Path@{func\+Get\+Node\+Path}!graphops.\+h@{graphops.\+h}}
 \subsubsection{\texorpdfstring{func\+Get\+Node\+Path}{funcGetNodePath}}
-{\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node}$\ast$() func\+Get\+Node\+Path(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
+{\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node}$\ast$($\ast$ func\+Get\+Node\+Path) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
 
 
 
@@ -244,11 +244,11 @@ Function pointer definition for getting the node count;.
 \begin{DoxyReturn}{Returns}
 Count of nodes, if graph is not null; otherwise, return 0 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphops_8h_aed8790e1c33f6823653357527e03c8c7}\label{graphops_8h_aed8790e1c33f6823653357527e03c8c7}} 
+\mbox{\Hypertarget{graphops_8h_ac75d9a263f500ced65b32d2ca3ffa236}\label{graphops_8h_ac75d9a263f500ced65b32d2ca3ffa236}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Reset\+Graph@{func\+Reset\+Graph}}
 \index{func\+Reset\+Graph@{func\+Reset\+Graph}!graphops.\+h@{graphops.\+h}}
 \subsubsection{\texorpdfstring{func\+Reset\+Graph}{funcResetGraph}}
-{\footnotesize\ttfamily typedef int() func\+Reset\+Graph(\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g, void $\ast$args, void($\ast$callback)(void))}
+{\footnotesize\ttfamily typedef int($\ast$ func\+Reset\+Graph) (\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g, void $\ast$args, void($\ast$callback)(void))}
 
 
 

@@ -1,0 +1,84 @@
+\hypertarget{spatial_8c}{}\section{/home/david/devel/graphdata/code/graphdata/src/util/spatial.c File Reference}
+\label{spatial_8c}\index{/home/david/devel/graphdata/code/graphdata/src/util/spatial.\+c@{/home/david/devel/graphdata/code/graphdata/src/util/spatial.\+c}}
+{\ttfamily \#include $<$util/spatial.\+h$>$}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{spatial_8c_ad8c0e4189ff1e1a1cf9b979b02472e7b}{index\+From\+Dimensions} (struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$dims, size\+\_\+t $\ast$idx, size\+\_\+t $\ast$coords)
+\begin{DoxyCompactList}\small\item\em Sets array index value of the given set of dimensions, when calculated against the given dimensional array. \end{DoxyCompactList}\item 
+int \hyperlink{spatial_8c_a1d75a579cffc2c51f0e345b7c14e049d}{spatial\+From\+Index} (size\+\_\+t $\ast$idx, size\+\_\+t $\ast$coords, struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$dims)
+\begin{DoxyCompactList}\small\item\em Sets the size\+\_\+t array (whose length must be initialized to match dims-\/$>$dimcount) to the coordinates within the given spatial dimensions. \end{DoxyCompactList}\item 
+size\+\_\+t \hyperlink{spatial_8c_a65ef522c49a3cfb437fb9c7260525632}{index\+Length} (struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$dims)
+\begin{DoxyCompactList}\small\item\em Calculates the index length, based on the given coordinates. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{spatial_8c_ad8c0e4189ff1e1a1cf9b979b02472e7b}\label{spatial_8c_ad8c0e4189ff1e1a1cf9b979b02472e7b}} 
+\index{spatial.\+c@{spatial.\+c}!index\+From\+Dimensions@{index\+From\+Dimensions}}
+\index{index\+From\+Dimensions@{index\+From\+Dimensions}!spatial.\+c@{spatial.\+c}}
+\subsubsection{\texorpdfstring{index\+From\+Dimensions()}{indexFromDimensions()}}
+{\footnotesize\ttfamily int index\+From\+Dimensions (\begin{DoxyParamCaption}\item[{struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$}]{dims,  }\item[{size\+\_\+t $\ast$}]{idx,  }\item[{size\+\_\+t $\ast$}]{coords }\end{DoxyParamCaption})}
+
+
+
+Sets array index value of the given set of dimensions, when calculated against the given dimensional array. 
+
+This is function is used to provide transform between zero-\/based coordinates to a zero-\/based array index, for example.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dims} & Dimensions to be use for index calculation \\
+\hline
+{\em idx} & size\+\_\+t reference to be set \\
+\hline
+{\em coords} & array pointer of length dims-\/$>$dimcount, holding the coordinates in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if successful; 1 if the coordinates are outside the bounds of the dimensions; -\/1 if there is a problem with the values passed. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{spatial_8c_a65ef522c49a3cfb437fb9c7260525632}\label{spatial_8c_a65ef522c49a3cfb437fb9c7260525632}} 
+\index{spatial.\+c@{spatial.\+c}!index\+Length@{index\+Length}}
+\index{index\+Length@{index\+Length}!spatial.\+c@{spatial.\+c}}
+\subsubsection{\texorpdfstring{index\+Length()}{indexLength()}}
+{\footnotesize\ttfamily size\+\_\+t index\+Length (\begin{DoxyParamCaption}\item[{struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$}]{dims }\end{DoxyParamCaption})}
+
+
+
+Calculates the index length, based on the given coordinates. 
+
+This function multiplies the given dimensions and returns the size of an array that would be necessary to hold all possible dimension values. This is provided both as a consistent check and a means to consistently return the proper value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dims} & Dimensions to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Size of index calculation, or 0 if the dims pointer is N\+U\+LL. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{spatial_8c_a1d75a579cffc2c51f0e345b7c14e049d}\label{spatial_8c_a1d75a579cffc2c51f0e345b7c14e049d}} 
+\index{spatial.\+c@{spatial.\+c}!spatial\+From\+Index@{spatial\+From\+Index}}
+\index{spatial\+From\+Index@{spatial\+From\+Index}!spatial.\+c@{spatial.\+c}}
+\subsubsection{\texorpdfstring{spatial\+From\+Index()}{spatialFromIndex()}}
+{\footnotesize\ttfamily int spatial\+From\+Index (\begin{DoxyParamCaption}\item[{size\+\_\+t $\ast$}]{idx,  }\item[{size\+\_\+t $\ast$}]{coords,  }\item[{struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$}]{dims }\end{DoxyParamCaption})}
+
+
+
+Sets the size\+\_\+t array (whose length must be initialized to match dims-\/$>$dimcount) to the coordinates within the given spatial dimensions. 
+
+This function is used to transform between zero-\/based coordinates to a zero-\/based array index, for example.
+
+
+\begin{DoxyParams}{Parameters}
+{\em idx} & Index value to be used \\
+\hline
+{\em coords} & Array to hold the result \\
+\hline
+{\em dims} & Dimensional value to be calculated against \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if successful; 1 if the index is outside the bounds of the dimensions; -\/1 if there is a problem with the values passed. 
+\end{DoxyReturn}

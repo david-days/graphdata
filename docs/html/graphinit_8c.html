@@ -63,10 +63,87 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">graphinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="graphinit_8h_source.html">graphinit.h</a>&gt;</code><br />
+<code>#include &lt;stdarg.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a83b2792b0cdc485821cc92ecc4d797a3"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structdimensions__t.html">dimensions_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8c.html#a83b2792b0cdc485821cc92ecc4d797a3">createDimensions</a> (size_t dimsz,...)</td></tr>
+<tr class="memdesc:a83b2792b0cdc485821cc92ecc4d797a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a dimension structure containing the given values in order (x, y, z, etc)  <a href="#a83b2792b0cdc485821cc92ecc4d797a3">More...</a><br /></td></tr>
+<tr class="separator:a83b2792b0cdc485821cc92ecc4d797a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a251634055d0f0e6837b0b0075ada8540"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structgraphops__t.html">graphops_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8c.html#a251634055d0f0e6837b0b0075ada8540">initGraphops</a> ()</td></tr>
+<tr class="memdesc:a251634055d0f0e6837b0b0075ada8540"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw initializer for <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structure with all NULL interior pointers.  <a href="#a251634055d0f0e6837b0b0075ada8540">More...</a><br /></td></tr>
+<tr class="separator:a251634055d0f0e6837b0b0075ada8540"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a83b2792b0cdc485821cc92ecc4d797a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83b2792b0cdc485821cc92ecc4d797a3">&#9670;&nbsp;</a></span>createDimensions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structdimensions__t.html">dimensions_t</a>* createDimensions </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>dimsz</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a dimension structure containing the given values in order (x, y, z, etc) </p>
+<p>This is used to initialize (and contain) the ordered size of the spatial dimensions given. Consumers are responsible for calling free() on the structure, or passing it to a standard clearing function</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dimsz</td><td>Number of dimensions </td></tr>
+    <tr><td class="paramname">...</td><td>Additional dimension values passed </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to a <a class="el" href="structdimensions__t.html" title="Structure to hold values for dimensional graphs. ">dimensions_t</a> structure that holds the count and values of the structure, or a null pointer if there is a problem allocating the memory. </dd></dl>
+
+</div>
+</div>
+<a id="a251634055d0f0e6837b0b0075ada8540"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a251634055d0f0e6837b0b0075ada8540">&#9670;&nbsp;</a></span>initGraphops()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structgraphops__t.html">graphops_t</a>* initGraphops </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Raw initializer for <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structure with all NULL interior pointers. </p>
+<p>Raw initializer for <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structure.</p>
+<p>Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to a standard cleanup function.</p>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to a graphops structure, or NULL if there was a problem with memory allocation </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

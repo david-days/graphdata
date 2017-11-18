@@ -33,12 +33,13 @@ set(SOURCE_FILES
         include/graphinit.h
         include/util/hashes.h
         include/util/graphcomp.h
+        include/util/spatial.h
 
         #CODE
         src/graphinit.c
         src/util/hashes.h
         src/util/graphcomp.c
-
+        src/util/spatial.c
         #CONFIG
         conf/graphdata.conf
 )
@@ -54,11 +55,13 @@ add_library(${PROJECT_NAME} SHARED
         include/graphops.h
         include/util/hashes.h
         include/util/graphcomp.h
+        include/util/spatial.h
 
         #Sources
         src/graphinit.c
         src/util/hashes.c
         src/util/graphcomp.c
+        src/util/spatial.c
 
 )
 
@@ -94,6 +97,7 @@ install(
         FILES
             include/util/hashes.h
             include/util/graphcomp.h
+            include/util/spatial.h
         DESTINATION include/util
         COMPONENT libraries
 )

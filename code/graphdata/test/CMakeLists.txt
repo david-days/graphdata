@@ -47,3 +47,5 @@ target_link_libraries(
 add_test(comptests ${CMAKE_CURRENT_BINARY_DIR}/comptests)
 
 add_test(inittests ${CMAKE_CURRENT_BINARY_DIR}/inittests)
+
+add_test(spatialtests ${CMAKE_CURRENT_BINARY_DIR}/spatialtests)

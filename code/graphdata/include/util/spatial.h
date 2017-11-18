@@ -18,7 +18,7 @@
  * @param ... zero-based spatial coordinates for calculation
  * @return 0 if successful; 1 if the coordinates are outside the bounds of the dimensions
  */
-int indexFromDimensions(struct dimensions_t *dims, size_t *idx, size_t dimsz, ...);
+int indexFromDimensions(struct dimensions_t *dims, size_t *idx, size_t *coords);
 
 /**
  * @brief Sets the size_t array (whose length must be initialized to match dims->dimcount) to the coordinates within

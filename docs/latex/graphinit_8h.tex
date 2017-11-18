@@ -1,2 +1,70 @@
 \hypertarget{graphinit_8h}{}\section{/home/david/devel/graphdata/code/graphdata/include/graphinit.h File Reference}
 \label{graphinit_8h}\index{/home/david/devel/graphdata/code/graphdata/include/graphinit.\+h@{/home/david/devel/graphdata/code/graphdata/include/graphinit.\+h}}
+{\ttfamily \#include $<$graphdata.\+h$>$}\newline
+{\ttfamily \#include $<$graphops.\+h$>$}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$ \hyperlink{graphinit_8h_a0266de528018be5d6bc3ebdcfc6be874}{create\+Dimensions} (size\+\_\+t dimval,...)
+\begin{DoxyCompactList}\small\item\em Create a dimension structure containing the given values in order (x, y, z, etc) \end{DoxyCompactList}\item 
+struct \hyperlink{structgraphops__t}{graphops\+\_\+t} $\ast$ \hyperlink{graphinit_8h_a251634055d0f0e6837b0b0075ada8540}{init\+Graphops} ()
+\begin{DoxyCompactList}\small\item\em Raw initializer for \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{graphinit_8h_a0266de528018be5d6bc3ebdcfc6be874}\label{graphinit_8h_a0266de528018be5d6bc3ebdcfc6be874}} 
+\index{graphinit.\+h@{graphinit.\+h}!create\+Dimensions@{create\+Dimensions}}
+\index{create\+Dimensions@{create\+Dimensions}!graphinit.\+h@{graphinit.\+h}}
+\subsubsection{\texorpdfstring{create\+Dimensions()}{createDimensions()}}
+{\footnotesize\ttfamily struct \hyperlink{structdimensions__t}{dimensions\+\_\+t}$\ast$ create\+Dimensions (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{dimsz,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Create a dimension structure containing the given values in order (x, y, z, etc) 
+
+This is used to initialize (and contain) the ordered size of the spatial dimensions given. Consumers are responsible for calling free() on the structure, or passing it to a standard clearing function
+
+
+\begin{DoxyParams}{Parameters}
+{\em dimval} & First dimension in the ordered list of dimension limits \\
+\hline
+{\em ...} & Additional dimension values passed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to a \hyperlink{structdimensions__t}{dimensions\+\_\+t} structure that holds the count and values of the structure
+\end{DoxyReturn}
+This is used to initialize (and contain) the ordered size of the spatial dimensions given. Consumers are responsible for calling free() on the structure, or passing it to a standard clearing function
+
+
+\begin{DoxyParams}{Parameters}
+{\em dimsz} & Number of dimensions \\
+\hline
+{\em ...} & Additional dimension values passed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to a \hyperlink{structdimensions__t}{dimensions\+\_\+t} structure that holds the count and values of the structure, or a null pointer if there is a problem allocating the memory. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graphinit_8h_a251634055d0f0e6837b0b0075ada8540}\label{graphinit_8h_a251634055d0f0e6837b0b0075ada8540}} 
+\index{graphinit.\+h@{graphinit.\+h}!init\+Graphops@{init\+Graphops}}
+\index{init\+Graphops@{init\+Graphops}!graphinit.\+h@{graphinit.\+h}}
+\subsubsection{\texorpdfstring{init\+Graphops()}{initGraphops()}}
+{\footnotesize\ttfamily struct \hyperlink{structgraphops__t}{graphops\+\_\+t}$\ast$ init\+Graphops (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Raw initializer for \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. 
+
+Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to a standard cleanup function.
+
+\begin{DoxyReturn}{Returns}
+Pointer to a graphops structure, or N\+U\+LL if there was a problem with memory allocation
+\end{DoxyReturn}
+Raw initializer for \hyperlink{structgraphops__t}{graphops\+\_\+t} structure.
+
+Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to a standard cleanup function.
+
+\begin{DoxyReturn}{Returns}
+Pointer to a graphops structure, or N\+U\+LL if there was a problem with memory allocation 
+\end{DoxyReturn}

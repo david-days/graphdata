@@ -30,6 +30,7 @@ void indexLengthTest(void) {
     CU_ASSERT(NULL != dim2);
     size_t len2 = indexLength(dim2);
     CU_ASSERT(len2 == 100);
+    free(dim2);
 
     struct dimensions_t *dim3 = createDimensions(2, 256,256);
     CU_ASSERT(NULL != dim3);
@@ -42,7 +43,6 @@ void indexLengthTest(void) {
  * @brief Test that we are getting valid coordinates
  */
 void coordTest(void) {
-
 
     size_t coord3d[3] = { 5, 55, 32 };
     size_t coord2d[2] = {77, 222};
@@ -73,7 +73,7 @@ void coordTest(void) {
     checkArrays(coord2d, calc3, dim3->dimcount);
     free(dim3);
 
-    
+
 
 }
 
@@ -81,7 +81,28 @@ void coordTest(void) {
  * @brief Test that we are detecting invalid coordinates
  */
 void coordFailTest(void) {
+    size_t idx1 = 1000005;
+    size_t calc[3] = {0,0,0};
+    struct dimensions_t *dim1 = createDimensions(3,100,100,100);
+    CU_ASSERT(NULL != dim1);
+    int ret1 = spatialFromIndex(&idx1, calc, dim1);
+    CU_ASSERT( ret1 == 1);
+    free(dim1);
 
+    size_t idx2 = 26777216;
+    struct dimensions_t *dim2 = createDimensions(3,256,256,256);
+    CU_ASSERT(NULL != dim2);
+    int ret2 = spatialFromIndex(&idx2, calc, dim2);
+    CU_ASSERT(ret2 == 1);
+    free(dim2);
+
+    size_t idx3 = 65537;
+    size_t calc2[2] = {0,0};
+    struct dimensions_t *dim3 = createDimensions(2,256,256);
+    CU_ASSERT(NULL != dim3);
+    int ret3 = spatialFromIndex(&idx3, calc2, dim3);
+    CU_ASSERT(ret3 == 1);
+    free(dim3);
 }
 
 /**
@@ -89,13 +110,104 @@ void coordFailTest(void) {
  */
 void indexTest(void) {
 
+    size_t idx1 = 325505;
+    size_t calc1 = 0;
+    size_t coord1[3] = {5,55,32};
+    struct dimensions_t *dim1 = createDimensions(3,100,100,100);
+    CU_ASSERT(NULL != dim1);
+    int ret1 = indexFromDimensions(dim1, &calc1, coord1);
+    CU_ASSERT( ret1 == 0);
+    CU_ASSERT(calc1 == idx1);
+    free(dim1);
+
+    size_t idx2 = 2111237;
+    size_t calc2 = 0;
+    size_t coord2[3] = {5,55,32};
+    struct dimensions_t *dim2 = createDimensions(3,256,256,256);
+    CU_ASSERT(NULL != dim2);
+    int ret2 = indexFromDimensions(dim2, &calc2, coord2);
+    CU_ASSERT(ret2 == 0);
+    CU_ASSERT(calc2 == idx2);
+    free(dim2);
+
+    size_t idx3 = 56909;
+    size_t calc3 = 0;
+    size_t coord3[2] = {77,222};
+    struct dimensions_t *dim3 = createDimensions(2,256,256);
+    CU_ASSERT(NULL != dim3);
+    int ret3 = indexFromDimensions(dim3, &calc3, coord3);
+    CU_ASSERT(ret3 == 0);
+    CU_ASSERT(calc3 == idx3);
+    free(dim3);
 }
 
 /**
  * @brief Test that we are detecting invalid index values from coordinates.
  */
 void indexFailTest(void) {
+    size_t calc1 = 0;
+    size_t bad1[3] = {10,42,101};
+    struct dimensions_t *dim1 = createDimensions(3,100,100,100);
+    CU_ASSERT(NULL != dim1);
+    int ret1 = indexFromDimensions(dim1, &calc1, bad1);
+    CU_ASSERT( ret1 == 1);
 
+    free(dim1);
+
+    size_t calc2 = 0;
+    size_t bad2[3] = {256,256,256};
+    struct dimensions_t *dim2 = createDimensions(3,256,256,256);
+    CU_ASSERT(NULL != dim2);
+    int ret2 = indexFromDimensions(dim2, &calc2, bad2);
+    CU_ASSERT(ret2 == 1);
+    free(dim2);
+
+    size_t calc3 = 0;
+    size_t bad3[2] = {10,258};
+    struct dimensions_t *dim3 = createDimensions(2,256,256);
+    CU_ASSERT(NULL != dim3);
+    int ret3 = indexFromDimensions(dim3, &calc3, bad3);
+    CU_ASSERT(ret3 == 1);
+    free(dim3);
+}
+
+void badDataTests(void) {
+    size_t idx1 = 1000005;
+    size_t calcarr[3] = {0,0,0};
+    size_t coord3[3] = {55,24,32};
+    size_t calcidx = 0;
+    struct dimensions_t *nulldim = NULL;
+    size_t *nullidx = NULL;
+    size_t *nullarr = NULL;
+    struct dimensions_t *dim = createDimensions(3,100,100,100);
+
+    CU_ASSERT(NULL != dim);
+    //Bad inputs
+    int ret1 = spatialFromIndex(nullidx, calcarr, dim);
+    CU_ASSERT( ret1 == -1);
+    ret1 = 0;
+    ret1 = spatialFromIndex(&idx1, nullarr, dim);
+    CU_ASSERT( ret1 == -1);
+    ret1 = 0;
+    ret1 = spatialFromIndex(&idx1, calcarr, nulldim);
+    CU_ASSERT( ret1 == -1);
+    ret1 = 0;
+
+    //Bad spatial inputs
+    //NULL dimensions
+    ret1 = indexFromDimensions(nulldim, &calcidx, coord3);
+    CU_ASSERT(ret1 == -1);
+    ret1 = 0;
+    //NULL output ref
+    ret1 = indexFromDimensions(dim, nullidx, coord3);
+    CU_ASSERT(ret1 == -1);
+    ret1 = 0;
+    //Too few coords
+    ret1 = indexFromDimensions(dim, &calcidx, nullarr);
+    CU_ASSERT(ret1 == -1);
+    ret1 = 0;
+
+    free(dim);
 }
 
 int main (int argc, char** argv) {
@@ -137,6 +249,10 @@ int main (int argc, char** argv) {
         return CU_get_error();
     }
 
+    if (NULL == CU_add_test(pSuite, "Bad data", badDataTests)) {
+        CU_cleanup_registry();
+        return CU_get_error();
+    }
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_basic_run_tests();
