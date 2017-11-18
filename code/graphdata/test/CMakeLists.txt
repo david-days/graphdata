@@ -25,6 +25,7 @@ include_directories(
 
 add_executable(comptests src/comptests.c)
 add_executable(inittests src/inittests.c)
+add_executable(spatialtests src/spatialtests.c)
 
 enable_testing()
 
@@ -35,6 +36,11 @@ target_link_libraries(
 
 target_link_libraries(
         inittests
+        ${LIBS}
+)
+
+target_link_libraries(
+        spatialtests
         ${LIBS}
 )
 

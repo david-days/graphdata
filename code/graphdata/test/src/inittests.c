@@ -45,6 +45,9 @@ void dimTest(void) {
     free(dim3);
 }
 
+/**
+ * Test that the graphops initialization has been properly carried out.
+ */
 void rawGraphopsTest(void) {
     struct graphops_t *gops = initGraphops();
     CU_ASSERT(NULL != gops);
@@ -62,6 +65,7 @@ void rawGraphopsTest(void) {
     CU_ASSERT(NULL == gops->nodePath);
     CU_ASSERT(NULL == gops->resetGraph);
     CU_ASSERT(NULL == gops->setCapacity);
+    free(gops);
 }
 
 int main (int argc, char** argv) {
