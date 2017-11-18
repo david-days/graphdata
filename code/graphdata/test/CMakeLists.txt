@@ -24,6 +24,7 @@ include_directories(
 )
 
 add_executable(comptests src/comptests.c)
+add_executable(inittests src/inittests.c)
 
 enable_testing()
 
@@ -32,4 +33,11 @@ target_link_libraries(
         ${LIBS}
 )
 
+target_link_libraries(
+        inittests
+        ${LIBS}
+)
+
 add_test(comptests ${CMAKE_CURRENT_BINARY_DIR}/comptests)
+
+add_test(inittests ${CMAKE_CURRENT_BINARY_DIR}/inittests)

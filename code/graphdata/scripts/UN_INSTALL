@@ -1,1 +1,1 @@
-/sbin/ldconfig
+-p /sbin/ldconfig

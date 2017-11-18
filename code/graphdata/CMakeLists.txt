@@ -26,6 +26,8 @@ set(CMAKE_INCLUDE_PATH
     ${PROJECT_BINARY_DIR}
 )
 
+set(CMAKE_INSTALL_PREFIX /usr/share/graphdata)
+
 set(SOURCE_FILES
         #HEADERS
         include/graphinit.h
@@ -86,19 +88,19 @@ install(
             include/graphinit.h
             include/graphops.h
         DESTINATION include
-        COMPONENT headers
+        COMPONENT libraries
 )
 install(
         FILES
             include/util/hashes.h
             include/util/graphcomp.h
         DESTINATION include/util
-        COMPONENT headers
+        COMPONENT libraries
 )
 install(
         FILES conf/graphdata.conf
         DESTINATION /etc/ld.so.conf.d
-        COMPONENT config
+        COMPONENT libraries
 )
 
 
@@ -110,39 +112,43 @@ set(CPACK_PACKAGE_VERSION_MINOR ${GRAPHDATA_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${GRAPHDATA_VERSION_PATCH})
 set(CPACK_GENERATOR "RPM")
 set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
-set(CPACK_PACKAGE_RELEASE ${GRAPHDATA_VERSION_MAJOR})
+set(CPACK_PACKAGE_RELEASE 1)
 set(CPACK_PACKAGE_CONTACT ${PROJECT_AUTHOR})
 set(CPACK_PACKAGE_VENDOR ${PROJECT_VENDOR})
 set(CPACK_PACKAGING_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX})
 
-set(CPACK_COMPONENTS_ALL libraries header)
+set(CPACK_COMPONENTS_ALL libraries)
 set(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "Basic graph data and operations shared library")
-set(CPACK_COMPONENT_HEADERS_DISPLAY_NAME "Graph data and operations headers")
-set(CPACK_COMPONENT_LIBRARIES_GROUP "System Environment/Libraries")
-set(CPACK_COMPONENT_HEADERS_GROUP "System Environment/Libraries")
+set(CPACK_COMPONENT_LIBRARIES_GROUP "libs")
+set(CPACK_COMPONENT_DEVEL_GROUP "devel")
 
 #RPM-specific settings
+set(CPACK_RPM_COMPONENT_INSTALL ON)
 set(CPACK_RPM_PACKAGE_SUMMARY "Graph structures and operations shared library")
-set(CPACK_RPM_PACKAGE_DESCRIPTION "Shared libraries and headers for graph functions and basic combinatorial operations")
+set(CPACK_RPM_PACKAGE_DESCRIPTION "Shared libraries and headers for graph functions")
 set(CPACK_RPM_PACKAGE_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
-set(CPACK_RPM_PACKAGE_GROUP "System Environment/Libraries")
-set(CPACK_RPM_PACKAGE_LICENSE "GPLv2")
+set(CPACK_RPM_PACKAGE_GROUP "Development/Libraries")
+set(CPACK_RPM_PACKAGE_LICENSE "GPLv3+")
+set(CPACK_RPM_PACKAGE_URL "https://github.com/david-days/graphdata")
+set(CPACK_RPM_DEFAULT_FILE_PERMISSIONS
+        OWNER_READ
+        OWNER_WRITE
+        GROUP_READ
+        WORLD_READ
+)
 set(CPACK_RPM_POST_INSTALL_SCRIPT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/scripts/UN_INSTALL)
 set(CPACK_RPM_POST_UNINSTALL_SCRIPT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/scripts/UN_INSTALL)
 set(CPACK_RPM_SPEC_INSTALL_POST "/bin/true")
 #Exclude common directory creation to avoid conflicts
 set(CPACK_RPM_EXCLUDE_FROM_AUTO_FILELIST_ADDITION
         /etc/ld.so.conf.d
-        /usr/local
-        /usr/local/include
-        /usr/local/lib
-        )
+)
 set(CPACK_RPM_PACKAGE_REQUIRES
         #"sg3_utils, lsscsi"
 )
 
 
-set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}.${CMAKE_SYSTEM_PROCESSOR}")
+set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}-${CPACK_PACKAGE_RELEASE}.${CMAKE_SYSTEM_PROCESSOR}")
 
 
 

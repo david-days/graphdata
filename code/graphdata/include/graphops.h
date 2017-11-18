@@ -66,7 +66,7 @@ typedef edge * (*funcGetEdges)(const size_t *nodeid, const graph *g);
  * @param g Graph in question
  * @return Linked-list of nodes, starting from uid and ending at vid, if found; otherwise, pointer to NULL.
  */
-typedef node * (funcGetNodePath)(const size_t *uid, const size_t *vid, const graph *g);
+typedef node * (*funcGetNodePath)(const size_t *uid, const size_t *vid, const graph *g);
 /**
  * @brief Function pointer to retrieve linked-list of path edges from start to destination, beginning with the starting node.
  * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
@@ -75,7 +75,7 @@ typedef node * (funcGetNodePath)(const size_t *uid, const size_t *vid, const gra
  * @param g Graph in question
  * @return Linked-list of edges, starting from uid and ending at vid, if found; otherwise, pointer to NULL.
  */
-typedef edge * (funcGetEdgePath)(const size_t *uid, const size_t *vid, const graph *g);
+typedef edge * (*funcGetEdgePath)(const size_t *uid, const size_t *vid, const graph *g);
 
 //Write functions to modify graph
 /**
@@ -116,7 +116,7 @@ typedef int (*funcSetCapacity)(const size_t *uid, const size_t *vid, const doubl
  * @param callback Callback to be executed when graph has been reset.
  * @return -1 if there was an error during the reset; 0 if the reset completed; 1 if there was a change the requires re-evaluation
  */
-typedef int (funcResetGraph)(graph *g, void *args, void (*callback)(void));
+typedef int (*funcResetGraph)(graph *g, void *args, void (*callback)(void));
 
 
 
