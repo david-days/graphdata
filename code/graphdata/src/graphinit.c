@@ -5,6 +5,27 @@
 #include<graphinit.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <impl/arraygraph.h>
+#include <impl/linkgraph.h>
+#include <impl/hashgraph.h>
+
+static struct graph_t * basicGraphInit() {
+    struct graph_t *g;
+    g = (struct graph_t *) malloc(sizeof(struct graph_t));
+    if (g == NULL) {
+        //something went wrong
+        free(g);
+    } else {
+        //set the initial values to null;
+        g->capImpl = NULL;
+        g->edgeImpl = NULL;
+        g->flowImpl = NULL;
+        g->labels = NULL;
+        g->metaImpl = NULL;
+        g->nodeImpl = NULL;
+    }
+    return g;
+}
 
 /**
  * @brief Create a dimension structure containing the given values in order (x, y, z, etc)
@@ -67,4 +88,45 @@ struct graphops_t * initGraphops() {
         gops->setCapacity = NULL;
     }
     return gops;
+}
+
+/**
+ * @brief Initialize a general graph structure.
+ *
+ * Create a generic graph structure, based on the parameters passed.  The underlying structure will be created in accordance
+ * with the combinations of GRAPHTYPE and GRAPHIMPL values.  For GRAPHIMPL = ARRAY, the dimensions value is required and must not be NULL.
+ * For other implementations, passing a valid dimensions_t structure is optional (usage dependent).
+ *
+ * The returned graph structure pointer will have a NULL pointer for g->labels.
+ *
+ * @param gtype Type of graph (DIRECTED or UNDIRECTED).
+ * @param impltype Type of implementation requested.  Use GENERIC for a general graph.
+ * @param dims Dimensions for a spatial graph.  Required for ARRAY implementations, NULL or optional for all others.
+ * @return Pointer to the graph structure created, if parameters are valid.  NULL pointer returned if the parameters are invalid or there is
+ * a problem allocating the memory required.
+ */
+struct graph_t * initGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, struct dimensions_t *dims) {
+    struct graph_t *g = basicGraphInit();
+
+    return g;
+}
+
+/**
+ * @brief Initialize a graph structure primed for usage in graph-label operations.
+ *
+ * Creates a graph structure, based on the parameters passed, with the g->labels structure filled accordingly.  For GRAPHIMPL = ARRAY, the
+ * dimensions value will be created, and the label structure will contain the values for the defined label nodes.  For all others, the
+ * label array will be initialized with 0, which may or may not be valid identifiers.
+ *
+ * @param gtype Type of graph (DIRECTED or UNDIRECTED)
+ * @param impltype Type of implementation required.  use Generic for general graph.
+ * @param lblcount Number of label values to be used.
+ * @param dims Dimensions for spatial graph.  Required for ARRAY implementations, NULL or optional for all others.
+ * @return Pointer to the graph structure created, if the parameters are valid.  NULL pointer returned if the parameters are invalid
+ * or there is a problem allocating the memory required.
+ */
+struct graph_t * initLabelGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, size_t lblcount, struct dimensions_t *dims) {
+    struct graph_t *g = basicGraphInit();
+
+    return g;
 }

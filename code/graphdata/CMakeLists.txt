@@ -34,12 +34,19 @@ set(SOURCE_FILES
         include/util/hashes.h
         include/util/graphcomp.h
         include/util/spatial.h
+        include/impl/arraygraph.h
+        include/impl/linkgraph.h
+        include/impl/hashgraph.h
 
         #CODE
         src/graphinit.c
         src/util/hashes.h
         src/util/graphcomp.c
         src/util/spatial.c
+        src/impl/arraygraph.c
+        src/impl/linkgraph.c
+        src/impl/hashgraph.c
+
         #CONFIG
         conf/graphdata.conf
 )
@@ -56,13 +63,18 @@ add_library(${PROJECT_NAME} SHARED
         include/util/hashes.h
         include/util/graphcomp.h
         include/util/spatial.h
+        include/impl/arraygraph.h
+        include/impl/linkgraph.h
+        include/impl/hashgraph.h
 
         #Sources
         src/graphinit.c
         src/util/hashes.c
         src/util/graphcomp.c
         src/util/spatial.c
-
+        src/impl/arraygraph.c
+        src/impl/linkgraph.c
+        src/impl/hashgraph.c
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -101,6 +113,13 @@ install(
         DESTINATION include/util
         COMPONENT libraries
 )
+install(
+        FILES
+            include/impl/arraygraph.h
+        DESTINATION include/impl
+        COMPONENT libraries
+)
+
 install(
         FILES conf/graphdata.conf
         DESTINATION /etc/ld.so.conf.d

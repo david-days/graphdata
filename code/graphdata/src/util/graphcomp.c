@@ -48,17 +48,17 @@ double * maxVal(double *a, double *b) {
  * @param path linked-list of edges, representing a path
  * @return minimum value along the given path, if path exists; otherwise, value < 0 if *path is NULL
  */
-double minCapacity(const edge *path) {
+double minCapacity(const struct edge_t *path) {
     double minCap = -1.0;
     if (path != NULL) {
-        edge *curr, *next;
-        curr = (edge *)path;
-        next = (edge *)curr->next;
+        struct edge_t *curr, *next;
+        curr = (struct edge_t *)path;
+        next = (struct edge_t *)curr->next;
         minCap = curr->cap;
         while (next != NULL) {
             minCap = *minVal(&minCap, &(next->cap));
             curr = next;
-            next = (edge *)curr->next;
+            next = (struct edge_t *)curr->next;
         }
     }
     return minCap;
@@ -69,18 +69,18 @@ double minCapacity(const edge *path) {
  * @param path  linked-list of edges, representing a path
  * @return maximum value along the given path, if path exists; otherwise, value < 0 if *path is NULL
  */
-double maxCapacity(const edge *path) {
+double maxCapacity(const struct edge_t *path) {
     double maxCap = -1.0;
     if (path != NULL) {
-        edge *curr = NULL;
-        edge *next = NULL;
-        curr = (edge *)path;
-        next = (edge *)curr->next;
+        struct edge_t *curr = NULL;
+        struct edge_t *next = NULL;
+        curr = (struct edge_t *)path;
+        next = (struct edge_t *)curr->next;
         maxCap = curr->cap;
         while (next != NULL) {
             maxCap = *maxVal(&maxCap, &(next->cap));
             curr = next;
-            next = (edge *)curr->next;
+            next = (struct edge_t *)curr->next;
         }
     }
     return maxCap;

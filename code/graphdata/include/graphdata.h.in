@@ -44,6 +44,12 @@ enum GRAPHTYPE {
  */
 enum GRAPHIMPL {
     /**
+     * @brief An unspecified, growable implementation.
+     * It is assumed that the user does not care about the underlying details,
+     * merely that the graph behaves in a manner that supports the most general behavior (growable, dynamic, etc).
+     */
+    GENERIC,
+    /**
      * @brief Array-backed graph data.
      *
      * Nodes, edges, and capacities are maintained in adjacency array form.  The graph dimensions (counts, edges, membership)
@@ -93,17 +99,12 @@ struct feature_t {
     /**
      * Previous feature in the list.
      */
-    struct feature *prev;
+    struct feature_t *prev;
     /**
      * Next feature in the list.
      */
-    struct feature *next;
+    struct feature_t *next;
 };
-
-/**
- * Rename the feature_t type.
- */
-typedef struct feature_t feature;
 
 /**
  * @brief Graph node structure
@@ -119,25 +120,20 @@ struct node_t {
     /**
      * Attached features, if any.  Initialized as NULL for all implementations.
      */
-    struct feature *attrs;
+    struct feature_t *attrs;
     /**
      * Attached edges, if any.
      */
-    struct edge *edges;
+    struct edge_t *edges;
     /**
      * @brief Previous  node, as required.  Typical usage would be in node-based path list.
      */
-    struct node *prev;
+    struct node_t *prev;
     /**
      * @brief Next node, as required.  Typical usage would be in node-based path list.
      */
-    struct node *next;
+    struct node_t *next;
 };
-
-/**
- * Rename node_t structure.
- */
-typedef struct node_t node;
 
 /**
  * @brief Graph edge structure, representing linkages between nodes.
@@ -165,25 +161,21 @@ struct edge_t {
     /**
      * Features associated with the edge.
      */
-    struct feature *attrs;
+    struct feature_t *attrs;
     /**
      * @brief Previous edge in the list.
      *
      * Typical usage would be either for normal edge lists, or for edge-based path values.
      */
-    struct edge *prev;
+    struct edge_t *prev;
     /**
      * @brief Next edge in the list.
      *
      * Typical usage would be either for normal adjacency lists, or for edge-based path values.
      */
-    struct edge *next;
+    struct edge_t *next;
 };
 
-/**
- * Rename the edge_t structure.
- */
-typedef struct edge_t edge;
 
 
 /**
@@ -202,10 +194,6 @@ struct dimensions_t {
     size_t *dimarr;
 };
 
-/**
- * Rename the dimensions_t structure.
- */
-typedef struct dimensions_t dimensions;
 
 /**
  * @brief Structure holding identifiers for "label" nodes.
@@ -225,10 +213,6 @@ struct labels_t {
     size_t *labelarr;
 };
 
-/**
- * Rename the labels_t structure
- */
-typedef struct lables_t labeldata;
 
 
 /**
@@ -250,12 +234,12 @@ struct graph_t {
     /**
      * @brief Dimensions structure for spatial graphs
      */
-    struct dimensions *dims;
+    struct dimensions_t *dims;
 
     /**
      * @brief Label data for the graph.
      */
-    struct labeldata *labels;
+    struct labels_t *labels;
 
     /**
      * @brief Implementation-specific pointer to metadata for graph structure.
@@ -288,10 +272,7 @@ struct graph_t {
     void *flowImpl;
 };
 
-/**
- * @brief Rename the graph_t structure.
- */
-typedef struct graph_t graph;
+
 
 
 

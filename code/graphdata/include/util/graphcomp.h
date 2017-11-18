@@ -47,13 +47,13 @@ double * maxVal(double *a, double *b);
  * @param path linked-list of edges, representing a path
  * @return minimum value along the given path, if path exists; otherwise, value < 0 if *path is NULL
  */
-double minCapacity(const edge *path);
+double minCapacity(const struct edge_t *path);
 
 /**
  * Given an edge path, return the max capacity along that path.
  * @param path  linked-listof edges, representing a path
  * @return maximum value along the given path, if path exists; otherwise, value < 0 if *path is NULL
  */
-double maxCapacity(const edge *path);
+double maxCapacity(const struct edge_t *path);
 
 #endif //GRAPHDATA_GRAPHCOMP_H
