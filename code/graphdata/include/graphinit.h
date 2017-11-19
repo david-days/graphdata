@@ -21,6 +21,15 @@
 struct dimensions_t * createDimensions(size_t dimval, ...);
 
 /**
+ * @brief Create a raw label structure of the given size
+ * @param lblcount Number of labels required
+ * @return Label structure properly initialized with a size_t array of the given size, if successful; otherwise, a NULL
+ * pointer.
+ */
+struct labels_t * initLabels(size_t lblcount);
+
+
+/**
  * @brief Raw initializer for graphops_t structure
  *
  * Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to
@@ -63,6 +72,67 @@ struct graph_t * initGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, struct
  */
 struct graph_t * initLabelGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, size_t lblcount, struct dimensions_t *dims);
 
+/**
+ * @brief Clear the graph and all underlying structures
+ *
+ * The pointer itself will be changed to NULL
+ *
+ * @param g Graph structure to be cleared
+ * @return 1 if success; 0 if error
+ */
+int destroyGraph(struct graph_t *g);
 
+/**
+ * @brief Clear out the dimensions and all underlying structures
+ * @param dims Dimensions structure to be cleared
+ * @return 1 if success; 0 if error
+ */
+int destroyDimensions(struct dimensions_t *dims);
+
+/**
+ * @brief Clear out the label and all underlying structures
+ * @param labels Label structure to be cleared
+ * @return 1 if success; 0 if error
+ */
+int destroyLabels(struct labels_t *labels);
+
+/**
+ * @brief Clear an edge structure and any linked edges (use on single or a path)
+ *
+ * The pointer itself will be changed to NULL
+ *
+ * @param e Initial edge pointer
+ * @return 1 if success; 0 if error.
+ */
+int destroyEdges(struct edge_t *e);
+
+/**
+ * @brief Clear a graphops_t structure.
+ * The graph itself will not be cleared, only the reference to it.  The pointer itself will be changed to NULL
+ *
+ * @param gops Graphops structuure to be cleared and deallocated
+ * @return 1 if successful; 0 if error
+ */
+int destroyGraphops(struct graphops_t *gops);
+
+/**
+ * @brief Clear a node or node list (use on single or a path)
+ *
+ * The pointer itself will be changed to NULL
+ *
+ * @param n Initial node pointer
+ * @return 1 if successful; 0 if error
+ */
+int destroyNodes(struct node_t *n);
+
+/**
+ * @brief Clear a feature or feature list (use on single or multiple attributes)
+ *
+ * The pointer itself will be changed to NULL
+ *
+ * @param f Initial feature pointer
+ * @return 1 if successful; 0 if error
+ */
+int destroyFeatures(struct feature_t *f);
 
 #endif //GRAPHDATA_GRAPHINIT_H

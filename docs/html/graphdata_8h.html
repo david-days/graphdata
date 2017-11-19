@@ -62,7 +62,6 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">graphdata.h File Reference</div>  </div>
@@ -103,22 +102,6 @@ Macros</h2></td></tr>
 <tr class="memitem:afe82eb665296ed2b05d144b702efae91"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphdata_8h.html#afe82eb665296ed2b05d144b702efae91">GRAPHDATA_VERSION_PATCH</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:afe82eb665296ed2b05d144b702efae91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a068417678f021a74e911edd39f8d0bce"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structfeature__t.html">feature_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphdata_8h.html#a068417678f021a74e911edd39f8d0bce">feature</a></td></tr>
-<tr class="separator:a068417678f021a74e911edd39f8d0bce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85b4f4124a5616dea92c9e8a221a8db5"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structnode__t.html">node_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphdata_8h.html#a85b4f4124a5616dea92c9e8a221a8db5">node</a></td></tr>
-<tr class="separator:a85b4f4124a5616dea92c9e8a221a8db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a641a8a4cd064e02a13e6c15d1b2df541"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structedge__t.html">edge_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphdata_8h.html#a641a8a4cd064e02a13e6c15d1b2df541">edge</a></td></tr>
-<tr class="separator:a641a8a4cd064e02a13e6c15d1b2df541"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08b79828d8e700b1ff86fc235a83089f"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdimensions__t.html">dimensions_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphdata_8h.html#a08b79828d8e700b1ff86fc235a83089f">dimensions</a></td></tr>
-<tr class="separator:a08b79828d8e700b1ff86fc235a83089f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a625fc818ed28f282dba71f20cd31b848"><td class="memItemLeft" align="right" valign="top">typedef struct lables_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphdata_8h.html#a625fc818ed28f282dba71f20cd31b848">labeldata</a></td></tr>
-<tr class="separator:a625fc818ed28f282dba71f20cd31b848"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad149912e738dca1c84b3b4508382fff5"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structgraph__t.html">graph_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a></td></tr>
-<tr class="memdesc:ad149912e738dca1c84b3b4508382fff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rename the <a class="el" href="structgraph__t.html" title="Structure containing the backing data for the graph representation. ">graph_t</a> structure.  <a href="#ad149912e738dca1c84b3b4508382fff5">More...</a><br /></td></tr>
-<tr class="separator:ad149912e738dca1c84b3b4508382fff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a384e88b524b782ff50439055cbc8a5c2"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphdata_8h.html#a384e88b524b782ff50439055cbc8a5c2">GRAPHTYPE</a> { <a class="el" href="graphdata_8h.html#a384e88b524b782ff50439055cbc8a5c2a814399045afe50d214d2607be2f27677">UNDIRECTED</a>, 
@@ -126,7 +109,8 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:a384e88b524b782ff50439055cbc8a5c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic graph type.  <a href="graphdata_8h.html#a384e88b524b782ff50439055cbc8a5c2">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:a384e88b524b782ff50439055cbc8a5c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7f3a639f97221897a0429715dccefe6"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6">GRAPHIMPL</a> { <a class="el" href="graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6a1e029fbf0c881b85d80fc8e89b753688">ARRAY</a>, 
+<tr class="memitem:ad7f3a639f97221897a0429715dccefe6"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6">GRAPHIMPL</a> { <a class="el" href="graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6a9e022e6380da28dd73210ed34b137c36">GENERIC</a>, 
+<a class="el" href="graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6a1e029fbf0c881b85d80fc8e89b753688">ARRAY</a>, 
 <a class="el" href="graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6a03745475c6df1217f2fd3200875fb376">LINKED</a>, 
 <a class="el" href="graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6aa2512e870f83d17d3dfcd0bf0082bca2">HASHED</a>
  }<tr class="memdesc:ad7f3a639f97221897a0429715dccefe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of backing implementation (array-based, linked-lists, hashtable/unique adjacency lists)  <a href="graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6">More...</a><br /></td></tr>
@@ -179,98 +163,6 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="a08b79828d8e700b1ff86fc235a83089f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08b79828d8e700b1ff86fc235a83089f">&#9670;&nbsp;</a></span>dimensions</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structdimensions__t.html">dimensions_t</a> <a class="el" href="graphdata_8h.html#a08b79828d8e700b1ff86fc235a83089f">dimensions</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Rename the <a class="el" href="structdimensions__t.html" title="Structure to hold values for dimensional graphs. ">dimensions_t</a> structure. </p>
-
-</div>
-</div>
-<a id="a641a8a4cd064e02a13e6c15d1b2df541"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a641a8a4cd064e02a13e6c15d1b2df541">&#9670;&nbsp;</a></span>edge</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structedge__t.html">edge_t</a> <a class="el" href="graphdata_8h.html#a641a8a4cd064e02a13e6c15d1b2df541">edge</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Rename the <a class="el" href="structedge__t.html" title="Graph edge structure, representing linkages between nodes. ">edge_t</a> structure. </p>
-
-</div>
-</div>
-<a id="a068417678f021a74e911edd39f8d0bce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a068417678f021a74e911edd39f8d0bce">&#9670;&nbsp;</a></span>feature</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structfeature__t.html">feature_t</a> <a class="el" href="graphdata_8h.html#a068417678f021a74e911edd39f8d0bce">feature</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Rename the <a class="el" href="structfeature__t.html" title="Feature/attribute structure for a graph item. ">feature_t</a> type. </p>
-
-</div>
-</div>
-<a id="ad149912e738dca1c84b3b4508382fff5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad149912e738dca1c84b3b4508382fff5">&#9670;&nbsp;</a></span>graph</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structgraph__t.html">graph_t</a> <a class="el" href="graphdata_8h.html#ad149912e738dca1c84b3b4508382fff5">graph</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Rename the <a class="el" href="structgraph__t.html" title="Structure containing the backing data for the graph representation. ">graph_t</a> structure. </p>
-
-</div>
-</div>
-<a id="a625fc818ed28f282dba71f20cd31b848"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a625fc818ed28f282dba71f20cd31b848">&#9670;&nbsp;</a></span>labeldata</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct lables_t <a class="el" href="graphdata_8h.html#a625fc818ed28f282dba71f20cd31b848">labeldata</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Rename the <a class="el" href="structlabels__t.html" title="Structure holding identifiers for &quot;label&quot; nodes. ">labels_t</a> structure </p>
-
-</div>
-</div>
-<a id="a85b4f4124a5616dea92c9e8a221a8db5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85b4f4124a5616dea92c9e8a221a8db5">&#9670;&nbsp;</a></span>node</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structnode__t.html">node_t</a> <a class="el" href="graphdata_8h.html#a85b4f4124a5616dea92c9e8a221a8db5">node</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Rename <a class="el" href="structnode__t.html" title="Graph node structure. ">node_t</a> structure. </p>
-
-</div>
-</div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="ad7f3a639f97221897a0429715dccefe6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad7f3a639f97221897a0429715dccefe6">&#9670;&nbsp;</a></span>GRAPHIMPL</h2>
@@ -287,7 +179,9 @@ Enumerations</h2></td></tr>
 <p>Definition of backing implementation (array-based, linked-lists, hashtable/unique adjacency lists) </p>
 <p>Type of underlying graph implementation used. Each type implies certain graph characteristics (fixed vs. dynamic) and drives the graphops function implementations </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad7f3a639f97221897a0429715dccefe6a1e029fbf0c881b85d80fc8e89b753688"></a>ARRAY&#160;</td><td class="fielddoc"><p>Array-backed graph data. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad7f3a639f97221897a0429715dccefe6a9e022e6380da28dd73210ed34b137c36"></a>GENERIC&#160;</td><td class="fielddoc"><p>An unspecified, growable implementation. It is assumed that the user does not care about the underlying details, merely that the graph behaves in a manner that supports the most general behavior (growable, dynamic, etc). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad7f3a639f97221897a0429715dccefe6a1e029fbf0c881b85d80fc8e89b753688"></a>ARRAY&#160;</td><td class="fielddoc"><p>Array-backed graph data. </p>
 <p>Nodes, edges, and capacities are maintained in adjacency array form. The graph dimensions (counts, edges, membership) are expected to be fixed at initialization. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ad7f3a639f97221897a0429715dccefe6a03745475c6df1217f2fd3200875fb376"></a>LINKED&#160;</td><td class="fielddoc"><p>Linked-list backed graph data. </p>

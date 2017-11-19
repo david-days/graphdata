@@ -62,6 +62,31 @@ struct dimensions_t * createDimensions(size_t dimsz, ...) {
 }
 
 /**
+ * @brief Create a raw label structure of the given size
+ * @param lblcount Number of labels required
+ * @return Label structure properly initialized with a size_t array of the given size, if successful; otherwise, a NULL
+ * pointer.
+ */
+struct labels_t * initLabels(size_t lblcount) {
+    size_t *larr = NULL;
+    struct labels_t *lbl = NULL;
+    larr = (size_t *)malloc(sizeof(size_t *)*lblcount);
+    if (larr != NULL) {
+        lbl = (struct labels_t *)malloc(sizeof(struct labels_t));
+        if (lbl != NULL) {
+            lbl->labelcount = lblcount;
+            lbl->labelarr = larr;
+        } else {
+            //malloc didn't work--free up
+            free(larr);
+        }
+    }
+    return lbl;
+}
+
+
+
+/**
  * @brief Raw initializer for graphops_t structure with all NULL interior pointers
  *
  * Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to
@@ -157,4 +182,125 @@ struct graph_t * initLabelGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, s
         }
     }
     return g;
+}
+
+/**
+ * @brief Clear the graph and all underlying structures
+ *
+ * The pointer itself will be changed to NULL
+ *
+ * @param g Graph structure to be cleared
+ * @return 1 if success; 0 if error
+ */
+int destroyGraph(struct graph_t *g) {
+    return 0;
+}
+
+/**
+ * @brief Clear out the dimensions and all underlying structures
+ * @param dims Dimensions structure to be cleared
+ * @return 1 if success; 0 if error
+ */
+int destroyDimensions(struct dimensions_t *dims) {
+    int retval = 0;
+    if (NULL != dims) {
+        size_t *dimarr = dims->dimarr;
+        if (NULL != dimarr) {
+            free(dimarr);
+            dims->dimarr = NULL;
+        }
+        dims->dimcount = 0;
+        free(dims);
+        dims = NULL;
+        retval = 1;
+    }
+    return retval;
+}
+
+/**
+ * @brief Clear out the label and all underlying structures
+ * @param labels Label structure to be cleared
+ * @return 1 if success; 0 if error
+ */
+int destroyLabels(struct labels_t *labels) {
+    int retval = 0;
+    if (NULL != labels) {
+        size_t *larr = labels->labelarr;
+        if (NULL != larr) {
+            free(larr);
+            labels->labelarr = NULL;
+        }
+        labels->labelcount = 0;
+        free(labels);
+        labels = NULL;
+        retval = 1;
+    }
+    return retval;
+}
+
+/**
+ * @brief Clear an edge structure and any linked edges (use on single or a path)
+ *
+ * The pointer itself will be changed to NULL
+ *
+ * @param e Initial edge pointer
+ * @return 1 if success; 0 if error.
+ */
+int destroyEdges(struct edge_t *e) {
+    return 0;
+}
+
+/**
+ * @brief Clear a graphops_t structure.
+ * 
+ * The graph itself will not be cleared, only the reference to it.  The pointer itself will be changed to NULL
+ *
+ * @param gops Graphops structuure to be cleared and deallocated
+ * @return 1 if successful; 0 if error
+ */
+int destroyGraphops(struct graphops_t *gops) {
+    int retval = 0;
+    if (NULL != gops) {
+        gops->g = NULL;
+        gops->setCapacity = NULL;
+        gops->resetGraph = NULL;
+        gops->nodePath = NULL;
+        gops->nodeCount = NULL;
+        gops->getNode = NULL;
+        gops->getNeighbors = NULL;
+        gops->getEdges = NULL;
+        gops->getEdge = NULL;
+        gops->edgePath = NULL;
+        gops->edgeCount = NULL;
+        gops->addNode = NULL;
+        gops->addEdge = NULL;
+        free(gops);
+        gops = NULL;
+        retval = 1;
+    }
+    return retval;
+}
+
+/**
+ * @brief Clear a node or node list (use on single or a path)
+ *
+ * The pointer itself will be changed to NULL
+ *
+ * @param n Initial node pointer
+ * @return 1 if successful; 0 if error
+ */
+int destroyNodes(struct node_t *n) {
+    return 0;
+}
+
+/**
+ * @brief Clear a feature or feature list (use on single or multiple attributes)
+ *
+ * The pointer itself will be changed to NULL
+ *
+ * @param f Initial feature pointer
+ * @return 1 if successful; 0 if error
+ */
+int destroyFeatures(struct feature_t *f) {
+    return 0;
 }

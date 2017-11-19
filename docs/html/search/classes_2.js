@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['feature_5ft',['feature_t',['../structfeature__t.html',1,'']]]
+  ['edge_5ft',['edge_t',['../structedge__t.html',1,'']]]
 ];

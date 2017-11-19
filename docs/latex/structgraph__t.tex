@@ -16,9 +16,9 @@ enum \hyperlink{graphdata_8h_a384e88b524b782ff50439055cbc8a5c2}{G\+R\+A\+P\+H\+T
 \begin{DoxyCompactList}\small\item\em Type of graph being represented. \end{DoxyCompactList}\item 
 enum \hyperlink{graphdata_8h_ad7f3a639f97221897a0429715dccefe6}{G\+R\+A\+P\+H\+I\+M\+PL} \hyperlink{structgraph__t_a220aff118ba6d13c927486099988c03d}{gimpl}
 \begin{DoxyCompactList}\small\item\em Backing implementation of graph data. \end{DoxyCompactList}\item 
-struct \hyperlink{graphdata_8h_a08b79828d8e700b1ff86fc235a83089f}{dimensions} $\ast$ \hyperlink{structgraph__t_ab0b7dd9b19e20a1564ba1f02ad41511e}{dims}
+struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$ \hyperlink{structgraph__t_ad93f0c58ec1bb357b8d33def7259a1a3}{dims}
 \begin{DoxyCompactList}\small\item\em Dimensions structure for spatial graphs. \end{DoxyCompactList}\item 
-struct \hyperlink{graphdata_8h_a625fc818ed28f282dba71f20cd31b848}{labeldata} $\ast$ \hyperlink{structgraph__t_a2ea51094b5b0a3b3035895948ded5b44}{labels}
+struct \hyperlink{structlabels__t}{labels\+\_\+t} $\ast$ \hyperlink{structgraph__t_ab0661b91402642806325cb4f4da9dc24}{labels}
 \begin{DoxyCompactList}\small\item\em Label data for the graph. \end{DoxyCompactList}\item 
 void $\ast$ \hyperlink{structgraph__t_ab11b23897ec5b39d38c3f85581bd313e}{meta\+Impl}
 \begin{DoxyCompactList}\small\item\em Implementation-\/specific pointer to metadata for graph structure. \end{DoxyCompactList}\item 
@@ -48,11 +48,11 @@ This is the representation of the graph, with necessary metadata (type, spatial 
 
 Implementation-\/specific pointer to capacity data. 
 
-Central pointer to the capacity values, to be interpreted by the specific graphops implementations. \mbox{\Hypertarget{structgraph__t_ab0b7dd9b19e20a1564ba1f02ad41511e}\label{structgraph__t_ab0b7dd9b19e20a1564ba1f02ad41511e}} 
+Central pointer to the capacity values, to be interpreted by the specific graphops implementations. \mbox{\Hypertarget{structgraph__t_ad93f0c58ec1bb357b8d33def7259a1a3}\label{structgraph__t_ad93f0c58ec1bb357b8d33def7259a1a3}} 
 \index{graph\+\_\+t@{graph\+\_\+t}!dims@{dims}}
 \index{dims@{dims}!graph\+\_\+t@{graph\+\_\+t}}
 \subsubsection{\texorpdfstring{dims}{dims}}
-{\footnotesize\ttfamily struct \hyperlink{graphdata_8h_a08b79828d8e700b1ff86fc235a83089f}{dimensions}$\ast$ graph\+\_\+t\+::dims}
+{\footnotesize\ttfamily struct \hyperlink{structdimensions__t}{dimensions\+\_\+t}$\ast$ graph\+\_\+t\+::dims}
 
 
 
@@ -98,11 +98,11 @@ Backing implementation of graph data.
 
 Type of graph being represented. 
 
-\mbox{\Hypertarget{structgraph__t_a2ea51094b5b0a3b3035895948ded5b44}\label{structgraph__t_a2ea51094b5b0a3b3035895948ded5b44}} 
+\mbox{\Hypertarget{structgraph__t_ab0661b91402642806325cb4f4da9dc24}\label{structgraph__t_ab0661b91402642806325cb4f4da9dc24}} 
 \index{graph\+\_\+t@{graph\+\_\+t}!labels@{labels}}
 \index{labels@{labels}!graph\+\_\+t@{graph\+\_\+t}}
 \subsubsection{\texorpdfstring{labels}{labels}}
-{\footnotesize\ttfamily struct \hyperlink{graphdata_8h_a625fc818ed28f282dba71f20cd31b848}{labeldata}$\ast$ graph\+\_\+t\+::labels}
+{\footnotesize\ttfamily struct \hyperlink{structlabels__t}{labels\+\_\+t}$\ast$ graph\+\_\+t\+::labels}
 
 
 

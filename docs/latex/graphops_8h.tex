@@ -9,40 +9,38 @@ struct \hyperlink{structgraphops__t}{graphops\+\_\+t}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef size\+\_\+t($\ast$ \hyperlink{graphops_8h_a5f1ba03cba8efec39224db7b6afc8374}{func\+Node\+Count}) (\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
+typedef size\+\_\+t($\ast$ \hyperlink{graphops_8h_aa7c1a3ee12ef36bca906669c4164ccee}{func\+Node\+Count}) (struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer definition for getting the node count;. \end{DoxyCompactList}\item 
-typedef size\+\_\+t($\ast$ \hyperlink{graphops_8h_a9c7f99c0f38ebae08cb49e70ffe91fa1}{func\+Edge\+Count}) (\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
+typedef size\+\_\+t($\ast$ \hyperlink{graphops_8h_afd0afa57e6480d123698f5e836868daa}{func\+Edge\+Count}) (struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to extract count of edges. \end{DoxyCompactList}\item 
-typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node} $\ast$($\ast$ \hyperlink{graphops_8h_ab5b794bee2b91f62033011c8e4c867ec}{func\+Get\+Node}) (const size\+\_\+t $\ast$nodeid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
+typedef struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$($\ast$ \hyperlink{graphops_8h_acdebce5fd9d56d8a2ebacd396fbd735a}{func\+Get\+Node}) (const size\+\_\+t $\ast$nodeid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to retrieve a node structure reference. \end{DoxyCompactList}\item 
-typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge} $\ast$($\ast$ \hyperlink{graphops_8h_aed109d4861cfae4ea7721603770befca}{func\+Get\+Edge}) (const size\+\_\+t $\ast$u, const size\+\_\+t $\ast$v, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
+typedef struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$($\ast$ \hyperlink{graphops_8h_a65a97104978aff138ce01db4b7baa237}{func\+Get\+Edge}) (const size\+\_\+t $\ast$u, const size\+\_\+t $\ast$v, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to retrieve a edge structure reference. \end{DoxyCompactList}\item 
-typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node} $\ast$($\ast$ \hyperlink{graphops_8h_a201169542b84db39bcb68ae94223e773}{func\+Get\+Neighbors}) (const size\+\_\+t $\ast$nodeid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
+typedef struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$($\ast$ \hyperlink{graphops_8h_aaa1468312d0d9fb546507a624821f412}{func\+Get\+Neighbors}) (const size\+\_\+t $\ast$nodeid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list of nodes that are currently defined as neighbors to the given node. \end{DoxyCompactList}\item 
-typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge} $\ast$($\ast$ \hyperlink{graphops_8h_af1e618623a0855f489ac957e5ae24ac0}{func\+Get\+Edges}) (const size\+\_\+t $\ast$nodeid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
+typedef struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$($\ast$ \hyperlink{graphops_8h_a1cf1c55a55049fff31b8097bfd289a62}{func\+Get\+Edges}) (const size\+\_\+t $\ast$nodeid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list of edges from a given node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
-typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node} $\ast$($\ast$ \hyperlink{graphops_8h_a05aa0581ad7ef49faa4529b746a24919}{func\+Get\+Node\+Path}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
+typedef struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$($\ast$ \hyperlink{graphops_8h_aa08f7024e2b4f15854812450627dbad6}{func\+Get\+Node\+Path}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list path of nodes from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
-typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge} $\ast$($\ast$ \hyperlink{graphops_8h_adb3f07eaa86bfaf5e925e5d8c5f9da60}{func\+Get\+Edge\+Path}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
+typedef struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$($\ast$ \hyperlink{graphops_8h_a03b36c65e027cd66fadeb70703a50a2e}{func\+Get\+Edge\+Path}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list of path edges from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
-typedef int($\ast$ \hyperlink{graphops_8h_ac3a2b8cb9dcf1f1a8cd4cb5f819e245a}{func\+Add\+Node}) (const size\+\_\+t $\ast$nodeid, \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
+typedef int($\ast$ \hyperlink{graphops_8h_a1fa386709ec061d33a9b473357ac1f48}{func\+Add\+Node}) (const size\+\_\+t $\ast$nodeid, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to add a node to a given graph. Not all implementations may use this (for example, fixed-\/size graphs such as spatial A\+R\+R\+AY implementations). \end{DoxyCompactList}\item 
-typedef int($\ast$ \hyperlink{graphops_8h_a7db3802ca9110f9f9095250ed85a39a5}{func\+Add\+Edge}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
+typedef int($\ast$ \hyperlink{graphops_8h_aba7336fb04b988fb797cbcd8c9207d64}{func\+Add\+Edge}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to add an edge to a given graph. Not all implementations may use this (for example, fixed-\/size A\+R\+R\+AY implementations representing a set domain of nodes and relationships). \end{DoxyCompactList}\item 
-typedef int($\ast$ \hyperlink{graphops_8h_a7f161b975929757de2684535b39d60bb}{func\+Set\+Capacity}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)
+typedef int($\ast$ \hyperlink{graphops_8h_aafd2cceeca9e12b071826c74ce049e7b}{func\+Set\+Capacity}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph. \end{DoxyCompactList}\item 
-typedef int($\ast$ \hyperlink{graphops_8h_ac75d9a263f500ced65b32d2ca3ffa236}{func\+Reset\+Graph}) (\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g, void $\ast$args, void($\ast$callback) (void))
-\begin{DoxyCompactList}\small\item\em Function pointer to \char`\"{}reset\char`\"{} the graph according to the given argument pointer. \end{DoxyCompactList}\item 
-typedef struct \hyperlink{structgraphops__t}{graphops\+\_\+t} \hyperlink{graphops_8h_aa53f85b68af4cc05aee8bdad77e2e37c}{graphops}
-\begin{DoxyCompactList}\small\item\em Simple renaming of \hyperlink{structgraphops__t}{graphops\+\_\+t} type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+typedef int($\ast$ \hyperlink{graphops_8h_afbe0356f92d2a45740225f068371f4bc}{func\+Reset\+Graph}) (struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g, void $\ast$args, void($\ast$callback) (void))
+\begin{DoxyCompactList}\small\item\em Function pointer to \char`\"{}reset\char`\"{} the graph according to the given argument pointer. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Typedef Documentation}
-\mbox{\Hypertarget{graphops_8h_a7db3802ca9110f9f9095250ed85a39a5}\label{graphops_8h_a7db3802ca9110f9f9095250ed85a39a5}} 
+\mbox{\Hypertarget{graphops_8h_aba7336fb04b988fb797cbcd8c9207d64}\label{graphops_8h_aba7336fb04b988fb797cbcd8c9207d64}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Add\+Edge@{func\+Add\+Edge}}
 \index{func\+Add\+Edge@{func\+Add\+Edge}!graphops.\+h@{graphops.\+h}}
 \subsubsection{\texorpdfstring{func\+Add\+Edge}{funcAddEdge}}
-{\footnotesize\ttfamily typedef int($\ast$ func\+Add\+Edge) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
+{\footnotesize\ttfamily typedef int($\ast$ func\+Add\+Edge) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)}
 
 
 
@@ -60,13 +58,13 @@ Function pointer to add an edge to a given graph. Not all implementations may us
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
--\/1 if there was an error; 0 if the edge was successfully added; 1 if the edge already exists. 
+0 if there was an error; 1 if the edge was successfully added. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphops_8h_ac3a2b8cb9dcf1f1a8cd4cb5f819e245a}\label{graphops_8h_ac3a2b8cb9dcf1f1a8cd4cb5f819e245a}} 
+\mbox{\Hypertarget{graphops_8h_a1fa386709ec061d33a9b473357ac1f48}\label{graphops_8h_a1fa386709ec061d33a9b473357ac1f48}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Add\+Node@{func\+Add\+Node}}
 \index{func\+Add\+Node@{func\+Add\+Node}!graphops.\+h@{graphops.\+h}}
 \subsubsection{\texorpdfstring{func\+Add\+Node}{funcAddNode}}
-{\footnotesize\ttfamily typedef int($\ast$ func\+Add\+Node) (const size\+\_\+t $\ast$nodeid, \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
+{\footnotesize\ttfamily typedef int($\ast$ func\+Add\+Node) (const size\+\_\+t $\ast$nodeid, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)}
 
 
 
@@ -80,13 +78,13 @@ Function pointer to add a node to a given graph. Not all implementations may use
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
--\/1 if there was an error, 0 if the node was successfully added, 1 if the node already exists. 
+0 if there was an error, 1 if the node was successfully added 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphops_8h_a9c7f99c0f38ebae08cb49e70ffe91fa1}\label{graphops_8h_a9c7f99c0f38ebae08cb49e70ffe91fa1}} 
+\mbox{\Hypertarget{graphops_8h_afd0afa57e6480d123698f5e836868daa}\label{graphops_8h_afd0afa57e6480d123698f5e836868daa}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Edge\+Count@{func\+Edge\+Count}}
 \index{func\+Edge\+Count@{func\+Edge\+Count}!graphops.\+h@{graphops.\+h}}
 \subsubsection{\texorpdfstring{func\+Edge\+Count}{funcEdgeCount}}
-{\footnotesize\ttfamily typedef size\+\_\+t($\ast$ func\+Edge\+Count) (\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
+{\footnotesize\ttfamily typedef size\+\_\+t($\ast$ func\+Edge\+Count) (struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)}
 
 
 
@@ -100,11 +98,11 @@ Function pointer to extract count of edges.
 \begin{DoxyReturn}{Returns}
 Count of edges, if graph is not null; otherwise, return 0 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphops_8h_aed109d4861cfae4ea7721603770befca}\label{graphops_8h_aed109d4861cfae4ea7721603770befca}} 
+\mbox{\Hypertarget{graphops_8h_a65a97104978aff138ce01db4b7baa237}\label{graphops_8h_a65a97104978aff138ce01db4b7baa237}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Get\+Edge@{func\+Get\+Edge}}
 \index{func\+Get\+Edge@{func\+Get\+Edge}!graphops.\+h@{graphops.\+h}}
 \subsubsection{\texorpdfstring{func\+Get\+Edge}{funcGetEdge}}
-{\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge}$\ast$($\ast$ func\+Get\+Edge) (const size\+\_\+t $\ast$u, const size\+\_\+t $\ast$v, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
+{\footnotesize\ttfamily typedef struct \hyperlink{structedge__t}{edge\+\_\+t}$\ast$($\ast$ func\+Get\+Edge) (const size\+\_\+t $\ast$u, const size\+\_\+t $\ast$v, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)}
 
 
 
@@ -122,11 +120,11 @@ Implementation-\/specific on whether this structure is part of the original grap
 \begin{DoxyReturn}{Returns}
 pointer to the edge structure, if found; otherwise, pointer to N\+U\+LL. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphops_8h_adb3f07eaa86bfaf5e925e5d8c5f9da60}\label{graphops_8h_adb3f07eaa86bfaf5e925e5d8c5f9da60}} 
+\mbox{\Hypertarget{graphops_8h_a03b36c65e027cd66fadeb70703a50a2e}\label{graphops_8h_a03b36c65e027cd66fadeb70703a50a2e}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Get\+Edge\+Path@{func\+Get\+Edge\+Path}}
 \index{func\+Get\+Edge\+Path@{func\+Get\+Edge\+Path}!graphops.\+h@{graphops.\+h}}
 \subsubsection{\texorpdfstring{func\+Get\+Edge\+Path}{funcGetEdgePath}}
-{\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge}$\ast$($\ast$ func\+Get\+Edge\+Path) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
+{\footnotesize\ttfamily typedef struct \hyperlink{structedge__t}{edge\+\_\+t}$\ast$($\ast$ func\+Get\+Edge\+Path) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)}
 
 
 
@@ -144,11 +142,11 @@ Function pointer to retrieve linked-\/list of path edges from start to destinati
 \begin{DoxyReturn}{Returns}
 Linked-\/list of edges, starting from uid and ending at vid, if found; otherwise, pointer to N\+U\+LL. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphops_8h_af1e618623a0855f489ac957e5ae24ac0}\label{graphops_8h_af1e618623a0855f489ac957e5ae24ac0}} 
+\mbox{\Hypertarget{graphops_8h_a1cf1c55a55049fff31b8097bfd289a62}\label{graphops_8h_a1cf1c55a55049fff31b8097bfd289a62}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Get\+Edges@{func\+Get\+Edges}}
 \index{func\+Get\+Edges@{func\+Get\+Edges}!graphops.\+h@{graphops.\+h}}
 \subsubsection{\texorpdfstring{func\+Get\+Edges}{funcGetEdges}}
-{\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge}$\ast$($\ast$ func\+Get\+Edges) (const size\+\_\+t $\ast$nodeid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
+{\footnotesize\ttfamily typedef struct \hyperlink{structedge__t}{edge\+\_\+t}$\ast$($\ast$ func\+Get\+Edges) (const size\+\_\+t $\ast$nodeid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)}
 
 
 
@@ -164,11 +162,11 @@ Function pointer to retrieve linked-\/list of edges from a given node. Returned 
 \begin{DoxyReturn}{Returns}
 linked-\/list of edges starting from the given node, if found; otherwise, pointer to N\+U\+LL. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphops_8h_a201169542b84db39bcb68ae94223e773}\label{graphops_8h_a201169542b84db39bcb68ae94223e773}} 
+\mbox{\Hypertarget{graphops_8h_aaa1468312d0d9fb546507a624821f412}\label{graphops_8h_aaa1468312d0d9fb546507a624821f412}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Get\+Neighbors@{func\+Get\+Neighbors}}
 \index{func\+Get\+Neighbors@{func\+Get\+Neighbors}!graphops.\+h@{graphops.\+h}}
 \subsubsection{\texorpdfstring{func\+Get\+Neighbors}{funcGetNeighbors}}
-{\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node}$\ast$($\ast$ func\+Get\+Neighbors) (const size\+\_\+t $\ast$nodeid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
+{\footnotesize\ttfamily typedef struct \hyperlink{structnode__t}{node\+\_\+t}$\ast$($\ast$ func\+Get\+Neighbors) (const size\+\_\+t $\ast$nodeid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)}
 
 
 
@@ -184,11 +182,11 @@ Returned linked-\/list is distinct from the graph structure, and consumers must 
 \begin{DoxyReturn}{Returns}
 linked-\/list of node references, starting with the given node, if found; otherwise, pointer to N\+U\+LL. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphops_8h_ab5b794bee2b91f62033011c8e4c867ec}\label{graphops_8h_ab5b794bee2b91f62033011c8e4c867ec}} 
+\mbox{\Hypertarget{graphops_8h_acdebce5fd9d56d8a2ebacd396fbd735a}\label{graphops_8h_acdebce5fd9d56d8a2ebacd396fbd735a}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Get\+Node@{func\+Get\+Node}}
 \index{func\+Get\+Node@{func\+Get\+Node}!graphops.\+h@{graphops.\+h}}
 \subsubsection{\texorpdfstring{func\+Get\+Node}{funcGetNode}}
-{\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node}$\ast$($\ast$ func\+Get\+Node) (const size\+\_\+t $\ast$nodeid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
+{\footnotesize\ttfamily typedef struct \hyperlink{structnode__t}{node\+\_\+t}$\ast$($\ast$ func\+Get\+Node) (const size\+\_\+t $\ast$nodeid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)}
 
 
 
@@ -204,11 +202,11 @@ Implementation-\/specific on whether this structure is part of the original grap
 \begin{DoxyReturn}{Returns}
 pointer to the node structure, if found; otherwise, pointer to N\+U\+LL 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphops_8h_a05aa0581ad7ef49faa4529b746a24919}\label{graphops_8h_a05aa0581ad7ef49faa4529b746a24919}} 
+\mbox{\Hypertarget{graphops_8h_aa08f7024e2b4f15854812450627dbad6}\label{graphops_8h_aa08f7024e2b4f15854812450627dbad6}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Get\+Node\+Path@{func\+Get\+Node\+Path}}
 \index{func\+Get\+Node\+Path@{func\+Get\+Node\+Path}!graphops.\+h@{graphops.\+h}}
 \subsubsection{\texorpdfstring{func\+Get\+Node\+Path}{funcGetNodePath}}
-{\footnotesize\ttfamily typedef \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node}$\ast$($\ast$ func\+Get\+Node\+Path) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
+{\footnotesize\ttfamily typedef struct \hyperlink{structnode__t}{node\+\_\+t}$\ast$($\ast$ func\+Get\+Node\+Path) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)}
 
 
 
@@ -226,11 +224,11 @@ Function pointer to retrieve linked-\/list path of nodes from start to destinati
 \begin{DoxyReturn}{Returns}
 Linked-\/list of nodes, starting from uid and ending at vid, if found; otherwise, pointer to N\+U\+LL. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphops_8h_a5f1ba03cba8efec39224db7b6afc8374}\label{graphops_8h_a5f1ba03cba8efec39224db7b6afc8374}} 
+\mbox{\Hypertarget{graphops_8h_aa7c1a3ee12ef36bca906669c4164ccee}\label{graphops_8h_aa7c1a3ee12ef36bca906669c4164ccee}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Node\+Count@{func\+Node\+Count}}
 \index{func\+Node\+Count@{func\+Node\+Count}!graphops.\+h@{graphops.\+h}}
 \subsubsection{\texorpdfstring{func\+Node\+Count}{funcNodeCount}}
-{\footnotesize\ttfamily typedef size\+\_\+t($\ast$ func\+Node\+Count) (\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
+{\footnotesize\ttfamily typedef size\+\_\+t($\ast$ func\+Node\+Count) (struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)}
 
 
 
@@ -244,11 +242,11 @@ Function pointer definition for getting the node count;.
 \begin{DoxyReturn}{Returns}
 Count of nodes, if graph is not null; otherwise, return 0 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphops_8h_ac75d9a263f500ced65b32d2ca3ffa236}\label{graphops_8h_ac75d9a263f500ced65b32d2ca3ffa236}} 
+\mbox{\Hypertarget{graphops_8h_afbe0356f92d2a45740225f068371f4bc}\label{graphops_8h_afbe0356f92d2a45740225f068371f4bc}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Reset\+Graph@{func\+Reset\+Graph}}
 \index{func\+Reset\+Graph@{func\+Reset\+Graph}!graphops.\+h@{graphops.\+h}}
 \subsubsection{\texorpdfstring{func\+Reset\+Graph}{funcResetGraph}}
-{\footnotesize\ttfamily typedef int($\ast$ func\+Reset\+Graph) (\hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g, void $\ast$args, void($\ast$callback)(void))}
+{\footnotesize\ttfamily typedef int($\ast$ func\+Reset\+Graph) (struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g, void $\ast$args, void($\ast$callback)(void))}
 
 
 
@@ -264,13 +262,13 @@ For some implementations, it is more efficient to reuse the existing graph struc
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
--\/1 if there was an error during the reset; 0 if the reset completed; 1 if there was a change the requires re-\/evaluation 
+0 if there was an error during the reset; 1 if the reset completed; 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphops_8h_a7f161b975929757de2684535b39d60bb}\label{graphops_8h_a7f161b975929757de2684535b39d60bb}} 
+\mbox{\Hypertarget{graphops_8h_aafd2cceeca9e12b071826c74ce049e7b}\label{graphops_8h_aafd2cceeca9e12b071826c74ce049e7b}} 
 \index{graphops.\+h@{graphops.\+h}!func\+Set\+Capacity@{func\+Set\+Capacity}}
 \index{func\+Set\+Capacity@{func\+Set\+Capacity}!graphops.\+h@{graphops.\+h}}
 \subsubsection{\texorpdfstring{func\+Set\+Capacity}{funcSetCapacity}}
-{\footnotesize\ttfamily typedef int($\ast$ func\+Set\+Capacity) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph} $\ast$g)}
+{\footnotesize\ttfamily typedef int($\ast$ func\+Set\+Capacity) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)}
 
 
 
@@ -288,15 +286,5 @@ Function pointer to set the capacity (cost, weight, etc.) of an edge in the give
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
--\/1 if there was an error; 0 if the capacity was successfully set; 1 if the value was unchanged 
+0 if there was an error; 1 if the capacity was successfully set 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphops_8h_aa53f85b68af4cc05aee8bdad77e2e37c}\label{graphops_8h_aa53f85b68af4cc05aee8bdad77e2e37c}} 
-\index{graphops.\+h@{graphops.\+h}!graphops@{graphops}}
-\index{graphops@{graphops}!graphops.\+h@{graphops.\+h}}
-\subsubsection{\texorpdfstring{graphops}{graphops}}
-{\footnotesize\ttfamily typedef struct \hyperlink{structgraphops__t}{graphops\+\_\+t} \hyperlink{graphops_8h_aa53f85b68af4cc05aee8bdad77e2e37c}{graphops}}
-
-
-
-Simple renaming of \hyperlink{structgraphops__t}{graphops\+\_\+t} type. 
-

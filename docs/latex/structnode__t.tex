@@ -14,13 +14,13 @@ Graph node structure.
 \item 
 size\+\_\+t \hyperlink{structnode__t_a3fe17f2fd1e7a7b2ec5f7bfae826816c}{nodeid}
 \item 
-struct \hyperlink{graphdata_8h_a068417678f021a74e911edd39f8d0bce}{feature} $\ast$ \hyperlink{structnode__t_afa07214493711b8865247610bc4b5bdf}{attrs}
+struct \hyperlink{structfeature__t}{feature\+\_\+t} $\ast$ \hyperlink{structnode__t_a6d2c8715312b206eab73c385d58870e5}{attrs}
 \item 
-struct \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge} $\ast$ \hyperlink{structnode__t_a5134fc88690d419dd465e34c9f7a69bb}{edges}
+struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$ \hyperlink{structnode__t_a8d25d828a2823867dec243aee51835cb}{edges}
 \item 
-struct \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node} $\ast$ \hyperlink{structnode__t_a19f92ca38ac9aac34b076878b629398d}{prev}
+struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$ \hyperlink{structnode__t_aed5643ccd87b35d3fb69f04903e59b95}{prev}
 \begin{DoxyCompactList}\small\item\em Previous node, as required. Typical usage would be in node-\/based path list. \end{DoxyCompactList}\item 
-struct \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node} $\ast$ \hyperlink{structnode__t_a984d83b78d25abe09e7c4c953ef9d1ad}{next}
+struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$ \hyperlink{structnode__t_aca548c9bafe54ba9db19d40a7a7f1cb3}{next}
 \begin{DoxyCompactList}\small\item\em Next node, as required. Typical usage would be in node-\/based path list. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -30,23 +30,23 @@ Graph node structure.
 This structure represents individual graph nodes and associated structures. Actual usage of the structure associations is up to the individual implementations. 
 
 \subsection{Field Documentation}
-\mbox{\Hypertarget{structnode__t_afa07214493711b8865247610bc4b5bdf}\label{structnode__t_afa07214493711b8865247610bc4b5bdf}} 
+\mbox{\Hypertarget{structnode__t_a6d2c8715312b206eab73c385d58870e5}\label{structnode__t_a6d2c8715312b206eab73c385d58870e5}} 
 \index{node\+\_\+t@{node\+\_\+t}!attrs@{attrs}}
 \index{attrs@{attrs}!node\+\_\+t@{node\+\_\+t}}
 \subsubsection{\texorpdfstring{attrs}{attrs}}
-{\footnotesize\ttfamily struct \hyperlink{graphdata_8h_a068417678f021a74e911edd39f8d0bce}{feature}$\ast$ node\+\_\+t\+::attrs}
+{\footnotesize\ttfamily struct \hyperlink{structfeature__t}{feature\+\_\+t}$\ast$ node\+\_\+t\+::attrs}
 
-Attached features, if any. Initialized as N\+U\+LL for all implementations. \mbox{\Hypertarget{structnode__t_a5134fc88690d419dd465e34c9f7a69bb}\label{structnode__t_a5134fc88690d419dd465e34c9f7a69bb}} 
+Attached features, if any. Initialized as N\+U\+LL for all implementations. \mbox{\Hypertarget{structnode__t_a8d25d828a2823867dec243aee51835cb}\label{structnode__t_a8d25d828a2823867dec243aee51835cb}} 
 \index{node\+\_\+t@{node\+\_\+t}!edges@{edges}}
 \index{edges@{edges}!node\+\_\+t@{node\+\_\+t}}
 \subsubsection{\texorpdfstring{edges}{edges}}
-{\footnotesize\ttfamily struct \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge}$\ast$ node\+\_\+t\+::edges}
+{\footnotesize\ttfamily struct \hyperlink{structedge__t}{edge\+\_\+t}$\ast$ node\+\_\+t\+::edges}
 
-Attached edges, if any. \mbox{\Hypertarget{structnode__t_a984d83b78d25abe09e7c4c953ef9d1ad}\label{structnode__t_a984d83b78d25abe09e7c4c953ef9d1ad}} 
+Attached edges, if any. \mbox{\Hypertarget{structnode__t_aca548c9bafe54ba9db19d40a7a7f1cb3}\label{structnode__t_aca548c9bafe54ba9db19d40a7a7f1cb3}} 
 \index{node\+\_\+t@{node\+\_\+t}!next@{next}}
 \index{next@{next}!node\+\_\+t@{node\+\_\+t}}
 \subsubsection{\texorpdfstring{next}{next}}
-{\footnotesize\ttfamily struct \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node}$\ast$ node\+\_\+t\+::next}
+{\footnotesize\ttfamily struct \hyperlink{structnode__t}{node\+\_\+t}$\ast$ node\+\_\+t\+::next}
 
 
 
@@ -58,11 +58,11 @@ Next node, as required. Typical usage would be in node-\/based path list.
 \subsubsection{\texorpdfstring{nodeid}{nodeid}}
 {\footnotesize\ttfamily size\+\_\+t node\+\_\+t\+::nodeid}
 
-Node identifier \mbox{\Hypertarget{structnode__t_a19f92ca38ac9aac34b076878b629398d}\label{structnode__t_a19f92ca38ac9aac34b076878b629398d}} 
+Node identifier \mbox{\Hypertarget{structnode__t_aed5643ccd87b35d3fb69f04903e59b95}\label{structnode__t_aed5643ccd87b35d3fb69f04903e59b95}} 
 \index{node\+\_\+t@{node\+\_\+t}!prev@{prev}}
 \index{prev@{prev}!node\+\_\+t@{node\+\_\+t}}
 \subsubsection{\texorpdfstring{prev}{prev}}
-{\footnotesize\ttfamily struct \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node}$\ast$ node\+\_\+t\+::prev}
+{\footnotesize\ttfamily struct \hyperlink{structnode__t}{node\+\_\+t}$\ast$ node\+\_\+t\+::prev}
 
 
 

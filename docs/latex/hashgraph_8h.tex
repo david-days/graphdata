@@ -1,0 +1,55 @@
+\hypertarget{hashgraph_8h}{}\section{/home/david/devel/graphdata/code/graphdata/include/impl/hashgraph.h File Reference}
+\label{hashgraph_8h}\index{/home/david/devel/graphdata/code/graphdata/include/impl/hashgraph.\+h@{/home/david/devel/graphdata/code/graphdata/include/impl/hashgraph.\+h}}
+{\ttfamily \#include $<$graphdata.\+h$>$}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{hashgraph_8h_a5cbea2cc8732abac6a5487b17f2f1f72}{hash\+Graph\+Init} (enum \hyperlink{graphdata_8h_a384e88b524b782ff50439055cbc8a5c2}{G\+R\+A\+P\+H\+T\+Y\+PE} gtype, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Initialize the graph using the hashtable adjacency list structure. \end{DoxyCompactList}\item 
+int \hyperlink{hashgraph_8h_af0de26b9b07b0fdf54ad1a62fa147a72}{hash\+Graph\+Label\+Init} (enum \hyperlink{graphdata_8h_a384e88b524b782ff50439055cbc8a5c2}{G\+R\+A\+P\+H\+T\+Y\+PE} gtype, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g, size\+\_\+t lblcount)
+\begin{DoxyCompactList}\small\item\em Intialize a label graph structure using the hashtable adjacency list structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{hashgraph_8h_a5cbea2cc8732abac6a5487b17f2f1f72}\label{hashgraph_8h_a5cbea2cc8732abac6a5487b17f2f1f72}} 
+\index{hashgraph.\+h@{hashgraph.\+h}!hash\+Graph\+Init@{hash\+Graph\+Init}}
+\index{hash\+Graph\+Init@{hash\+Graph\+Init}!hashgraph.\+h@{hashgraph.\+h}}
+\subsubsection{\texorpdfstring{hash\+Graph\+Init()}{hashGraphInit()}}
+{\footnotesize\ttfamily int hash\+Graph\+Init (\begin{DoxyParamCaption}\item[{enum \hyperlink{graphdata_8h_a384e88b524b782ff50439055cbc8a5c2}{G\+R\+A\+P\+H\+T\+Y\+PE}}]{gtype,  }\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
+
+
+Initialize the graph using the hashtable adjacency list structure. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gtype} & D\+I\+R\+E\+C\+T\+ED or U\+N\+D\+I\+R\+E\+C\+T\+ED graph \\
+\hline
+{\em g} & Graph structure to be operated upon. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful; 0 of there was a problem. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{hashgraph_8h_af0de26b9b07b0fdf54ad1a62fa147a72}\label{hashgraph_8h_af0de26b9b07b0fdf54ad1a62fa147a72}} 
+\index{hashgraph.\+h@{hashgraph.\+h}!hash\+Graph\+Label\+Init@{hash\+Graph\+Label\+Init}}
+\index{hash\+Graph\+Label\+Init@{hash\+Graph\+Label\+Init}!hashgraph.\+h@{hashgraph.\+h}}
+\subsubsection{\texorpdfstring{hash\+Graph\+Label\+Init()}{hashGraphLabelInit()}}
+{\footnotesize\ttfamily int hash\+Graph\+Label\+Init (\begin{DoxyParamCaption}\item[{enum \hyperlink{graphdata_8h_a384e88b524b782ff50439055cbc8a5c2}{G\+R\+A\+P\+H\+T\+Y\+PE}}]{gtype,  }\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g,  }\item[{size\+\_\+t}]{lblcount }\end{DoxyParamCaption})}
+
+
+
+Intialize a label graph structure using the hashtable adjacency list structure. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gtype} & D\+I\+R\+E\+C\+T\+ED or U\+N\+D\+I\+R\+E\+C\+T\+ED graph \\
+\hline
+{\em g} & Graph structure to be initialized \\
+\hline
+{\em lblcount} & number of labels to be used \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful; 0 if there was a problem. 
+\end{DoxyReturn}

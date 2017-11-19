@@ -37,7 +37,9 @@ set(SOURCE_FILES
         include/impl/arraygraph.h
         include/impl/arrayops.h
         include/impl/linkgraph.h
+        include/impl/linkops.h
         include/impl/hashgraph.h
+        include/impl/hashops.h
 
         #CODE
         src/graphinit.c
@@ -47,7 +49,9 @@ set(SOURCE_FILES
         src/impl/arraygraph.c
         src/impl/arrayops.c
         src/impl/linkgraph.c
+        src/impl/linkops.c
         src/impl/hashgraph.c
+        src/impl/hashops.c
 
         #CONFIG
         conf/graphdata.conf
@@ -68,7 +72,9 @@ add_library(${PROJECT_NAME} SHARED
         include/impl/arraygraph.h
         include/impl/arrayops.h
         include/impl/linkgraph.h
+        include/impl/linkops.h
         include/impl/hashgraph.h
+        include/impl/hashops.h
 
         #Sources
         src/graphinit.c
@@ -78,7 +84,9 @@ add_library(${PROJECT_NAME} SHARED
         src/impl/arraygraph.c
         src/impl/arrayops.c
         src/impl/linkgraph.c
+        src/impl/linkops.c
         src/impl/hashgraph.c
+        src/impl/hashops.c
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -107,7 +115,7 @@ install(
             include/graphinit.h
             include/graphops.h
         DESTINATION include
-        COMPONENT libraries
+        COMPONENT devel
 )
 install(
         FILES
@@ -115,14 +123,18 @@ install(
             include/util/graphcomp.h
             include/util/spatial.h
         DESTINATION include/util
-        COMPONENT libraries
+        COMPONENT devel
 )
 install(
         FILES
             include/impl/arraygraph.h
             include/impl/arrayops.h
+            include/impl/linkgraph.h
+            include/impl/linkops.h
+            include/impl/hashgraph.h
+            include/impl/hashops.h
         DESTINATION include/impl
-        COMPONENT libraries
+        COMPONENT devel
 )
 
 install(
@@ -145,9 +157,10 @@ set(CPACK_PACKAGE_CONTACT ${PROJECT_AUTHOR})
 set(CPACK_PACKAGE_VENDOR ${PROJECT_VENDOR})
 set(CPACK_PACKAGING_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX})
 
-set(CPACK_COMPONENTS_ALL libraries)
+set(CPACK_COMPONENTS_ALL libraries devel)
 set(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "Basic graph data and operations shared library")
 set(CPACK_COMPONENT_LIBRARIES_GROUP "libs")
+set(CPACK_COMPONENT_DEVEL_DISPLAY_NAME "Graph data development headers")
 set(CPACK_COMPONENT_DEVEL_GROUP "devel")
 
 #RPM-specific settings
@@ -171,8 +184,8 @@ set(CPACK_RPM_SPEC_INSTALL_POST "/bin/true")
 set(CPACK_RPM_EXCLUDE_FROM_AUTO_FILELIST_ADDITION
         /etc/ld.so.conf.d
 )
-set(CPACK_RPM_PACKAGE_REQUIRES
-        #"sg3_utils, lsscsi"
+set(CPACK_RPM_DEVEL_PACKAGE_REQUIRES
+        "graphdata-libs"
 )
 
 

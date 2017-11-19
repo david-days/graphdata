@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['labels_5ft',['labels_t',['../structlabels__t.html',1,'']]]
+  ['graph_5ft',['graph_t',['../structgraph__t.html',1,'']]],
+  ['graphops_5ft',['graphops_t',['../structgraphops__t.html',1,'']]]
 ];

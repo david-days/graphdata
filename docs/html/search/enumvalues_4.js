@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['undirected',['UNDIRECTED',['../graphdata_8h.html#a384e88b524b782ff50439055cbc8a5c2a814399045afe50d214d2607be2f27677',1,'graphdata.h']]]
+  ['linked',['LINKED',['../graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6a03745475c6df1217f2fd3200875fb376',1,'graphdata.h']]]
 ];

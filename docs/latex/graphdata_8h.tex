@@ -25,21 +25,6 @@ struct \hyperlink{structgraph__t}{graph\+\_\+t}
 \item 
 \#define \hyperlink{graphdata_8h_afe82eb665296ed2b05d144b702efae91}{G\+R\+A\+P\+H\+D\+A\+T\+A\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+P\+A\+T\+CH}~0
 \end{DoxyCompactItemize}
-\subsection*{Typedefs}
-\begin{DoxyCompactItemize}
-\item 
-typedef struct \hyperlink{structfeature__t}{feature\+\_\+t} \hyperlink{graphdata_8h_a068417678f021a74e911edd39f8d0bce}{feature}
-\item 
-typedef struct \hyperlink{structnode__t}{node\+\_\+t} \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node}
-\item 
-typedef struct \hyperlink{structedge__t}{edge\+\_\+t} \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge}
-\item 
-typedef struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} \hyperlink{graphdata_8h_a08b79828d8e700b1ff86fc235a83089f}{dimensions}
-\item 
-typedef struct lables\+\_\+t \hyperlink{graphdata_8h_a625fc818ed28f282dba71f20cd31b848}{labeldata}
-\item 
-typedef struct \hyperlink{structgraph__t}{graph\+\_\+t} \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph}
-\begin{DoxyCompactList}\small\item\em Rename the \hyperlink{structgraph__t}{graph\+\_\+t} structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
@@ -47,7 +32,8 @@ enum \hyperlink{graphdata_8h_a384e88b524b782ff50439055cbc8a5c2}{G\+R\+A\+P\+H\+T
 \hyperlink{graphdata_8h_a384e88b524b782ff50439055cbc8a5c2a2a58242d50c7fcc4067abd9c4db01be5}{D\+I\+R\+E\+C\+T\+ED}
  \}\begin{DoxyCompactList}\small\item\em Basic graph type. \end{DoxyCompactList}
 \item 
-enum \hyperlink{graphdata_8h_ad7f3a639f97221897a0429715dccefe6}{G\+R\+A\+P\+H\+I\+M\+PL} \{ \hyperlink{graphdata_8h_ad7f3a639f97221897a0429715dccefe6a1e029fbf0c881b85d80fc8e89b753688}{A\+R\+R\+AY}, 
+enum \hyperlink{graphdata_8h_ad7f3a639f97221897a0429715dccefe6}{G\+R\+A\+P\+H\+I\+M\+PL} \{ \hyperlink{graphdata_8h_ad7f3a639f97221897a0429715dccefe6a9e022e6380da28dd73210ed34b137c36}{G\+E\+N\+E\+R\+IC}, 
+\hyperlink{graphdata_8h_ad7f3a639f97221897a0429715dccefe6a1e029fbf0c881b85d80fc8e89b753688}{A\+R\+R\+AY}, 
 \hyperlink{graphdata_8h_ad7f3a639f97221897a0429715dccefe6a03745475c6df1217f2fd3200875fb376}{L\+I\+N\+K\+ED}, 
 \hyperlink{graphdata_8h_ad7f3a639f97221897a0429715dccefe6aa2512e870f83d17d3dfcd0bf0082bca2}{H\+A\+S\+H\+ED}
  \}\begin{DoxyCompactList}\small\item\em Definition of backing implementation (array-\/based, linked-\/lists, hashtable/unique adjacency lists) \end{DoxyCompactList}
@@ -79,49 +65,6 @@ This header contains the basic structures and definitions for graph data. \mbox{
 
 
 
-\subsection{Typedef Documentation}
-\mbox{\Hypertarget{graphdata_8h_a08b79828d8e700b1ff86fc235a83089f}\label{graphdata_8h_a08b79828d8e700b1ff86fc235a83089f}} 
-\index{graphdata.\+h@{graphdata.\+h}!dimensions@{dimensions}}
-\index{dimensions@{dimensions}!graphdata.\+h@{graphdata.\+h}}
-\subsubsection{\texorpdfstring{dimensions}{dimensions}}
-{\footnotesize\ttfamily typedef struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} \hyperlink{graphdata_8h_a08b79828d8e700b1ff86fc235a83089f}{dimensions}}
-
-Rename the \hyperlink{structdimensions__t}{dimensions\+\_\+t} structure. \mbox{\Hypertarget{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}\label{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}} 
-\index{graphdata.\+h@{graphdata.\+h}!edge@{edge}}
-\index{edge@{edge}!graphdata.\+h@{graphdata.\+h}}
-\subsubsection{\texorpdfstring{edge}{edge}}
-{\footnotesize\ttfamily typedef struct \hyperlink{structedge__t}{edge\+\_\+t} \hyperlink{graphdata_8h_a641a8a4cd064e02a13e6c15d1b2df541}{edge}}
-
-Rename the \hyperlink{structedge__t}{edge\+\_\+t} structure. \mbox{\Hypertarget{graphdata_8h_a068417678f021a74e911edd39f8d0bce}\label{graphdata_8h_a068417678f021a74e911edd39f8d0bce}} 
-\index{graphdata.\+h@{graphdata.\+h}!feature@{feature}}
-\index{feature@{feature}!graphdata.\+h@{graphdata.\+h}}
-\subsubsection{\texorpdfstring{feature}{feature}}
-{\footnotesize\ttfamily typedef struct \hyperlink{structfeature__t}{feature\+\_\+t} \hyperlink{graphdata_8h_a068417678f021a74e911edd39f8d0bce}{feature}}
-
-Rename the \hyperlink{structfeature__t}{feature\+\_\+t} type. \mbox{\Hypertarget{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}\label{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}} 
-\index{graphdata.\+h@{graphdata.\+h}!graph@{graph}}
-\index{graph@{graph}!graphdata.\+h@{graphdata.\+h}}
-\subsubsection{\texorpdfstring{graph}{graph}}
-{\footnotesize\ttfamily typedef struct \hyperlink{structgraph__t}{graph\+\_\+t} \hyperlink{graphdata_8h_ad149912e738dca1c84b3b4508382fff5}{graph}}
-
-
-
-Rename the \hyperlink{structgraph__t}{graph\+\_\+t} structure. 
-
-\mbox{\Hypertarget{graphdata_8h_a625fc818ed28f282dba71f20cd31b848}\label{graphdata_8h_a625fc818ed28f282dba71f20cd31b848}} 
-\index{graphdata.\+h@{graphdata.\+h}!labeldata@{labeldata}}
-\index{labeldata@{labeldata}!graphdata.\+h@{graphdata.\+h}}
-\subsubsection{\texorpdfstring{labeldata}{labeldata}}
-{\footnotesize\ttfamily typedef struct lables\+\_\+t \hyperlink{graphdata_8h_a625fc818ed28f282dba71f20cd31b848}{labeldata}}
-
-Rename the \hyperlink{structlabels__t}{labels\+\_\+t} structure \mbox{\Hypertarget{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}\label{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}} 
-\index{graphdata.\+h@{graphdata.\+h}!node@{node}}
-\index{node@{node}!graphdata.\+h@{graphdata.\+h}}
-\subsubsection{\texorpdfstring{node}{node}}
-{\footnotesize\ttfamily typedef struct \hyperlink{structnode__t}{node\+\_\+t} \hyperlink{graphdata_8h_a85b4f4124a5616dea92c9e8a221a8db5}{node}}
-
-Rename \hyperlink{structnode__t}{node\+\_\+t} structure. 
-
 \subsection{Enumeration Type Documentation}
 \mbox{\Hypertarget{graphdata_8h_ad7f3a639f97221897a0429715dccefe6}\label{graphdata_8h_ad7f3a639f97221897a0429715dccefe6}} 
 \index{graphdata.\+h@{graphdata.\+h}!G\+R\+A\+P\+H\+I\+M\+PL@{G\+R\+A\+P\+H\+I\+M\+PL}}
@@ -134,6 +77,10 @@ Rename \hyperlink{structnode__t}{node\+\_\+t} structure.
 Definition of backing implementation (array-\/based, linked-\/lists, hashtable/unique adjacency lists) 
 
 Type of underlying graph implementation used. Each type implies certain graph characteristics (fixed vs. dynamic) and drives the graphops function implementations \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{G\+E\+N\+E\+R\+IC@{G\+E\+N\+E\+R\+IC}!graphdata.\+h@{graphdata.\+h}}\index{graphdata.\+h@{graphdata.\+h}!G\+E\+N\+E\+R\+IC@{G\+E\+N\+E\+R\+IC}}}\mbox{\Hypertarget{graphdata_8h_ad7f3a639f97221897a0429715dccefe6a9e022e6380da28dd73210ed34b137c36}\label{graphdata_8h_ad7f3a639f97221897a0429715dccefe6a9e022e6380da28dd73210ed34b137c36}} 
+G\+E\+N\+E\+R\+IC&An unspecified, growable implementation. It is assumed that the user does not care about the underlying details, merely that the graph behaves in a manner that supports the most general behavior (growable, dynamic, etc). \\
+\hline
+
 \raisebox{\heightof{T}}[0pt][0pt]{\index{A\+R\+R\+AY@{A\+R\+R\+AY}!graphdata.\+h@{graphdata.\+h}}\index{graphdata.\+h@{graphdata.\+h}!A\+R\+R\+AY@{A\+R\+R\+AY}}}\mbox{\Hypertarget{graphdata_8h_ad7f3a639f97221897a0429715dccefe6a1e029fbf0c881b85d80fc8e89b753688}\label{graphdata_8h_ad7f3a639f97221897a0429715dccefe6a1e029fbf0c881b85d80fc8e89b753688}} 
 A\+R\+R\+AY&Array-\/backed graph data. Nodes, edges, and capacities are maintained in adjacency array form. The graph dimensions (counts, edges, membership) are expected to be fixed at initialization. \\
 \hline

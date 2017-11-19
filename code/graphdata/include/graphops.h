@@ -119,7 +119,6 @@ typedef int (*funcSetCapacity)(const size_t *uid, const size_t *vid, const doubl
 typedef int (*funcResetGraph)(struct graph_t *g, void *args, void (*callback)(void));
 
 
-
 /**
  * @brief Structure relating graph data to implementations
  *

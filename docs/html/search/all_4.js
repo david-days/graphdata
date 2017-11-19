@@ -1,21 +1,20 @@
 var searchData=
 [
   ['fdata',['fdata',['../structfeature__t.html#a363d3009c71db9c2294f5227ce186649',1,'feature_t']]],
-  ['feature',['feature',['../graphdata_8h.html#a068417678f021a74e911edd39f8d0bce',1,'graphdata.h']]],
   ['feature_5ft',['feature_t',['../structfeature__t.html',1,'']]],
   ['featurename',['featurename',['../structfeature__t.html#a2d4a7e92af0cf4e2bdfc04ec3fb60fb5',1,'feature_t']]],
   ['flow',['flow',['../structedge__t.html#a45d88baf5d0fa8abd4b512e6856b9b2d',1,'edge_t']]],
   ['flowimpl',['flowImpl',['../structgraph__t.html#aff85993441e72a7815da3fa1b048e5eb',1,'graph_t']]],
-  ['funcaddedge',['funcAddEdge',['../graphops_8h.html#a7db3802ca9110f9f9095250ed85a39a5',1,'graphops.h']]],
-  ['funcaddnode',['funcAddNode',['../graphops_8h.html#ac3a2b8cb9dcf1f1a8cd4cb5f819e245a',1,'graphops.h']]],
-  ['funcedgecount',['funcEdgeCount',['../graphops_8h.html#a9c7f99c0f38ebae08cb49e70ffe91fa1',1,'graphops.h']]],
-  ['funcgetedge',['funcGetEdge',['../graphops_8h.html#aed109d4861cfae4ea7721603770befca',1,'graphops.h']]],
-  ['funcgetedgepath',['funcGetEdgePath',['../graphops_8h.html#adb3f07eaa86bfaf5e925e5d8c5f9da60',1,'graphops.h']]],
-  ['funcgetedges',['funcGetEdges',['../graphops_8h.html#af1e618623a0855f489ac957e5ae24ac0',1,'graphops.h']]],
-  ['funcgetneighbors',['funcGetNeighbors',['../graphops_8h.html#a201169542b84db39bcb68ae94223e773',1,'graphops.h']]],
-  ['funcgetnode',['funcGetNode',['../graphops_8h.html#ab5b794bee2b91f62033011c8e4c867ec',1,'graphops.h']]],
-  ['funcgetnodepath',['funcGetNodePath',['../graphops_8h.html#a05aa0581ad7ef49faa4529b746a24919',1,'graphops.h']]],
-  ['funcnodecount',['funcNodeCount',['../graphops_8h.html#a5f1ba03cba8efec39224db7b6afc8374',1,'graphops.h']]],
-  ['funcresetgraph',['funcResetGraph',['../graphops_8h.html#ac75d9a263f500ced65b32d2ca3ffa236',1,'graphops.h']]],
-  ['funcsetcapacity',['funcSetCapacity',['../graphops_8h.html#a7f161b975929757de2684535b39d60bb',1,'graphops.h']]]
+  ['funcaddedge',['funcAddEdge',['../graphops_8h.html#aba7336fb04b988fb797cbcd8c9207d64',1,'graphops.h']]],
+  ['funcaddnode',['funcAddNode',['../graphops_8h.html#a1fa386709ec061d33a9b473357ac1f48',1,'graphops.h']]],
+  ['funcedgecount',['funcEdgeCount',['../graphops_8h.html#afd0afa57e6480d123698f5e836868daa',1,'graphops.h']]],
+  ['funcgetedge',['funcGetEdge',['../graphops_8h.html#a65a97104978aff138ce01db4b7baa237',1,'graphops.h']]],
+  ['funcgetedgepath',['funcGetEdgePath',['../graphops_8h.html#a03b36c65e027cd66fadeb70703a50a2e',1,'graphops.h']]],
+  ['funcgetedges',['funcGetEdges',['../graphops_8h.html#a1cf1c55a55049fff31b8097bfd289a62',1,'graphops.h']]],
+  ['funcgetneighbors',['funcGetNeighbors',['../graphops_8h.html#aaa1468312d0d9fb546507a624821f412',1,'graphops.h']]],
+  ['funcgetnode',['funcGetNode',['../graphops_8h.html#acdebce5fd9d56d8a2ebacd396fbd735a',1,'graphops.h']]],
+  ['funcgetnodepath',['funcGetNodePath',['../graphops_8h.html#aa08f7024e2b4f15854812450627dbad6',1,'graphops.h']]],
+  ['funcnodecount',['funcNodeCount',['../graphops_8h.html#aa7c1a3ee12ef36bca906669c4164ccee',1,'graphops.h']]],
+  ['funcresetgraph',['funcResetGraph',['../graphops_8h.html#afbe0356f92d2a45740225f068371f4bc',1,'graphops.h']]],
+  ['funcsetcapacity',['funcSetCapacity',['../graphops_8h.html#aafd2cceeca9e12b071826c74ce049e7b',1,'graphops.h']]]
 ];

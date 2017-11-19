@@ -82,6 +82,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a251634055d0f0e6837b0b0075ada8540"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structgraphops__t.html">graphops_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8h.html#a251634055d0f0e6837b0b0075ada8540">initGraphops</a> ()</td></tr>
 <tr class="memdesc:a251634055d0f0e6837b0b0075ada8540"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw initializer for <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structure.  <a href="#a251634055d0f0e6837b0b0075ada8540">More...</a><br /></td></tr>
 <tr class="separator:a251634055d0f0e6837b0b0075ada8540"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d5479a6e78a253b7eae2f0851383115"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structgraph__t.html">graph_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8h.html#a8d5479a6e78a253b7eae2f0851383115">initGraph</a> (enum <a class="el" href="graphdata_8h.html#a384e88b524b782ff50439055cbc8a5c2">GRAPHTYPE</a> gtype, enum <a class="el" href="graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6">GRAPHIMPL</a> impltype, struct <a class="el" href="structdimensions__t.html">dimensions_t</a> *dims)</td></tr>
+<tr class="memdesc:a8d5479a6e78a253b7eae2f0851383115"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a general graph structure.  <a href="#a8d5479a6e78a253b7eae2f0851383115">More...</a><br /></td></tr>
+<tr class="separator:a8d5479a6e78a253b7eae2f0851383115"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02b37dea4f0d6c0f795fa987c741f175"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structgraph__t.html">graph_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8h.html#a02b37dea4f0d6c0f795fa987c741f175">initLabelGraph</a> (enum <a class="el" href="graphdata_8h.html#a384e88b524b782ff50439055cbc8a5c2">GRAPHTYPE</a> gtype, enum <a class="el" href="graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6">GRAPHIMPL</a> impltype, size_t lblcount, struct <a class="el" href="structdimensions__t.html">dimensions_t</a> *dims)</td></tr>
+<tr class="memdesc:a02b37dea4f0d6c0f795fa987c741f175"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a graph structure primed for usage in graph-label operations.  <a href="#a02b37dea4f0d6c0f795fa987c741f175">More...</a><br /></td></tr>
+<tr class="separator:a02b37dea4f0d6c0f795fa987c741f175"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a0266de528018be5d6bc3ebdcfc6be874"></a>
@@ -132,6 +138,64 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a8d5479a6e78a253b7eae2f0851383115"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d5479a6e78a253b7eae2f0851383115">&#9670;&nbsp;</a></span>initGraph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structgraph__t.html">graph_t</a>* initGraph </td>
+          <td>(</td>
+          <td class="paramtype">enum <a class="el" href="graphdata_8h.html#a384e88b524b782ff50439055cbc8a5c2">GRAPHTYPE</a>&#160;</td>
+          <td class="paramname"><em>gtype</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6">GRAPHIMPL</a>&#160;</td>
+          <td class="paramname"><em>impltype</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structdimensions__t.html">dimensions_t</a> *&#160;</td>
+          <td class="paramname"><em>dims</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize a general graph structure. </p>
+<p>Create a generic graph structure, based on the parameters passed. The underlying structure will be created in accordance with the combinations of GRAPHTYPE and GRAPHIMPL values. For GRAPHIMPL = ARRAY, the dimensions value is required and must not be NULL. For other implementations, passing a valid <a class="el" href="structdimensions__t.html" title="Structure to hold values for dimensional graphs. ">dimensions_t</a> structure is optional (usage dependent).</p>
+<p>The returned graph structure pointer will have a NULL pointer for g-&gt;labels.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gtype</td><td>Type of graph (DIRECTED or UNDIRECTED). </td></tr>
+    <tr><td class="paramname">impltype</td><td>Type of implementation requested. Use GENERIC for a general graph. </td></tr>
+    <tr><td class="paramname">dims</td><td>Dimensions for a spatial graph. Required for ARRAY implementations, NULL or optional for all others. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the graph structure created, if paramaters are valid. NULL pointer returned if the parameters are invalid or there is a problem allocating the memory required.</dd></dl>
+<p>Create a generic graph structure, based on the parameters passed. The underlying structure will be created in accordance with the combinations of GRAPHTYPE and GRAPHIMPL values. For GRAPHIMPL = ARRAY, the dimensions value is required and must not be NULL. For other implementations, passing a valid <a class="el" href="structdimensions__t.html" title="Structure to hold values for dimensional graphs. ">dimensions_t</a> structure is optional (usage dependent).</p>
+<p>The returned graph structure pointer will have a NULL pointer for g-&gt;labels.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gtype</td><td>Type of graph (DIRECTED or UNDIRECTED). </td></tr>
+    <tr><td class="paramname">impltype</td><td>Type of implementation requested. Use GENERIC for a general graph. </td></tr>
+    <tr><td class="paramname">dims</td><td>Dimensions for a spatial graph. Required for ARRAY implementations, NULL or optional for all others. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the graph structure created, if parameters are valid. NULL pointer returned if the parameters are invalid or there is a problem allocating the memory required. </dd></dl>
+
+</div>
+</div>
 <a id="a251634055d0f0e6837b0b0075ada8540"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a251634055d0f0e6837b0b0075ada8540">&#9670;&nbsp;</a></span>initGraphops()</h2>
 
@@ -153,6 +217,70 @@ Functions</h2></td></tr>
 <p>Raw initializer for <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structure.</p>
 <p>Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to a standard cleanup function.</p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to a graphops structure, or NULL if there was a problem with memory allocation </dd></dl>
+
+</div>
+</div>
+<a id="a02b37dea4f0d6c0f795fa987c741f175"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02b37dea4f0d6c0f795fa987c741f175">&#9670;&nbsp;</a></span>initLabelGraph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structgraph__t.html">graph_t</a>* initLabelGraph </td>
+          <td>(</td>
+          <td class="paramtype">enum <a class="el" href="graphdata_8h.html#a384e88b524b782ff50439055cbc8a5c2">GRAPHTYPE</a>&#160;</td>
+          <td class="paramname"><em>gtype</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6">GRAPHIMPL</a>&#160;</td>
+          <td class="paramname"><em>impltype</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>lblcount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structdimensions__t.html">dimensions_t</a> *&#160;</td>
+          <td class="paramname"><em>dims</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize a graph structure primed for usage in graph-label operations. </p>
+<p>Creates a graph strucutre, based on the parameters passed, with the g-&gt;labels structure filled accordingly. For GRAPHIMPL = ARRAY, the dimensions value will be created, and the label structure will contain the values for the defined label nodes. For all others, the label array will be initialized with 0, which may or may not be valid identifiers.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gtype</td><td>Type of graph (DIRECTED or UNDIRECTED) </td></tr>
+    <tr><td class="paramname">impltype</td><td>Type of implementation required. use Generic for general graph. </td></tr>
+    <tr><td class="paramname">lblcount</td><td>Number of label values to be used. </td></tr>
+    <tr><td class="paramname">dims</td><td>Dimensions for spatial graph. Required for ARRAY implementations, NULL or optional for all others. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the graph structure created, if the parameters are valid. NULL pointer returned if the parameters are invalid or there is a problem allocating the memory required.</dd></dl>
+<p>Creates a graph structure, based on the parameters passed, with the g-&gt;labels structure filled accordingly. For GRAPHIMPL = ARRAY, the dimensions value will be created, and the label structure will contain the values for the defined label nodes. For all others, the label array will be initialized with 0, which may or may not be valid identifiers.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gtype</td><td>Type of graph (DIRECTED or UNDIRECTED) </td></tr>
+    <tr><td class="paramname">impltype</td><td>Type of implementation required. use Generic for general graph. </td></tr>
+    <tr><td class="paramname">lblcount</td><td>Number of label values to be used. </td></tr>
+    <tr><td class="paramname">dims</td><td>Dimensions for spatial graph. Required for ARRAY implementations, NULL or optional for all others. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the graph structure created, if the parameters are valid. NULL pointer returned if the parameters are invalid or there is a problem allocating the memory required. </dd></dl>
 
 </div>
 </div>

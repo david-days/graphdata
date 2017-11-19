@@ -1,0 +1,285 @@
+\hypertarget{arrayops_8h}{}\section{/home/david/devel/graphdata/code/graphdata/include/impl/arrayops.h File Reference}
+\label{arrayops_8h}\index{/home/david/devel/graphdata/code/graphdata/include/impl/arrayops.\+h@{/home/david/devel/graphdata/code/graphdata/include/impl/arrayops.\+h}}
+{\ttfamily \#include $<$graphdata.\+h$>$}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \hyperlink{arrayops_8h_aad21c9ac4904ca78cf0c1f6ec4625642}{array\+Node\+Count} (struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Implementation for getting the node count;. \end{DoxyCompactList}\item 
+size\+\_\+t \hyperlink{arrayops_8h_aedc783f70b2172388c506727afbacd30}{array\+Edge\+Count} (struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Implementation to extract count of edges. \end{DoxyCompactList}\item 
+struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$ \hyperlink{arrayops_8h_ae42e2842e63c16bc7dc829cc2812fa54}{array\+Get\+Node} (const size\+\_\+t $\ast$nodeid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Implementation to retrieve a node structure reference. \end{DoxyCompactList}\item 
+struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$ \hyperlink{arrayops_8h_abf3bc74eb96452d55a1b03ffb5db2838}{array\+Get\+Edge} (const size\+\_\+t $\ast$u, const size\+\_\+t $\ast$v, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Implementation to retrieve a edge structure reference. \end{DoxyCompactList}\item 
+struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$ \hyperlink{arrayops_8h_a13977b4ec85cbd5b770d60fba8cfb746}{array\+Get\+Neighbors} (const size\+\_\+t $\ast$nodeid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Implementation to retrieve linked-\/list of nodes that are currently defined as neighbors to the given node. \end{DoxyCompactList}\item 
+struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$ \hyperlink{arrayops_8h_a5e7d5234adfc4b4dbb095eb78e18e03c}{array\+Get\+Edges} (const size\+\_\+t $\ast$nodeid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Implementation to retrieve linked-\/list of edges from a given node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
+struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$ \hyperlink{arrayops_8h_a4b32be2da6a279b3b28239f43cb9f2be}{array\+Get\+Node\+Path} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Implementation to retrieve linked-\/list path of nodes from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
+struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$ \hyperlink{arrayops_8h_acbb2ccda7ac250b69dbecac81b6987d8}{array\+Get\+Edge\+Path} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Implementation to retrieve linked-\/list of path edges from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
+int \hyperlink{arrayops_8h_a0cb1326020860a33a7bdff32a22a3112}{array\+Add\+Node} (const size\+\_\+t $\ast$nodeid, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Implementation to add a node to a given graph. Not all implementations may use this (for example, fixed-\/size graphs such as spatial A\+R\+R\+AY implementations). \end{DoxyCompactList}\item 
+int \hyperlink{arrayops_8h_adc4fd1b2994396b8ec48dfa7ad7e3cd0}{array\+Add\+Edge} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Implementation to add an edge to a given graph. Not all implementations may use this (for example, fixed-\/size A\+R\+R\+AY implementations representing a set domain of nodes and relationships). \end{DoxyCompactList}\item 
+int \hyperlink{arrayops_8h_a267e28101e91c63e651cf657d2d52803}{array\+Set\+Capacity} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Implementation to set the capacity (cost, weight, etc.) of an edge in the given graph. \end{DoxyCompactList}\item 
+int \hyperlink{arrayops_8h_aec56bf6e6d76372c3f72b28008b5f556}{array\+Reset\+Graph} (struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g, void $\ast$args, void($\ast$callback)(void))
+\begin{DoxyCompactList}\small\item\em Implementation to \char`\"{}reset\char`\"{} the graph according to the given argument pointer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{arrayops_8h_adc4fd1b2994396b8ec48dfa7ad7e3cd0}\label{arrayops_8h_adc4fd1b2994396b8ec48dfa7ad7e3cd0}} 
+\index{arrayops.\+h@{arrayops.\+h}!array\+Add\+Edge@{array\+Add\+Edge}}
+\index{array\+Add\+Edge@{array\+Add\+Edge}!arrayops.\+h@{arrayops.\+h}}
+\subsubsection{\texorpdfstring{array\+Add\+Edge()}{arrayAddEdge()}}
+{\footnotesize\ttfamily int array\+Add\+Edge (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{uid,  }\item[{const size\+\_\+t $\ast$}]{vid,  }\item[{double $\ast$}]{cap,  }\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
+
+
+Implementation to add an edge to a given graph. Not all implementations may use this (for example, fixed-\/size A\+R\+R\+AY implementations representing a set domain of nodes and relationships). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & identifer for start of edge \\
+\hline
+{\em vid} & identifier for end of edge \\
+\hline
+{\em cap} & capacity value to be assigned \\
+\hline
+{\em g} & graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was an error; 1 if the edge was successfully added. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{arrayops_8h_a0cb1326020860a33a7bdff32a22a3112}\label{arrayops_8h_a0cb1326020860a33a7bdff32a22a3112}} 
+\index{arrayops.\+h@{arrayops.\+h}!array\+Add\+Node@{array\+Add\+Node}}
+\index{array\+Add\+Node@{array\+Add\+Node}!arrayops.\+h@{arrayops.\+h}}
+\subsubsection{\texorpdfstring{array\+Add\+Node()}{arrayAddNode()}}
+{\footnotesize\ttfamily int array\+Add\+Node (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{nodeid,  }\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
+
+
+Implementation to add a node to a given graph. Not all implementations may use this (for example, fixed-\/size graphs such as spatial A\+R\+R\+AY implementations). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodeid} & Node identifier to be added \\
+\hline
+{\em g} & Graph structure to add the node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was an error, 1 if the node was successfully added 
+\end{DoxyReturn}
+\mbox{\Hypertarget{arrayops_8h_aedc783f70b2172388c506727afbacd30}\label{arrayops_8h_aedc783f70b2172388c506727afbacd30}} 
+\index{arrayops.\+h@{arrayops.\+h}!array\+Edge\+Count@{array\+Edge\+Count}}
+\index{array\+Edge\+Count@{array\+Edge\+Count}!arrayops.\+h@{arrayops.\+h}}
+\subsubsection{\texorpdfstring{array\+Edge\+Count()}{arrayEdgeCount()}}
+{\footnotesize\ttfamily size\+\_\+t array\+Edge\+Count (\begin{DoxyParamCaption}\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
+
+
+Implementation to extract count of edges. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Count of edges, if graph is not null; otherwise, return 0 
+\end{DoxyReturn}
+\mbox{\Hypertarget{arrayops_8h_abf3bc74eb96452d55a1b03ffb5db2838}\label{arrayops_8h_abf3bc74eb96452d55a1b03ffb5db2838}} 
+\index{arrayops.\+h@{arrayops.\+h}!array\+Get\+Edge@{array\+Get\+Edge}}
+\index{array\+Get\+Edge@{array\+Get\+Edge}!arrayops.\+h@{arrayops.\+h}}
+\subsubsection{\texorpdfstring{array\+Get\+Edge()}{arrayGetEdge()}}
+{\footnotesize\ttfamily struct \hyperlink{structedge__t}{edge\+\_\+t}$\ast$ array\+Get\+Edge (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{u,  }\item[{const size\+\_\+t $\ast$}]{v,  }\item[{const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
+
+
+Implementation to retrieve a edge structure reference. 
+
+Implementation-\/specific on whether this structure is part of the original graph (L\+I\+N\+K-\/based implementations) or must use free() when usage is finished (A\+R\+R\+A\+Y-\/based). 
+\begin{DoxyParams}{Parameters}
+{\em u} & nodeid of the starting edge. \\
+\hline
+{\em v} & nodeid of the ending edge. \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the edge structure, if found; otherwise, pointer to N\+U\+LL. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{arrayops_8h_acbb2ccda7ac250b69dbecac81b6987d8}\label{arrayops_8h_acbb2ccda7ac250b69dbecac81b6987d8}} 
+\index{arrayops.\+h@{arrayops.\+h}!array\+Get\+Edge\+Path@{array\+Get\+Edge\+Path}}
+\index{array\+Get\+Edge\+Path@{array\+Get\+Edge\+Path}!arrayops.\+h@{arrayops.\+h}}
+\subsubsection{\texorpdfstring{array\+Get\+Edge\+Path()}{arrayGetEdgePath()}}
+{\footnotesize\ttfamily struct \hyperlink{structedge__t}{edge\+\_\+t}$\ast$ array\+Get\+Edge\+Path (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{uid,  }\item[{const size\+\_\+t $\ast$}]{vid,  }\item[{const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
+
+
+Implementation to retrieve linked-\/list of path edges from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Path start identifier \\
+\hline
+{\em vid} & Path end identifier \\
+\hline
+{\em g} & Graph in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Linked-\/list of edges, starting from uid and ending at vid, if found; otherwise, pointer to N\+U\+LL. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{arrayops_8h_a5e7d5234adfc4b4dbb095eb78e18e03c}\label{arrayops_8h_a5e7d5234adfc4b4dbb095eb78e18e03c}} 
+\index{arrayops.\+h@{arrayops.\+h}!array\+Get\+Edges@{array\+Get\+Edges}}
+\index{array\+Get\+Edges@{array\+Get\+Edges}!arrayops.\+h@{arrayops.\+h}}
+\subsubsection{\texorpdfstring{array\+Get\+Edges()}{arrayGetEdges()}}
+{\footnotesize\ttfamily struct \hyperlink{structedge__t}{edge\+\_\+t}$\ast$ array\+Get\+Edges (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{nodeid,  }\item[{const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
+
+
+Implementation to retrieve linked-\/list of edges from a given node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodeid} & Identifier of the node in question \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+linked-\/list of edges starting from the given node, if found; otherwise, pointer to N\+U\+LL. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{arrayops_8h_a13977b4ec85cbd5b770d60fba8cfb746}\label{arrayops_8h_a13977b4ec85cbd5b770d60fba8cfb746}} 
+\index{arrayops.\+h@{arrayops.\+h}!array\+Get\+Neighbors@{array\+Get\+Neighbors}}
+\index{array\+Get\+Neighbors@{array\+Get\+Neighbors}!arrayops.\+h@{arrayops.\+h}}
+\subsubsection{\texorpdfstring{array\+Get\+Neighbors()}{arrayGetNeighbors()}}
+{\footnotesize\ttfamily struct \hyperlink{structnode__t}{node\+\_\+t}$\ast$ array\+Get\+Neighbors (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{nodeid,  }\item[{const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
+
+
+Implementation to retrieve linked-\/list of nodes that are currently defined as neighbors to the given node. 
+
+Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. 
+\begin{DoxyParams}{Parameters}
+{\em nodeid} & Identifier of the node in question \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+linked-\/list of node references, starting with the given node, if found; otherwise, pointer to N\+U\+LL. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{arrayops_8h_ae42e2842e63c16bc7dc829cc2812fa54}\label{arrayops_8h_ae42e2842e63c16bc7dc829cc2812fa54}} 
+\index{arrayops.\+h@{arrayops.\+h}!array\+Get\+Node@{array\+Get\+Node}}
+\index{array\+Get\+Node@{array\+Get\+Node}!arrayops.\+h@{arrayops.\+h}}
+\subsubsection{\texorpdfstring{array\+Get\+Node()}{arrayGetNode()}}
+{\footnotesize\ttfamily struct \hyperlink{structnode__t}{node\+\_\+t}$\ast$ array\+Get\+Node (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{nodeid,  }\item[{const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
+
+
+Implementation to retrieve a node structure reference. 
+
+Implementation-\/specific on whether this structure is part of the original graph (L\+I\+N\+K-\/based implementations) or must use free() when usage is finished (A\+R\+R\+A\+Y-\/based). 
+\begin{DoxyParams}{Parameters}
+{\em nodeid} & Identifier of the node to be retrieved \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the node structure, if found; otherwise, pointer to N\+U\+LL 
+\end{DoxyReturn}
+\mbox{\Hypertarget{arrayops_8h_a4b32be2da6a279b3b28239f43cb9f2be}\label{arrayops_8h_a4b32be2da6a279b3b28239f43cb9f2be}} 
+\index{arrayops.\+h@{arrayops.\+h}!array\+Get\+Node\+Path@{array\+Get\+Node\+Path}}
+\index{array\+Get\+Node\+Path@{array\+Get\+Node\+Path}!arrayops.\+h@{arrayops.\+h}}
+\subsubsection{\texorpdfstring{array\+Get\+Node\+Path()}{arrayGetNodePath()}}
+{\footnotesize\ttfamily struct \hyperlink{structnode__t}{node\+\_\+t}$\ast$ array\+Get\+Node\+Path (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{uid,  }\item[{const size\+\_\+t $\ast$}]{vid,  }\item[{const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
+
+
+Implementation to retrieve linked-\/list path of nodes from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Path start identifier \\
+\hline
+{\em vid} & Path end identifier \\
+\hline
+{\em g} & Graph in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Linked-\/list of nodes, starting from uid and ending at vid, if found; otherwise, pointer to N\+U\+LL. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{arrayops_8h_aad21c9ac4904ca78cf0c1f6ec4625642}\label{arrayops_8h_aad21c9ac4904ca78cf0c1f6ec4625642}} 
+\index{arrayops.\+h@{arrayops.\+h}!array\+Node\+Count@{array\+Node\+Count}}
+\index{array\+Node\+Count@{array\+Node\+Count}!arrayops.\+h@{arrayops.\+h}}
+\subsubsection{\texorpdfstring{array\+Node\+Count()}{arrayNodeCount()}}
+{\footnotesize\ttfamily size\+\_\+t array\+Node\+Count (\begin{DoxyParamCaption}\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
+
+
+Implementation for getting the node count;. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Count of nodes, if graph is not null; otherwise, return 0 
+\end{DoxyReturn}
+\mbox{\Hypertarget{arrayops_8h_aec56bf6e6d76372c3f72b28008b5f556}\label{arrayops_8h_aec56bf6e6d76372c3f72b28008b5f556}} 
+\index{arrayops.\+h@{arrayops.\+h}!array\+Reset\+Graph@{array\+Reset\+Graph}}
+\index{array\+Reset\+Graph@{array\+Reset\+Graph}!arrayops.\+h@{arrayops.\+h}}
+\subsubsection{\texorpdfstring{array\+Reset\+Graph()}{arrayResetGraph()}}
+{\footnotesize\ttfamily int array\+Reset\+Graph (\begin{DoxyParamCaption}\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g,  }\item[{void $\ast$}]{args,  }\item[{void($\ast$)(void)}]{callback }\end{DoxyParamCaption})}
+
+
+
+Implementation to \char`\"{}reset\char`\"{} the graph according to the given argument pointer. 
+
+For some implementations, it is more efficient to reuse the existing graph structure and perform a \char`\"{}zero-\/out\char`\"{} of the data, rather than rebuilding from scratch. This function pointer provides that option. 
+\begin{DoxyParams}{Parameters}
+{\em g} & Graph structure to be zeroed or modified according to reset logic \\
+\hline
+{\em args} & Arguments to be used in the reset process, if necessary \\
+\hline
+{\em callback} & Callback to be executed when graph has been reset. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was an error during the reset; 1 if the reset completed; 
+\end{DoxyReturn}
+\mbox{\Hypertarget{arrayops_8h_a267e28101e91c63e651cf657d2d52803}\label{arrayops_8h_a267e28101e91c63e651cf657d2d52803}} 
+\index{arrayops.\+h@{arrayops.\+h}!array\+Set\+Capacity@{array\+Set\+Capacity}}
+\index{array\+Set\+Capacity@{array\+Set\+Capacity}!arrayops.\+h@{arrayops.\+h}}
+\subsubsection{\texorpdfstring{array\+Set\+Capacity()}{arraySetCapacity()}}
+{\footnotesize\ttfamily int array\+Set\+Capacity (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{uid,  }\item[{const size\+\_\+t $\ast$}]{vid,  }\item[{const double $\ast$}]{cap,  }\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
+
+
+Implementation to set the capacity (cost, weight, etc.) of an edge in the given graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & identifier of the edge start \\
+\hline
+{\em vid} & identifier of the edge ending. \\
+\hline
+{\em cap} & capacity value to be set \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was an error; 1 if the capacity was successfully set 
+\end{DoxyReturn}
