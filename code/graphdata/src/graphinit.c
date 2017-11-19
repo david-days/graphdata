@@ -107,7 +107,21 @@ struct graphops_t * initGraphops() {
  */
 struct graph_t * initGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, struct dimensions_t *dims) {
     struct graph_t *g = basicGraphInit();
-
+    if (g != NULL) {
+        g->gimpl = impltype;
+        g->dims = dims;
+        switch(impltype) {
+            case ARRAY:
+                arrayGraphInit(gtype, g);
+                break;
+            case HASHED:
+                hashGraphInit(gtype, g);
+                break;
+            default:
+                linkGraphInit(gtype, g);
+                break;
+        }
+    }
     return g;
 }
 
@@ -127,6 +141,20 @@ struct graph_t * initGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, struct
  */
 struct graph_t * initLabelGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, size_t lblcount, struct dimensions_t *dims) {
     struct graph_t *g = basicGraphInit();
-
+    if (g != NULL) {
+        g->gimpl = impltype;
+        g->dims = dims;
+        switch(impltype) {
+            case ARRAY:
+                arrayGraphLabelInit(gtype, g, lblcount);
+                break;
+            case HASHED:
+                hashGraphLabelInit(gtype, g, lblcount);
+                break;
+            default:
+                linkGraphLabelInit(gtype, g, lblcount);
+                break;
+        }
+    }
     return g;
 }

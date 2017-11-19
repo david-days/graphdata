@@ -27,8 +27,8 @@ struct arraydata_t {
 
 };
 
-void arrayGraphInit(enum GRAPHTYPE gtype, struct graph_t *g);
+int arrayGraphInit(enum GRAPHTYPE gtype, struct graph_t *g);
 
-void arrayLabelGraphInit(enum GRAPHTYPE gtype, struct graph_t *g, size_t lblcount);
+int arrayGraphLabelInit(enum GRAPHTYPE gtype, struct graph_t *g, size_t lblcount);
 
 #endif //GRAPHDATA_ARRAYGRAPH_H

@@ -35,6 +35,7 @@ set(SOURCE_FILES
         include/util/graphcomp.h
         include/util/spatial.h
         include/impl/arraygraph.h
+        include/impl/arrayops.h
         include/impl/linkgraph.h
         include/impl/hashgraph.h
 
@@ -44,6 +45,7 @@ set(SOURCE_FILES
         src/util/graphcomp.c
         src/util/spatial.c
         src/impl/arraygraph.c
+        src/impl/arrayops.c
         src/impl/linkgraph.c
         src/impl/hashgraph.c
 
@@ -64,6 +66,7 @@ add_library(${PROJECT_NAME} SHARED
         include/util/graphcomp.h
         include/util/spatial.h
         include/impl/arraygraph.h
+        include/impl/arrayops.h
         include/impl/linkgraph.h
         include/impl/hashgraph.h
 
@@ -73,6 +76,7 @@ add_library(${PROJECT_NAME} SHARED
         src/util/graphcomp.c
         src/util/spatial.c
         src/impl/arraygraph.c
+        src/impl/arrayops.c
         src/impl/linkgraph.c
         src/impl/hashgraph.c
 )
@@ -116,6 +120,7 @@ install(
 install(
         FILES
             include/impl/arraygraph.h
+            include/impl/arrayops.h
         DESTINATION include/impl
         COMPONENT libraries
 )

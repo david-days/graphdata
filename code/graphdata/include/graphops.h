@@ -83,7 +83,7 @@ typedef struct edge_t * (*funcGetEdgePath)(const size_t *uid, const size_t *vid,
  * Not all implementations may use this (for example, fixed-size graphs such as spatial ARRAY implementations).
  * @param nodeid Node identifier to be added
  * @param g Graph structure to add the node
- * @return -1 if there was an error, 0 if the node was successfully added, 1 if the node already exists.
+ * @return 0 if there was an error, 1 if the node was successfully added
  */
 typedef int (*funcAddNode)(const size_t *nodeid, struct graph_t *g);
 /**
@@ -93,7 +93,7 @@ typedef int (*funcAddNode)(const size_t *nodeid, struct graph_t *g);
  * @param vid identifier for end of edge
  * @param cap capacity value to be assigned
  * @param g graph structure in question
- * @return -1 if there was an error; 0 if the edge was successfully added; 1 if the edge already exists.
+ * @return 0 if there was an error; 1 if the edge was successfully added.
  */
 typedef int (*funcAddEdge)(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g);
 /**
@@ -102,7 +102,7 @@ typedef int (*funcAddEdge)(const size_t *uid, const size_t *vid, double *cap, st
  * @param vid identifier of the edge ending.
  * @param cap capacity value to be set
  * @param g Graph structure in question
- * @return -1 if there was an error; 0 if the capacity was successfully set; 1 if the value was unchanged
+ * @return 0 if there was an error; 1 if the capacity was successfully set
  */
 typedef int (*funcSetCapacity)(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
 
@@ -114,7 +114,7 @@ typedef int (*funcSetCapacity)(const size_t *uid, const size_t *vid, const doubl
  * @param g Graph structure to be zeroed or modified according to reset logic
  * @param args Arguments to be used in the reset process, if necessary
  * @param callback Callback to be executed when graph has been reset.
- * @return -1 if there was an error during the reset; 0 if the reset completed; 1 if there was a change the requires re-evaluation
+ * @return 0 if there was an error during the reset; 1 if the reset completed;
  */
 typedef int (*funcResetGraph)(struct graph_t *g, void *args, void (*callback)(void));
 
