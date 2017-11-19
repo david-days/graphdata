@@ -9,6 +9,10 @@
 #include <impl/linkgraph.h>
 #include <impl/hashgraph.h>
 
+/**
+ * @brief Utility method to create and preset graph structure.
+ * @return A pointer to a graph_t structure.
+ */
 static struct graph_t * basicGraphInit() {
     struct graph_t *g;
     g = (struct graph_t *) malloc(sizeof(struct graph_t));
@@ -189,29 +193,30 @@ struct graph_t * initLabelGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, s
  *
  * The pointer itself will be changed to NULL
  *
- * @param g Graph structure to be cleared
+ * @param gptr pointer-to-pointer for graph_t structure to be cleared
  * @return 1 if success; 0 if error
  */
-int destroyGraph(struct graph_t *g) {
+int destroyGraph(void** gptr) {
     return 0;
 }
 
 /**
  * @brief Clear out the dimensions and all underlying structures
- * @param dims Dimensions structure to be cleared
+ * @param dptr pointer-to-pointer for dimensions_t structure to be cleared
  * @return 1 if success; 0 if error
  */
-int destroyDimensions(struct dimensions_t *dims) {
+int destroyDimensions(void** dptr) {
     int retval = 0;
-    if (NULL != dims) {
+    if (NULL != *dptr) {
+        struct dimensions_t *dims = *dptr;
         size_t *dimarr = dims->dimarr;
         if (NULL != dimarr) {
             free(dimarr);
             dims->dimarr = NULL;
         }
         dims->dimcount = 0;
-        free(dims);
-        dims = NULL;
+        free(*dptr);
+        *dptr = NULL;
         retval = 1;
     }
     return retval;
@@ -219,20 +224,21 @@ int destroyDimensions(struct dimensions_t *dims) {
 
 /**
  * @brief Clear out the label and all underlying structures
- * @param labels Label structure to be cleared
+ * @param labels pointer-to-pointer for labels_t structure to be cleared
  * @return 1 if success; 0 if error
  */
-int destroyLabels(struct labels_t *labels) {
+int destroyLabels(void** lptr) {
     int retval = 0;
-    if (NULL != labels) {
+    if (NULL != *lptr) {
+        struct labels_t *labels = *lptr;
         size_t *larr = labels->labelarr;
         if (NULL != larr) {
             free(larr);
             labels->labelarr = NULL;
         }
         labels->labelcount = 0;
-        free(labels);
-        labels = NULL;
+        free(*lptr);
+        *lptr = NULL;
         retval = 1;
     }
     return retval;
@@ -243,24 +249,25 @@ int destroyLabels(struct labels_t *labels) {
  *
  * The pointer itself will be changed to NULL
  *
- * @param e Initial edge pointer
+ * @param eptr pointer-to-pointer for initial edge pointer
  * @return 1 if success; 0 if error.
  */
-int destroyEdges(struct edge_t *e) {
+int destroyEdges(void** eptr) {
     return 0;
 }
 
 /**
  * @brief Clear a graphops_t structure.
- * 
+ *
  * The graph itself will not be cleared, only the reference to it.  The pointer itself will be changed to NULL
  *
- * @param gops Graphops structuure to be cleared and deallocated
+ * @param opsptr pointer-to-pointer for graphops_t structuure to be cleared and deallocated
  * @return 1 if successful; 0 if error
  */
-int destroyGraphops(struct graphops_t *gops) {
+int destroyGraphops(void** opsptr) {
     int retval = 0;
-    if (NULL != gops) {
+    if (NULL != *opsptr) {
+        struct graphops_t *gops = *opsptr;
         gops->g = NULL;
         gops->setCapacity = NULL;
         gops->resetGraph = NULL;
@@ -274,8 +281,8 @@ int destroyGraphops(struct graphops_t *gops) {
         gops->edgeCount = NULL;
         gops->addNode = NULL;
         gops->addEdge = NULL;
-        free(gops);
-        gops = NULL;
+        free(*opsptr);
+        *opsptr = NULL;
         retval = 1;
     }
     return retval;
@@ -286,10 +293,10 @@ int destroyGraphops(struct graphops_t *gops) {
  *
  * The pointer itself will be changed to NULL
  *
- * @param n Initial node pointer
+ * @param nptr pointer-to-pointer for initial node structure
  * @return 1 if successful; 0 if error
  */
-int destroyNodes(struct node_t *n) {
+int destroyNodes(void** nptr) {
     return 0;
 }
 
@@ -298,9 +305,9 @@ int destroyNodes(struct node_t *n) {
  *
  * The pointer itself will be changed to NULL
  *
- * @param f Initial feature pointer
+ * @param fptr pointer-to-pointer for initial feature structure
  * @return 1 if successful; 0 if error
  */
-int destroyFeatures(struct feature_t *f) {
+int destroyFeatures(void** fptr) {
     return 0;
 }

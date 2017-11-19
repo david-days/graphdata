@@ -150,3 +150,15 @@ int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, st
 int arrayResetGraph(struct graph_t *g, void *args, void (*callback)(void)) {
     return 0;
 }
+
+/**
+ * @brief Utility method to free up an array
+ *
+ * Deallocates all unerlying arrays and the containing array.
+ * @param arraylen Number of elements in the array
+ * @param arr 2D array to be cleared
+ * @return 1 if successful; 0 if error.
+ */
+int freeGraphArray(size_t arraylen, void** arrptr) {
+    return 0;
+}

@@ -77,62 +77,62 @@ struct graph_t * initLabelGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, s
  *
  * The pointer itself will be changed to NULL
  *
- * @param g Graph structure to be cleared
+ * @param gptr Graph structure to be cleared
  * @return 1 if success; 0 if error
  */
-int destroyGraph(struct graph_t *g);
+int destroyGraph(void** gptr);
 
 /**
  * @brief Clear out the dimensions and all underlying structures
- * @param dims Dimensions structure to be cleared
+ * @param dimptr Dimensions structure to be cleared
  * @return 1 if success; 0 if error
  */
-int destroyDimensions(struct dimensions_t *dims);
+int destroyDimensions(void** dimptr);
 
 /**
  * @brief Clear out the label and all underlying structures
- * @param labels Label structure to be cleared
+ * @param lblptr Label structure to be cleared
  * @return 1 if success; 0 if error
  */
-int destroyLabels(struct labels_t *labels);
+int destroyLabels(void** lblptr);
 
 /**
  * @brief Clear an edge structure and any linked edges (use on single or a path)
  *
  * The pointer itself will be changed to NULL
  *
- * @param e Initial edge pointer
+ * @param eptr Initial edge pointer
  * @return 1 if success; 0 if error.
  */
-int destroyEdges(struct edge_t *e);
+int destroyEdges(void** eptr);
 
 /**
  * @brief Clear a graphops_t structure.
  * The graph itself will not be cleared, only the reference to it.  The pointer itself will be changed to NULL
  *
- * @param gops Graphops structuure to be cleared and deallocated
+ * @param optptr Graphops structuure to be cleared and deallocated
  * @return 1 if successful; 0 if error
  */
-int destroyGraphops(struct graphops_t *gops);
+int destroyGraphops(void** opsptr);
 
 /**
  * @brief Clear a node or node list (use on single or a path)
  *
  * The pointer itself will be changed to NULL
  *
- * @param n Initial node pointer
+ * @param nptr Initial node pointer
  * @return 1 if successful; 0 if error
  */
-int destroyNodes(struct node_t *n);
+int destroyNodes(void** nptr);
 
 /**
  * @brief Clear a feature or feature list (use on single or multiple attributes)
  *
  * The pointer itself will be changed to NULL
  *
- * @param f Initial feature pointer
+ * @param fptr Initial feature pointer
  * @return 1 if successful; 0 if error
  */
-int destroyFeatures(struct feature_t *f);
+int destroyFeatures(void** fptr);
 
 #endif //GRAPHDATA_GRAPHINIT_H

@@ -45,4 +45,11 @@ int arrayGraphInit(enum GRAPHTYPE gtype, struct graph_t *g);
  */
 int arrayGraphLabelInit(enum GRAPHTYPE gtype, struct graph_t *g, size_t lblcount);
 
+/**
+ * @brief Perform clearing operations to deallocate the array graph internal values and structures.
+ * @param g graph_t with array structures to be deallocated
+ * @return 1 if successful; otherwise, 0.
+ */
+int arrayGraphFree(struct graph_t *g);
+
 #endif //GRAPHDATA_ARRAYGRAPH_H
