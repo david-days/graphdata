@@ -62,15 +62,19 @@ static void * createNodeArray(size_t alen, size_t conlen) {
 
 /**
  * @brief Utility function to create a double **array, returned as a void *
+ *
+ * Returns a double **array initialized to zeroes, returned as a void *
  * @param alen Length of base array (nodes)
  * @param conlen Connectivity count (how many neighbors, or dimensionality of the array)
  * @return double **array as a void *.
+ *
  */
 static void * createDoubleArray(size_t alen, size_t conlen) {
     void *arrbase = malloc(sizeof(double *)*alen);
     if (arrbase != NULL) {
         double **arrvals = (double **) arrbase;
         for (size_t i=0;i<alen;i++) {
+            //TODO:  Would calloc() or some other method be better?
             double *caparr = (double *)malloc(sizeof(double *)*conlen);
             if (caparr != NULL)
                 arrvals[i] = caparr;
