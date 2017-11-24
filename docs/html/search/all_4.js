@@ -5,6 +5,7 @@ var searchData=
   ['featurename',['featurename',['../structfeature__t.html#a2d4a7e92af0cf4e2bdfc04ec3fb60fb5',1,'feature_t']]],
   ['flow',['flow',['../structedge__t.html#a45d88baf5d0fa8abd4b512e6856b9b2d',1,'edge_t']]],
   ['flowimpl',['flowImpl',['../structgraph__t.html#aff85993441e72a7815da3fa1b048e5eb',1,'graph_t']]],
+  ['freegrapharray',['freeGraphArray',['../arrayops_8c.html#a18eefb5ed82554c7a3cda86fb5de6007',1,'freeGraphArray(size_t arraylen, void **arrptr):&#160;arrayops.c'],['../arrayops_8h.html#a18eefb5ed82554c7a3cda86fb5de6007',1,'freeGraphArray(size_t arraylen, void **arrptr):&#160;arrayops.c']]],
   ['funcaddedge',['funcAddEdge',['../graphops_8h.html#aba7336fb04b988fb797cbcd8c9207d64',1,'graphops.h']]],
   ['funcaddnode',['funcAddNode',['../graphops_8h.html#a1fa386709ec061d33a9b473357ac1f48',1,'graphops.h']]],
   ['funcedgecount',['funcEdgeCount',['../graphops_8h.html#afd0afa57e6480d123698f5e836868daa',1,'graphops.h']]],

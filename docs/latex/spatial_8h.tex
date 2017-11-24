@@ -1,6 +1,6 @@
 \hypertarget{spatial_8h}{}\section{/home/david/devel/graphdata/code/graphdata/include/util/spatial.h File Reference}
 \label{spatial_8h}\index{/home/david/devel/graphdata/code/graphdata/include/util/spatial.\+h@{/home/david/devel/graphdata/code/graphdata/include/util/spatial.\+h}}
-{\ttfamily \#include $<$graphdata.\+h$>$}\newline
+{\ttfamily \#include $<$graphdata.\+h$>$}\\*
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -13,12 +13,15 @@ size\+\_\+t \hyperlink{spatial_8h_a65ef522c49a3cfb437fb9c7260525632}{index\+Leng
 
 
 \subsection{Function Documentation}
-\mbox{\Hypertarget{spatial_8h_ad8c0e4189ff1e1a1cf9b979b02472e7b}\label{spatial_8h_ad8c0e4189ff1e1a1cf9b979b02472e7b}} 
 \index{spatial.\+h@{spatial.\+h}!index\+From\+Dimensions@{index\+From\+Dimensions}}
 \index{index\+From\+Dimensions@{index\+From\+Dimensions}!spatial.\+h@{spatial.\+h}}
-\subsubsection{\texorpdfstring{index\+From\+Dimensions()}{indexFromDimensions()}}
-{\footnotesize\ttfamily int index\+From\+Dimensions (\begin{DoxyParamCaption}\item[{struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$}]{dims,  }\item[{size\+\_\+t $\ast$}]{idx,  }\item[{size\+\_\+t $\ast$}]{coords }\end{DoxyParamCaption})}
-
+\subsubsection[{\texorpdfstring{index\+From\+Dimensions(struct dimensions\+\_\+t $\ast$dims, size\+\_\+t $\ast$idx, size\+\_\+t $\ast$coords)}{indexFromDimensions(struct dimensions\_t *dims, size\_t *idx, size\_t *coords)}}]{\setlength{\rightskip}{0pt plus 5cm}int index\+From\+Dimensions (
+\begin{DoxyParamCaption}
+\item[{struct {\bf dimensions\+\_\+t} $\ast$}]{dims, }
+\item[{size\+\_\+t $\ast$}]{idx, }
+\item[{size\+\_\+t $\ast$}]{coords}
+\end{DoxyParamCaption}
+)}\hypertarget{spatial_8h_ad8c0e4189ff1e1a1cf9b979b02472e7b}{}\label{spatial_8h_ad8c0e4189ff1e1a1cf9b979b02472e7b}
 
 
 Sets array index value of the given set of dimensions, when calculated against the given dimensional array. 
@@ -53,12 +56,13 @@ This is function is used to provide transform between zero-\/based coordinates t
 \begin{DoxyReturn}{Returns}
 0 if successful; 1 if the coordinates are outside the bounds of the dimensions; -\/1 if there is a problem with the values passed. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{spatial_8h_a65ef522c49a3cfb437fb9c7260525632}\label{spatial_8h_a65ef522c49a3cfb437fb9c7260525632}} 
 \index{spatial.\+h@{spatial.\+h}!index\+Length@{index\+Length}}
 \index{index\+Length@{index\+Length}!spatial.\+h@{spatial.\+h}}
-\subsubsection{\texorpdfstring{index\+Length()}{indexLength()}}
-{\footnotesize\ttfamily size\+\_\+t index\+Length (\begin{DoxyParamCaption}\item[{struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$}]{dims }\end{DoxyParamCaption})}
-
+\subsubsection[{\texorpdfstring{index\+Length(struct dimensions\+\_\+t $\ast$dims)}{indexLength(struct dimensions\_t *dims)}}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t index\+Length (
+\begin{DoxyParamCaption}
+\item[{struct {\bf dimensions\+\_\+t} $\ast$}]{dims}
+\end{DoxyParamCaption}
+)}\hypertarget{spatial_8h_a65ef522c49a3cfb437fb9c7260525632}{}\label{spatial_8h_a65ef522c49a3cfb437fb9c7260525632}
 
 
 Calculates the index length, based on the given coordinates. 
@@ -83,12 +87,15 @@ This function multiplies the given dimensions and returns the size of an array t
 \begin{DoxyReturn}{Returns}
 Size of index calculation, or 0 if the dims pointer is N\+U\+LL. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{spatial_8h_a1d75a579cffc2c51f0e345b7c14e049d}\label{spatial_8h_a1d75a579cffc2c51f0e345b7c14e049d}} 
 \index{spatial.\+h@{spatial.\+h}!spatial\+From\+Index@{spatial\+From\+Index}}
 \index{spatial\+From\+Index@{spatial\+From\+Index}!spatial.\+h@{spatial.\+h}}
-\subsubsection{\texorpdfstring{spatial\+From\+Index()}{spatialFromIndex()}}
-{\footnotesize\ttfamily int spatial\+From\+Index (\begin{DoxyParamCaption}\item[{size\+\_\+t $\ast$}]{idx,  }\item[{size\+\_\+t $\ast$}]{coords,  }\item[{struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$}]{dims }\end{DoxyParamCaption})}
-
+\subsubsection[{\texorpdfstring{spatial\+From\+Index(size\+\_\+t $\ast$idx, size\+\_\+t $\ast$coords, struct dimensions\+\_\+t $\ast$dims)}{spatialFromIndex(size\_t *idx, size\_t *coords, struct dimensions\_t *dims)}}]{\setlength{\rightskip}{0pt plus 5cm}int spatial\+From\+Index (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t $\ast$}]{idx, }
+\item[{size\+\_\+t $\ast$}]{coords, }
+\item[{struct {\bf dimensions\+\_\+t} $\ast$}]{dims}
+\end{DoxyParamCaption}
+)}\hypertarget{spatial_8h_a1d75a579cffc2c51f0e345b7c14e049d}{}\label{spatial_8h_a1d75a579cffc2c51f0e345b7c14e049d}
 
 
 Sets the size\+\_\+t array (whose length must be initialized to match dims-\/$>$dimcount) to the coordinates within the given spatial dimensions. 

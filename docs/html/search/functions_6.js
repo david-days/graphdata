@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['spatialfromindex',['spatialFromIndex',['../spatial_8c.html#a1d75a579cffc2c51f0e345b7c14e049d',1,'spatialFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims):&#160;spatial.c'],['../spatial_8h.html#a1d75a579cffc2c51f0e345b7c14e049d',1,'spatialFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims):&#160;spatial.c']]],
-  ['superfasthash',['SuperFastHash',['../hashes_8c.html#adfa799e7b7b1b26c7f6c0e82ad8ff13b',1,'SuperFastHash(const char *data, int len):&#160;hashes.c'],['../hashes_8h.html#adfa799e7b7b1b26c7f6c0e82ad8ff13b',1,'SuperFastHash(const char *data, int len):&#160;hashes.c']]]
+  ['linkgraphinit',['linkGraphInit',['../linkgraph_8c.html#a66165776845d1fad551f76de175096c4',1,'linkGraphInit(enum GRAPHTYPE gtype, struct graph_t *g):&#160;linkgraph.c'],['../linkgraph_8h.html#a66165776845d1fad551f76de175096c4',1,'linkGraphInit(enum GRAPHTYPE gtype, struct graph_t *g):&#160;linkgraph.c']]],
+  ['linkgraphlabelinit',['linkGraphLabelInit',['../linkgraph_8c.html#a937f7abc960d8483382d23784fc92e85',1,'linkGraphLabelInit(enum GRAPHTYPE gtype, struct graph_t *g, size_t lblcount):&#160;linkgraph.c'],['../linkgraph_8h.html#a937f7abc960d8483382d23784fc92e85',1,'linkGraphLabelInit(enum GRAPHTYPE gtype, struct graph_t *g, size_t lblcount):&#160;linkgraph.c']]]
 ];

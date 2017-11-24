@@ -22,6 +22,8 @@ set(PROJECT_SOURCE_DIR src)
 
 set(CMAKE_INCLUDE_PATH
     include
+    include/util
+    include/impl
     CMAKE_SYSTEM_INCLUDE_PATH
     ${PROJECT_BINARY_DIR}
 )

@@ -1,6 +1,10 @@
-//
-// Created by david on 11/18/17.
-//
+/**
+ * This is the implementation of the array-based graph structure.  The primary purpose is speed and fixed memory usage,
+ * in order to create predictable memory usage.
+ *
+ * The arrays are one-dimensional arrays of size nodecount x connectivity. Pointer math is used where possible
+ * to allow quick access.
+ */
 
 #include <impl/arraygraph.h>
 #include <util/spatial.h>
@@ -48,13 +52,12 @@ static int freeArrayMeta(void** metaptr) {
  * @return size_t **array as a void *.
  */
 static void * createNodeArray(size_t alen, size_t conlen) {
-    void *arrbase = malloc(sizeof(size_t *)*alen);
+    size_t arrlen = alen * conlen;
+    void *arrbase = malloc(sizeof(size_t *)*arrlen);
     if (arrbase != NULL) {
-        size_t **arrvals = (size_t **) arrbase;
-        for (size_t i=0;i<alen;i++) {
-            size_t *conarr = (size_t *)malloc(sizeof(size_t *)*conlen);
-            if (conarr != NULL)
-                arrvals[i] = conarr;
+        size_t *arrvals = (size_t *) arrbase;
+        for (size_t *p = arrvals; p < arrvals+arrlen;p++) {
+            *p = 0;
         }
     }
     return arrbase;
@@ -70,22 +73,15 @@ static void * createNodeArray(size_t alen, size_t conlen) {
  *
  */
 static void * createDoubleArray(size_t alen, size_t conlen) {
-    void *arrbase = malloc(sizeof(double *)*alen);
+    size_t arrlen = alen*conlen;
+    void *arrbase = malloc(sizeof(double *)*arrlen);
     if (arrbase != NULL) {
-        double **arrvals = (double **) arrbase;
-        for (size_t i=0;i<alen;i++) {
+        double *arrvals = (double *) arrbase;
+        for (double *p = arrvals; p<arrvals+arrlen;p++) {
             //TODO:  Would calloc() or some other method be better?
-            double *caparr = (double *)malloc(sizeof(double *)*conlen);
-            if (caparr != NULL)
-                arrvals[i] = caparr;
+            *p = 0.0;
         }
-        //initialize to zeros
-        for (size_t i=0;i<alen;i++) {
-            for (size_t j=0;j<conlen;j++) {
-                arrvals[i][j] = 0.0;
-            }
-        }
-    }
+     }
     return arrbase;
 }
 
@@ -118,7 +114,7 @@ int arrayGraphInit(enum GRAPHTYPE gtype, struct graph_t *g) {
         }
         //Create the supporting arrays
         g->nodeImpl = createNodeArray(arrmeta->nodelen, arrmeta->conncount);
-        g->edgeImpl = createDoubleArray(arrmeta->edgelen, arrmeta->conncount);
+        //g->edgeImpl = createDoubleArray(arrmeta->edgelen, arrmeta->conncount);
         g->capImpl = createDoubleArray(arrmeta->edgelen, arrmeta->conncount);
         g->flowImpl = createDoubleArray(arrmeta->edgelen, arrmeta->conncount);
         g->metaImpl = (void *)arrmeta;

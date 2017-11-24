@@ -1,8 +1,39 @@
-//
-// Created by david on 11/18/17.
-//
-
+/**
+ * These are the implementations for the basic graph operations that are part of
+ * the graphops_t structure.
+ *
+ *
+ */
+#include <impl/arraygraph.h>
 #include <impl/arrayops.h>
+#include <stdlib.h>
+
+/**
+ * @brief Search the array for a given edge.
+ *
+ * If the edge is found, set the value in the index pointer and return 1.  Otherwise,
+ * return 0.
+ * @param u Pointer to start node value of the edge
+ * @param v Pointer to the end node value of the edge
+ * @param idx Index value to be set, if found
+ * @param g Graph structure data
+ * @return 1 if the edge was found and the idx value set; otherwise, 0.
+ */
+static int findEdgeIndex(const size_t *u, const size_t *v, size_t *idx, const struct graph_t *g) {
+    int found = 0;
+    struct arraydata_t *gmeta = (struct arraydata *)g->metaImpl;
+    size_t *nodearr = (size_t *)g->nodeImpl;
+    size_t conn = gmeta->conncount;
+    for (size_t i = 0; i < conn;i++) {
+        if (*(nodearr+i) == *v) {
+            *idx = i;
+            found = 1;
+            break;
+        }
+    }
+    return found;
+}
+
 
 //Read functions to extract data
 /**
@@ -11,7 +42,10 @@
  * @return Count of nodes, if graph is not null; otherwise, return 0
  */
 size_t arrayNodeCount(struct graph_t *g) {
-    return 0;
+    size_t ncount = 0;
+    struct arraydata_t *mdata = (struct arraydata_t *)g->metaImpl;
+    ncount = mdata->nodelen;
+    return ncount;
 }
 
 /**
@@ -20,7 +54,10 @@ size_t arrayNodeCount(struct graph_t *g) {
  * @return Count of edges, if graph is not null; otherwise, return 0
  */
 size_t arrayEdgeCount(struct graph_t *g) {
-    return 0;
+    size_t ecount = 0;
+    struct arraydata_t *mdata = (struct arraydata_t *)g->metaImpl;
+    ecount = mdata->edgelen;
+    return ecount;
 }
 
 /**
@@ -140,15 +177,25 @@ int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, st
 /**
  * @brief Implementation to "reset" the graph according to the given argument pointer.
  *
- * For some implementations, it is more efficient to reuse the existing graph structure and perform a "zero-out"
- * of the data, rather than rebuilding from scratch.  This function pointer provides that option.
+ * For this implementation, the args value is ignored and the edge values are set to 0.0 again.
+ *
  * @param g Graph structure to be zeroed or modified according to reset logic
- * @param args Arguments to be used in the reset process, if necessary
+ * @param args Arguments to be((arraydata_t *)g->metaImpl used in the reset process, if necessary
  * @param callback Callback to be executed when graph has been reset.
  * @return 0 if there was an error during the reset; 1 if the reset completed;
  */
 int arrayResetGraph(struct graph_t *g, void *args, void (*callback)(void)) {
-    return 0;
+    int retval = 0;
+    struct arraydata_t *gmeta = (struct arraydata_t *)g->metaImpl;
+    if (gmeta != NULL && g->capImpl != NULL) {
+        double *caparr = (double *)g->capImpl;
+        size_t capcount = gmeta->edgelen;
+        for (size_t i=0;i<capcount;i++) {
+            *(caparr + i) = 0.0;
+        }
+        retval = 1;
+    }
+    return retval;
 }
 
 /**
@@ -160,5 +207,11 @@ int arrayResetGraph(struct graph_t *g, void *args, void (*callback)(void)) {
  * @return 1 if successful; 0 if error.
  */
 int freeGraphArray(size_t arraylen, void** arrptr) {
-    return 0;
+    int retval = 0;
+    if (*arrptr != NULL) {
+        free(*arrptr);
+        *arrptr = NULL;
+        retval = 1;
+    }
+    return retval;
 }
