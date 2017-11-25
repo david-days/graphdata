@@ -4,6 +4,8 @@
  *
  * The arrays are one-dimensional arrays of size nodecount x connectivity. Pointer math is used where possible
  * to allow quick access.
+ *
+ * The node structure also holds the edge structure, so graph_t->edgeImpl is NULL.
  */
 
 #include <impl/arraygraph.h>
@@ -21,7 +23,7 @@ static struct arraydata_t * initArrayMeta() {
     if (ameta != NULL) {
         ameta->nodelen = 0;
         ameta->edgelen = 0;
-        ameta->conncount = 0;
+        ameta->degree = 0;
     }
     return ameta;
 }
@@ -35,7 +37,7 @@ static int freeArrayMeta(void** metaptr) {
     int retval = 0;
     if (*metaptr != NULL) {
         struct arraydata_t *mptr = (struct arraydata_t *)metaptr;
-        mptr->conncount = 0;
+        mptr->degree = 0;
         mptr->edgelen = 0;
         mptr->nodelen = 0;
         free(*metaptr);
@@ -87,7 +89,7 @@ static void * createDoubleArray(size_t alen, size_t conlen) {
 
 /**
  * @brief Set up a graph with array backing data
- * @param gtype DIRECTED or UNDIRECTED graph
+ * @param gtype UNDIRECTED graph will be returned, regardless of passed type.
  * @param g Graph structure
  * @return 1 if successful; 0 if an error
  */
@@ -96,27 +98,20 @@ int arrayGraphInit(enum GRAPHTYPE gtype, struct graph_t *g) {
     if (NULL == g) return 0;
     //Can't continue if no dimensions
     if (g->dims == NULL) return 0;
-
     size_t arrlen = indexLength(g->dims);
+    g->gtype = UNDIRECTED;
     if (arrlen > 0) {
         struct arraydata_t *arrmeta = initArrayMeta();
         arrmeta->nodelen = arrlen;
         arrmeta->edgelen = arrlen;
-        switch (gtype) {
-            case UNDIRECTED:
-                //undirected graphs use min-to-max pair connectivity
-                arrmeta->conncount = g->dims->dimcount;
-                break;
-            default:
-                //all other graphs (currently DIRECTED) use bidirectional connectivity within the graph
-                arrmeta->conncount = 2 * g->dims->dimcount;
-                break;
-        }
+        //undirected graphs use min-to-max pair connectivity
+        arrmeta->degree = g->dims->dimcount;
         //Create the supporting arrays
-        g->nodeImpl = createNodeArray(arrmeta->nodelen, arrmeta->conncount);
-        //g->edgeImpl = createDoubleArray(arrmeta->edgelen, arrmeta->conncount);
-        g->capImpl = createDoubleArray(arrmeta->edgelen, arrmeta->conncount);
-        g->flowImpl = createDoubleArray(arrmeta->edgelen, arrmeta->conncount);
+        g->nodeImpl = createNodeArray(arrmeta->nodelen, arrmeta->degree);
+        //In this implementation, the node array also holds the edges, so we don't need the extra memory
+        g->edgeImpl = NULL;
+        g->capImpl = createDoubleArray(arrmeta->edgelen, arrmeta->degree);
+        g->flowImpl = createDoubleArray(arrmeta->edgelen, arrmeta->degree);
         g->metaImpl = (void *)arrmeta;
         if (g->nodeImpl != NULL && g->edgeImpl != NULL
                 && g->capImpl != NULL && g->flowImpl != NULL)
@@ -151,7 +146,6 @@ int arrayGraphFree(struct graph_t *g) {
         //First, use the arrayMeta to clean up the graph arrays
         struct arraydata_t *arrmeta = (struct arraydata_t *)g->metaImpl;
         freeGraphArray(arrmeta->nodelen, &(g->nodeImpl));
-        freeGraphArray(arrmeta->edgelen, &(g->edgeImpl));
         freeGraphArray(arrmeta->edgelen, &(g->flowImpl));
         freeGraphArray(arrmeta->edgelen, &(g->capImpl));
         //Lastly, free up the arraydata_t memory

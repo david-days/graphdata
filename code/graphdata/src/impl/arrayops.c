@@ -1,11 +1,12 @@
 /**
- * These are the implementations for the basic graph operations that are part of
+ * @brief These are the implementations for the basic graph operations that are part of
  * the graphops_t structure.
  *
  *
  */
 #include <impl/arraygraph.h>
 #include <impl/arrayops.h>
+#include <util/graphcomp.h>
 #include <stdlib.h>
 
 /**
@@ -19,19 +20,31 @@
  * @param g Graph structure data
  * @return 1 if the edge was found and the idx value set; otherwise, 0.
  */
-static int findEdgeIndex(const size_t *u, const size_t *v, size_t *idx, const struct graph_t *g) {
+static int findEdgeOffset(const size_t *u, const size_t *v, size_t *offset, const struct graph_t *g) {
     int found = 0;
-    struct arraydata_t *gmeta = (struct arraydata *)g->metaImpl;
+    struct arraydata_t *gmeta = (struct arraydata_t *)g->metaImpl;
     size_t *nodearr = (size_t *)g->nodeImpl;
-    size_t conn = gmeta->conncount;
+    size_t conn = gmeta->degree;
     for (size_t i = 0; i < conn;i++) {
-        if (*(nodearr+i) == *v) {
-            *idx = i;
+        if (*(nodearr+*u+i) == *v) {
+            *offset = i;
             found = 1;
             break;
         }
     }
     return found;
+}
+
+static int zeroDoubleArray(size_t ecount, size_t conncount, double *darr) {
+    int retval = 0;
+    if (darr != NULL) {
+        //TODO:  Prevent overwriting outside array?
+        for (size_t i = 0;i<ecount*conncount;i++) {
+            *(darr + i) = 0;
+        }
+        retval = 1;
+    }
+    return retval;
 }
 
 
@@ -63,14 +76,32 @@ size_t arrayEdgeCount(struct graph_t *g) {
 /**
  * @brief Implementation to retrieve a node structure reference.
  *
- * Implementation-specific on whether this
- * structure is part of the original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based).
+ * If the struct returned is not NULL, the consumer is responsible for calling free() on the memory.
+ *
  * @param nodeid Identifier of the node to be retrieved
  * @param g Graph structure in question
  * @return pointer to the node structure, if found; otherwise, pointer to NULL
  */
 struct node_t * arrayGetNode(const size_t *nodeid, const struct graph_t *g){
-    return NULL;
+    struct node_t *node = NULL;
+    if (g->metaImpl != NULL) {
+        struct arraydata_t *meta = (struct arraydata_t *)g->metaImpl;
+        if (*nodeid < meta->nodelen) {
+            node = (struct node_t *)malloc(sizeof(struct node_t));
+            if (node != NULL) {
+                node->nodeid = *nodeid;
+                node->attrs = NULL;
+                node->edges = NULL;
+                node->next = NULL;
+                node->prev = NULL;
+            } else {
+                free(node);
+                //TODO:  Anything else to ensure cleanup?
+                node = NULL;
+            }
+        }
+    }
+    return node;
 }
 
 /**
@@ -84,6 +115,32 @@ struct node_t * arrayGetNode(const size_t *nodeid, const struct graph_t *g){
  * @return pointer to the edge structure, if found; otherwise, pointer to NULL.
  */
 struct edge_t * arrayGetEdge(const size_t *u, const size_t *v, const struct graph_t *g){
+    struct edge_t *edge = NULL;
+    size_t eOffset = 0;
+    if (findEdgeOffset(u,v, &eOffset, g) && g->capImpl != NULL) {
+        edge = (struct edge_t *)malloc(sizeof(struct edge_t));
+        if (edge != NULL) {
+            edge->u = *u;
+            edge->v = *v;
+            if (g->capImpl != NULL) {
+                double *caparr = (double *) g->capImpl;
+                edge->cap = *(caparr + *u + eOffset);
+            } else {
+                edge->cap = 0.0;
+            }
+            if (g->flowImpl != NULL) {
+                double *farr = (double *)g->flowImpl;
+                edge->flow = *(farr + *u + eOffset);
+            } else {
+                edge->flow = 0.0;
+            }
+
+            edge->attrs = NULL;
+            edge->prev = NULL;
+            edge->next = NULL;
+
+        }
+    }
     return NULL;
 }
 
@@ -96,7 +153,34 @@ struct edge_t * arrayGetEdge(const size_t *u, const size_t *v, const struct grap
  * @return linked-list of node references, starting with the given node, if found; otherwise, pointer to NULL.
  */
 struct node_t * arrayGetNeighbors(const size_t *nodeid, const struct graph_t *g) {
-    return NULL;
+    struct node_t *nlist = NULL;
+    if (g->metaImpl != NULL && g->nodeImpl != NULL) {
+        struct arraydata_t *meta = (struct arraydata_t *)g->metaImpl;
+        size_t *nodarr = (size_t *)g->nodeImpl;
+        //Make sure we have valid array index
+        if (*nodeid < meta->nodelen) {
+            struct node_t *curr = NULL;
+            size_t nOffset = 0;
+            while (nOffset < meta->degree) {
+                if (*(nodarr + *nodeid + nOffset) != 0) {
+                    struct node_t *neighbor = malloc(sizeof(struct node_t));
+                    if (neighbor != NULL) {
+                        neighbor->prev = curr;
+                        neighbor->next = NULL;
+                        neighbor->nodeid = *(nodarr + *nodeid + nOffset);
+                        neighbor->attrs = NULL;
+                        if (curr != NULL) {
+                            curr->next = neighbor;
+                        }
+                        curr = neighbor;
+                        if (nlist == NULL) nlist = curr;
+                        nOffset++;
+                    }
+                }
+            }
+        }
+    }
+    return nlist;
 }
 
 /**
@@ -107,6 +191,41 @@ struct node_t * arrayGetNeighbors(const size_t *nodeid, const struct graph_t *g)
  * @return linked-list of edges starting from the given node, if found; otherwise, pointer to NULL.
  */
 struct edge_t * arrayGetEdges(const size_t *nodeid, const struct graph_t *g) {
+    struct edge_t *elist = NULL;
+    if (g->metaImpl != NULL && g->nodeImpl != NULL) {
+        if (g->metaImpl != NULL && g->nodeImpl != NULL) {
+            struct arraydata_t *meta = (struct arraydata_t *)g->metaImpl;
+            size_t *nodarr = (size_t *)g->nodeImpl;
+            double *caparr = (double *)g->capImpl;
+            double *farr = (double *)g->flowImpl;
+            //Make sure we have valid array index
+            if (*nodeid < meta->nodelen && caparr != NULL && farr != NULL) {
+                struct edge_t *curr = NULL;
+                size_t nOffset = 0;
+                while (nOffset < meta->degree) {
+                    if (*(nodarr + *nodeid + nOffset) != 0) {
+                        struct edge_t *edge = malloc(sizeof(struct node_t));
+                        if (edge != NULL) {
+                            edge->prev = curr;
+                            edge->next = NULL;
+                            edge->u = *nodeid;
+                            edge->v = *(nodarr + *nodeid + nOffset);
+                            edge->cap = *(caparr + *nodeid + nOffset);
+                            edge->flow = *(farr + *nodeid + nOffset);
+                            edge->attrs = NULL;
+                            if (curr != NULL) {
+                                curr->next = edge;
+                            }
+                            curr = edge;
+                            if (elist == NULL) elist = curr;
+                            nOffset++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     return NULL;
 }
 
@@ -138,7 +257,7 @@ struct edge_t * arrayGetEdgePath(const size_t *uid, const size_t *vid, const str
 //Write functions to modify graph
 /**
  * @brief Implementation to add a node to a given graph.
- * Not all implementations may use this (for example, fixed-size graphs such as spatial ARRAY implementations).
+ * NOOP implementation for array-based graphs--the node counts are fixed at creation.
  * @param nodeid Node identifier to be added
  * @param g Graph structure to add the node
  * @return 0 if there was an error, 1 if the node was successfully added
@@ -149,7 +268,10 @@ int arrayAddNode(const size_t *nodeid, struct graph_t *g){
 
 /**
  * @brief Implementation to add an edge to a given graph.
- * Not all implementations may use this (for example, fixed-size ARRAY implementations representing a set domain of nodes and relationships).
+ *
+ * Adds a connecting-edge referece (if not already in place, and the degree of the graph allows it (there are unfilled spots available
+ * for the given uid).
+ *
  * @param uid identifer for start of edge
  * @param vid identifier for end of edge
  * @param cap capacity value to be assigned
@@ -157,7 +279,32 @@ int arrayAddNode(const size_t *nodeid, struct graph_t *g){
  * @return 0 if there was an error; 1 if the edge was successfully added.
  */
 int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g) {
-    return 0;
+    int added = 0;
+    if (g != NULL) {
+        if (g->metaImpl != NULL) {
+            struct arraydata_t *meta = (struct arradata_t *)g->metaImpl;
+            const size_t *u = minNode(uid, vid);
+            const size_t *v = maxNode(uid, vid);
+            size_t *nodarr = (size_t *)g->nodeImpl;
+            double *caparr = (double *)g->capImpl;
+            double *farr = (double *)g->flowImpl;
+            if (*u < meta->nodelen) {
+                size_t offset = 0;
+                while (!added && offset < meta->degree) {
+                    if (*(nodarr + *u + offset) == 0) {
+                        *(nodarr + *u + offset) = *v;
+                        *(caparr + *u + offset) = *cap;
+                        *(farr + *u + offset) = 0.0;
+                        added = 1;
+                    }
+                }
+
+            }
+
+
+        }
+    }
+    return added;
 }
 
 /**
@@ -169,7 +316,23 @@ int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph
  * @return 0 if there was an error; 1 if the capacity was successfully set
  */
 int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g){
-    return 0;
+    int retval = 0;
+    size_t eOffset = 0;
+    const size_t *u = uid;
+    const size_t *v = vid;
+    if (g->gtype == UNDIRECTED) {
+        u = minNode((size_t *)uid, (size_t *)vid);
+        v = maxNode((size_t *)uid, (size_t *)vid);
+    }
+
+    if (g->capImpl != NULL) {
+        if (findEdgeOffset(u, v, &eOffset, g)) {
+            double *caparr = (double *)g->capImpl;
+            *(caparr + *u + eOffset) = *cap;
+            retval = 1;
+        }
+    }
+    return retval;
 
 }
 
@@ -187,13 +350,9 @@ int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, st
 int arrayResetGraph(struct graph_t *g, void *args, void (*callback)(void)) {
     int retval = 0;
     struct arraydata_t *gmeta = (struct arraydata_t *)g->metaImpl;
-    if (gmeta != NULL && g->capImpl != NULL) {
-        double *caparr = (double *)g->capImpl;
-        size_t capcount = gmeta->edgelen;
-        for (size_t i=0;i<capcount;i++) {
-            *(caparr + i) = 0.0;
-        }
-        retval = 1;
+    if (gmeta != NULL) {
+        retval = zeroDoubleArray(gmeta->edgelen, gmeta->degree, (double *)g->capImpl);
+        retval = retval & zeroDoubleArray(gmeta->edgelen, gmeta->degree, (double *)g->flowImpl);
     }
     return retval;
 }

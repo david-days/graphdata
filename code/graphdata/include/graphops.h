@@ -96,6 +96,19 @@ typedef int (*funcAddNode)(const size_t *nodeid, struct graph_t *g);
  * @return 0 if there was an error; 1 if the edge was successfully added.
  */
 typedef int (*funcAddEdge)(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g);
+
+/**
+ * @brief Function pointer to remove an edge from the given graph.
+ *
+ * Allows implementations to remove a given edge from the graph, if necessary.
+ *
+ * @param uid Identifier for the edge start
+ * @param vid Identifier for the edge end.
+ * @param g Graph structure in question
+ * @return 0 if there was an error (e.g. the edge was not found); otherwise, 1 if the edge was removed.
+ */
+typedef int (*funcRemoveEdge)(const size_t *uid, const size_t *vid, struct graph_t *g);
+
 /**
  * @brief Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph.
  * @param uid identifier of the edge start
@@ -105,6 +118,45 @@ typedef int (*funcAddEdge)(const size_t *uid, const size_t *vid, double *cap, st
  * @return 0 if there was an error; 1 if the capacity was successfully set
  */
 typedef int (*funcSetCapacity)(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
+
+/**
+ * @brief Function to add (adjust) the capacity for an edge by a given amount.
+ *
+ * For implementations that require it, this function allows the altering of a specified edge capacity by the given amount.
+ *
+ * @param uid Identifier of the edge start
+ * @param vid Identifier of the edge end.
+ * @param cap Value to adjust the capacity
+ * @param g Graph structure in question
+ * @return 0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted
+ */
+typedef int (*funcAddCapacity)(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
+
+/**
+ * @brief Function to set the flow value for an edge (amount of capacity currently "used")
+ *
+ * For implementations that require it, this allows tracking of flow values that are used within the graph.
+ *
+ * @param uid Identifier of the edge start.
+ * @param vid Identifier of the edge end.
+ * @param flow Value to be set for the flow.
+ * @param g Graph structure in question
+ * @return 0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set.
+ */
+typedef int (*funcSetFlow)(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
+
+/**
+ * @brief Function to adjust the flow value of a given edge.
+ *
+ * For implementations that require it, this allows ajustment of the amount of capacity that is being "used".
+ *
+ * @param uid Identifier of the edge start
+ * @param vid Identifier of the edge end.
+ * @param flow The value to be added to adjust the flow value.
+ * @param g The graph structure in question
+ * @return 0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted.
+ */
+typedef int (*funcAddFlow)(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
 
 /**
  * @brief Function pointer to "reset" the graph according to the given argument pointer.
@@ -165,15 +217,35 @@ struct graphops_t {
      * Expected to be NULL (no implementation) for fixed-size graph structures.
      */
     funcAddNode addNode;
+
     /**
      * @brief Add an edge to the graph.
      * Expected to be NULL (no implementation) for fixed-size graph structures.
      */
     funcAddEdge addEdge;
     /**
+     * @brief Remove an edge from the graph.
+     */
+    funcRemoveEdge removeEdge;
+    /**
      * Set the capacity for a given edge.
      */
     funcSetCapacity setCapacity;
+
+    /**
+     * Adjust the capacity of an edge
+     */
+    funcAddCapacity  addCapacity;
+
+    /**
+     * Set the flow value of an edge.
+     */
+    funcSetFlow setFlow;
+
+    /**
+     * Adjust the flow value of an edge
+     */
+    funcAddFlow addFlow;
 
     //Traverse functions
     /**

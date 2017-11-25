@@ -1,6 +1,14 @@
-//
-// Created by david on 11/18/17.
-//
+/**
+ * @brief Array implementation of the graph structure for fixed-size, fixed-degree, UNDIRECTED graphs.
+ *
+ * The array implementation of the graph structure is based on an UNDIRECTED, fixed-size and
+ * fixed maximum degree for the nodes.
+ *
+ * Because the graph is UNDIRECTED, the start of each edge will actually be minNode(u,v) and the
+ * end of each edge will be maxNode(u,v).  Thus, node 0 can connect "upwards", but no higher nodes
+ * can connect down to node 0.  In all the underlying operations, having 0 in a node reference value
+ * indicates an unused edge.
+ */
 
 #ifndef GRAPHDATA_ARRAYGRAPH_H
 #define GRAPHDATA_ARRAYGRAPH_H
@@ -20,9 +28,9 @@ struct arraydata_t {
      */
     size_t edgelen;
     /**
-     * @brief Connectivity count--length of the second dimension of the arrays
+     * @brief Degree of the nodes--the number of (possible) edges coming out of each node.
      */
-    size_t conncount;
+    size_t degree;
 
 
 };
