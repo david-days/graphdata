@@ -73,6 +73,18 @@ struct graph_t * initGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, struct
 struct graph_t * initLabelGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, size_t lblcount, struct dimensions_t *dims);
 
 /**
+ * @brief Create and fill the graphops_t structure that handles basic operations for the graph
+ *
+ * Using the graph_t implementation pass, this function creates a graphops_t structure necessary to handle basic functions
+ * for the given graph.
+ *
+ * @param g Graph structure being used
+ * @return Pointer to a new graphops_t structure, if successful; otherwise, a pointer to NULL
+ *
+ */
+struct graphops_t * getOperations(struct graph_t *g);
+
+/**
  * @brief Clear the graph and all underlying structures
  *
  * The pointer itself will be changed to NULL

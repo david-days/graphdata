@@ -32,7 +32,12 @@ struct arraydata_t {
      */
     size_t degree;
 
-
+    /**
+     * @brief Length of the arrays
+     *
+     * This length is actually nodecount * degree for the ARRAY implementation
+     */
+    size_t arraylen;
 };
 
 /**

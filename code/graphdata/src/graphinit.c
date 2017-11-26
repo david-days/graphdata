@@ -6,6 +6,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <impl/arraygraph.h>
+#include <impl/arrayops.h>
 #include <impl/linkgraph.h>
 #include <impl/hashgraph.h>
 
@@ -29,6 +30,36 @@ static struct graph_t * basicGraphInit() {
         g->nodeImpl = NULL;
     }
     return g;
+}
+
+static void setArrayOps(struct graphops_t *gops) {
+    //Node operations
+    gops->addNode = arrayAddNode;
+    gops->getNode = arrayGetNode;
+    gops->nodeCount = arrayNodeCount;
+    gops->nodePath = arrayGetNodePath;
+    gops->getNeighbors = arrayGetNeighbors;
+    gops->removeNode = arrayRemoveNode;
+
+    //Edge operations
+    gops->addEdge = arrayAddEdge;
+    gops->getEdge = arrayGetEdge;
+    gops->getEdges = arrayGetEdges;
+    gops->removeEdge = arrayRemoveEdge;
+    gops->edgeCount = arrayEdgeCount;
+    gops->edgePath = arrayGetEdgePath;
+
+    //Value operations
+    gops->setCapacity = arraySetCapacity;
+    gops->addCapacity = arrayAddCapacity;
+    gops->getCapacity = arrayGetCapacity;
+    gops->setFlow = arraySetFlow;
+    gops->addFlow = arrayAddFlow;
+    gops->getFlow = arrayGetFlow;
+
+    //Reset operations
+    gops->resetGraph = arrayResetGraph;
+
 }
 
 /**
@@ -187,6 +218,34 @@ struct graph_t * initLabelGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, s
     }
     return g;
 }
+
+/**
+ * @brief Create and fill the graphops_t structure that handles basic operations for the graph
+ *
+ * Using the graph_t implementation pass, this function creates a graphops_t structure necessary to handle basic functions
+ * for the given graph.
+ *
+ * @param g Graph structure being used
+ * @return Pointer to a new graphops_t structure, if successful; otherwise, a pointer to NULL
+ *
+ */
+struct graphops_t * getOperations(struct graph_t *g) {
+    struct graphops_t *gops = NULL;
+    if (g != NULL) {
+        gops = initGraphops();
+        gops->g = g;
+        switch (g->gimpl) {
+            case ARRAY:
+                setArrayOps(gops);
+                break;
+            default:
+                //TODO:  Do the other implementations
+                break;
+        }
+    }
+    return gops;
+}
+
 
 /**
  * @brief Clear the graph and all underlying structures

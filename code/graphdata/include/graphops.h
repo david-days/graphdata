@@ -77,6 +77,34 @@ typedef struct node_t * (*funcGetNodePath)(const size_t *uid, const size_t *vid,
  */
 typedef struct edge_t * (*funcGetEdgePath)(const size_t *uid, const size_t *vid, const struct graph_t *g);
 
+/**
+ * @brief Function pointer to retrieve the current capacity value for a given edge.
+ *
+ * For implementations that support this, the capacity value will be written to the *cap parameter.
+ *
+ * @param uid Edge start identifier
+ * @param vid Edge end identifier
+ * @param cap Capacity value pointer to store the value
+ * @param g Graph structure in question
+ * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
+ * retrieval
+ */
+typedef int (*funcGetCapacity)(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g);
+
+/**
+ * @brief Function pointer to retrieve the current flow value for a given edge.
+ *
+ * For implementations that support this, the flow value will be written to the *flow parameter.
+ *
+ * @param uid Edge start identifier
+ * @param vid Edge end identifier
+ * @param flow Flow value pointer to store the result
+ * @param g Graph structure in question
+ * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
+ * retrieval
+ */
+typedef int (*funcGetFlow)(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g);
+
 //Write functions to modify graph
 /**
  * @brief Function pointer to add a node to a given graph.
@@ -86,6 +114,16 @@ typedef struct edge_t * (*funcGetEdgePath)(const size_t *uid, const size_t *vid,
  * @return 0 if there was an error, 1 if the node was successfully added
  */
 typedef int (*funcAddNode)(const size_t *nodeid, struct graph_t *g);
+
+/**
+ * @brief Remove a node from the graph.
+ *
+ * Not all implementations will allow removal of nodes.
+ * @param nodeid Node id to be added.
+ * @param g Graph structure in question
+ * @return 0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful.
+ */
+typedef int (*funcRemoveNode)(const size_t *nodeid, struct graph_t *g);
 /**
  * @brief Function pointer to add an edge to a given graph.
  * Not all implementations may use this (for example, fixed-size ARRAY implementations representing a set domain of nodes and relationships).
@@ -210,6 +248,14 @@ struct graphops_t {
      * @brief Return a linked-list of edges starting at this node
      */
     funcGetEdges getEdges;
+    /**
+     * @brief Retrieve the capacity value for the given edge
+     */
+    funcGetCapacity getCapacity;
+    /**
+     * @brief Retrieve the flow value for a given edge
+     */
+    funcGetFlow getFlow;
 
     //Modifiers
     /**
@@ -217,7 +263,11 @@ struct graphops_t {
      * Expected to be NULL (no implementation) for fixed-size graph structures.
      */
     funcAddNode addNode;
-
+    /**
+     * @brief Remove a node from the graph.
+     * Expected to be NULL or NOOP for fixed-size graph structures.
+     */
+    funcRemoveNode removeNode;
     /**
      * @brief Add an edge to the graph.
      * Expected to be NULL (no implementation) for fixed-size graph structures.
