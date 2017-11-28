@@ -29,7 +29,7 @@ static struct arraydata_t * initArrayMeta() {
 }
 
 /**
- * @brief Utiltiy function to free up allocated memory for array-graph metadata
+ * @brief Utilty function to free up allocated memory for array-graph metadata
  * @param metaptr pointer-to-pointer for metadata
  * @return 1 if successful; 0 if error.
  */

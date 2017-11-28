@@ -36,6 +36,7 @@ set(SOURCE_FILES
         include/util/hashes.h
         include/util/graphcomp.h
         include/util/spatial.h
+        include/util/crudops.h
         include/impl/arraygraph.h
         include/impl/arrayops.h
         include/impl/linkgraph.h
@@ -48,6 +49,7 @@ set(SOURCE_FILES
         src/util/hashes.h
         src/util/graphcomp.c
         src/util/spatial.c
+        src/util/crudops.c
         src/impl/arraygraph.c
         src/impl/arrayops.c
         src/impl/linkgraph.c
@@ -71,6 +73,7 @@ add_library(${PROJECT_NAME} SHARED
         include/util/hashes.h
         include/util/graphcomp.h
         include/util/spatial.h
+        include/util/crudops.h
         include/impl/arraygraph.h
         include/impl/arrayops.h
         include/impl/linkgraph.h
@@ -78,11 +81,13 @@ add_library(${PROJECT_NAME} SHARED
         include/impl/hashgraph.h
         include/impl/hashops.h
 
+
         #Sources
         src/graphinit.c
         src/util/hashes.c
         src/util/graphcomp.c
         src/util/spatial.c
+        src/util/crudops.c
         src/impl/arraygraph.c
         src/impl/arrayops.c
         src/impl/linkgraph.c
@@ -124,6 +129,7 @@ install(
             include/util/hashes.h
             include/util/graphcomp.h
             include/util/spatial.h
+            include/util/crudops.h
         DESTINATION include/util
         COMPONENT devel
 )

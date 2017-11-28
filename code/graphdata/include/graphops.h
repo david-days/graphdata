@@ -14,12 +14,14 @@
  * @return Count of nodes, if graph is not null; otherwise, return 0
  */
 typedef size_t (*funcNodeCount)(struct graph_t *g);
+
 /**
  * @brief Function pointer to extract count of edges
  * @param g Graph structure in question
  * @return Count of edges, if graph is not null; otherwise, return 0
  */
 typedef size_t (*funcEdgeCount)(struct graph_t *g);
+
 /**
  * @brief Function pointer to retrieve a node structure reference.
  *
@@ -30,6 +32,7 @@ typedef size_t (*funcEdgeCount)(struct graph_t *g);
  * @return pointer to the node structure, if found; otherwise, pointer to NULL
  */
 typedef struct node_t * (*funcGetNode)(const size_t *nodeid, const struct graph_t *g);
+
 /**
  * @brief Function pointer to retrieve a edge structure reference.
  *
@@ -41,6 +44,7 @@ typedef struct node_t * (*funcGetNode)(const size_t *nodeid, const struct graph_
  * @return pointer to the edge structure, if found; otherwise, pointer to NULL.
  */
 typedef struct edge_t * (*funcGetEdge)(const size_t *u, const size_t *v, const struct graph_t *g);
+
 /**
  * @brief Function pointer to retrieve linked-list of nodes that are currently defined as neighbors to the given node.
  *
@@ -50,6 +54,7 @@ typedef struct edge_t * (*funcGetEdge)(const size_t *u, const size_t *v, const s
  * @return linked-list of node references, starting with the given node, if found; otherwise, pointer to NULL.
  */
 typedef struct node_t * (*funcGetNeighbors)(const size_t *nodeid, const struct graph_t *g);
+
 /**
  * @brief Function pointer to retrieve linked-list of edges from a given node.
  * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
@@ -58,6 +63,7 @@ typedef struct node_t * (*funcGetNeighbors)(const size_t *nodeid, const struct g
  * @return linked-list of edges starting from the given node, if found; otherwise, pointer to NULL.
  */
 typedef struct edge_t * (*funcGetEdges)(const size_t *nodeid, const struct graph_t *g);
+
 /**
  * @brief Function pointer to retrieve linked-list path of nodes from start to destination, beginning with the starting node.
  * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
@@ -67,6 +73,7 @@ typedef struct edge_t * (*funcGetEdges)(const size_t *nodeid, const struct graph
  * @return Linked-list of nodes, starting from uid and ending at vid, if found; otherwise, pointer to NULL.
  */
 typedef struct node_t * (*funcGetNodePath)(const size_t *uid, const size_t *vid, const struct graph_t *g);
+
 /**
  * @brief Function pointer to retrieve linked-list of path edges from start to destination, beginning with the starting node.
  * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
@@ -124,6 +131,7 @@ typedef int (*funcAddNode)(const size_t *nodeid, struct graph_t *g);
  * @return 0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful.
  */
 typedef int (*funcRemoveNode)(const size_t *nodeid, struct graph_t *g);
+
 /**
  * @brief Function pointer to add an edge to a given graph.
  * Not all implementations may use this (for example, fixed-size ARRAY implementations representing a set domain of nodes and relationships).

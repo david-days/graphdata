@@ -7,7 +7,7 @@
  * Because the graph is UNDIRECTED, the start of each edge will actually be minNode(u,v) and the
  * end of each edge will be maxNode(u,v).  Thus, node 0 can connect "upwards", but no higher nodes
  * can connect down to node 0.  In all the underlying operations, having 0 in a node reference value
- * indicates an unused edge.
+ * indicates an unused edge reference.
  */
 
 #ifndef GRAPHDATA_ARRAYGRAPH_H

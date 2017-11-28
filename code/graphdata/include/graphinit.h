@@ -8,36 +8,6 @@
 #include <graphdata.h>
 #include <graphops.h>
 
-/**
- * @brief Create a dimension structure containing the given values in order (x, y, z, etc)
- *
- * This is used to initialize (and contain) the ordered size of the spatial dimensions given.  Consumers are responsible
- * for calling free() on the structure, or passing it to a standard clearing function
- *
- * @param dimval First dimension in the ordered list of dimension limits
- * @param ... Additional dimension values passed
- * @return Pointer to a dimensions_t structure that holds the count and values of the structure
- */
-struct dimensions_t * createDimensions(size_t dimval, ...);
-
-/**
- * @brief Create a raw label structure of the given size
- * @param lblcount Number of labels required
- * @return Label structure properly initialized with a size_t array of the given size, if successful; otherwise, a NULL
- * pointer.
- */
-struct labels_t * initLabels(size_t lblcount);
-
-
-/**
- * @brief Raw initializer for graphops_t structure
- *
- * Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to
- * a standard cleanup function.
- *
- * @return Pointer to a graphops structure, or NULL if there was a problem with memory allocation
- */
-struct graphops_t * initGraphops();
 
 /**
  * @brief Initialize a general graph structure.
@@ -84,67 +54,6 @@ struct graph_t * initLabelGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, s
  */
 struct graphops_t * getOperations(struct graph_t *g);
 
-/**
- * @brief Clear the graph and all underlying structures
- *
- * The pointer itself will be changed to NULL
- *
- * @param gptr Graph structure to be cleared
- * @return 1 if success; 0 if error
- */
-int destroyGraph(void** gptr);
 
-/**
- * @brief Clear out the dimensions and all underlying structures
- * @param dimptr Dimensions structure to be cleared
- * @return 1 if success; 0 if error
- */
-int destroyDimensions(void** dimptr);
-
-/**
- * @brief Clear out the label and all underlying structures
- * @param lblptr Label structure to be cleared
- * @return 1 if success; 0 if error
- */
-int destroyLabels(void** lblptr);
-
-/**
- * @brief Clear an edge structure and any linked edges (use on single or a path)
- *
- * The pointer itself will be changed to NULL
- *
- * @param eptr Initial edge pointer
- * @return 1 if success; 0 if error.
- */
-int destroyEdges(void** eptr);
-
-/**
- * @brief Clear a graphops_t structure.
- * The graph itself will not be cleared, only the reference to it.  The pointer itself will be changed to NULL
- *
- * @param optptr Graphops structuure to be cleared and deallocated
- * @return 1 if successful; 0 if error
- */
-int destroyGraphops(void** opsptr);
-
-/**
- * @brief Clear a node or node list (use on single or a path)
- *
- * The pointer itself will be changed to NULL
- *
- * @param nptr Initial node pointer
- * @return 1 if successful; 0 if error
- */
-int destroyNodes(void** nptr);
-
-/**
- * @brief Clear a feature or feature list (use on single or multiple attributes)
- *
- * The pointer itself will be changed to NULL
- *
- * @param fptr Initial feature pointer
- * @return 1 if successful; 0 if error
- */
-int destroyFeatures(void** fptr);
 
 #endif //GRAPHDATA_GRAPHINIT_H
