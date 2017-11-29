@@ -1,209 +1,45 @@
 \hypertarget{graphinit_8c}{}\section{/home/david/devel/graphdata/code/graphdata/src/graphinit.c File Reference}
 \label{graphinit_8c}\index{/home/david/devel/graphdata/code/graphdata/src/graphinit.\+c@{/home/david/devel/graphdata/code/graphdata/src/graphinit.\+c}}
 {\ttfamily \#include $<$graphinit.\+h$>$}\\*
-{\ttfamily \#include $<$stdarg.\+h$>$}\\*
 {\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$util/crudops.\+h$>$}\\*
 {\ttfamily \#include $<$impl/arraygraph.\+h$>$}\\*
+{\ttfamily \#include $<$impl/arrayops.\+h$>$}\\*
 {\ttfamily \#include $<$impl/linkgraph.\+h$>$}\\*
+{\ttfamily \#include $<$impl/linkops.\+h$>$}\\*
 {\ttfamily \#include $<$impl/hashgraph.\+h$>$}\\*
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$ \hyperlink{graphinit_8c_a83b2792b0cdc485821cc92ecc4d797a3}{create\+Dimensions} (size\+\_\+t dimsz,...)
-\begin{DoxyCompactList}\small\item\em Create a dimension structure containing the given values in order (x, y, z, etc) \end{DoxyCompactList}\item 
-struct \hyperlink{structlabels__t}{labels\+\_\+t} $\ast$ \hyperlink{graphinit_8c_ad0dd6d2c5033af247f956bfdc8ce8532}{init\+Labels} (size\+\_\+t lblcount)
-\begin{DoxyCompactList}\small\item\em Create a raw label structure of the given size. \end{DoxyCompactList}\item 
-struct \hyperlink{structgraphops__t}{graphops\+\_\+t} $\ast$ \hyperlink{graphinit_8c_a251634055d0f0e6837b0b0075ada8540}{init\+Graphops} ()
-\begin{DoxyCompactList}\small\item\em Raw initializer for \hyperlink{structgraphops__t}{graphops\+\_\+t} structure with all N\+U\+LL interior pointers. \end{DoxyCompactList}\item 
 struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$ \hyperlink{graphinit_8c_a8d5479a6e78a253b7eae2f0851383115}{init\+Graph} (enum \hyperlink{graphdata_8h_a384e88b524b782ff50439055cbc8a5c2}{G\+R\+A\+P\+H\+T\+Y\+PE} gtype, enum \hyperlink{graphdata_8h_ad7f3a639f97221897a0429715dccefe6}{G\+R\+A\+P\+H\+I\+M\+PL} impltype, struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$dims)
 \begin{DoxyCompactList}\small\item\em Initialize a general graph structure. \end{DoxyCompactList}\item 
 struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$ \hyperlink{graphinit_8c_a02b37dea4f0d6c0f795fa987c741f175}{init\+Label\+Graph} (enum \hyperlink{graphdata_8h_a384e88b524b782ff50439055cbc8a5c2}{G\+R\+A\+P\+H\+T\+Y\+PE} gtype, enum \hyperlink{graphdata_8h_ad7f3a639f97221897a0429715dccefe6}{G\+R\+A\+P\+H\+I\+M\+PL} impltype, size\+\_\+t lblcount, struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$dims)
 \begin{DoxyCompactList}\small\item\em Initialize a graph structure primed for usage in graph-\/label operations. \end{DoxyCompactList}\item 
-int \hyperlink{graphinit_8c_af1d15d112f4ca2b65e94859c26c09521}{destroy\+Graph} (void $\ast$$\ast$gptr)
-\begin{DoxyCompactList}\small\item\em Clear the graph and all underlying structures. \end{DoxyCompactList}\item 
-int \hyperlink{graphinit_8c_a84ed1fa9fdef1a55f38d0caaa02c93c5}{destroy\+Dimensions} (void $\ast$$\ast$dptr)
-\begin{DoxyCompactList}\small\item\em Clear out the dimensions and all underlying structures. \end{DoxyCompactList}\item 
-int \hyperlink{graphinit_8c_a3a2d2f30bff95d19a5536ab0a4f09132}{destroy\+Labels} (void $\ast$$\ast$lptr)
-\begin{DoxyCompactList}\small\item\em Clear out the label and all underlying structures. \end{DoxyCompactList}\item 
-int \hyperlink{graphinit_8c_a1857fe19957384a5e4abff6b9f87ee77}{destroy\+Edges} (void $\ast$$\ast$eptr)
-\begin{DoxyCompactList}\small\item\em Clear an edge structure and any linked edges (use on single or a path) \end{DoxyCompactList}\item 
-int \hyperlink{graphinit_8c_aab13c370e7246fac212f45f167d79a28}{destroy\+Graphops} (void $\ast$$\ast$opsptr)
-\begin{DoxyCompactList}\small\item\em Clear a \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. \end{DoxyCompactList}\item 
-int \hyperlink{graphinit_8c_a184eea7bdfb9dcd477b2a1eb02e89a2f}{destroy\+Nodes} (void $\ast$$\ast$nptr)
-\begin{DoxyCompactList}\small\item\em Clear a node or node list (use on single or a path) \end{DoxyCompactList}\item 
-int \hyperlink{graphinit_8c_ae1dbb279b04d953f217d1bb2f615ae83}{destroy\+Features} (void $\ast$$\ast$fptr)
-\begin{DoxyCompactList}\small\item\em Clear a feature or feature list (use on single or multiple attributes) \end{DoxyCompactList}\end{DoxyCompactItemize}
+struct \hyperlink{structgraphops__t}{graphops\+\_\+t} $\ast$ \hyperlink{graphinit_8c_a4fd158a86ffce2d237d326738de43e73}{get\+Operations} (struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Create and fill the \hyperlink{structgraphops__t}{graphops\+\_\+t} structure that handles basic operations for the graph. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
-\index{graphinit.\+c@{graphinit.\+c}!create\+Dimensions@{create\+Dimensions}}
-\index{create\+Dimensions@{create\+Dimensions}!graphinit.\+c@{graphinit.\+c}}
-\subsubsection[{\texorpdfstring{create\+Dimensions(size\+\_\+t dimsz,...)}{createDimensions(size\_t dimsz,...)}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf dimensions\+\_\+t}$\ast$ create\+Dimensions (
+\index{graphinit.\+c@{graphinit.\+c}!get\+Operations@{get\+Operations}}
+\index{get\+Operations@{get\+Operations}!graphinit.\+c@{graphinit.\+c}}
+\subsubsection[{\texorpdfstring{get\+Operations(struct graph\+\_\+t $\ast$g)}{getOperations(struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf graphops\+\_\+t}$\ast$ get\+Operations (
 \begin{DoxyParamCaption}
-\item[{size\+\_\+t}]{dimsz, }
-\item[{}]{...}
+\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
 \end{DoxyParamCaption}
-)}\hypertarget{graphinit_8c_a83b2792b0cdc485821cc92ecc4d797a3}{}\label{graphinit_8c_a83b2792b0cdc485821cc92ecc4d797a3}
+)}\hypertarget{graphinit_8c_a4fd158a86ffce2d237d326738de43e73}{}\label{graphinit_8c_a4fd158a86ffce2d237d326738de43e73}
 
 
-Create a dimension structure containing the given values in order (x, y, z, etc) 
+Create and fill the \hyperlink{structgraphops__t}{graphops\+\_\+t} structure that handles basic operations for the graph. 
 
-This is used to initialize (and contain) the ordered size of the spatial dimensions given. Consumers are responsible for calling free() on the structure, or passing it to a standard clearing function
+Using the \hyperlink{structgraph__t}{graph\+\_\+t} implementation pass, this function creates a \hyperlink{structgraphops__t}{graphops\+\_\+t} structure necessary to handle basic functions for the given graph.
 
 
 \begin{DoxyParams}{Parameters}
-{\em dimsz} & Number of dimensions \\
-\hline
-{\em ...} & Additional dimension values passed \\
+{\em g} & Graph structure being used \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Pointer to a \hyperlink{structdimensions__t}{dimensions\+\_\+t} structure that holds the count and values of the structure, or a null pointer if there is a problem allocating the memory. 
-\end{DoxyReturn}
-\index{graphinit.\+c@{graphinit.\+c}!destroy\+Dimensions@{destroy\+Dimensions}}
-\index{destroy\+Dimensions@{destroy\+Dimensions}!graphinit.\+c@{graphinit.\+c}}
-\subsubsection[{\texorpdfstring{destroy\+Dimensions(void $\ast$$\ast$dptr)}{destroyDimensions(void **dptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int destroy\+Dimensions (
-\begin{DoxyParamCaption}
-\item[{void $\ast$$\ast$}]{dptr}
-\end{DoxyParamCaption}
-)}\hypertarget{graphinit_8c_a84ed1fa9fdef1a55f38d0caaa02c93c5}{}\label{graphinit_8c_a84ed1fa9fdef1a55f38d0caaa02c93c5}
-
-
-Clear out the dimensions and all underlying structures. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em dptr} & pointer-\/to-\/pointer for \hyperlink{structdimensions__t}{dimensions\+\_\+t} structure to be cleared \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-1 if success; 0 if error 
-\end{DoxyReturn}
-\index{graphinit.\+c@{graphinit.\+c}!destroy\+Edges@{destroy\+Edges}}
-\index{destroy\+Edges@{destroy\+Edges}!graphinit.\+c@{graphinit.\+c}}
-\subsubsection[{\texorpdfstring{destroy\+Edges(void $\ast$$\ast$eptr)}{destroyEdges(void **eptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int destroy\+Edges (
-\begin{DoxyParamCaption}
-\item[{void $\ast$$\ast$}]{eptr}
-\end{DoxyParamCaption}
-)}\hypertarget{graphinit_8c_a1857fe19957384a5e4abff6b9f87ee77}{}\label{graphinit_8c_a1857fe19957384a5e4abff6b9f87ee77}
-
-
-Clear an edge structure and any linked edges (use on single or a path) 
-
-The pointer itself will be changed to N\+U\+LL
-
-
-\begin{DoxyParams}{Parameters}
-{\em eptr} & pointer-\/to-\/pointer for initial edge pointer \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-1 if success; 0 if error. 
-\end{DoxyReturn}
-\index{graphinit.\+c@{graphinit.\+c}!destroy\+Features@{destroy\+Features}}
-\index{destroy\+Features@{destroy\+Features}!graphinit.\+c@{graphinit.\+c}}
-\subsubsection[{\texorpdfstring{destroy\+Features(void $\ast$$\ast$fptr)}{destroyFeatures(void **fptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int destroy\+Features (
-\begin{DoxyParamCaption}
-\item[{void $\ast$$\ast$}]{fptr}
-\end{DoxyParamCaption}
-)}\hypertarget{graphinit_8c_ae1dbb279b04d953f217d1bb2f615ae83}{}\label{graphinit_8c_ae1dbb279b04d953f217d1bb2f615ae83}
-
-
-Clear a feature or feature list (use on single or multiple attributes) 
-
-The pointer itself will be changed to N\+U\+LL
-
-
-\begin{DoxyParams}{Parameters}
-{\em fptr} & pointer-\/to-\/pointer for initial feature structure \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-1 if successful; 0 if error 
-\end{DoxyReturn}
-\index{graphinit.\+c@{graphinit.\+c}!destroy\+Graph@{destroy\+Graph}}
-\index{destroy\+Graph@{destroy\+Graph}!graphinit.\+c@{graphinit.\+c}}
-\subsubsection[{\texorpdfstring{destroy\+Graph(void $\ast$$\ast$gptr)}{destroyGraph(void **gptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int destroy\+Graph (
-\begin{DoxyParamCaption}
-\item[{void $\ast$$\ast$}]{gptr}
-\end{DoxyParamCaption}
-)}\hypertarget{graphinit_8c_af1d15d112f4ca2b65e94859c26c09521}{}\label{graphinit_8c_af1d15d112f4ca2b65e94859c26c09521}
-
-
-Clear the graph and all underlying structures. 
-
-The pointer itself will be changed to N\+U\+LL
-
-
-\begin{DoxyParams}{Parameters}
-{\em gptr} & pointer-\/to-\/pointer for \hyperlink{structgraph__t}{graph\+\_\+t} structure to be cleared \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-1 if success; 0 if error 
-\end{DoxyReturn}
-\index{graphinit.\+c@{graphinit.\+c}!destroy\+Graphops@{destroy\+Graphops}}
-\index{destroy\+Graphops@{destroy\+Graphops}!graphinit.\+c@{graphinit.\+c}}
-\subsubsection[{\texorpdfstring{destroy\+Graphops(void $\ast$$\ast$opsptr)}{destroyGraphops(void **opsptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int destroy\+Graphops (
-\begin{DoxyParamCaption}
-\item[{void $\ast$$\ast$}]{opsptr}
-\end{DoxyParamCaption}
-)}\hypertarget{graphinit_8c_aab13c370e7246fac212f45f167d79a28}{}\label{graphinit_8c_aab13c370e7246fac212f45f167d79a28}
-
-
-Clear a \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. 
-
-Clear a \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to N\+U\+LL.
-
-The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to N\+U\+LL
-
-
-\begin{DoxyParams}{Parameters}
-{\em opsptr} & pointer-\/to-\/pointer for \hyperlink{structgraphops__t}{graphops\+\_\+t} structuure to be cleared and deallocated \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-1 if successful; 0 if error 
-\end{DoxyReturn}
-\index{graphinit.\+c@{graphinit.\+c}!destroy\+Labels@{destroy\+Labels}}
-\index{destroy\+Labels@{destroy\+Labels}!graphinit.\+c@{graphinit.\+c}}
-\subsubsection[{\texorpdfstring{destroy\+Labels(void $\ast$$\ast$lptr)}{destroyLabels(void **lptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int destroy\+Labels (
-\begin{DoxyParamCaption}
-\item[{void $\ast$$\ast$}]{lptr}
-\end{DoxyParamCaption}
-)}\hypertarget{graphinit_8c_a3a2d2f30bff95d19a5536ab0a4f09132}{}\label{graphinit_8c_a3a2d2f30bff95d19a5536ab0a4f09132}
-
-
-Clear out the label and all underlying structures. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em labels} & pointer-\/to-\/pointer for \hyperlink{structlabels__t}{labels\+\_\+t} structure to be cleared \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-1 if success; 0 if error 
-\end{DoxyReturn}
-\index{graphinit.\+c@{graphinit.\+c}!destroy\+Nodes@{destroy\+Nodes}}
-\index{destroy\+Nodes@{destroy\+Nodes}!graphinit.\+c@{graphinit.\+c}}
-\subsubsection[{\texorpdfstring{destroy\+Nodes(void $\ast$$\ast$nptr)}{destroyNodes(void **nptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int destroy\+Nodes (
-\begin{DoxyParamCaption}
-\item[{void $\ast$$\ast$}]{nptr}
-\end{DoxyParamCaption}
-)}\hypertarget{graphinit_8c_a184eea7bdfb9dcd477b2a1eb02e89a2f}{}\label{graphinit_8c_a184eea7bdfb9dcd477b2a1eb02e89a2f}
-
-
-Clear a node or node list (use on single or a path) 
-
-The pointer itself will be changed to N\+U\+LL
-
-
-\begin{DoxyParams}{Parameters}
-{\em nptr} & pointer-\/to-\/pointer for initial node structure \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-1 if successful; 0 if error 
+Pointer to a new \hyperlink{structgraphops__t}{graphops\+\_\+t} structure, if successful; otherwise, a pointer to N\+U\+LL 
 \end{DoxyReturn}
 \index{graphinit.\+c@{graphinit.\+c}!init\+Graph@{init\+Graph}}
 \index{init\+Graph@{init\+Graph}!graphinit.\+c@{graphinit.\+c}}
@@ -234,24 +70,6 @@ The returned graph structure pointer will have a N\+U\+LL pointer for g-\/$>$lab
 \begin{DoxyReturn}{Returns}
 Pointer to the graph structure created, if parameters are valid. N\+U\+LL pointer returned if the parameters are invalid or there is a problem allocating the memory required. 
 \end{DoxyReturn}
-\index{graphinit.\+c@{graphinit.\+c}!init\+Graphops@{init\+Graphops}}
-\index{init\+Graphops@{init\+Graphops}!graphinit.\+c@{graphinit.\+c}}
-\subsubsection[{\texorpdfstring{init\+Graphops()}{initGraphops()}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf graphops\+\_\+t}$\ast$ init\+Graphops (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\hypertarget{graphinit_8c_a251634055d0f0e6837b0b0075ada8540}{}\label{graphinit_8c_a251634055d0f0e6837b0b0075ada8540}
-
-
-Raw initializer for \hyperlink{structgraphops__t}{graphops\+\_\+t} structure with all N\+U\+LL interior pointers. 
-
-Raw initializer for \hyperlink{structgraphops__t}{graphops\+\_\+t} structure.
-
-Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to a standard cleanup function.
-
-\begin{DoxyReturn}{Returns}
-Pointer to a graphops structure, or N\+U\+LL if there was a problem with memory allocation 
-\end{DoxyReturn}
 \index{graphinit.\+c@{graphinit.\+c}!init\+Label\+Graph@{init\+Label\+Graph}}
 \index{init\+Label\+Graph@{init\+Label\+Graph}!graphinit.\+c@{graphinit.\+c}}
 \subsubsection[{\texorpdfstring{init\+Label\+Graph(enum G\+R\+A\+P\+H\+T\+Y\+P\+E gtype, enum G\+R\+A\+P\+H\+I\+M\+P\+L impltype, size\+\_\+t lblcount, struct dimensions\+\_\+t $\ast$dims)}{initLabelGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, size\_t lblcount, struct dimensions\_t *dims)}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf graph\+\_\+t}$\ast$ init\+Label\+Graph (
@@ -281,23 +99,4 @@ Creates a graph structure, based on the parameters passed, with the g-\/$>$label
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 Pointer to the graph structure created, if the parameters are valid. N\+U\+LL pointer returned if the parameters are invalid or there is a problem allocating the memory required. 
-\end{DoxyReturn}
-\index{graphinit.\+c@{graphinit.\+c}!init\+Labels@{init\+Labels}}
-\index{init\+Labels@{init\+Labels}!graphinit.\+c@{graphinit.\+c}}
-\subsubsection[{\texorpdfstring{init\+Labels(size\+\_\+t lblcount)}{initLabels(size\_t lblcount)}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf labels\+\_\+t}$\ast$ init\+Labels (
-\begin{DoxyParamCaption}
-\item[{size\+\_\+t}]{lblcount}
-\end{DoxyParamCaption}
-)}\hypertarget{graphinit_8c_ad0dd6d2c5033af247f956bfdc8ce8532}{}\label{graphinit_8c_ad0dd6d2c5033af247f956bfdc8ce8532}
-
-
-Create a raw label structure of the given size. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em lblcount} & Number of labels required \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Label structure properly initialized with a size\+\_\+t array of the given size, if successful; otherwise, a N\+U\+LL pointer. 
 \end{DoxyReturn}

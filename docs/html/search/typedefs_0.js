@@ -1,15 +1,22 @@
 var searchData=
 [
+  ['funcaddcapacity',['funcAddCapacity',['../graphops_8h.html#a55fd1e1994412d16611818d876b2488e',1,'graphops.h']]],
   ['funcaddedge',['funcAddEdge',['../graphops_8h.html#aba7336fb04b988fb797cbcd8c9207d64',1,'graphops.h']]],
+  ['funcaddflow',['funcAddFlow',['../graphops_8h.html#a595d28f6e4e3cef8d9549139dd40af53',1,'graphops.h']]],
   ['funcaddnode',['funcAddNode',['../graphops_8h.html#a1fa386709ec061d33a9b473357ac1f48',1,'graphops.h']]],
   ['funcedgecount',['funcEdgeCount',['../graphops_8h.html#afd0afa57e6480d123698f5e836868daa',1,'graphops.h']]],
+  ['funcgetcapacity',['funcGetCapacity',['../graphops_8h.html#a0641347fdbb9412ba9ccef3a27da914c',1,'graphops.h']]],
   ['funcgetedge',['funcGetEdge',['../graphops_8h.html#a65a97104978aff138ce01db4b7baa237',1,'graphops.h']]],
   ['funcgetedgepath',['funcGetEdgePath',['../graphops_8h.html#a03b36c65e027cd66fadeb70703a50a2e',1,'graphops.h']]],
   ['funcgetedges',['funcGetEdges',['../graphops_8h.html#a1cf1c55a55049fff31b8097bfd289a62',1,'graphops.h']]],
+  ['funcgetflow',['funcGetFlow',['../graphops_8h.html#a9294a965d66cd4a4d39e0b388edeff1d',1,'graphops.h']]],
   ['funcgetneighbors',['funcGetNeighbors',['../graphops_8h.html#aaa1468312d0d9fb546507a624821f412',1,'graphops.h']]],
   ['funcgetnode',['funcGetNode',['../graphops_8h.html#acdebce5fd9d56d8a2ebacd396fbd735a',1,'graphops.h']]],
   ['funcgetnodepath',['funcGetNodePath',['../graphops_8h.html#aa08f7024e2b4f15854812450627dbad6',1,'graphops.h']]],
   ['funcnodecount',['funcNodeCount',['../graphops_8h.html#aa7c1a3ee12ef36bca906669c4164ccee',1,'graphops.h']]],
+  ['funcremoveedge',['funcRemoveEdge',['../graphops_8h.html#add68b0e594df34b6e201605a3757b78b',1,'graphops.h']]],
+  ['funcremovenode',['funcRemoveNode',['../graphops_8h.html#af899b37f71f9610e62b98e13212d59da',1,'graphops.h']]],
   ['funcresetgraph',['funcResetGraph',['../graphops_8h.html#afbe0356f92d2a45740225f068371f4bc',1,'graphops.h']]],
-  ['funcsetcapacity',['funcSetCapacity',['../graphops_8h.html#aafd2cceeca9e12b071826c74ce049e7b',1,'graphops.h']]]
+  ['funcsetcapacity',['funcSetCapacity',['../graphops_8h.html#aafd2cceeca9e12b071826c74ce049e7b',1,'graphops.h']]],
+  ['funcsetflow',['funcSetFlow',['../graphops_8h.html#a69ba36f21492df6ab16e426fffcf0c47',1,'graphops.h']]]
 ];

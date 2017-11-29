@@ -54,6 +54,11 @@ struct labels_t * initLabels(size_t lblcount);
  */
 struct graphops_t * initGraphops();
 
+/**
+ * @brief Allocate and initialize an edge
+ * @return pointer to new edge_t memory, if successful; otherwise NULL.
+ */
+struct edge_t * initEdge();
 
 //Clone operations
 

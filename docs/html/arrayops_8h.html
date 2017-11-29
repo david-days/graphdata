@@ -107,6 +107,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae42e2842e63c16bc7dc829cc2812fa54"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structnode__t.html">node_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arrayops_8h.html#ae42e2842e63c16bc7dc829cc2812fa54">arrayGetNode</a> (const size_t *nodeid, const struct <a class="el" href="structgraph__t.html">graph_t</a> *g)</td></tr>
 <tr class="memdesc:ae42e2842e63c16bc7dc829cc2812fa54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation to retrieve a node structure reference.  <a href="#ae42e2842e63c16bc7dc829cc2812fa54">More...</a><br /></td></tr>
 <tr class="separator:ae42e2842e63c16bc7dc829cc2812fa54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10ac632675e69264d53817e3b08d5606"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arrayops_8h.html#a10ac632675e69264d53817e3b08d5606">arrayRemoveNode</a> (const size_t *nodeid, struct <a class="el" href="structgraph__t.html">graph_t</a> *g)</td></tr>
+<tr class="memdesc:a10ac632675e69264d53817e3b08d5606"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a node from the graph.  <a href="#a10ac632675e69264d53817e3b08d5606">More...</a><br /></td></tr>
+<tr class="separator:a10ac632675e69264d53817e3b08d5606"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf3bc74eb96452d55a1b03ffb5db2838"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structedge__t.html">edge_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arrayops_8h.html#abf3bc74eb96452d55a1b03ffb5db2838">arrayGetEdge</a> (const size_t *u, const size_t *v, const struct <a class="el" href="structgraph__t.html">graph_t</a> *g)</td></tr>
 <tr class="memdesc:abf3bc74eb96452d55a1b03ffb5db2838"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation to retrieve a edge structure reference.  <a href="#abf3bc74eb96452d55a1b03ffb5db2838">More...</a><br /></td></tr>
 <tr class="separator:abf3bc74eb96452d55a1b03ffb5db2838"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,15 +125,33 @@ Functions</h2></td></tr>
 <tr class="memitem:acbb2ccda7ac250b69dbecac81b6987d8"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structedge__t.html">edge_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arrayops_8h.html#acbb2ccda7ac250b69dbecac81b6987d8">arrayGetEdgePath</a> (const size_t *uid, const size_t *vid, const struct <a class="el" href="structgraph__t.html">graph_t</a> *g)</td></tr>
 <tr class="memdesc:acbb2ccda7ac250b69dbecac81b6987d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation to retrieve linked-list of path edges from start to destination, beginning with the starting node. Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.  <a href="#acbb2ccda7ac250b69dbecac81b6987d8">More...</a><br /></td></tr>
 <tr class="separator:acbb2ccda7ac250b69dbecac81b6987d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17c8b149ca9603f3a1729ada40934808"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arrayops_8h.html#a17c8b149ca9603f3a1729ada40934808">arrayGetCapacity</a> (const size_t *uid, const size_t *vid, double *cap, const struct <a class="el" href="structgraph__t.html">graph_t</a> *g)</td></tr>
+<tr class="memdesc:a17c8b149ca9603f3a1729ada40934808"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to retrieve the current capacity value for a given edge.  <a href="#a17c8b149ca9603f3a1729ada40934808">More...</a><br /></td></tr>
+<tr class="separator:a17c8b149ca9603f3a1729ada40934808"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67a78e7e670d5601be5607fa97f87345"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arrayops_8h.html#a67a78e7e670d5601be5607fa97f87345">arrayGetFlow</a> (const size_t *uid, const size_t *vid, double *flow, const struct <a class="el" href="structgraph__t.html">graph_t</a> *g)</td></tr>
+<tr class="memdesc:a67a78e7e670d5601be5607fa97f87345"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to retrieve the current flow value for a given edge.  <a href="#a67a78e7e670d5601be5607fa97f87345">More...</a><br /></td></tr>
+<tr class="separator:a67a78e7e670d5601be5607fa97f87345"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0cb1326020860a33a7bdff32a22a3112"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arrayops_8h.html#a0cb1326020860a33a7bdff32a22a3112">arrayAddNode</a> (const size_t *nodeid, struct <a class="el" href="structgraph__t.html">graph_t</a> *g)</td></tr>
 <tr class="memdesc:a0cb1326020860a33a7bdff32a22a3112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation to add a node to a given graph. Not all implementations may use this (for example, fixed-size graphs such as spatial ARRAY implementations).  <a href="#a0cb1326020860a33a7bdff32a22a3112">More...</a><br /></td></tr>
 <tr class="separator:a0cb1326020860a33a7bdff32a22a3112"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc4fd1b2994396b8ec48dfa7ad7e3cd0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arrayops_8h.html#adc4fd1b2994396b8ec48dfa7ad7e3cd0">arrayAddEdge</a> (const size_t *uid, const size_t *vid, double *cap, struct <a class="el" href="structgraph__t.html">graph_t</a> *g)</td></tr>
 <tr class="memdesc:adc4fd1b2994396b8ec48dfa7ad7e3cd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation to add an edge to a given graph. Not all implementations may use this (for example, fixed-size ARRAY implementations representing a set domain of nodes and relationships).  <a href="#adc4fd1b2994396b8ec48dfa7ad7e3cd0">More...</a><br /></td></tr>
 <tr class="separator:adc4fd1b2994396b8ec48dfa7ad7e3cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e6c3145b08cd46572a396307440b57d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arrayops_8h.html#a7e6c3145b08cd46572a396307440b57d">arrayRemoveEdge</a> (const size_t *uid, const size_t *vid, struct <a class="el" href="structgraph__t.html">graph_t</a> *g)</td></tr>
+<tr class="memdesc:a7e6c3145b08cd46572a396307440b57d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to remove an edge from the given graph.  <a href="#a7e6c3145b08cd46572a396307440b57d">More...</a><br /></td></tr>
+<tr class="separator:a7e6c3145b08cd46572a396307440b57d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a267e28101e91c63e651cf657d2d52803"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arrayops_8h.html#a267e28101e91c63e651cf657d2d52803">arraySetCapacity</a> (const size_t *uid, const size_t *vid, const double *cap, struct <a class="el" href="structgraph__t.html">graph_t</a> *g)</td></tr>
 <tr class="memdesc:a267e28101e91c63e651cf657d2d52803"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation to set the capacity (cost, weight, etc.) of an edge in the given graph.  <a href="#a267e28101e91c63e651cf657d2d52803">More...</a><br /></td></tr>
 <tr class="separator:a267e28101e91c63e651cf657d2d52803"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adad9ffd21e66883c9a237057b4f312da"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arrayops_8h.html#adad9ffd21e66883c9a237057b4f312da">arrayAddCapacity</a> (const size_t *uid, const size_t *vid, const double *cap, struct <a class="el" href="structgraph__t.html">graph_t</a> *g)</td></tr>
+<tr class="memdesc:adad9ffd21e66883c9a237057b4f312da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to add (adjust) the capacity for an edge by a given amount.  <a href="#adad9ffd21e66883c9a237057b4f312da">More...</a><br /></td></tr>
+<tr class="separator:adad9ffd21e66883c9a237057b4f312da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a121e960ced5ef4fcfbad293f3066e372"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arrayops_8h.html#a121e960ced5ef4fcfbad293f3066e372">arraySetFlow</a> (const size_t *uid, const size_t *vid, const double *flow, struct <a class="el" href="structgraph__t.html">graph_t</a> *g)</td></tr>
+<tr class="memdesc:a121e960ced5ef4fcfbad293f3066e372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to set the flow value for an edge (amount of capacity currently "used")  <a href="#a121e960ced5ef4fcfbad293f3066e372">More...</a><br /></td></tr>
+<tr class="separator:a121e960ced5ef4fcfbad293f3066e372"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4e90f166a970e05c7c9f90000912ee6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arrayops_8h.html#ac4e90f166a970e05c7c9f90000912ee6">arrayAddFlow</a> (const size_t *uid, const size_t *vid, const double *flow, struct <a class="el" href="structgraph__t.html">graph_t</a> *g)</td></tr>
+<tr class="memdesc:ac4e90f166a970e05c7c9f90000912ee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to adjust the flow value of a given edge.  <a href="#ac4e90f166a970e05c7c9f90000912ee6">More...</a><br /></td></tr>
+<tr class="separator:ac4e90f166a970e05c7c9f90000912ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec56bf6e6d76372c3f72b28008b5f556"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arrayops_8h.html#aec56bf6e6d76372c3f72b28008b5f556">arrayResetGraph</a> (struct <a class="el" href="structgraph__t.html">graph_t</a> *g, void *args, void(*callback)(void))</td></tr>
 <tr class="memdesc:aec56bf6e6d76372c3f72b28008b5f556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation to "reset" the graph according to the given argument pointer.  <a href="#aec56bf6e6d76372c3f72b28008b5f556">More...</a><br /></td></tr>
 <tr class="separator:aec56bf6e6d76372c3f72b28008b5f556"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,6 +160,68 @@ Functions</h2></td></tr>
 <tr class="separator:a18eefb5ed82554c7a3cda86fb5de6007"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="adad9ffd21e66883c9a237057b4f312da"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int arrayAddCapacity </td>
+          <td>(</td>
+          <td class="paramtype">const size_t *&#160;</td>
+          <td class="paramname"><em>uid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t *&#160;</td>
+          <td class="paramname"><em>vid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>cap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structgraph__t.html">graph_t</a> *&#160;</td>
+          <td class="paramname"><em>g</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to add (adjust) the capacity for an edge by a given amount. </p>
+<p>Add the capacity value to the current capacity for the given edge.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uid</td><td>Identifier of the edge start </td></tr>
+    <tr><td class="paramname">vid</td><td>Identifier of the edge end. </td></tr>
+    <tr><td class="paramname">cap</td><td>Value to adjust the capacity </td></tr>
+    <tr><td class="paramname">g</td><td>Graph structure in question </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted</dd></dl>
+<p>For implementations that require it, this function allows the altering of a specified edge capacity by the given amount.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uid</td><td>Identifier of the edge start </td></tr>
+    <tr><td class="paramname">vid</td><td>Identifier of the edge end. </td></tr>
+    <tr><td class="paramname">cap</td><td>Value to adjust the capacity </td></tr>
+    <tr><td class="paramname">g</td><td>Graph structure in question </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="adc4fd1b2994396b8ec48dfa7ad7e3cd0"></a>
 <div class="memitem">
 <div class="memproto">
@@ -185,7 +268,70 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if there was an error; 1 if the edge was successfully added.</dd></dl>
+<p>Implementation to add an edge to a given graph. Not all implementations may use this (for example, fixed-size ARRAY implementations representing a set domain of nodes and relationships).</p>
+<p>Adds a connecting-edge referece (if not already in place, and the degree of the graph allows it (there are unfilled spots available for the given uid).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uid</td><td>identifer for start of edge </td></tr>
+    <tr><td class="paramname">vid</td><td>identifier for end of edge </td></tr>
+    <tr><td class="paramname">cap</td><td>capacity value to be assigned </td></tr>
+    <tr><td class="paramname">g</td><td>graph structure in question </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>0 if there was an error; 1 if the edge was successfully added. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac4e90f166a970e05c7c9f90000912ee6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int arrayAddFlow </td>
+          <td>(</td>
+          <td class="paramtype">const size_t *&#160;</td>
+          <td class="paramname"><em>uid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t *&#160;</td>
+          <td class="paramname"><em>vid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>flow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structgraph__t.html">graph_t</a> *&#160;</td>
+          <td class="paramname"><em>g</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to adjust the flow value of a given edge. </p>
+<p>Add the flow value to the flow tracking of the given graph.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uid</td><td>Identifier of the edge start </td></tr>
+    <tr><td class="paramname">vid</td><td>Identifier of the edge end. </td></tr>
+    <tr><td class="paramname">flow</td><td>The value to be added to adjust the flow value. </td></tr>
+    <tr><td class="paramname">g</td><td>The graph structure in question </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted. </dd></dl>
 
 </div>
 </div>
@@ -221,6 +367,15 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if there was an error, 1 if the node was successfully added</dd></dl>
+<p>Implementation to add a node to a given graph. Not all implementations may use this (for example, fixed-size graphs such as spatial ARRAY implementations).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nodeid</td><td>Node identifier to be added </td></tr>
+    <tr><td class="paramname">g</td><td>Graph structure to add the node </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>0 if there was an error, 1 if the node was successfully added </dd></dl>
 
 </div>
@@ -247,6 +402,57 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Count of edges, if graph is not null; otherwise, return 0 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a17c8b149ca9603f3a1729ada40934808"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int arrayGetCapacity </td>
+          <td>(</td>
+          <td class="paramtype">const size_t *&#160;</td>
+          <td class="paramname"><em>uid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t *&#160;</td>
+          <td class="paramname"><em>vid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>cap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct <a class="el" href="structgraph__t.html">graph_t</a> *&#160;</td>
+          <td class="paramname"><em>g</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function pointer to retrieve the current capacity value for a given edge. </p>
+<p>For implementations that support this, the capacity value will be written to the *cap parameter.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uid</td><td>Edge start identifier </td></tr>
+    <tr><td class="paramname">vid</td><td>Edge end identifier </td></tr>
+    <tr><td class="paramname">cap</td><td>Capacity value pointer to store the value </td></tr>
+    <tr><td class="paramname">g</td><td>Graph structure in question </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful retrieval </dd></dl>
 
 </div>
 </div>
@@ -372,6 +578,57 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a67a78e7e670d5601be5607fa97f87345"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int arrayGetFlow </td>
+          <td>(</td>
+          <td class="paramtype">const size_t *&#160;</td>
+          <td class="paramname"><em>uid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t *&#160;</td>
+          <td class="paramname"><em>vid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>flow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct <a class="el" href="structgraph__t.html">graph_t</a> *&#160;</td>
+          <td class="paramname"><em>g</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function pointer to retrieve the current flow value for a given edge. </p>
+<p>For implementations that support this, the flow value will be written to the *flow parameter.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uid</td><td>Edge start identifier </td></tr>
+    <tr><td class="paramname">vid</td><td>Edge end identifier </td></tr>
+    <tr><td class="paramname">flow</td><td>Flow value pointer to store the result </td></tr>
+    <tr><td class="paramname">g</td><td>Graph structure in question </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful retrieval </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a13977b4ec85cbd5b770d60fba8cfb746"></a>
 <div class="memitem">
 <div class="memproto">
@@ -434,6 +691,15 @@ Functions</h2></td></tr>
 
 <p>Implementation to retrieve a node structure reference. </p>
 <p>Implementation-specific on whether this structure is part of the original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nodeid</td><td>Identifier of the node to be retrieved </td></tr>
+    <tr><td class="paramname">g</td><td>Graph structure in question </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pointer to the node structure, if found; otherwise, pointer to NULL</dd></dl>
+<p>If the struct returned is not NULL, the consumer is responsible for calling free() on the memory.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nodeid</td><td>Identifier of the node to be retrieved </td></tr>
     <tr><td class="paramname">g</td><td>Graph structure in question </td></tr>
@@ -512,6 +778,87 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a7e6c3145b08cd46572a396307440b57d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int arrayRemoveEdge </td>
+          <td>(</td>
+          <td class="paramtype">const size_t *&#160;</td>
+          <td class="paramname"><em>uid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t *&#160;</td>
+          <td class="paramname"><em>vid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structgraph__t.html">graph_t</a> *&#160;</td>
+          <td class="paramname"><em>g</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function pointer to remove an edge from the given graph. </p>
+<p>Remove references for an edge within the structure.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uid</td><td>Identifier for the edge start </td></tr>
+    <tr><td class="paramname">vid</td><td>Identifier for the edge end. </td></tr>
+    <tr><td class="paramname">g</td><td>Graph structure in question </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if there was an error (e.g. the edge was not found); otherwise, 1 if the edge was removed. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a10ac632675e69264d53817e3b08d5606"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int arrayRemoveNode </td>
+          <td>(</td>
+          <td class="paramtype">const size_t *&#160;</td>
+          <td class="paramname"><em>nodeid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structgraph__t.html">graph_t</a> *&#160;</td>
+          <td class="paramname"><em>g</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove a node from the graph. </p>
+<p>NOOP implementation. ARRAY-based graphs are defined at initialization and do not allow removing nodes.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nodeid</td><td>Node id to be added. </td></tr>
+    <tr><td class="paramname">g</td><td>Graph structure in question </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="aec56bf6e6d76372c3f72b28008b5f556"></a>
 <div class="memitem">
 <div class="memproto">
@@ -547,6 +894,16 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">g</td><td>Graph structure to be zeroed or modified according to reset logic </td></tr>
     <tr><td class="paramname">args</td><td>Arguments to be used in the reset process, if necessary </td></tr>
+    <tr><td class="paramname">callback</td><td>Callback to be executed when graph has been reset. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if there was an error during the reset; 1 if the reset completed;</dd></dl>
+<p>For this implementation, the args value is ignored and the edge values are set to 0.0 again.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">g</td><td>Graph structure to be zeroed or modified according to reset logic </td></tr>
+    <tr><td class="paramname">args</td><td>Arguments to be((<a class="el" href="structarraydata__t.html" title="Array implementation of the graph structure for fixed-size, fixed-degree, UNDIRECTED graphs...">arraydata_t</a> *)g-&gt;metaImpl used in the reset process, if necessary </td></tr>
     <tr><td class="paramname">callback</td><td>Callback to be executed when graph has been reset. </td></tr>
   </table>
   </dd>
@@ -602,6 +959,57 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 if there was an error; 1 if the capacity was successfully set </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a121e960ced5ef4fcfbad293f3066e372"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int arraySetFlow </td>
+          <td>(</td>
+          <td class="paramtype">const size_t *&#160;</td>
+          <td class="paramname"><em>uid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t *&#160;</td>
+          <td class="paramname"><em>vid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>flow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structgraph__t.html">graph_t</a> *&#160;</td>
+          <td class="paramname"><em>g</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to set the flow value for an edge (amount of capacity currently "used") </p>
+<p>Set the flow value for the given edge.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uid</td><td>Identifier of the edge start. </td></tr>
+    <tr><td class="paramname">vid</td><td>Identifier of the edge end. </td></tr>
+    <tr><td class="paramname">flow</td><td>Value to be set for the flow. </td></tr>
+    <tr><td class="paramname">g</td><td>Graph structure in question </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set. </dd></dl>
 
 </div>
 </div>

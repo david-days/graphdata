@@ -25,17 +25,54 @@ typedef struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$($\ast$ \hyperlink{g
 \begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list path of nodes from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
 typedef struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$($\ast$ \hyperlink{graphops_8h_a03b36c65e027cd66fadeb70703a50a2e}{func\+Get\+Edge\+Path}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list of path edges from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
+typedef int($\ast$ \hyperlink{graphops_8h_a0641347fdbb9412ba9ccef3a27da914c}{func\+Get\+Capacity}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Function pointer to retrieve the current capacity value for a given edge. \end{DoxyCompactList}\item 
+typedef int($\ast$ \hyperlink{graphops_8h_a9294a965d66cd4a4d39e0b388edeff1d}{func\+Get\+Flow}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$flow, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Function pointer to retrieve the current flow value for a given edge. \end{DoxyCompactList}\item 
 typedef int($\ast$ \hyperlink{graphops_8h_a1fa386709ec061d33a9b473357ac1f48}{func\+Add\+Node}) (const size\+\_\+t $\ast$nodeid, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to add a node to a given graph. Not all implementations may use this (for example, fixed-\/size graphs such as spatial A\+R\+R\+AY implementations). \end{DoxyCompactList}\item 
+typedef int($\ast$ \hyperlink{graphops_8h_af899b37f71f9610e62b98e13212d59da}{func\+Remove\+Node}) (const size\+\_\+t $\ast$nodeid, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Remove a node from the graph. \end{DoxyCompactList}\item 
 typedef int($\ast$ \hyperlink{graphops_8h_aba7336fb04b988fb797cbcd8c9207d64}{func\+Add\+Edge}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to add an edge to a given graph. Not all implementations may use this (for example, fixed-\/size A\+R\+R\+AY implementations representing a set domain of nodes and relationships). \end{DoxyCompactList}\item 
+typedef int($\ast$ \hyperlink{graphops_8h_add68b0e594df34b6e201605a3757b78b}{func\+Remove\+Edge}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Function pointer to remove an edge from the given graph. \end{DoxyCompactList}\item 
 typedef int($\ast$ \hyperlink{graphops_8h_aafd2cceeca9e12b071826c74ce049e7b}{func\+Set\+Capacity}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph. \end{DoxyCompactList}\item 
+typedef int($\ast$ \hyperlink{graphops_8h_a55fd1e1994412d16611818d876b2488e}{func\+Add\+Capacity}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Function to add (adjust) the capacity for an edge by a given amount. \end{DoxyCompactList}\item 
+typedef int($\ast$ \hyperlink{graphops_8h_a69ba36f21492df6ab16e426fffcf0c47}{func\+Set\+Flow}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$flow, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Function to set the flow value for an edge (amount of capacity currently \char`\"{}used\char`\"{}) \end{DoxyCompactList}\item 
+typedef int($\ast$ \hyperlink{graphops_8h_a595d28f6e4e3cef8d9549139dd40af53}{func\+Add\+Flow}) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$flow, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Function to adjust the flow value of a given edge. \end{DoxyCompactList}\item 
 typedef int($\ast$ \hyperlink{graphops_8h_afbe0356f92d2a45740225f068371f4bc}{func\+Reset\+Graph}) (struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g, void $\ast$args, void($\ast$callback) (void))
 \begin{DoxyCompactList}\small\item\em Function pointer to \char`\"{}reset\char`\"{} the graph according to the given argument pointer. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Typedef Documentation}
+\index{graphops.\+h@{graphops.\+h}!func\+Add\+Capacity@{func\+Add\+Capacity}}
+\index{func\+Add\+Capacity@{func\+Add\+Capacity}!graphops.\+h@{graphops.\+h}}
+\subsubsection[{\texorpdfstring{func\+Add\+Capacity}{funcAddCapacity}}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ func\+Add\+Capacity) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, struct {\bf graph\+\_\+t} $\ast$g)}\hypertarget{graphops_8h_a55fd1e1994412d16611818d876b2488e}{}\label{graphops_8h_a55fd1e1994412d16611818d876b2488e}
+
+
+Function to add (adjust) the capacity for an edge by a given amount. 
+
+For implementations that require it, this function allows the altering of a specified edge capacity by the given amount.
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Identifier of the edge start \\
+\hline
+{\em vid} & Identifier of the edge end. \\
+\hline
+{\em cap} & Value to adjust the capacity \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted 
+\end{DoxyReturn}
 \index{graphops.\+h@{graphops.\+h}!func\+Add\+Edge@{func\+Add\+Edge}}
 \index{func\+Add\+Edge@{func\+Add\+Edge}!graphops.\+h@{graphops.\+h}}
 \subsubsection[{\texorpdfstring{func\+Add\+Edge}{funcAddEdge}}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ func\+Add\+Edge) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, struct {\bf graph\+\_\+t} $\ast$g)}\hypertarget{graphops_8h_aba7336fb04b988fb797cbcd8c9207d64}{}\label{graphops_8h_aba7336fb04b988fb797cbcd8c9207d64}
@@ -56,6 +93,29 @@ Function pointer to add an edge to a given graph. Not all implementations may us
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 0 if there was an error; 1 if the edge was successfully added. 
+\end{DoxyReturn}
+\index{graphops.\+h@{graphops.\+h}!func\+Add\+Flow@{func\+Add\+Flow}}
+\index{func\+Add\+Flow@{func\+Add\+Flow}!graphops.\+h@{graphops.\+h}}
+\subsubsection[{\texorpdfstring{func\+Add\+Flow}{funcAddFlow}}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ func\+Add\+Flow) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$flow, struct {\bf graph\+\_\+t} $\ast$g)}\hypertarget{graphops_8h_a595d28f6e4e3cef8d9549139dd40af53}{}\label{graphops_8h_a595d28f6e4e3cef8d9549139dd40af53}
+
+
+Function to adjust the flow value of a given edge. 
+
+For implementations that require it, this allows ajustment of the amount of capacity that is being \char`\"{}used\char`\"{}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Identifier of the edge start \\
+\hline
+{\em vid} & Identifier of the edge end. \\
+\hline
+{\em flow} & The value to be added to adjust the flow value. \\
+\hline
+{\em g} & The graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted. 
 \end{DoxyReturn}
 \index{graphops.\+h@{graphops.\+h}!func\+Add\+Node@{func\+Add\+Node}}
 \index{func\+Add\+Node@{func\+Add\+Node}!graphops.\+h@{graphops.\+h}}
@@ -88,6 +148,29 @@ Function pointer to extract count of edges.
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 Count of edges, if graph is not null; otherwise, return 0 
+\end{DoxyReturn}
+\index{graphops.\+h@{graphops.\+h}!func\+Get\+Capacity@{func\+Get\+Capacity}}
+\index{func\+Get\+Capacity@{func\+Get\+Capacity}!graphops.\+h@{graphops.\+h}}
+\subsubsection[{\texorpdfstring{func\+Get\+Capacity}{funcGetCapacity}}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ func\+Get\+Capacity) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, const struct {\bf graph\+\_\+t} $\ast$g)}\hypertarget{graphops_8h_a0641347fdbb9412ba9ccef3a27da914c}{}\label{graphops_8h_a0641347fdbb9412ba9ccef3a27da914c}
+
+
+Function pointer to retrieve the current capacity value for a given edge. 
+
+For implementations that support this, the capacity value will be written to the $\ast$cap parameter.
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Edge start identifier \\
+\hline
+{\em vid} & Edge end identifier \\
+\hline
+{\em cap} & Capacity value pointer to store the value \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful retrieval 
 \end{DoxyReturn}
 \index{graphops.\+h@{graphops.\+h}!func\+Get\+Edge@{func\+Get\+Edge}}
 \index{func\+Get\+Edge@{func\+Get\+Edge}!graphops.\+h@{graphops.\+h}}
@@ -143,6 +226,29 @@ Function pointer to retrieve linked-\/list of edges from a given node. Returned 
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 linked-\/list of edges starting from the given node, if found; otherwise, pointer to N\+U\+LL. 
+\end{DoxyReturn}
+\index{graphops.\+h@{graphops.\+h}!func\+Get\+Flow@{func\+Get\+Flow}}
+\index{func\+Get\+Flow@{func\+Get\+Flow}!graphops.\+h@{graphops.\+h}}
+\subsubsection[{\texorpdfstring{func\+Get\+Flow}{funcGetFlow}}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ func\+Get\+Flow) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$flow, const struct {\bf graph\+\_\+t} $\ast$g)}\hypertarget{graphops_8h_a9294a965d66cd4a4d39e0b388edeff1d}{}\label{graphops_8h_a9294a965d66cd4a4d39e0b388edeff1d}
+
+
+Function pointer to retrieve the current flow value for a given edge. 
+
+For implementations that support this, the flow value will be written to the $\ast$flow parameter.
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Edge start identifier \\
+\hline
+{\em vid} & Edge end identifier \\
+\hline
+{\em flow} & Flow value pointer to store the result \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful retrieval 
 \end{DoxyReturn}
 \index{graphops.\+h@{graphops.\+h}!func\+Get\+Neighbors@{func\+Get\+Neighbors}}
 \index{func\+Get\+Neighbors@{func\+Get\+Neighbors}!graphops.\+h@{graphops.\+h}}
@@ -212,6 +318,44 @@ Function pointer definition for getting the node count;.
 \begin{DoxyReturn}{Returns}
 Count of nodes, if graph is not null; otherwise, return 0 
 \end{DoxyReturn}
+\index{graphops.\+h@{graphops.\+h}!func\+Remove\+Edge@{func\+Remove\+Edge}}
+\index{func\+Remove\+Edge@{func\+Remove\+Edge}!graphops.\+h@{graphops.\+h}}
+\subsubsection[{\texorpdfstring{func\+Remove\+Edge}{funcRemoveEdge}}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ func\+Remove\+Edge) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, struct {\bf graph\+\_\+t} $\ast$g)}\hypertarget{graphops_8h_add68b0e594df34b6e201605a3757b78b}{}\label{graphops_8h_add68b0e594df34b6e201605a3757b78b}
+
+
+Function pointer to remove an edge from the given graph. 
+
+Allows implementations to remove a given edge from the graph, if necessary.
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Identifier for the edge start \\
+\hline
+{\em vid} & Identifier for the edge end. \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was an error (e.\+g. the edge was not found); otherwise, 1 if the edge was removed. 
+\end{DoxyReturn}
+\index{graphops.\+h@{graphops.\+h}!func\+Remove\+Node@{func\+Remove\+Node}}
+\index{func\+Remove\+Node@{func\+Remove\+Node}!graphops.\+h@{graphops.\+h}}
+\subsubsection[{\texorpdfstring{func\+Remove\+Node}{funcRemoveNode}}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ func\+Remove\+Node) (const size\+\_\+t $\ast$nodeid, struct {\bf graph\+\_\+t} $\ast$g)}\hypertarget{graphops_8h_af899b37f71f9610e62b98e13212d59da}{}\label{graphops_8h_af899b37f71f9610e62b98e13212d59da}
+
+
+Remove a node from the graph. 
+
+Not all implementations will allow removal of nodes. 
+\begin{DoxyParams}{Parameters}
+{\em nodeid} & Node id to be added. \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful. 
+\end{DoxyReturn}
 \index{graphops.\+h@{graphops.\+h}!func\+Reset\+Graph@{func\+Reset\+Graph}}
 \index{func\+Reset\+Graph@{func\+Reset\+Graph}!graphops.\+h@{graphops.\+h}}
 \subsubsection[{\texorpdfstring{func\+Reset\+Graph}{funcResetGraph}}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ func\+Reset\+Graph) (struct {\bf graph\+\_\+t} $\ast$g, void $\ast$args, void($\ast$callback)(void))}\hypertarget{graphops_8h_afbe0356f92d2a45740225f068371f4bc}{}\label{graphops_8h_afbe0356f92d2a45740225f068371f4bc}
@@ -251,4 +395,27 @@ Function pointer to set the capacity (cost, weight, etc.) of an edge in the give
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 0 if there was an error; 1 if the capacity was successfully set 
+\end{DoxyReturn}
+\index{graphops.\+h@{graphops.\+h}!func\+Set\+Flow@{func\+Set\+Flow}}
+\index{func\+Set\+Flow@{func\+Set\+Flow}!graphops.\+h@{graphops.\+h}}
+\subsubsection[{\texorpdfstring{func\+Set\+Flow}{funcSetFlow}}]{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ func\+Set\+Flow) (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$flow, struct {\bf graph\+\_\+t} $\ast$g)}\hypertarget{graphops_8h_a69ba36f21492df6ab16e426fffcf0c47}{}\label{graphops_8h_a69ba36f21492df6ab16e426fffcf0c47}
+
+
+Function to set the flow value for an edge (amount of capacity currently \char`\"{}used\char`\"{}) 
+
+For implementations that require it, this allows tracking of flow values that are used within the graph.
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Identifier of the edge start. \\
+\hline
+{\em vid} & Identifier of the edge end. \\
+\hline
+{\em flow} & Value to be set for the flow. \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set. 
 \end{DoxyReturn}

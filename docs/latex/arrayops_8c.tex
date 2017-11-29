@@ -2,6 +2,8 @@
 \label{arrayops_8c}\index{/home/david/devel/graphdata/code/graphdata/src/impl/arrayops.\+c@{/home/david/devel/graphdata/code/graphdata/src/impl/arrayops.\+c}}
 {\ttfamily \#include $<$impl/arraygraph.\+h$>$}\\*
 {\ttfamily \#include $<$impl/arrayops.\+h$>$}\\*
+{\ttfamily \#include $<$util/graphcomp.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -21,12 +23,26 @@ struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$ \hyperlink{arrayops_8c_a4b3
 \begin{DoxyCompactList}\small\item\em Implementation to retrieve linked-\/list path of nodes from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
 struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$ \hyperlink{arrayops_8c_acbb2ccda7ac250b69dbecac81b6987d8}{array\+Get\+Edge\+Path} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Implementation to retrieve linked-\/list of path edges from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
+int \hyperlink{arrayops_8c_a17c8b149ca9603f3a1729ada40934808}{array\+Get\+Capacity} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Function pointer to retrieve the current capacity value for a given edge. \end{DoxyCompactList}\item 
+int \hyperlink{arrayops_8c_a67a78e7e670d5601be5607fa97f87345}{array\+Get\+Flow} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$flow, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Function pointer to retrieve the current flow value for a given edge. \end{DoxyCompactList}\item 
 int \hyperlink{arrayops_8c_a0cb1326020860a33a7bdff32a22a3112}{array\+Add\+Node} (const size\+\_\+t $\ast$nodeid, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
-\begin{DoxyCompactList}\small\item\em Implementation to add a node to a given graph. Not all implementations may use this (for example, fixed-\/size graphs such as spatial A\+R\+R\+AY implementations). \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Implementation to add a node to a given graph. N\+O\+OP implementation for array-\/based graphs--the node counts are fixed at creation. \end{DoxyCompactList}\item 
+int \hyperlink{arrayops_8c_a10ac632675e69264d53817e3b08d5606}{array\+Remove\+Node} (const size\+\_\+t $\ast$nodeid, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Remove a node from the graph. \end{DoxyCompactList}\item 
 int \hyperlink{arrayops_8c_adc4fd1b2994396b8ec48dfa7ad7e3cd0}{array\+Add\+Edge} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
-\begin{DoxyCompactList}\small\item\em Implementation to add an edge to a given graph. Not all implementations may use this (for example, fixed-\/size A\+R\+R\+AY implementations representing a set domain of nodes and relationships). \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Implementation to add an edge to a given graph. \end{DoxyCompactList}\item 
+int \hyperlink{arrayops_8c_a7e6c3145b08cd46572a396307440b57d}{array\+Remove\+Edge} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Function pointer to remove an edge from the given graph. \end{DoxyCompactList}\item 
 int \hyperlink{arrayops_8c_a267e28101e91c63e651cf657d2d52803}{array\+Set\+Capacity} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Implementation to set the capacity (cost, weight, etc.) of an edge in the given graph. \end{DoxyCompactList}\item 
+int \hyperlink{arrayops_8c_adad9ffd21e66883c9a237057b4f312da}{array\+Add\+Capacity} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Function to add (adjust) the capacity for an edge by a given amount. \end{DoxyCompactList}\item 
+int \hyperlink{arrayops_8c_a121e960ced5ef4fcfbad293f3066e372}{array\+Set\+Flow} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$flow, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Function to set the flow value for an edge (amount of capacity currently \char`\"{}used\char`\"{}) \end{DoxyCompactList}\item 
+int \hyperlink{arrayops_8c_ac4e90f166a970e05c7c9f90000912ee6}{array\+Add\+Flow} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$flow, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
+\begin{DoxyCompactList}\small\item\em Function to adjust the flow value of a given edge. \end{DoxyCompactList}\item 
 int \hyperlink{arrayops_8c_aec56bf6e6d76372c3f72b28008b5f556}{array\+Reset\+Graph} (struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g, void $\ast$args, void($\ast$callback)(void))
 \begin{DoxyCompactList}\small\item\em Implementation to \char`\"{}reset\char`\"{} the graph according to the given argument pointer. \end{DoxyCompactList}\item 
 int \hyperlink{arrayops_8c_a18eefb5ed82554c7a3cda86fb5de6007}{free\+Graph\+Array} (size\+\_\+t arraylen, void $\ast$$\ast$arrptr)
@@ -34,6 +50,36 @@ int \hyperlink{arrayops_8c_a18eefb5ed82554c7a3cda86fb5de6007}{free\+Graph\+Array
 
 
 \subsection{Function Documentation}
+\index{arrayops.\+c@{arrayops.\+c}!array\+Add\+Capacity@{array\+Add\+Capacity}}
+\index{array\+Add\+Capacity@{array\+Add\+Capacity}!arrayops.\+c@{arrayops.\+c}}
+\subsubsection[{\texorpdfstring{array\+Add\+Capacity(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, struct graph\+\_\+t $\ast$g)}{arrayAddCapacity(const size\_t *uid, const size\_t *vid, const double *cap, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int array\+Add\+Capacity (
+\begin{DoxyParamCaption}
+\item[{const size\+\_\+t $\ast$}]{uid, }
+\item[{const size\+\_\+t $\ast$}]{vid, }
+\item[{const double $\ast$}]{cap, }
+\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}\hypertarget{arrayops_8c_adad9ffd21e66883c9a237057b4f312da}{}\label{arrayops_8c_adad9ffd21e66883c9a237057b4f312da}
+
+
+Function to add (adjust) the capacity for an edge by a given amount. 
+
+For implementations that require it, this function allows the altering of a specified edge capacity by the given amount.
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Identifier of the edge start \\
+\hline
+{\em vid} & Identifier of the edge end. \\
+\hline
+{\em cap} & Value to adjust the capacity \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted 
+\end{DoxyReturn}
 \index{arrayops.\+c@{arrayops.\+c}!array\+Add\+Edge@{array\+Add\+Edge}}
 \index{array\+Add\+Edge@{array\+Add\+Edge}!arrayops.\+c@{arrayops.\+c}}
 \subsubsection[{\texorpdfstring{array\+Add\+Edge(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, struct graph\+\_\+t $\ast$g)}{arrayAddEdge(const size\_t *uid, const size\_t *vid, double *cap, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int array\+Add\+Edge (
@@ -46,7 +92,11 @@ int \hyperlink{arrayops_8c_a18eefb5ed82554c7a3cda86fb5de6007}{free\+Graph\+Array
 )}\hypertarget{arrayops_8c_adc4fd1b2994396b8ec48dfa7ad7e3cd0}{}\label{arrayops_8c_adc4fd1b2994396b8ec48dfa7ad7e3cd0}
 
 
-Implementation to add an edge to a given graph. Not all implementations may use this (for example, fixed-\/size A\+R\+R\+AY implementations representing a set domain of nodes and relationships). 
+Implementation to add an edge to a given graph. 
+
+Implementation to add an edge to a given graph. Not all implementations may use this (for example, fixed-\/size A\+R\+R\+AY implementations representing a set domain of nodes and relationships).
+
+Adds a connecting-\/edge referece (if not already in place, and the degree of the graph allows it (there are unfilled spots available for the given uid).
 
 
 \begin{DoxyParams}{Parameters}
@@ -62,6 +112,36 @@ Implementation to add an edge to a given graph. Not all implementations may use 
 \begin{DoxyReturn}{Returns}
 0 if there was an error; 1 if the edge was successfully added. 
 \end{DoxyReturn}
+\index{arrayops.\+c@{arrayops.\+c}!array\+Add\+Flow@{array\+Add\+Flow}}
+\index{array\+Add\+Flow@{array\+Add\+Flow}!arrayops.\+c@{arrayops.\+c}}
+\subsubsection[{\texorpdfstring{array\+Add\+Flow(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$flow, struct graph\+\_\+t $\ast$g)}{arrayAddFlow(const size\_t *uid, const size\_t *vid, const double *flow, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int array\+Add\+Flow (
+\begin{DoxyParamCaption}
+\item[{const size\+\_\+t $\ast$}]{uid, }
+\item[{const size\+\_\+t $\ast$}]{vid, }
+\item[{const double $\ast$}]{flow, }
+\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}\hypertarget{arrayops_8c_ac4e90f166a970e05c7c9f90000912ee6}{}\label{arrayops_8c_ac4e90f166a970e05c7c9f90000912ee6}
+
+
+Function to adjust the flow value of a given edge. 
+
+Add the flow value to the flow tracking of the given graph.
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Identifier of the edge start \\
+\hline
+{\em vid} & Identifier of the edge end. \\
+\hline
+{\em flow} & The value to be added to adjust the flow value. \\
+\hline
+{\em g} & The graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted. 
+\end{DoxyReturn}
 \index{arrayops.\+c@{arrayops.\+c}!array\+Add\+Node@{array\+Add\+Node}}
 \index{array\+Add\+Node@{array\+Add\+Node}!arrayops.\+c@{arrayops.\+c}}
 \subsubsection[{\texorpdfstring{array\+Add\+Node(const size\+\_\+t $\ast$nodeid, struct graph\+\_\+t $\ast$g)}{arrayAddNode(const size\_t *nodeid, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int array\+Add\+Node (
@@ -72,7 +152,9 @@ Implementation to add an edge to a given graph. Not all implementations may use 
 )}\hypertarget{arrayops_8c_a0cb1326020860a33a7bdff32a22a3112}{}\label{arrayops_8c_a0cb1326020860a33a7bdff32a22a3112}
 
 
-Implementation to add a node to a given graph. Not all implementations may use this (for example, fixed-\/size graphs such as spatial A\+R\+R\+AY implementations). 
+Implementation to add a node to a given graph. N\+O\+OP implementation for array-\/based graphs--the node counts are fixed at creation. 
+
+Implementation to add a node to a given graph. Not all implementations may use this (for example, fixed-\/size graphs such as spatial A\+R\+R\+AY implementations).
 
 
 \begin{DoxyParams}{Parameters}
@@ -102,6 +184,36 @@ Implementation to extract count of edges.
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 Count of edges, if graph is not null; otherwise, return 0 
+\end{DoxyReturn}
+\index{arrayops.\+c@{arrayops.\+c}!array\+Get\+Capacity@{array\+Get\+Capacity}}
+\index{array\+Get\+Capacity@{array\+Get\+Capacity}!arrayops.\+c@{arrayops.\+c}}
+\subsubsection[{\texorpdfstring{array\+Get\+Capacity(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, const struct graph\+\_\+t $\ast$g)}{arrayGetCapacity(const size\_t *uid, const size\_t *vid, double *cap, const struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int array\+Get\+Capacity (
+\begin{DoxyParamCaption}
+\item[{const size\+\_\+t $\ast$}]{uid, }
+\item[{const size\+\_\+t $\ast$}]{vid, }
+\item[{double $\ast$}]{cap, }
+\item[{const struct {\bf graph\+\_\+t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}\hypertarget{arrayops_8c_a17c8b149ca9603f3a1729ada40934808}{}\label{arrayops_8c_a17c8b149ca9603f3a1729ada40934808}
+
+
+Function pointer to retrieve the current capacity value for a given edge. 
+
+For implementations that support this, the capacity value will be written to the $\ast$cap parameter.
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Edge start identifier \\
+\hline
+{\em vid} & Edge end identifier \\
+\hline
+{\em cap} & Capacity value pointer to store the value \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful retrieval 
 \end{DoxyReturn}
 \index{arrayops.\+c@{arrayops.\+c}!array\+Get\+Edge@{array\+Get\+Edge}}
 \index{array\+Get\+Edge@{array\+Get\+Edge}!arrayops.\+c@{arrayops.\+c}}
@@ -175,6 +287,36 @@ Implementation to retrieve linked-\/list of edges from a given node. Returned li
 \begin{DoxyReturn}{Returns}
 linked-\/list of edges starting from the given node, if found; otherwise, pointer to N\+U\+LL. 
 \end{DoxyReturn}
+\index{arrayops.\+c@{arrayops.\+c}!array\+Get\+Flow@{array\+Get\+Flow}}
+\index{array\+Get\+Flow@{array\+Get\+Flow}!arrayops.\+c@{arrayops.\+c}}
+\subsubsection[{\texorpdfstring{array\+Get\+Flow(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$flow, const struct graph\+\_\+t $\ast$g)}{arrayGetFlow(const size\_t *uid, const size\_t *vid, double *flow, const struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int array\+Get\+Flow (
+\begin{DoxyParamCaption}
+\item[{const size\+\_\+t $\ast$}]{uid, }
+\item[{const size\+\_\+t $\ast$}]{vid, }
+\item[{double $\ast$}]{flow, }
+\item[{const struct {\bf graph\+\_\+t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}\hypertarget{arrayops_8c_a67a78e7e670d5601be5607fa97f87345}{}\label{arrayops_8c_a67a78e7e670d5601be5607fa97f87345}
+
+
+Function pointer to retrieve the current flow value for a given edge. 
+
+For implementations that support this, the flow value will be written to the $\ast$flow parameter.
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Edge start identifier \\
+\hline
+{\em vid} & Edge end identifier \\
+\hline
+{\em flow} & Flow value pointer to store the result \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful retrieval 
+\end{DoxyReturn}
 \index{arrayops.\+c@{arrayops.\+c}!array\+Get\+Neighbors@{array\+Get\+Neighbors}}
 \index{array\+Get\+Neighbors@{array\+Get\+Neighbors}!arrayops.\+c@{arrayops.\+c}}
 \subsubsection[{\texorpdfstring{array\+Get\+Neighbors(const size\+\_\+t $\ast$nodeid, const struct graph\+\_\+t $\ast$g)}{arrayGetNeighbors(const size\_t *nodeid, const struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf node\+\_\+t}$\ast$ array\+Get\+Neighbors (
@@ -209,7 +351,9 @@ linked-\/list of node references, starting with the given node, if found; otherw
 
 Implementation to retrieve a node structure reference. 
 
-Implementation-\/specific on whether this structure is part of the original graph (L\+I\+N\+K-\/based implementations) or must use free() when usage is finished (A\+R\+R\+A\+Y-\/based). 
+If the struct returned is not N\+U\+LL, the consumer is responsible for calling free() on the memory.
+
+
 \begin{DoxyParams}{Parameters}
 {\em nodeid} & Identifier of the node to be retrieved \\
 \hline
@@ -263,6 +407,57 @@ Implementation for getting the node count;.
 \begin{DoxyReturn}{Returns}
 Count of nodes, if graph is not null; otherwise, return 0 
 \end{DoxyReturn}
+\index{arrayops.\+c@{arrayops.\+c}!array\+Remove\+Edge@{array\+Remove\+Edge}}
+\index{array\+Remove\+Edge@{array\+Remove\+Edge}!arrayops.\+c@{arrayops.\+c}}
+\subsubsection[{\texorpdfstring{array\+Remove\+Edge(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, struct graph\+\_\+t $\ast$g)}{arrayRemoveEdge(const size\_t *uid, const size\_t *vid, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int array\+Remove\+Edge (
+\begin{DoxyParamCaption}
+\item[{const size\+\_\+t $\ast$}]{uid, }
+\item[{const size\+\_\+t $\ast$}]{vid, }
+\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}\hypertarget{arrayops_8c_a7e6c3145b08cd46572a396307440b57d}{}\label{arrayops_8c_a7e6c3145b08cd46572a396307440b57d}
+
+
+Function pointer to remove an edge from the given graph. 
+
+Remove references for an edge within the structure.
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Identifier for the edge start \\
+\hline
+{\em vid} & Identifier for the edge end. \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was an error (e.\+g. the edge was not found); otherwise, 1 if the edge was removed. 
+\end{DoxyReturn}
+\index{arrayops.\+c@{arrayops.\+c}!array\+Remove\+Node@{array\+Remove\+Node}}
+\index{array\+Remove\+Node@{array\+Remove\+Node}!arrayops.\+c@{arrayops.\+c}}
+\subsubsection[{\texorpdfstring{array\+Remove\+Node(const size\+\_\+t $\ast$nodeid, struct graph\+\_\+t $\ast$g)}{arrayRemoveNode(const size\_t *nodeid, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int array\+Remove\+Node (
+\begin{DoxyParamCaption}
+\item[{const size\+\_\+t $\ast$}]{nodeid, }
+\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}\hypertarget{arrayops_8c_a10ac632675e69264d53817e3b08d5606}{}\label{arrayops_8c_a10ac632675e69264d53817e3b08d5606}
+
+
+Remove a node from the graph. 
+
+N\+O\+OP implementation. A\+R\+R\+A\+Y-\/based graphs are defined at initialization and do not allow removing nodes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodeid} & Node id to be added. \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful. 
+\end{DoxyReturn}
 \index{arrayops.\+c@{arrayops.\+c}!array\+Reset\+Graph@{array\+Reset\+Graph}}
 \index{array\+Reset\+Graph@{array\+Reset\+Graph}!arrayops.\+c@{arrayops.\+c}}
 \subsubsection[{\texorpdfstring{array\+Reset\+Graph(struct graph\+\_\+t $\ast$g, void $\ast$args, void($\ast$callback)(void))}{arrayResetGraph(struct graph\_t *g, void *args, void(*callback)(void))}}]{\setlength{\rightskip}{0pt plus 5cm}int array\+Reset\+Graph (
@@ -276,11 +471,13 @@ Count of nodes, if graph is not null; otherwise, return 0
 
 Implementation to \char`\"{}reset\char`\"{} the graph according to the given argument pointer. 
 
-For some implementations, it is more efficient to reuse the existing graph structure and perform a \char`\"{}zero-\/out\char`\"{} of the data, rather than rebuilding from scratch. This function pointer provides that option. 
+For this implementation, the args value is ignored and the edge values are set to 0.\+0 again.
+
+
 \begin{DoxyParams}{Parameters}
 {\em g} & Graph structure to be zeroed or modified according to reset logic \\
 \hline
-{\em args} & Arguments to be used in the reset process, if necessary \\
+{\em args} & Arguments to be((\hyperlink{structarraydata__t}{arraydata\+\_\+t} $\ast$)g-\/$>$meta\+Impl used in the reset process, if necessary \\
 \hline
 {\em callback} & Callback to be executed when graph has been reset. \\
 \hline
@@ -315,6 +512,36 @@ Implementation to set the capacity (cost, weight, etc.) of an edge in the given 
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 0 if there was an error; 1 if the capacity was successfully set 
+\end{DoxyReturn}
+\index{arrayops.\+c@{arrayops.\+c}!array\+Set\+Flow@{array\+Set\+Flow}}
+\index{array\+Set\+Flow@{array\+Set\+Flow}!arrayops.\+c@{arrayops.\+c}}
+\subsubsection[{\texorpdfstring{array\+Set\+Flow(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$flow, struct graph\+\_\+t $\ast$g)}{arraySetFlow(const size\_t *uid, const size\_t *vid, const double *flow, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int array\+Set\+Flow (
+\begin{DoxyParamCaption}
+\item[{const size\+\_\+t $\ast$}]{uid, }
+\item[{const size\+\_\+t $\ast$}]{vid, }
+\item[{const double $\ast$}]{flow, }
+\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
+\end{DoxyParamCaption}
+)}\hypertarget{arrayops_8c_a121e960ced5ef4fcfbad293f3066e372}{}\label{arrayops_8c_a121e960ced5ef4fcfbad293f3066e372}
+
+
+Function to set the flow value for an edge (amount of capacity currently \char`\"{}used\char`\"{}) 
+
+Set the flow value for the given edge.
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Identifier of the edge start. \\
+\hline
+{\em vid} & Identifier of the edge end. \\
+\hline
+{\em flow} & Value to be set for the flow. \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set. 
 \end{DoxyReturn}
 \index{arrayops.\+c@{arrayops.\+c}!free\+Graph\+Array@{free\+Graph\+Array}}
 \index{free\+Graph\+Array@{free\+Graph\+Array}!arrayops.\+c@{arrayops.\+c}}

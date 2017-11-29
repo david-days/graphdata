@@ -214,7 +214,7 @@ int linkAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct
  * @param callback Callback to be executed when graph has been reset.
  * @return 0 if there was an error during the reset; 1 if the reset completed;
  */
-int linkResetGraph(struct graph_t *g, void *args, void *callback(void));
+int linkResetGraph(struct graph_t *g, void *args, void (*callback)(void));
 
 
 #endif //GRAPHDATA_LINKOPS_H

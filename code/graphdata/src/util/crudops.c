@@ -70,7 +70,7 @@ struct dimensions_t * createDimensions(size_t dimsz, ...) {
 struct labels_t * initLabels(size_t lblcount) {
     size_t *larr = NULL;
     struct labels_t *lbl = NULL;
-    larr = (size_t *)malloc(sizeof(size_t *)*lblcount);
+    larr = (size_t *)malloc(sizeof(size_t *) * lblcount);
     if (larr != NULL) {
         lbl = (struct labels_t *)malloc(sizeof(struct labels_t));
         if (lbl != NULL) {
@@ -113,6 +113,24 @@ struct graphops_t * initGraphops() {
         gops->setCapacity = NULL;
     }
     return gops;
+}
+
+/**
+ * @brief Allocate and initialize an edge
+ * @return pointer to new edge_t memory, if successful; otherwise NULL.
+ */
+struct edge_t * initEdge() {
+    struct edge_t *edge;
+    edge = (struct edge_t *)malloc(sizeof(struct edge_t));
+    if (edge != NULL) {
+        edge->attrs = NULL;
+        edge->next = NULL;
+        edge->prev = NULL;
+        edge->u = 0;
+        edge->v = 0;
+        edge->cap = 0.0;
+        edge->flow = 0.0;
+    }
 }
 
 

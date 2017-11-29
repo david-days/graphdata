@@ -5,7 +5,7 @@
 \begin{DoxyCompactItemize}
 \item 
 struct \hyperlink{structarraydata__t}{arraydata\+\_\+t}
-\begin{DoxyCompactList}\small\item\em Metadata structure for array graphs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Array implementation of the graph structure for fixed-\/size, fixed-\/degree, U\+N\+D\+I\+R\+E\+C\+T\+ED graphs. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -52,6 +52,16 @@ Set up a graph with array backing data.
 
 \begin{DoxyParams}{Parameters}
 {\em gtype} & D\+I\+R\+E\+C\+T\+ED or U\+N\+D\+I\+R\+E\+C\+T\+ED graph \\
+\hline
+{\em g} & Graph structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful; 0 if an error
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em gtype} & U\+N\+D\+I\+R\+E\+C\+T\+ED graph will be returned, regardless of passed type. \\
 \hline
 {\em g} & Graph structure \\
 \hline

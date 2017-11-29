@@ -1,0 +1,339 @@
+\hypertarget{crudops_8h}{}\section{/home/david/devel/graphdata/code/graphdata/include/util/crudops.h File Reference}
+\label{crudops_8h}\index{/home/david/devel/graphdata/code/graphdata/include/util/crudops.\+h@{/home/david/devel/graphdata/code/graphdata/include/util/crudops.\+h}}
+{\ttfamily \#include $<$graphdata.\+h$>$}\\*
+{\ttfamily \#include $<$graphops.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$ \hyperlink{crudops_8h_a11691f9f59d146634ed2cd6c79aec634}{basic\+Graph\+Init} ()
+\begin{DoxyCompactList}\small\item\em This header is for basic graph structure operations (Create,Read,Update,Delete and similar). \end{DoxyCompactList}\item 
+struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$ \hyperlink{crudops_8h_a0266de528018be5d6bc3ebdcfc6be874}{create\+Dimensions} (size\+\_\+t dimval,...)
+\begin{DoxyCompactList}\small\item\em Create a dimension structure containing the given values in order (x, y, z, etc) \end{DoxyCompactList}\item 
+struct \hyperlink{structlabels__t}{labels\+\_\+t} $\ast$ \hyperlink{crudops_8h_ad0dd6d2c5033af247f956bfdc8ce8532}{init\+Labels} (size\+\_\+t lblcount)
+\begin{DoxyCompactList}\small\item\em Create a raw label structure of the given size. \end{DoxyCompactList}\item 
+struct \hyperlink{structgraphops__t}{graphops\+\_\+t} $\ast$ \hyperlink{crudops_8h_a251634055d0f0e6837b0b0075ada8540}{init\+Graphops} ()
+\begin{DoxyCompactList}\small\item\em Raw initializer for \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. \end{DoxyCompactList}\item 
+int \hyperlink{crudops_8h_af1d15d112f4ca2b65e94859c26c09521}{destroy\+Graph} (void $\ast$$\ast$gptr)
+\begin{DoxyCompactList}\small\item\em Clear the graph and all underlying structures. \end{DoxyCompactList}\item 
+int \hyperlink{crudops_8h_a75578671ab00969861564c70e61cffd2}{destroy\+Dimensions} (void $\ast$$\ast$dimptr)
+\begin{DoxyCompactList}\small\item\em Clear out the dimensions and all underlying structures. \end{DoxyCompactList}\item 
+int \hyperlink{crudops_8h_adc5ca553fd6e958ba92862c21b2b25ae}{destroy\+Labels} (void $\ast$$\ast$lblptr)
+\begin{DoxyCompactList}\small\item\em Clear out the label and all underlying structures. \end{DoxyCompactList}\item 
+int \hyperlink{crudops_8h_a1857fe19957384a5e4abff6b9f87ee77}{destroy\+Edges} (void $\ast$$\ast$eptr)
+\begin{DoxyCompactList}\small\item\em Clear an edge structure and any linked edges (use on single or a path) \end{DoxyCompactList}\item 
+int \hyperlink{crudops_8h_aab13c370e7246fac212f45f167d79a28}{destroy\+Graphops} (void $\ast$$\ast$opsptr)
+\begin{DoxyCompactList}\small\item\em Clear a \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to N\+U\+LL. \end{DoxyCompactList}\item 
+int \hyperlink{crudops_8h_a184eea7bdfb9dcd477b2a1eb02e89a2f}{destroy\+Nodes} (void $\ast$$\ast$nptr)
+\begin{DoxyCompactList}\small\item\em Clear a node or node list (use on single or a path) \end{DoxyCompactList}\item 
+int \hyperlink{crudops_8h_ae1dbb279b04d953f217d1bb2f615ae83}{destroy\+Features} (void $\ast$$\ast$fptr)
+\begin{DoxyCompactList}\small\item\em Clear a feature or feature list (use on single or multiple attributes) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{crudops.\+h@{crudops.\+h}!basic\+Graph\+Init@{basic\+Graph\+Init}}
+\index{basic\+Graph\+Init@{basic\+Graph\+Init}!crudops.\+h@{crudops.\+h}}
+\subsubsection[{\texorpdfstring{basic\+Graph\+Init()}{basicGraphInit()}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf graph\+\_\+t}$\ast$ basic\+Graph\+Init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{crudops_8h_a11691f9f59d146634ed2cd6c79aec634}{}\label{crudops_8h_a11691f9f59d146634ed2cd6c79aec634}
+
+
+This header is for basic graph structure operations (Create,Read,Update,Delete and similar). 
+
+The functions specified here are for general graph structures and data, for use in various other implementations. These are the most general operations, dealing with basic graph structures (nodes, edges, dimensional data, etc.). For implementation-\/specific operations, use the X\+X\+Xgraph and X\+X\+Xops headers under the impl folders. Utility method to create and preset graph structure. \begin{DoxyReturn}{Returns}
+A pointer to a \hyperlink{structgraph__t}{graph\+\_\+t} structure, if successful; otherwise, a pointer to N\+U\+LL
+\end{DoxyReturn}
+This header is for basic graph structure operations (Create,Read,Update,Delete and similar).
+
+\begin{DoxyReturn}{Returns}
+A pointer to a \hyperlink{structgraph__t}{graph\+\_\+t} structure. 
+\end{DoxyReturn}
+\index{crudops.\+h@{crudops.\+h}!create\+Dimensions@{create\+Dimensions}}
+\index{create\+Dimensions@{create\+Dimensions}!crudops.\+h@{crudops.\+h}}
+\subsubsection[{\texorpdfstring{create\+Dimensions(size\+\_\+t dimval,...)}{createDimensions(size\_t dimval,...)}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf dimensions\+\_\+t}$\ast$ create\+Dimensions (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{dimsz, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\hypertarget{crudops_8h_a0266de528018be5d6bc3ebdcfc6be874}{}\label{crudops_8h_a0266de528018be5d6bc3ebdcfc6be874}
+
+
+Create a dimension structure containing the given values in order (x, y, z, etc) 
+
+This is used to initialize (and contain) the ordered size of the spatial dimensions given. Consumers are responsible for calling free() on the structure, or passing it to a standard clearing function
+
+
+\begin{DoxyParams}{Parameters}
+{\em dimval} & First dimension in the ordered list of dimension limits \\
+\hline
+{\em ...} & Additional dimension values passed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to a \hyperlink{structdimensions__t}{dimensions\+\_\+t} structure that holds the count and values of the structure
+\end{DoxyReturn}
+This is used to initialize (and contain) the ordered size of the spatial dimensions given. Consumers are responsible for calling free() on the structure, or passing it to a standard clearing function
+
+
+\begin{DoxyParams}{Parameters}
+{\em dimsz} & Number of dimensions \\
+\hline
+{\em ...} & Additional dimension values passed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to a \hyperlink{structdimensions__t}{dimensions\+\_\+t} structure that holds the count and values of the structure, or a null pointer if there is a problem allocating the memory. 
+\end{DoxyReturn}
+\index{crudops.\+h@{crudops.\+h}!destroy\+Dimensions@{destroy\+Dimensions}}
+\index{destroy\+Dimensions@{destroy\+Dimensions}!crudops.\+h@{crudops.\+h}}
+\subsubsection[{\texorpdfstring{destroy\+Dimensions(void $\ast$$\ast$dimptr)}{destroyDimensions(void **dimptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int destroy\+Dimensions (
+\begin{DoxyParamCaption}
+\item[{void $\ast$$\ast$}]{dptr}
+\end{DoxyParamCaption}
+)}\hypertarget{crudops_8h_a75578671ab00969861564c70e61cffd2}{}\label{crudops_8h_a75578671ab00969861564c70e61cffd2}
+
+
+Clear out the dimensions and all underlying structures. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dimptr} & Dimensions structure to be cleared \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if success; 0 if error
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em dptr} & pointer-\/to-\/pointer for \hyperlink{structdimensions__t}{dimensions\+\_\+t} structure to be cleared \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if success; 0 if error 
+\end{DoxyReturn}
+\index{crudops.\+h@{crudops.\+h}!destroy\+Edges@{destroy\+Edges}}
+\index{destroy\+Edges@{destroy\+Edges}!crudops.\+h@{crudops.\+h}}
+\subsubsection[{\texorpdfstring{destroy\+Edges(void $\ast$$\ast$eptr)}{destroyEdges(void **eptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int destroy\+Edges (
+\begin{DoxyParamCaption}
+\item[{void $\ast$$\ast$}]{eptr}
+\end{DoxyParamCaption}
+)}\hypertarget{crudops_8h_a1857fe19957384a5e4abff6b9f87ee77}{}\label{crudops_8h_a1857fe19957384a5e4abff6b9f87ee77}
+
+
+Clear an edge structure and any linked edges (use on single or a path) 
+
+The pointer itself will be changed to N\+U\+LL
+
+
+\begin{DoxyParams}{Parameters}
+{\em eptr} & Initial edge pointer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if success; 0 if error.
+\end{DoxyReturn}
+The pointer itself will be changed to N\+U\+LL
+
+
+\begin{DoxyParams}{Parameters}
+{\em eptr} & pointer-\/to-\/pointer for initial edge pointer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if success; 0 if error. 
+\end{DoxyReturn}
+\index{crudops.\+h@{crudops.\+h}!destroy\+Features@{destroy\+Features}}
+\index{destroy\+Features@{destroy\+Features}!crudops.\+h@{crudops.\+h}}
+\subsubsection[{\texorpdfstring{destroy\+Features(void $\ast$$\ast$fptr)}{destroyFeatures(void **fptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int destroy\+Features (
+\begin{DoxyParamCaption}
+\item[{void $\ast$$\ast$}]{fptr}
+\end{DoxyParamCaption}
+)}\hypertarget{crudops_8h_ae1dbb279b04d953f217d1bb2f615ae83}{}\label{crudops_8h_ae1dbb279b04d953f217d1bb2f615ae83}
+
+
+Clear a feature or feature list (use on single or multiple attributes) 
+
+The pointer itself will be changed to N\+U\+LL
+
+
+\begin{DoxyParams}{Parameters}
+{\em fptr} & Initial feature pointer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful; 0 if error
+\end{DoxyReturn}
+The pointer itself will be changed to N\+U\+LL
+
+
+\begin{DoxyParams}{Parameters}
+{\em fptr} & pointer-\/to-\/pointer for initial feature structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful; 0 if error 
+\end{DoxyReturn}
+\index{crudops.\+h@{crudops.\+h}!destroy\+Graph@{destroy\+Graph}}
+\index{destroy\+Graph@{destroy\+Graph}!crudops.\+h@{crudops.\+h}}
+\subsubsection[{\texorpdfstring{destroy\+Graph(void $\ast$$\ast$gptr)}{destroyGraph(void **gptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int destroy\+Graph (
+\begin{DoxyParamCaption}
+\item[{void $\ast$$\ast$}]{gptr}
+\end{DoxyParamCaption}
+)}\hypertarget{crudops_8h_af1d15d112f4ca2b65e94859c26c09521}{}\label{crudops_8h_af1d15d112f4ca2b65e94859c26c09521}
+
+
+Clear the graph and all underlying structures. 
+
+The pointer itself will be changed to N\+U\+LL
+
+
+\begin{DoxyParams}{Parameters}
+{\em gptr} & Graph structure to be cleared \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if success; 0 if error
+\end{DoxyReturn}
+The pointer itself will be changed to N\+U\+LL
+
+
+\begin{DoxyParams}{Parameters}
+{\em gptr} & pointer-\/to-\/pointer for \hyperlink{structgraph__t}{graph\+\_\+t} structure to be cleared \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if success; 0 if error 
+\end{DoxyReturn}
+\index{crudops.\+h@{crudops.\+h}!destroy\+Graphops@{destroy\+Graphops}}
+\index{destroy\+Graphops@{destroy\+Graphops}!crudops.\+h@{crudops.\+h}}
+\subsubsection[{\texorpdfstring{destroy\+Graphops(void $\ast$$\ast$opsptr)}{destroyGraphops(void **opsptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int destroy\+Graphops (
+\begin{DoxyParamCaption}
+\item[{void $\ast$$\ast$}]{opsptr}
+\end{DoxyParamCaption}
+)}\hypertarget{crudops_8h_aab13c370e7246fac212f45f167d79a28}{}\label{crudops_8h_aab13c370e7246fac212f45f167d79a28}
+
+
+Clear a \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to N\+U\+LL. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em optptr} & Graphops structuure to be cleared and deallocated \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful; 0 if error
+\end{DoxyReturn}
+Clear a \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to N\+U\+LL.
+
+The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to N\+U\+LL
+
+
+\begin{DoxyParams}{Parameters}
+{\em opsptr} & pointer-\/to-\/pointer for \hyperlink{structgraphops__t}{graphops\+\_\+t} structuure to be cleared and deallocated \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful; 0 if error 
+\end{DoxyReturn}
+\index{crudops.\+h@{crudops.\+h}!destroy\+Labels@{destroy\+Labels}}
+\index{destroy\+Labels@{destroy\+Labels}!crudops.\+h@{crudops.\+h}}
+\subsubsection[{\texorpdfstring{destroy\+Labels(void $\ast$$\ast$lblptr)}{destroyLabels(void **lblptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int destroy\+Labels (
+\begin{DoxyParamCaption}
+\item[{void $\ast$$\ast$}]{lptr}
+\end{DoxyParamCaption}
+)}\hypertarget{crudops_8h_adc5ca553fd6e958ba92862c21b2b25ae}{}\label{crudops_8h_adc5ca553fd6e958ba92862c21b2b25ae}
+
+
+Clear out the label and all underlying structures. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lblptr} & Label structure to be cleared \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if success; 0 if error
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em labels} & pointer-\/to-\/pointer for \hyperlink{structlabels__t}{labels\+\_\+t} structure to be cleared \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if success; 0 if error 
+\end{DoxyReturn}
+\index{crudops.\+h@{crudops.\+h}!destroy\+Nodes@{destroy\+Nodes}}
+\index{destroy\+Nodes@{destroy\+Nodes}!crudops.\+h@{crudops.\+h}}
+\subsubsection[{\texorpdfstring{destroy\+Nodes(void $\ast$$\ast$nptr)}{destroyNodes(void **nptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int destroy\+Nodes (
+\begin{DoxyParamCaption}
+\item[{void $\ast$$\ast$}]{nptr}
+\end{DoxyParamCaption}
+)}\hypertarget{crudops_8h_a184eea7bdfb9dcd477b2a1eb02e89a2f}{}\label{crudops_8h_a184eea7bdfb9dcd477b2a1eb02e89a2f}
+
+
+Clear a node or node list (use on single or a path) 
+
+The pointer itself will be changed to N\+U\+LL
+
+
+\begin{DoxyParams}{Parameters}
+{\em nptr} & Initial node pointer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful; 0 if error
+\end{DoxyReturn}
+The pointer itself will be changed to N\+U\+LL
+
+
+\begin{DoxyParams}{Parameters}
+{\em nptr} & pointer-\/to-\/pointer for initial node structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful; 0 if error 
+\end{DoxyReturn}
+\index{crudops.\+h@{crudops.\+h}!init\+Graphops@{init\+Graphops}}
+\index{init\+Graphops@{init\+Graphops}!crudops.\+h@{crudops.\+h}}
+\subsubsection[{\texorpdfstring{init\+Graphops()}{initGraphops()}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf graphops\+\_\+t}$\ast$ init\+Graphops (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{crudops_8h_a251634055d0f0e6837b0b0075ada8540}{}\label{crudops_8h_a251634055d0f0e6837b0b0075ada8540}
+
+
+Raw initializer for \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. 
+
+Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to a standard cleanup function.
+
+\begin{DoxyReturn}{Returns}
+Pointer to a graphops structure, or N\+U\+LL if there was a problem with memory allocation
+\end{DoxyReturn}
+Raw initializer for \hyperlink{structgraphops__t}{graphops\+\_\+t} structure.
+
+Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to a standard cleanup function.
+
+\begin{DoxyReturn}{Returns}
+Pointer to a graphops structure, or N\+U\+LL if there was a problem with memory allocation 
+\end{DoxyReturn}
+\index{crudops.\+h@{crudops.\+h}!init\+Labels@{init\+Labels}}
+\index{init\+Labels@{init\+Labels}!crudops.\+h@{crudops.\+h}}
+\subsubsection[{\texorpdfstring{init\+Labels(size\+\_\+t lblcount)}{initLabels(size\_t lblcount)}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf labels\+\_\+t}$\ast$ init\+Labels (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{lblcount}
+\end{DoxyParamCaption}
+)}\hypertarget{crudops_8h_ad0dd6d2c5033af247f956bfdc8ce8532}{}\label{crudops_8h_ad0dd6d2c5033af247f956bfdc8ce8532}
+
+
+Create a raw label structure of the given size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lblcount} & Number of labels required \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Label structure properly initialized with a size\+\_\+t array of the given size, if successful; otherwise, a N\+U\+LL pointer. 
+\end{DoxyReturn}

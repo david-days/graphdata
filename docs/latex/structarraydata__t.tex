@@ -2,7 +2,7 @@
 \label{structarraydata__t}\index{arraydata\+\_\+t@{arraydata\+\_\+t}}
 
 
-Metadata structure for array graphs.  
+Array implementation of the graph structure for fixed-\/size, fixed-\/degree, U\+N\+D\+I\+R\+E\+C\+T\+ED graphs.  
 
 
 
@@ -16,20 +16,33 @@ size\+\_\+t \hyperlink{structarraydata__t_ab7b4b6740dd5353c323233dea2e2eaee}{nod
 \begin{DoxyCompactList}\small\item\em Length of the node array. \end{DoxyCompactList}\item 
 size\+\_\+t \hyperlink{structarraydata__t_a1bcdcd2b541e02eb0d20be0563a1f447}{edgelen}
 \begin{DoxyCompactList}\small\item\em Length of the edge array. \end{DoxyCompactList}\item 
-size\+\_\+t \hyperlink{structarraydata__t_a84f30a007d02c7b40025284d4fa70e20}{conncount}
-\begin{DoxyCompactList}\small\item\em Connectivity count--length of the second dimension of the arrays. \end{DoxyCompactList}\end{DoxyCompactItemize}
+size\+\_\+t \hyperlink{structarraydata__t_af48476cee5ba6969a23157f07788f304}{degree}
+\begin{DoxyCompactList}\small\item\em Degree of the nodes--the number of (possible) edges coming out of each node. \end{DoxyCompactList}\item 
+size\+\_\+t \hyperlink{structarraydata__t_a2a07b4b41c935e1a5acba14d3df92a45}{arraylen}
+\begin{DoxyCompactList}\small\item\em Length of the arrays. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Metadata structure for array graphs. 
+Array implementation of the graph structure for fixed-\/size, fixed-\/degree, U\+N\+D\+I\+R\+E\+C\+T\+ED graphs. 
+
+The array implementation of the graph structure is based on an U\+N\+D\+I\+R\+E\+C\+T\+ED, fixed-\/size and fixed maximum degree for the nodes.
+
+Because the graph is U\+N\+D\+I\+R\+E\+C\+T\+ED, the start of each edge will actually be min\+Node(u,v) and the end of each edge will be max\+Node(u,v). Thus, node 0 can connect \char`\"{}upwards\char`\"{}, but no higher nodes can connect down to node 0. In all the underlying operations, having 0 in a node reference value indicates an unused edge reference. Metadata structure for array graphs 
 
 \subsection{Field Documentation}
-\index{arraydata\+\_\+t@{arraydata\+\_\+t}!conncount@{conncount}}
-\index{conncount@{conncount}!arraydata\+\_\+t@{arraydata\+\_\+t}}
-\subsubsection[{\texorpdfstring{conncount}{conncount}}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t arraydata\+\_\+t\+::conncount}\hypertarget{structarraydata__t_a84f30a007d02c7b40025284d4fa70e20}{}\label{structarraydata__t_a84f30a007d02c7b40025284d4fa70e20}
+\index{arraydata\+\_\+t@{arraydata\+\_\+t}!arraylen@{arraylen}}
+\index{arraylen@{arraylen}!arraydata\+\_\+t@{arraydata\+\_\+t}}
+\subsubsection[{\texorpdfstring{arraylen}{arraylen}}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t arraydata\+\_\+t\+::arraylen}\hypertarget{structarraydata__t_a2a07b4b41c935e1a5acba14d3df92a45}{}\label{structarraydata__t_a2a07b4b41c935e1a5acba14d3df92a45}
 
 
-Connectivity count--length of the second dimension of the arrays. 
+Length of the arrays. 
+
+This length is actually nodecount $\ast$ degree for the A\+R\+R\+AY implementation \index{arraydata\+\_\+t@{arraydata\+\_\+t}!degree@{degree}}
+\index{degree@{degree}!arraydata\+\_\+t@{arraydata\+\_\+t}}
+\subsubsection[{\texorpdfstring{degree}{degree}}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t arraydata\+\_\+t\+::degree}\hypertarget{structarraydata__t_af48476cee5ba6969a23157f07788f304}{}\label{structarraydata__t_af48476cee5ba6969a23157f07788f304}
+
+
+Degree of the nodes--the number of (possible) edges coming out of each node. 
 
 \index{arraydata\+\_\+t@{arraydata\+\_\+t}!edgelen@{edgelen}}
 \index{edgelen@{edgelen}!arraydata\+\_\+t@{arraydata\+\_\+t}}

@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['spatial_2ec',['spatial.c',['../spatial_8c.html',1,'']]],
-  ['spatial_2eh',['spatial.h',['../spatial_8h.html',1,'']]]
+  ['linkgraph_2ec',['linkgraph.c',['../linkgraph_8c.html',1,'']]],
+  ['linkgraph_2eh',['linkgraph.h',['../linkgraph_8h.html',1,'']]],
+  ['linkops_2ec',['linkops.c',['../linkops_8c.html',1,'']]],
+  ['linkops_2eh',['linkops.h',['../linkops_8h.html',1,'']]]
 ];

@@ -1,14 +1,10 @@
 var searchData=
 [
-  ['labelarr',['labelarr',['../structlabels__t.html#a629db8e17b21047f88e4f7e484522593',1,'labels_t']]],
-  ['labelcount',['labelcount',['../structlabels__t.html#af5b7ba7df24db052d4eb4d762a027039',1,'labels_t']]],
-  ['labels',['labels',['../structgraph__t.html#ab0661b91402642806325cb4f4da9dc24',1,'graph_t']]],
-  ['labels_5ft',['labels_t',['../structlabels__t.html',1,'']]],
-  ['linked',['LINKED',['../graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6a03745475c6df1217f2fd3200875fb376',1,'graphdata.h']]],
-  ['linkgraph_2ec',['linkgraph.c',['../linkgraph_8c.html',1,'']]],
-  ['linkgraph_2eh',['linkgraph.h',['../linkgraph_8h.html',1,'']]],
-  ['linkgraphinit',['linkGraphInit',['../linkgraph_8c.html#a66165776845d1fad551f76de175096c4',1,'linkGraphInit(enum GRAPHTYPE gtype, struct graph_t *g):&#160;linkgraph.c'],['../linkgraph_8h.html#a66165776845d1fad551f76de175096c4',1,'linkGraphInit(enum GRAPHTYPE gtype, struct graph_t *g):&#160;linkgraph.c']]],
-  ['linkgraphlabelinit',['linkGraphLabelInit',['../linkgraph_8c.html#a937f7abc960d8483382d23784fc92e85',1,'linkGraphLabelInit(enum GRAPHTYPE gtype, struct graph_t *g, size_t lblcount):&#160;linkgraph.c'],['../linkgraph_8h.html#a937f7abc960d8483382d23784fc92e85',1,'linkGraphLabelInit(enum GRAPHTYPE gtype, struct graph_t *g, size_t lblcount):&#160;linkgraph.c']]],
-  ['linkops_2ec',['linkops.c',['../linkops_8c.html',1,'']]],
-  ['linkops_2eh',['linkops.h',['../linkops_8h.html',1,'']]]
+  ['index_2emd',['index.md',['../index_8md.html',1,'']]],
+  ['indexfromdimensions',['indexFromDimensions',['../spatial_8c.html#ad8c0e4189ff1e1a1cf9b979b02472e7b',1,'indexFromDimensions(struct dimensions_t *dims, size_t *idx, size_t *coords):&#160;spatial.c'],['../spatial_8h.html#ad8c0e4189ff1e1a1cf9b979b02472e7b',1,'indexFromDimensions(struct dimensions_t *dims, size_t *idx, size_t *coords):&#160;spatial.c']]],
+  ['indexlength',['indexLength',['../spatial_8c.html#a65ef522c49a3cfb437fb9c7260525632',1,'indexLength(struct dimensions_t *dims):&#160;spatial.c'],['../spatial_8h.html#a65ef522c49a3cfb437fb9c7260525632',1,'indexLength(struct dimensions_t *dims):&#160;spatial.c']]],
+  ['initgraph',['initGraph',['../graphinit_8c.html#a8d5479a6e78a253b7eae2f0851383115',1,'initGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, struct dimensions_t *dims):&#160;graphinit.c'],['../graphinit_8h.html#a8d5479a6e78a253b7eae2f0851383115',1,'initGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, struct dimensions_t *dims):&#160;graphinit.c']]],
+  ['initgraphops',['initGraphops',['../crudops_8c.html#a251634055d0f0e6837b0b0075ada8540',1,'initGraphops():&#160;crudops.c'],['../crudops_8h.html#a251634055d0f0e6837b0b0075ada8540',1,'initGraphops():&#160;crudops.c']]],
+  ['initlabelgraph',['initLabelGraph',['../graphinit_8c.html#a02b37dea4f0d6c0f795fa987c741f175',1,'initLabelGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, size_t lblcount, struct dimensions_t *dims):&#160;graphinit.c'],['../graphinit_8h.html#a02b37dea4f0d6c0f795fa987c741f175',1,'initLabelGraph(enum GRAPHTYPE gtype, enum GRAPHIMPL impltype, size_t lblcount, struct dimensions_t *dims):&#160;graphinit.c']]],
+  ['initlabels',['initLabels',['../crudops_8c.html#ad0dd6d2c5033af247f956bfdc8ce8532',1,'initLabels(size_t lblcount):&#160;crudops.c'],['../crudops_8h.html#ad0dd6d2c5033af247f956bfdc8ce8532',1,'initLabels(size_t lblcount):&#160;crudops.c']]]
 ];

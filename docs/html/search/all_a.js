@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['next',['next',['../structfeature__t.html#ab77c0648e065a1f6063e5c81615a6698',1,'feature_t::next()'],['../structnode__t.html#aca548c9bafe54ba9db19d40a7a7f1cb3',1,'node_t::next()'],['../structedge__t.html#a1e36360af59a1ec80463b82e00362480',1,'edge_t::next()']]],
-  ['node_5ft',['node_t',['../structnode__t.html',1,'']]],
-  ['nodecount',['nodeCount',['../structgraphops__t.html#a07801b43de87d48f426d7abf7959e738',1,'graphops_t']]],
-  ['nodeid',['nodeid',['../structnode__t.html#a3fe17f2fd1e7a7b2ec5f7bfae826816c',1,'node_t']]],
-  ['nodeimpl',['nodeImpl',['../structgraph__t.html#a3bf6344f03f4cbc69345d026da2e3368',1,'graph_t']]],
-  ['nodelen',['nodelen',['../structarraydata__t.html#ab7b4b6740dd5353c323233dea2e2eaee',1,'arraydata_t']]],
-  ['nodepath',['nodePath',['../structgraphops__t.html#afd2a0b194e922fa656b4352a8fed9e05',1,'graphops_t']]]
+  ['maxcapacity',['maxCapacity',['../graphcomp_8c.html#a9b3fb4168babe26494f661eb847520a5',1,'maxCapacity(const struct edge_t *path):&#160;graphcomp.c'],['../graphcomp_8h.html#a9b3fb4168babe26494f661eb847520a5',1,'maxCapacity(const struct edge_t *path):&#160;graphcomp.c']]],
+  ['maxnode',['maxNode',['../graphcomp_8c.html#a4988fbc422b2dcdf1879810f103922a6',1,'maxNode(size_t *a, size_t *b):&#160;graphcomp.c'],['../graphcomp_8h.html#a4988fbc422b2dcdf1879810f103922a6',1,'maxNode(size_t *a, size_t *b):&#160;graphcomp.c']]],
+  ['maxval',['maxVal',['../graphcomp_8c.html#a4fcbba3a60a7bffa7fcb9c8e9bdcbbd9',1,'maxVal(double *a, double *b):&#160;graphcomp.c'],['../graphcomp_8h.html#a4fcbba3a60a7bffa7fcb9c8e9bdcbbd9',1,'maxVal(double *a, double *b):&#160;graphcomp.c']]],
+  ['metaimpl',['metaImpl',['../structgraph__t.html#ab11b23897ec5b39d38c3f85581bd313e',1,'graph_t']]],
+  ['mincapacity',['minCapacity',['../graphcomp_8c.html#a3c4eb4b7f87b83f1b0f717e3e43464f6',1,'minCapacity(const struct edge_t *path):&#160;graphcomp.c'],['../graphcomp_8h.html#a3c4eb4b7f87b83f1b0f717e3e43464f6',1,'minCapacity(const struct edge_t *path):&#160;graphcomp.c']]],
+  ['minnode',['minNode',['../graphcomp_8c.html#a44d818ea7139dae633df15872777edf3',1,'minNode(size_t *a, size_t *b):&#160;graphcomp.c'],['../graphcomp_8h.html#a44d818ea7139dae633df15872777edf3',1,'minNode(size_t *a, size_t *b):&#160;graphcomp.c']]],
+  ['minval',['minVal',['../graphcomp_8c.html#aa8b1aa46429eb87a9836ee3f9dd08911',1,'minVal(double *a, double *b):&#160;graphcomp.c'],['../graphcomp_8h.html#aa8b1aa46429eb87a9836ee3f9dd08911',1,'minVal(double *a, double *b):&#160;graphcomp.c']]]
 ];

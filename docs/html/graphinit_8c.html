@@ -93,267 +93,50 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="graphinit_8h_source.html">graphinit.h</a>&gt;</code><br />
-<code>#include &lt;stdarg.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="crudops_8h_source.html">util/crudops.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="arraygraph_8h_source.html">impl/arraygraph.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="arrayops_8h_source.html">impl/arrayops.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="linkgraph_8h_source.html">impl/linkgraph.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="linkops_8h_source.html">impl/linkops.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="hashgraph_8h_source.html">impl/hashgraph.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a83b2792b0cdc485821cc92ecc4d797a3"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structdimensions__t.html">dimensions_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8c.html#a83b2792b0cdc485821cc92ecc4d797a3">createDimensions</a> (size_t dimsz,...)</td></tr>
-<tr class="memdesc:a83b2792b0cdc485821cc92ecc4d797a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a dimension structure containing the given values in order (x, y, z, etc)  <a href="#a83b2792b0cdc485821cc92ecc4d797a3">More...</a><br /></td></tr>
-<tr class="separator:a83b2792b0cdc485821cc92ecc4d797a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0dd6d2c5033af247f956bfdc8ce8532"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structlabels__t.html">labels_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8c.html#ad0dd6d2c5033af247f956bfdc8ce8532">initLabels</a> (size_t lblcount)</td></tr>
-<tr class="memdesc:ad0dd6d2c5033af247f956bfdc8ce8532"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a raw label structure of the given size.  <a href="#ad0dd6d2c5033af247f956bfdc8ce8532">More...</a><br /></td></tr>
-<tr class="separator:ad0dd6d2c5033af247f956bfdc8ce8532"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a251634055d0f0e6837b0b0075ada8540"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structgraphops__t.html">graphops_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8c.html#a251634055d0f0e6837b0b0075ada8540">initGraphops</a> ()</td></tr>
-<tr class="memdesc:a251634055d0f0e6837b0b0075ada8540"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw initializer for <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structure with all NULL interior pointers.  <a href="#a251634055d0f0e6837b0b0075ada8540">More...</a><br /></td></tr>
-<tr class="separator:a251634055d0f0e6837b0b0075ada8540"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d5479a6e78a253b7eae2f0851383115"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structgraph__t.html">graph_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8c.html#a8d5479a6e78a253b7eae2f0851383115">initGraph</a> (enum <a class="el" href="graphdata_8h.html#a384e88b524b782ff50439055cbc8a5c2">GRAPHTYPE</a> gtype, enum <a class="el" href="graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6">GRAPHIMPL</a> impltype, struct <a class="el" href="structdimensions__t.html">dimensions_t</a> *dims)</td></tr>
 <tr class="memdesc:a8d5479a6e78a253b7eae2f0851383115"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a general graph structure.  <a href="#a8d5479a6e78a253b7eae2f0851383115">More...</a><br /></td></tr>
 <tr class="separator:a8d5479a6e78a253b7eae2f0851383115"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02b37dea4f0d6c0f795fa987c741f175"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structgraph__t.html">graph_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8c.html#a02b37dea4f0d6c0f795fa987c741f175">initLabelGraph</a> (enum <a class="el" href="graphdata_8h.html#a384e88b524b782ff50439055cbc8a5c2">GRAPHTYPE</a> gtype, enum <a class="el" href="graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6">GRAPHIMPL</a> impltype, size_t lblcount, struct <a class="el" href="structdimensions__t.html">dimensions_t</a> *dims)</td></tr>
 <tr class="memdesc:a02b37dea4f0d6c0f795fa987c741f175"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a graph structure primed for usage in graph-label operations.  <a href="#a02b37dea4f0d6c0f795fa987c741f175">More...</a><br /></td></tr>
 <tr class="separator:a02b37dea4f0d6c0f795fa987c741f175"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1d15d112f4ca2b65e94859c26c09521"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8c.html#af1d15d112f4ca2b65e94859c26c09521">destroyGraph</a> (void **gptr)</td></tr>
-<tr class="memdesc:af1d15d112f4ca2b65e94859c26c09521"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the graph and all underlying structures.  <a href="#af1d15d112f4ca2b65e94859c26c09521">More...</a><br /></td></tr>
-<tr class="separator:af1d15d112f4ca2b65e94859c26c09521"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84ed1fa9fdef1a55f38d0caaa02c93c5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8c.html#a84ed1fa9fdef1a55f38d0caaa02c93c5">destroyDimensions</a> (void **dptr)</td></tr>
-<tr class="memdesc:a84ed1fa9fdef1a55f38d0caaa02c93c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear out the dimensions and all underlying structures.  <a href="#a84ed1fa9fdef1a55f38d0caaa02c93c5">More...</a><br /></td></tr>
-<tr class="separator:a84ed1fa9fdef1a55f38d0caaa02c93c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a2d2f30bff95d19a5536ab0a4f09132"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8c.html#a3a2d2f30bff95d19a5536ab0a4f09132">destroyLabels</a> (void **lptr)</td></tr>
-<tr class="memdesc:a3a2d2f30bff95d19a5536ab0a4f09132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear out the label and all underlying structures.  <a href="#a3a2d2f30bff95d19a5536ab0a4f09132">More...</a><br /></td></tr>
-<tr class="separator:a3a2d2f30bff95d19a5536ab0a4f09132"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1857fe19957384a5e4abff6b9f87ee77"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8c.html#a1857fe19957384a5e4abff6b9f87ee77">destroyEdges</a> (void **eptr)</td></tr>
-<tr class="memdesc:a1857fe19957384a5e4abff6b9f87ee77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear an edge structure and any linked edges (use on single or a path)  <a href="#a1857fe19957384a5e4abff6b9f87ee77">More...</a><br /></td></tr>
-<tr class="separator:a1857fe19957384a5e4abff6b9f87ee77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab13c370e7246fac212f45f167d79a28"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8c.html#aab13c370e7246fac212f45f167d79a28">destroyGraphops</a> (void **opsptr)</td></tr>
-<tr class="memdesc:aab13c370e7246fac212f45f167d79a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear a <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structure.  <a href="#aab13c370e7246fac212f45f167d79a28">More...</a><br /></td></tr>
-<tr class="separator:aab13c370e7246fac212f45f167d79a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a184eea7bdfb9dcd477b2a1eb02e89a2f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8c.html#a184eea7bdfb9dcd477b2a1eb02e89a2f">destroyNodes</a> (void **nptr)</td></tr>
-<tr class="memdesc:a184eea7bdfb9dcd477b2a1eb02e89a2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear a node or node list (use on single or a path)  <a href="#a184eea7bdfb9dcd477b2a1eb02e89a2f">More...</a><br /></td></tr>
-<tr class="separator:a184eea7bdfb9dcd477b2a1eb02e89a2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1dbb279b04d953f217d1bb2f615ae83"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8c.html#ae1dbb279b04d953f217d1bb2f615ae83">destroyFeatures</a> (void **fptr)</td></tr>
-<tr class="memdesc:ae1dbb279b04d953f217d1bb2f615ae83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear a feature or feature list (use on single or multiple attributes)  <a href="#ae1dbb279b04d953f217d1bb2f615ae83">More...</a><br /></td></tr>
-<tr class="separator:ae1dbb279b04d953f217d1bb2f615ae83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fd158a86ffce2d237d326738de43e73"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structgraphops__t.html">graphops_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="graphinit_8c.html#a4fd158a86ffce2d237d326738de43e73">getOperations</a> (struct <a class="el" href="structgraph__t.html">graph_t</a> *g)</td></tr>
+<tr class="memdesc:a4fd158a86ffce2d237d326738de43e73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create and fill the <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structure that handles basic operations for the graph.  <a href="#a4fd158a86ffce2d237d326738de43e73">More...</a><br /></td></tr>
+<tr class="separator:a4fd158a86ffce2d237d326738de43e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a83b2792b0cdc485821cc92ecc4d797a3"></a>
+<a class="anchor" id="a4fd158a86ffce2d237d326738de43e73"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structdimensions__t.html">dimensions_t</a>* createDimensions </td>
+          <td class="memname">struct <a class="el" href="structgraphops__t.html">graphops_t</a>* getOperations </td>
           <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>dimsz</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create a dimension structure containing the given values in order (x, y, z, etc) </p>
-<p>This is used to initialize (and contain) the ordered size of the spatial dimensions given. Consumers are responsible for calling free() on the structure, or passing it to a standard clearing function</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dimsz</td><td>Number of dimensions </td></tr>
-    <tr><td class="paramname">...</td><td>Additional dimension values passed </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to a <a class="el" href="structdimensions__t.html" title="Structure to hold values for dimensional graphs. ">dimensions_t</a> structure that holds the count and values of the structure, or a null pointer if there is a problem allocating the memory. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a84ed1fa9fdef1a55f38d0caaa02c93c5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int destroyDimensions </td>
-          <td>(</td>
-          <td class="paramtype">void **&#160;</td>
-          <td class="paramname"><em>dptr</em></td><td>)</td>
+          <td class="paramtype">struct <a class="el" href="structgraph__t.html">graph_t</a> *&#160;</td>
+          <td class="paramname"><em>g</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Clear out the dimensions and all underlying structures. </p>
+<p>Create and fill the <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structure that handles basic operations for the graph. </p>
+<p>Using the <a class="el" href="structgraph__t.html" title="Structure containing the backing data for the graph representation. ">graph_t</a> implementation pass, this function creates a <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structure necessary to handle basic functions for the given graph.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dptr</td><td>pointer-to-pointer for <a class="el" href="structdimensions__t.html" title="Structure to hold values for dimensional graphs. ">dimensions_t</a> structure to be cleared </td></tr>
+    <tr><td class="paramname">g</td><td>Graph structure being used </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>1 if success; 0 if error </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a1857fe19957384a5e4abff6b9f87ee77"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int destroyEdges </td>
-          <td>(</td>
-          <td class="paramtype">void **&#160;</td>
-          <td class="paramname"><em>eptr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clear an edge structure and any linked edges (use on single or a path) </p>
-<p>The pointer itself will be changed to NULL</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">eptr</td><td>pointer-to-pointer for initial edge pointer </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>1 if success; 0 if error. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ae1dbb279b04d953f217d1bb2f615ae83"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int destroyFeatures </td>
-          <td>(</td>
-          <td class="paramtype">void **&#160;</td>
-          <td class="paramname"><em>fptr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clear a feature or feature list (use on single or multiple attributes) </p>
-<p>The pointer itself will be changed to NULL</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fptr</td><td>pointer-to-pointer for initial feature structure </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>1 if successful; 0 if error </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="af1d15d112f4ca2b65e94859c26c09521"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int destroyGraph </td>
-          <td>(</td>
-          <td class="paramtype">void **&#160;</td>
-          <td class="paramname"><em>gptr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clear the graph and all underlying structures. </p>
-<p>The pointer itself will be changed to NULL</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">gptr</td><td>pointer-to-pointer for <a class="el" href="structgraph__t.html" title="Structure containing the backing data for the graph representation. ">graph_t</a> structure to be cleared </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>1 if success; 0 if error </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aab13c370e7246fac212f45f167d79a28"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int destroyGraphops </td>
-          <td>(</td>
-          <td class="paramtype">void **&#160;</td>
-          <td class="paramname"><em>opsptr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clear a <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structure. </p>
-<p>Clear a <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structure. The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to NULL.</p>
-<p>The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to NULL</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">opsptr</td><td>pointer-to-pointer for <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structuure to be cleared and deallocated </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>1 if successful; 0 if error </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a3a2d2f30bff95d19a5536ab0a4f09132"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int destroyLabels </td>
-          <td>(</td>
-          <td class="paramtype">void **&#160;</td>
-          <td class="paramname"><em>lptr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clear out the label and all underlying structures. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">labels</td><td>pointer-to-pointer for <a class="el" href="structlabels__t.html" title="Structure holding identifiers for &quot;label&quot; nodes. ">labels_t</a> structure to be cleared </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>1 if success; 0 if error </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a184eea7bdfb9dcd477b2a1eb02e89a2f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int destroyNodes </td>
-          <td>(</td>
-          <td class="paramtype">void **&#160;</td>
-          <td class="paramname"><em>nptr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clear a node or node list (use on single or a path) </p>
-<p>The pointer itself will be changed to NULL</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nptr</td><td>pointer-to-pointer for initial node structure </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>1 if successful; 0 if error </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to a new <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structure, if successful; otherwise, a pointer to NULL </dd></dl>
 
 </div>
 </div>
@@ -399,26 +182,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to the graph structure created, if parameters are valid. NULL pointer returned if the parameters are invalid or there is a problem allocating the memory required. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a251634055d0f0e6837b0b0075ada8540"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct <a class="el" href="structgraphops__t.html">graphops_t</a>* initGraphops </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Raw initializer for <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structure with all NULL interior pointers. </p>
-<p>Raw initializer for <a class="el" href="structgraphops__t.html" title="Structure relating graph data to implementations. ">graphops_t</a> structure.</p>
-<p>Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to a standard cleanup function.</p>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to a graphops structure, or NULL if there was a problem with memory allocation </dd></dl>
 
 </div>
 </div>
@@ -470,31 +233,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to the graph structure created, if the parameters are valid. NULL pointer returned if the parameters are invalid or there is a problem allocating the memory required. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ad0dd6d2c5033af247f956bfdc8ce8532"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct <a class="el" href="structlabels__t.html">labels_t</a>* initLabels </td>
-          <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>lblcount</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create a raw label structure of the given size. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">lblcount</td><td>Number of labels required </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Label structure properly initialized with a size_t array of the given size, if successful; otherwise, a NULL pointer. </dd></dl>
 
 </div>
 </div>

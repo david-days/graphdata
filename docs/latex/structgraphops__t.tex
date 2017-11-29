@@ -26,11 +26,25 @@ struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$ \hyperlink{structgraphops
 \begin{DoxyCompactList}\small\item\em Return a linked-\/list of neighbors. \end{DoxyCompactList}\item 
 \hyperlink{graphops_8h_a1cf1c55a55049fff31b8097bfd289a62}{func\+Get\+Edges} \hyperlink{structgraphops__t_a87fec7e1150c05e54e34ab09fe401eaa}{get\+Edges}
 \begin{DoxyCompactList}\small\item\em Return a linked-\/list of edges starting at this node. \end{DoxyCompactList}\item 
+\hyperlink{graphops_8h_a0641347fdbb9412ba9ccef3a27da914c}{func\+Get\+Capacity} \hyperlink{structgraphops__t_a2c16b33828f7304837b679fcf2ead523}{get\+Capacity}
+\begin{DoxyCompactList}\small\item\em Retrieve the capacity value for the given edge. \end{DoxyCompactList}\item 
+\hyperlink{graphops_8h_a9294a965d66cd4a4d39e0b388edeff1d}{func\+Get\+Flow} \hyperlink{structgraphops__t_adda43f12be5d13e127c0fa79454dd92f}{get\+Flow}
+\begin{DoxyCompactList}\small\item\em Retrieve the flow value for a given edge. \end{DoxyCompactList}\item 
 \hyperlink{graphops_8h_a1fa386709ec061d33a9b473357ac1f48}{func\+Add\+Node} \hyperlink{structgraphops__t_aa1fdab76a86ab2889415964b51f1738f}{add\+Node}
 \begin{DoxyCompactList}\small\item\em Add a node to the graph. Expected to be N\+U\+LL (no implementation) for fixed-\/size graph structures. \end{DoxyCompactList}\item 
+\hyperlink{graphops_8h_af899b37f71f9610e62b98e13212d59da}{func\+Remove\+Node} \hyperlink{structgraphops__t_a6f3cb37e537a56ef77622056d7b409d3}{remove\+Node}
+\begin{DoxyCompactList}\small\item\em Remove a node from the graph. Expected to be N\+U\+LL or N\+O\+OP for fixed-\/size graph structures. \end{DoxyCompactList}\item 
 \hyperlink{graphops_8h_aba7336fb04b988fb797cbcd8c9207d64}{func\+Add\+Edge} \hyperlink{structgraphops__t_af9a74b6643b49f7799dfa78f4824aa22}{add\+Edge}
 \begin{DoxyCompactList}\small\item\em Add an edge to the graph. Expected to be N\+U\+LL (no implementation) for fixed-\/size graph structures. \end{DoxyCompactList}\item 
+\hyperlink{graphops_8h_add68b0e594df34b6e201605a3757b78b}{func\+Remove\+Edge} \hyperlink{structgraphops__t_a330cbf9dbf71b84a47ab7ac8a11d71fa}{remove\+Edge}
+\begin{DoxyCompactList}\small\item\em Remove an edge from the graph. \end{DoxyCompactList}\item 
 \hyperlink{graphops_8h_aafd2cceeca9e12b071826c74ce049e7b}{func\+Set\+Capacity} \hyperlink{structgraphops__t_a6f05f8daf75bc380988e20e019681c0a}{set\+Capacity}
+\item 
+\hyperlink{graphops_8h_a55fd1e1994412d16611818d876b2488e}{func\+Add\+Capacity} \hyperlink{structgraphops__t_aafe9596d5e7ae4ba579213c1f0c789c7}{add\+Capacity}
+\item 
+\hyperlink{graphops_8h_a69ba36f21492df6ab16e426fffcf0c47}{func\+Set\+Flow} \hyperlink{structgraphops__t_ad62e88e4ea9ffdae0c3fb681433e3d92}{set\+Flow}
+\item 
+\hyperlink{graphops_8h_a595d28f6e4e3cef8d9549139dd40af53}{func\+Add\+Flow} \hyperlink{structgraphops__t_ae412853235d06cde6a63257a5fc172e1}{add\+Flow}
 \item 
 \hyperlink{graphops_8h_aa08f7024e2b4f15854812450627dbad6}{func\+Get\+Node\+Path} \hyperlink{structgraphops__t_afd2a0b194e922fa656b4352a8fed9e05}{node\+Path}
 \begin{DoxyCompactList}\small\item\em Return a list of node (hops) from the start to the end. Means of finding the path is implementation-\/specific. \end{DoxyCompactList}\item 
@@ -46,14 +60,20 @@ Structure relating graph data to implementations.
 This is the structure containing both a reference to the graph data and the supporting basic operations. Function pointers (according to the typedefs) are set if there is a function implementation associated with the type of graph and implementation. 
 
 \subsection{Field Documentation}
-\index{graphops\+\_\+t@{graphops\+\_\+t}!add\+Edge@{add\+Edge}}
+\index{graphops\+\_\+t@{graphops\+\_\+t}!add\+Capacity@{add\+Capacity}}
+\index{add\+Capacity@{add\+Capacity}!graphops\+\_\+t@{graphops\+\_\+t}}
+\subsubsection[{\texorpdfstring{add\+Capacity}{addCapacity}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf func\+Add\+Capacity} graphops\+\_\+t\+::add\+Capacity}\hypertarget{structgraphops__t_aafe9596d5e7ae4ba579213c1f0c789c7}{}\label{structgraphops__t_aafe9596d5e7ae4ba579213c1f0c789c7}
+Adjust the capacity of an edge \index{graphops\+\_\+t@{graphops\+\_\+t}!add\+Edge@{add\+Edge}}
 \index{add\+Edge@{add\+Edge}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection[{\texorpdfstring{add\+Edge}{addEdge}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf func\+Add\+Edge} graphops\+\_\+t\+::add\+Edge}\hypertarget{structgraphops__t_af9a74b6643b49f7799dfa78f4824aa22}{}\label{structgraphops__t_af9a74b6643b49f7799dfa78f4824aa22}
 
 
 Add an edge to the graph. Expected to be N\+U\+LL (no implementation) for fixed-\/size graph structures. 
 
-\index{graphops\+\_\+t@{graphops\+\_\+t}!add\+Node@{add\+Node}}
+\index{graphops\+\_\+t@{graphops\+\_\+t}!add\+Flow@{add\+Flow}}
+\index{add\+Flow@{add\+Flow}!graphops\+\_\+t@{graphops\+\_\+t}}
+\subsubsection[{\texorpdfstring{add\+Flow}{addFlow}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf func\+Add\+Flow} graphops\+\_\+t\+::add\+Flow}\hypertarget{structgraphops__t_ae412853235d06cde6a63257a5fc172e1}{}\label{structgraphops__t_ae412853235d06cde6a63257a5fc172e1}
+Adjust the flow value of an edge \index{graphops\+\_\+t@{graphops\+\_\+t}!add\+Node@{add\+Node}}
 \index{add\+Node@{add\+Node}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection[{\texorpdfstring{add\+Node}{addNode}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf func\+Add\+Node} graphops\+\_\+t\+::add\+Node}\hypertarget{structgraphops__t_aa1fdab76a86ab2889415964b51f1738f}{}\label{structgraphops__t_aa1fdab76a86ab2889415964b51f1738f}
 
@@ -81,6 +101,13 @@ Return a list of edges traversing from the start to finish. Means of finding the
 
 Graph data structure. 
 
+\index{graphops\+\_\+t@{graphops\+\_\+t}!get\+Capacity@{get\+Capacity}}
+\index{get\+Capacity@{get\+Capacity}!graphops\+\_\+t@{graphops\+\_\+t}}
+\subsubsection[{\texorpdfstring{get\+Capacity}{getCapacity}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf func\+Get\+Capacity} graphops\+\_\+t\+::get\+Capacity}\hypertarget{structgraphops__t_a2c16b33828f7304837b679fcf2ead523}{}\label{structgraphops__t_a2c16b33828f7304837b679fcf2ead523}
+
+
+Retrieve the capacity value for the given edge. 
+
 \index{graphops\+\_\+t@{graphops\+\_\+t}!get\+Edge@{get\+Edge}}
 \index{get\+Edge@{get\+Edge}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection[{\texorpdfstring{get\+Edge}{getEdge}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf func\+Get\+Edge} graphops\+\_\+t\+::get\+Edge}\hypertarget{structgraphops__t_aafbe3ec7bdce040b86d7748c953cf607}{}\label{structgraphops__t_aafbe3ec7bdce040b86d7748c953cf607}
@@ -94,6 +121,13 @@ Return a given edge (by start-\/end identifiers)
 
 
 Return a linked-\/list of edges starting at this node. 
+
+\index{graphops\+\_\+t@{graphops\+\_\+t}!get\+Flow@{get\+Flow}}
+\index{get\+Flow@{get\+Flow}!graphops\+\_\+t@{graphops\+\_\+t}}
+\subsubsection[{\texorpdfstring{get\+Flow}{getFlow}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf func\+Get\+Flow} graphops\+\_\+t\+::get\+Flow}\hypertarget{structgraphops__t_adda43f12be5d13e127c0fa79454dd92f}{}\label{structgraphops__t_adda43f12be5d13e127c0fa79454dd92f}
+
+
+Retrieve the flow value for a given edge. 
 
 \index{graphops\+\_\+t@{graphops\+\_\+t}!get\+Neighbors@{get\+Neighbors}}
 \index{get\+Neighbors@{get\+Neighbors}!graphops\+\_\+t@{graphops\+\_\+t}}
@@ -123,6 +157,20 @@ Return count of nodes.
 
 Return a list of node (hops) from the start to the end. Means of finding the path is implementation-\/specific. 
 
+\index{graphops\+\_\+t@{graphops\+\_\+t}!remove\+Edge@{remove\+Edge}}
+\index{remove\+Edge@{remove\+Edge}!graphops\+\_\+t@{graphops\+\_\+t}}
+\subsubsection[{\texorpdfstring{remove\+Edge}{removeEdge}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf func\+Remove\+Edge} graphops\+\_\+t\+::remove\+Edge}\hypertarget{structgraphops__t_a330cbf9dbf71b84a47ab7ac8a11d71fa}{}\label{structgraphops__t_a330cbf9dbf71b84a47ab7ac8a11d71fa}
+
+
+Remove an edge from the graph. 
+
+\index{graphops\+\_\+t@{graphops\+\_\+t}!remove\+Node@{remove\+Node}}
+\index{remove\+Node@{remove\+Node}!graphops\+\_\+t@{graphops\+\_\+t}}
+\subsubsection[{\texorpdfstring{remove\+Node}{removeNode}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf func\+Remove\+Node} graphops\+\_\+t\+::remove\+Node}\hypertarget{structgraphops__t_a6f3cb37e537a56ef77622056d7b409d3}{}\label{structgraphops__t_a6f3cb37e537a56ef77622056d7b409d3}
+
+
+Remove a node from the graph. Expected to be N\+U\+LL or N\+O\+OP for fixed-\/size graph structures. 
+
 \index{graphops\+\_\+t@{graphops\+\_\+t}!reset\+Graph@{reset\+Graph}}
 \index{reset\+Graph@{reset\+Graph}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection[{\texorpdfstring{reset\+Graph}{resetGraph}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf func\+Reset\+Graph} graphops\+\_\+t\+::reset\+Graph}\hypertarget{structgraphops__t_a5e4e69eeeb8e25607c3af5dfcdbb88aa}{}\label{structgraphops__t_a5e4e69eeeb8e25607c3af5dfcdbb88aa}
@@ -133,7 +181,10 @@ Reset the graph to an initial state, according to implementation logic Means of 
 \index{graphops\+\_\+t@{graphops\+\_\+t}!set\+Capacity@{set\+Capacity}}
 \index{set\+Capacity@{set\+Capacity}!graphops\+\_\+t@{graphops\+\_\+t}}
 \subsubsection[{\texorpdfstring{set\+Capacity}{setCapacity}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf func\+Set\+Capacity} graphops\+\_\+t\+::set\+Capacity}\hypertarget{structgraphops__t_a6f05f8daf75bc380988e20e019681c0a}{}\label{structgraphops__t_a6f05f8daf75bc380988e20e019681c0a}
-Set the capacity for a given edge. 
+Set the capacity for a given edge. \index{graphops\+\_\+t@{graphops\+\_\+t}!set\+Flow@{set\+Flow}}
+\index{set\+Flow@{set\+Flow}!graphops\+\_\+t@{graphops\+\_\+t}}
+\subsubsection[{\texorpdfstring{set\+Flow}{setFlow}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf func\+Set\+Flow} graphops\+\_\+t\+::set\+Flow}\hypertarget{structgraphops__t_ad62e88e4ea9ffdae0c3fb681433e3d92}{}\label{structgraphops__t_ad62e88e4ea9ffdae0c3fb681433e3d92}
+Set the flow value of an edge. 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
