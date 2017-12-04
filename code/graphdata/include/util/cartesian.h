@@ -18,7 +18,7 @@
  * @param ... zero-based spatial coordinates for calculation
  * @return 0 if successful; 1 if the coordinates are outside the bounds of the dimensions
  */
-int indexFromDimensions(struct dimensions_t *dims, size_t *idx, size_t *coords);
+int indexFromCartesian(struct dimensions_t *dims, size_t *idx, size_t *coords);
 
 /**
  * @brief Sets the size_t array (whose length must be initialized to match dims->dimcount) to the coordinates within
@@ -31,7 +31,7 @@ int indexFromDimensions(struct dimensions_t *dims, size_t *idx, size_t *coords);
  * @param dims Dimensional value to be calculated against
  * @return 0 if successful, 1 if the index is outside the bounds of the dimensions.
  */
-int spatialFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims);
+int cartesianFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims);
 
 /**
  * @brief Calculates the index length, based on the given coordinates
@@ -43,6 +43,6 @@ int spatialFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims);
  * @param dims Dimensions to be checked
  * @return Size of index calculation.
  */
-size_t indexLength(struct dimensions_t *dims);
+size_t cartesianIndexLength(struct dimensions_t *dims);
 
 #endif //GRAPHDATA_SPATIAL_H

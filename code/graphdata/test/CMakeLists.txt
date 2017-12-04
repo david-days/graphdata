@@ -26,6 +26,7 @@ include_directories(
 add_executable(comptests src/comptests.c)
 add_executable(inittests src/inittests.c)
 add_executable(spatialtests src/spatialtests.c)
+add_executable(hashtests src/hashtests.c)
 
 enable_testing()
 
@@ -44,8 +45,15 @@ target_link_libraries(
         ${LIBS}
 )
 
+target_link_libraries(
+        hashtests
+        ${LIBS}
+)
+
 add_test(comptests ${CMAKE_CURRENT_BINARY_DIR}/comptests)
 
 add_test(inittests ${CMAKE_CURRENT_BINARY_DIR}/inittests)
 
 add_test(spatialtests ${CMAKE_CURRENT_BINARY_DIR}/spatialtests)
+
+add_test(hasthtests ${CMAKE_CURRENT_BINARY_DIR}/hashtests)

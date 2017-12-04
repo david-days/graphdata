@@ -65,26 +65,6 @@ typedef struct node_t * (*funcGetNeighbors)(const size_t *nodeid, const struct g
 typedef struct edge_t * (*funcGetEdges)(const size_t *nodeid, const struct graph_t *g);
 
 /**
- * @brief Function pointer to retrieve linked-list path of nodes from start to destination, beginning with the starting node.
- * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
- * @param uid Path start identifier
- * @param vid Path end identifier
- * @param g Graph in question
- * @return Linked-list of nodes, starting from uid and ending at vid, if found; otherwise, pointer to NULL.
- */
-typedef struct node_t * (*funcGetNodePath)(const size_t *uid, const size_t *vid, const struct graph_t *g);
-
-/**
- * @brief Function pointer to retrieve linked-list of path edges from start to destination, beginning with the starting node.
- * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
- * @param uid Path start identifier
- * @param vid Path end identifier
- * @param g Graph in question
- * @return Linked-list of edges, starting from uid and ending at vid, if found; otherwise, pointer to NULL.
- */
-typedef struct edge_t * (*funcGetEdgePath)(const size_t *uid, const size_t *vid, const struct graph_t *g);
-
-/**
  * @brief Function pointer to retrieve the current capacity value for a given edge.
  *
  * For implementations that support this, the capacity value will be written to the *cap parameter.
@@ -305,17 +285,7 @@ struct graphops_t {
      */
     funcAddFlow addFlow;
 
-    //Traverse functions
-    /**
-     * @brief Return a list of node (hops) from the start to the end.
-     * Means of finding the path is implementation-specific
-     */
-    funcGetNodePath nodePath;
-    /**
-     * @brief Return a list of edges traversing from the start to finish.
-     * Means of finding the path is implementation-specific.
-     */
-    funcGetEdgePath edgePath;
+
     /**
      * @brief Reset the graph to an initial state, according to implementation logic
      * Means of resetting the graph to an initial state without having to re-implement cleanup logic

@@ -30,30 +30,42 @@ The array implementation of the graph structure is based on an U\+N\+D\+I\+R\+E\
 Because the graph is U\+N\+D\+I\+R\+E\+C\+T\+ED, the start of each edge will actually be min\+Node(u,v) and the end of each edge will be max\+Node(u,v). Thus, node 0 can connect \char`\"{}upwards\char`\"{}, but no higher nodes can connect down to node 0. In all the underlying operations, having 0 in a node reference value indicates an unused edge reference. Metadata structure for array graphs 
 
 \subsection{Field Documentation}
+\mbox{\Hypertarget{structarraydata__t_a2a07b4b41c935e1a5acba14d3df92a45}\label{structarraydata__t_a2a07b4b41c935e1a5acba14d3df92a45}} 
 \index{arraydata\+\_\+t@{arraydata\+\_\+t}!arraylen@{arraylen}}
 \index{arraylen@{arraylen}!arraydata\+\_\+t@{arraydata\+\_\+t}}
-\subsubsection[{\texorpdfstring{arraylen}{arraylen}}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t arraydata\+\_\+t\+::arraylen}\hypertarget{structarraydata__t_a2a07b4b41c935e1a5acba14d3df92a45}{}\label{structarraydata__t_a2a07b4b41c935e1a5acba14d3df92a45}
+\subsubsection{\texorpdfstring{arraylen}{arraylen}}
+{\footnotesize\ttfamily size\+\_\+t arraydata\+\_\+t\+::arraylen}
+
 
 
 Length of the arrays. 
 
-This length is actually nodecount $\ast$ degree for the A\+R\+R\+AY implementation \index{arraydata\+\_\+t@{arraydata\+\_\+t}!degree@{degree}}
+This length is actually nodecount $\ast$ degree for the A\+R\+R\+AY implementation \mbox{\Hypertarget{structarraydata__t_af48476cee5ba6969a23157f07788f304}\label{structarraydata__t_af48476cee5ba6969a23157f07788f304}} 
+\index{arraydata\+\_\+t@{arraydata\+\_\+t}!degree@{degree}}
 \index{degree@{degree}!arraydata\+\_\+t@{arraydata\+\_\+t}}
-\subsubsection[{\texorpdfstring{degree}{degree}}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t arraydata\+\_\+t\+::degree}\hypertarget{structarraydata__t_af48476cee5ba6969a23157f07788f304}{}\label{structarraydata__t_af48476cee5ba6969a23157f07788f304}
+\subsubsection{\texorpdfstring{degree}{degree}}
+{\footnotesize\ttfamily size\+\_\+t arraydata\+\_\+t\+::degree}
+
 
 
 Degree of the nodes--the number of (possible) edges coming out of each node. 
 
+\mbox{\Hypertarget{structarraydata__t_a1bcdcd2b541e02eb0d20be0563a1f447}\label{structarraydata__t_a1bcdcd2b541e02eb0d20be0563a1f447}} 
 \index{arraydata\+\_\+t@{arraydata\+\_\+t}!edgelen@{edgelen}}
 \index{edgelen@{edgelen}!arraydata\+\_\+t@{arraydata\+\_\+t}}
-\subsubsection[{\texorpdfstring{edgelen}{edgelen}}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t arraydata\+\_\+t\+::edgelen}\hypertarget{structarraydata__t_a1bcdcd2b541e02eb0d20be0563a1f447}{}\label{structarraydata__t_a1bcdcd2b541e02eb0d20be0563a1f447}
+\subsubsection{\texorpdfstring{edgelen}{edgelen}}
+{\footnotesize\ttfamily size\+\_\+t arraydata\+\_\+t\+::edgelen}
+
 
 
 Length of the edge array. 
 
+\mbox{\Hypertarget{structarraydata__t_ab7b4b6740dd5353c323233dea2e2eaee}\label{structarraydata__t_ab7b4b6740dd5353c323233dea2e2eaee}} 
 \index{arraydata\+\_\+t@{arraydata\+\_\+t}!nodelen@{nodelen}}
 \index{nodelen@{nodelen}!arraydata\+\_\+t@{arraydata\+\_\+t}}
-\subsubsection[{\texorpdfstring{nodelen}{nodelen}}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t arraydata\+\_\+t\+::nodelen}\hypertarget{structarraydata__t_ab7b4b6740dd5353c323233dea2e2eaee}{}\label{structarraydata__t_ab7b4b6740dd5353c323233dea2e2eaee}
+\subsubsection{\texorpdfstring{nodelen}{nodelen}}
+{\footnotesize\ttfamily size\+\_\+t arraydata\+\_\+t\+::nodelen}
+
 
 
 Length of the node array. 

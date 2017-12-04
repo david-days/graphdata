@@ -9,7 +9,7 @@
  */
 
 #include <impl/arraygraph.h>
-#include <util/spatial.h>
+#include <util/cartesian.h>
 #include <stdlib.h>
 #include <impl/arrayops.h>
 
@@ -98,8 +98,9 @@ int arrayGraphInit(enum GRAPHTYPE gtype, struct graph_t *g) {
     if (NULL == g) return 0;
     //Can't continue if no dimensions
     if (g->dims == NULL) return 0;
-    size_t arrlen = indexLength(g->dims);
+    size_t arrlen = cartesianIndexLength(g->dims);
     g->gtype = UNDIRECTED;
+    g->gimpl = ARRAY;
     if (arrlen > 0) {
         struct arraydata_t *arrmeta = initArrayMeta();
         arrmeta->nodelen = arrlen;

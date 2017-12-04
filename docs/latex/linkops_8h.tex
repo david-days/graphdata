@@ -1,6 +1,6 @@
 \hypertarget{linkops_8h}{}\section{/home/david/devel/graphdata/code/graphdata/include/impl/linkops.h File Reference}
 \label{linkops_8h}\index{/home/david/devel/graphdata/code/graphdata/include/impl/linkops.\+h@{/home/david/devel/graphdata/code/graphdata/include/impl/linkops.\+h}}
-{\ttfamily \#include $<$graphdata.\+h$>$}\\*
+{\ttfamily \#include $<$graphdata.\+h$>$}\newline
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -16,10 +16,6 @@ struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$ \hyperlink{linkops_8h_a7c4c
 \begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list of nodes that are currently defined as neighbors to the given node. \end{DoxyCompactList}\item 
 struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$ \hyperlink{linkops_8h_ae480bfb99403fc5880518d5705d952a9}{link\+Get\+Edges} (const size\+\_\+t $\ast$nodeid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list of edges from a given node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
-struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$ \hyperlink{linkops_8h_a64152f62c57589c870e6825278698967}{link\+Get\+Node\+Path} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
-\begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list path of nodes from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
-struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$ \hyperlink{linkops_8h_ae00d2b5d8f4af6a8f9eae188dcc3e29a}{link\+Get\+Edge\+Path} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
-\begin{DoxyCompactList}\small\item\em Function pointer to retrieve linked-\/list of path edges from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. \end{DoxyCompactList}\item 
 int \hyperlink{linkops_8h_abb438f05ce9a07a834bf57c5441c4573}{link\+Get\+Capacity} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Function pointer to retrieve the current capacity value for a given edge. \end{DoxyCompactList}\item 
 int \hyperlink{linkops_8h_a2286fd38316a469be33169b51d55cba7}{link\+Get\+Flow} (const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$flow, const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
@@ -45,16 +41,12 @@ int \hyperlink{linkops_8h_ae0643a5a8536054963f6c08871eb610d}{link\+Reset\+Graph}
 
 
 \subsection{Function Documentation}
+\mbox{\Hypertarget{linkops_8h_aabbcd5368c3916cdcfb3e2577910bb13}\label{linkops_8h_aabbcd5368c3916cdcfb3e2577910bb13}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Add\+Capacity@{link\+Add\+Capacity}}
 \index{link\+Add\+Capacity@{link\+Add\+Capacity}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Add\+Capacity(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, struct graph\+\_\+t $\ast$g)}{linkAddCapacity(const size\_t *uid, const size\_t *vid, const double *cap, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int link\+Add\+Capacity (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{uid, }
-\item[{const size\+\_\+t $\ast$}]{vid, }
-\item[{const double $\ast$}]{cap, }
-\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_aabbcd5368c3916cdcfb3e2577910bb13}{}\label{linkops_8h_aabbcd5368c3916cdcfb3e2577910bb13}
+\subsubsection{\texorpdfstring{link\+Add\+Capacity()}{linkAddCapacity()}}
+{\footnotesize\ttfamily int link\+Add\+Capacity (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{uid,  }\item[{const size\+\_\+t $\ast$}]{vid,  }\item[{const double $\ast$}]{cap,  }\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Function to add (adjust) the capacity for an edge by a given amount. 
@@ -75,16 +67,12 @@ For implementations that require it, this function allows the altering of a spec
 \begin{DoxyReturn}{Returns}
 0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_aeb44c3398415d33a717229f0dfca133f}\label{linkops_8h_aeb44c3398415d33a717229f0dfca133f}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Add\+Edge@{link\+Add\+Edge}}
 \index{link\+Add\+Edge@{link\+Add\+Edge}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Add\+Edge(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, struct graph\+\_\+t $\ast$g)}{linkAddEdge(const size\_t *uid, const size\_t *vid, double *cap, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int link\+Add\+Edge (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{uid, }
-\item[{const size\+\_\+t $\ast$}]{vid, }
-\item[{double $\ast$}]{cap, }
-\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_aeb44c3398415d33a717229f0dfca133f}{}\label{linkops_8h_aeb44c3398415d33a717229f0dfca133f}
+\subsubsection{\texorpdfstring{link\+Add\+Edge()}{linkAddEdge()}}
+{\footnotesize\ttfamily int link\+Add\+Edge (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{uid,  }\item[{const size\+\_\+t $\ast$}]{vid,  }\item[{double $\ast$}]{cap,  }\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Function pointer to add an edge to a given graph. Not all implementations may use this (for example, fixed-\/size A\+R\+R\+AY implementations representing a set domain of nodes and relationships). 
@@ -101,18 +89,32 @@ Function pointer to add an edge to a given graph. Not all implementations may us
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
+0 if there was an error; 1 if the edge was successfully added.
+\end{DoxyReturn}
+Function pointer to add an edge to a given graph. Not all implementations may use this (for example, fixed-\/size A\+R\+R\+AY implementations representing a set domain of nodes and relationships).
+
+Remove the node and repair the linked list, as necessary
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & identifer for start of edge \\
+\hline
+{\em vid} & identifier for end of edge \\
+\hline
+{\em cap} & capacity value to be assigned \\
+\hline
+{\em g} & graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
 0 if there was an error; 1 if the edge was successfully added. 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_aa9214e41c118b71031041825ce3ba6a1}\label{linkops_8h_aa9214e41c118b71031041825ce3ba6a1}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Add\+Flow@{link\+Add\+Flow}}
 \index{link\+Add\+Flow@{link\+Add\+Flow}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Add\+Flow(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$flow, struct graph\+\_\+t $\ast$g)}{linkAddFlow(const size\_t *uid, const size\_t *vid, const double *flow, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int link\+Add\+Flow (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{uid, }
-\item[{const size\+\_\+t $\ast$}]{vid, }
-\item[{const double $\ast$}]{flow, }
-\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_aa9214e41c118b71031041825ce3ba6a1}{}\label{linkops_8h_aa9214e41c118b71031041825ce3ba6a1}
+\subsubsection{\texorpdfstring{link\+Add\+Flow()}{linkAddFlow()}}
+{\footnotesize\ttfamily int link\+Add\+Flow (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{uid,  }\item[{const size\+\_\+t $\ast$}]{vid,  }\item[{const double $\ast$}]{flow,  }\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Function to adjust the flow value of a given edge. 
@@ -133,14 +135,12 @@ For implementations that require it, this allows ajustment of the amount of capa
 \begin{DoxyReturn}{Returns}
 0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted. 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_aa6c7adcc9423afebcff19abe10e5cba2}\label{linkops_8h_aa6c7adcc9423afebcff19abe10e5cba2}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Add\+Node@{link\+Add\+Node}}
 \index{link\+Add\+Node@{link\+Add\+Node}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Add\+Node(const size\+\_\+t $\ast$nodeid, struct graph\+\_\+t $\ast$g)}{linkAddNode(const size\_t *nodeid, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int link\+Add\+Node (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{nodeid, }
-\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_aa6c7adcc9423afebcff19abe10e5cba2}{}\label{linkops_8h_aa6c7adcc9423afebcff19abe10e5cba2}
+\subsubsection{\texorpdfstring{link\+Add\+Node()}{linkAddNode()}}
+{\footnotesize\ttfamily int link\+Add\+Node (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{nodeid,  }\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Function pointer to add a node to a given graph. Not all implementations may use this (for example, fixed-\/size graphs such as spatial A\+R\+R\+AY implementations). 
@@ -153,15 +153,28 @@ Function pointer to add a node to a given graph. Not all implementations may use
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
+0 if there was an error, 1 if the node was successfully added
+\end{DoxyReturn}
+Function pointer to add a node to a given graph. Not all implementations may use this (for example, fixed-\/size graphs such as spatial A\+R\+R\+AY implementations).
+
+Add a new node to the end of the node list
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodeid} & Node identifier to be added \\
+\hline
+{\em g} & Graph structure to add the node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
 0 if there was an error, 1 if the node was successfully added 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_a006894923e878b592dd18e02aacb2995}\label{linkops_8h_a006894923e878b592dd18e02aacb2995}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Edge\+Count@{link\+Edge\+Count}}
 \index{link\+Edge\+Count@{link\+Edge\+Count}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Edge\+Count(struct graph\+\_\+t $\ast$g)}{linkEdgeCount(struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t link\+Edge\+Count (
-\begin{DoxyParamCaption}
-\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_a006894923e878b592dd18e02aacb2995}{}\label{linkops_8h_a006894923e878b592dd18e02aacb2995}
+\subsubsection{\texorpdfstring{link\+Edge\+Count()}{linkEdgeCount()}}
+{\footnotesize\ttfamily size\+\_\+t link\+Edge\+Count (\begin{DoxyParamCaption}\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Function pointer to extract count of edges. 
@@ -174,16 +187,12 @@ Function pointer to extract count of edges.
 \begin{DoxyReturn}{Returns}
 Count of edges, if graph is not null; otherwise, return 0 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_abb438f05ce9a07a834bf57c5441c4573}\label{linkops_8h_abb438f05ce9a07a834bf57c5441c4573}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Get\+Capacity@{link\+Get\+Capacity}}
 \index{link\+Get\+Capacity@{link\+Get\+Capacity}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Get\+Capacity(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$cap, const struct graph\+\_\+t $\ast$g)}{linkGetCapacity(const size\_t *uid, const size\_t *vid, double *cap, const struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int link\+Get\+Capacity (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{uid, }
-\item[{const size\+\_\+t $\ast$}]{vid, }
-\item[{double $\ast$}]{cap, }
-\item[{const struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_abb438f05ce9a07a834bf57c5441c4573}{}\label{linkops_8h_abb438f05ce9a07a834bf57c5441c4573}
+\subsubsection{\texorpdfstring{link\+Get\+Capacity()}{linkGetCapacity()}}
+{\footnotesize\ttfamily int link\+Get\+Capacity (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{uid,  }\item[{const size\+\_\+t $\ast$}]{vid,  }\item[{double $\ast$}]{cap,  }\item[{const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Function pointer to retrieve the current capacity value for a given edge. 
@@ -204,15 +213,12 @@ For implementations that support this, the capacity value will be written to the
 \begin{DoxyReturn}{Returns}
 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful retrieval 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_aa5db62735d45b1c859e2c23fb3e32d92}\label{linkops_8h_aa5db62735d45b1c859e2c23fb3e32d92}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Get\+Edge@{link\+Get\+Edge}}
 \index{link\+Get\+Edge@{link\+Get\+Edge}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Get\+Edge(const size\+\_\+t $\ast$u, const size\+\_\+t $\ast$v, const struct graph\+\_\+t $\ast$g)}{linkGetEdge(const size\_t *u, const size\_t *v, const struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf edge\+\_\+t}$\ast$ link\+Get\+Edge (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{u, }
-\item[{const size\+\_\+t $\ast$}]{v, }
-\item[{const struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_aa5db62735d45b1c859e2c23fb3e32d92}{}\label{linkops_8h_aa5db62735d45b1c859e2c23fb3e32d92}
+\subsubsection{\texorpdfstring{link\+Get\+Edge()}{linkGetEdge()}}
+{\footnotesize\ttfamily struct \hyperlink{structedge__t}{edge\+\_\+t}$\ast$ link\+Get\+Edge (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{u,  }\item[{const size\+\_\+t $\ast$}]{v,  }\item[{const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Function pointer to retrieve a edge structure reference. 
@@ -227,41 +233,28 @@ Implementation-\/specific on whether this structure is part of the original grap
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-pointer to the edge structure, if found; otherwise, pointer to N\+U\+LL. 
+pointer to the edge structure, if found; otherwise, pointer to N\+U\+LL.
 \end{DoxyReturn}
-\index{linkops.\+h@{linkops.\+h}!link\+Get\+Edge\+Path@{link\+Get\+Edge\+Path}}
-\index{link\+Get\+Edge\+Path@{link\+Get\+Edge\+Path}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Get\+Edge\+Path(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const struct graph\+\_\+t $\ast$g)}{linkGetEdgePath(const size\_t *uid, const size\_t *vid, const struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf edge\+\_\+t}$\ast$ link\+Get\+Edge\+Path (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{uid, }
-\item[{const size\+\_\+t $\ast$}]{vid, }
-\item[{const struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_ae00d2b5d8f4af6a8f9eae188dcc3e29a}{}\label{linkops_8h_ae00d2b5d8f4af6a8f9eae188dcc3e29a}
-
-
-Function pointer to retrieve linked-\/list of path edges from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. 
+Walks the structure to find the given edge
 
 
 \begin{DoxyParams}{Parameters}
-{\em uid} & Path start identifier \\
+{\em u} & nodeid of the starting edge. \\
 \hline
-{\em vid} & Path end identifier \\
+{\em v} & nodeid of the ending edge. \\
 \hline
-{\em g} & Graph in question \\
+{\em g} & Graph structure in question \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Linked-\/list of edges, starting from uid and ending at vid, if found; otherwise, pointer to N\+U\+LL. 
+pointer to the edge structure, if found; otherwise, pointer to N\+U\+LL. 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_ae480bfb99403fc5880518d5705d952a9}\label{linkops_8h_ae480bfb99403fc5880518d5705d952a9}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Get\+Edges@{link\+Get\+Edges}}
 \index{link\+Get\+Edges@{link\+Get\+Edges}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Get\+Edges(const size\+\_\+t $\ast$nodeid, const struct graph\+\_\+t $\ast$g)}{linkGetEdges(const size\_t *nodeid, const struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf edge\+\_\+t}$\ast$ link\+Get\+Edges (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{nodeid, }
-\item[{const struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_ae480bfb99403fc5880518d5705d952a9}{}\label{linkops_8h_ae480bfb99403fc5880518d5705d952a9}
+\subsubsection{\texorpdfstring{link\+Get\+Edges()}{linkGetEdges()}}
+{\footnotesize\ttfamily struct \hyperlink{structedge__t}{edge\+\_\+t}$\ast$ link\+Get\+Edges (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{nodeid,  }\item[{const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Function pointer to retrieve linked-\/list of edges from a given node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. 
@@ -274,18 +267,30 @@ Function pointer to retrieve linked-\/list of edges from a given node. Returned 
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
+linked-\/list of edges starting from the given node, if found; otherwise, pointer to N\+U\+LL.
+\end{DoxyReturn}
+Function pointer to retrieve linked-\/list of edges from a given node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished.
+
+Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished.
+
+The edges returned are outgoing edges in the case of a D\+I\+R\+E\+C\+T\+ED graph.
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodeid} & Identifier of the node in question \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
 linked-\/list of edges starting from the given node, if found; otherwise, pointer to N\+U\+LL. 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_a2286fd38316a469be33169b51d55cba7}\label{linkops_8h_a2286fd38316a469be33169b51d55cba7}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Get\+Flow@{link\+Get\+Flow}}
 \index{link\+Get\+Flow@{link\+Get\+Flow}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Get\+Flow(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, double $\ast$flow, const struct graph\+\_\+t $\ast$g)}{linkGetFlow(const size\_t *uid, const size\_t *vid, double *flow, const struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int link\+Get\+Flow (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{uid, }
-\item[{const size\+\_\+t $\ast$}]{vid, }
-\item[{double $\ast$}]{flow, }
-\item[{const struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_a2286fd38316a469be33169b51d55cba7}{}\label{linkops_8h_a2286fd38316a469be33169b51d55cba7}
+\subsubsection{\texorpdfstring{link\+Get\+Flow()}{linkGetFlow()}}
+{\footnotesize\ttfamily int link\+Get\+Flow (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{uid,  }\item[{const size\+\_\+t $\ast$}]{vid,  }\item[{double $\ast$}]{flow,  }\item[{const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Function pointer to retrieve the current flow value for a given edge. 
@@ -306,14 +311,12 @@ For implementations that support this, the flow value will be written to the $\a
 \begin{DoxyReturn}{Returns}
 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful retrieval 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_a7c4c1c7fb577e5653d323c7d3dc2ad0c}\label{linkops_8h_a7c4c1c7fb577e5653d323c7d3dc2ad0c}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Get\+Neighbors@{link\+Get\+Neighbors}}
 \index{link\+Get\+Neighbors@{link\+Get\+Neighbors}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Get\+Neighbors(const size\+\_\+t $\ast$nodeid, const struct graph\+\_\+t $\ast$g)}{linkGetNeighbors(const size\_t *nodeid, const struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf node\+\_\+t}$\ast$ link\+Get\+Neighbors (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{nodeid, }
-\item[{const struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_a7c4c1c7fb577e5653d323c7d3dc2ad0c}{}\label{linkops_8h_a7c4c1c7fb577e5653d323c7d3dc2ad0c}
+\subsubsection{\texorpdfstring{link\+Get\+Neighbors()}{linkGetNeighbors()}}
+{\footnotesize\ttfamily struct \hyperlink{structnode__t}{node\+\_\+t}$\ast$ link\+Get\+Neighbors (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{nodeid,  }\item[{const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Function pointer to retrieve linked-\/list of nodes that are currently defined as neighbors to the given node. 
@@ -326,16 +329,26 @@ Returned linked-\/list is distinct from the graph structure, and consumers must 
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
+linked-\/list of node references, starting with the given node, if found; otherwise, pointer to N\+U\+LL.
+\end{DoxyReturn}
+Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. The edges returned are outgoing neighbors (in the case of a D\+I\+R\+E\+C\+T\+ED graph).
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodeid} & Identifier of the node in question \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
 linked-\/list of node references, starting with the given node, if found; otherwise, pointer to N\+U\+LL. 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_a75cdca72c0efe145abd01cca8af0d277}\label{linkops_8h_a75cdca72c0efe145abd01cca8af0d277}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Get\+Node@{link\+Get\+Node}}
 \index{link\+Get\+Node@{link\+Get\+Node}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Get\+Node(const size\+\_\+t $\ast$nodeid, const struct graph\+\_\+t $\ast$g)}{linkGetNode(const size\_t *nodeid, const struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf node\+\_\+t}$\ast$ link\+Get\+Node (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{nodeid, }
-\item[{const struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_a75cdca72c0efe145abd01cca8af0d277}{}\label{linkops_8h_a75cdca72c0efe145abd01cca8af0d277}
+\subsubsection{\texorpdfstring{link\+Get\+Node()}{linkGetNode()}}
+{\footnotesize\ttfamily struct \hyperlink{structnode__t}{node\+\_\+t}$\ast$ link\+Get\+Node (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{nodeid,  }\item[{const struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Function pointer to retrieve a node structure reference. 
@@ -350,38 +363,12 @@ Implementation-\/specific on whether this structure is part of the original grap
 \begin{DoxyReturn}{Returns}
 pointer to the node structure, if found; otherwise, pointer to N\+U\+LL 
 \end{DoxyReturn}
-\index{linkops.\+h@{linkops.\+h}!link\+Get\+Node\+Path@{link\+Get\+Node\+Path}}
-\index{link\+Get\+Node\+Path@{link\+Get\+Node\+Path}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Get\+Node\+Path(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const struct graph\+\_\+t $\ast$g)}{linkGetNodePath(const size\_t *uid, const size\_t *vid, const struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf node\+\_\+t}$\ast$ link\+Get\+Node\+Path (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{uid, }
-\item[{const size\+\_\+t $\ast$}]{vid, }
-\item[{const struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_a64152f62c57589c870e6825278698967}{}\label{linkops_8h_a64152f62c57589c870e6825278698967}
-
-
-Function pointer to retrieve linked-\/list path of nodes from start to destination, beginning with the starting node. Returned linked-\/list is distinct from the graph structure, and consumers must use free() when finished. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em uid} & Path start identifier \\
-\hline
-{\em vid} & Path end identifier \\
-\hline
-{\em g} & Graph in question \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Linked-\/list of nodes, starting from uid and ending at vid, if found; otherwise, pointer to N\+U\+LL. 
-\end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_adbd453907c3c413e1bb87bf5a696f931}\label{linkops_8h_adbd453907c3c413e1bb87bf5a696f931}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Node\+Count@{link\+Node\+Count}}
 \index{link\+Node\+Count@{link\+Node\+Count}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Node\+Count(struct graph\+\_\+t $\ast$g)}{linkNodeCount(struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t link\+Node\+Count (
-\begin{DoxyParamCaption}
-\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_adbd453907c3c413e1bb87bf5a696f931}{}\label{linkops_8h_adbd453907c3c413e1bb87bf5a696f931}
+\subsubsection{\texorpdfstring{link\+Node\+Count()}{linkNodeCount()}}
+{\footnotesize\ttfamily size\+\_\+t link\+Node\+Count (\begin{DoxyParamCaption}\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Function pointer definition for getting the node count;. 
@@ -398,7 +385,9 @@ Function pointer definition for getting the node count;.
 
 This implementation is for a linked-\/list graph structure that uses the minimum necessary memory to store vertex and edge data for a graph. The intent is to support the most general graph usage, wherein the user of the graph structure may not be able to determine exact relationship before graph creation.
 
-In this first version, the operations are implemented around a double-\/linked list structure, with node and edge walking as necessary to find the appropriate relationships. Future versions will attempt to add more nuanced and intelligent layouts in order to speed up operations. Function pointer definition for getting the node count; 
+In this first version, the operations are implemented around a double-\/linked list structure, with node and edge walking as necessary to find the appropriate relationships. Future versions will attempt to add more nuanced and intelligent layouts in order to speed up operations. Function pointer definition for getting the node count
+
+Walks the node structure to find the total number of nodes in the graph 
 \begin{DoxyParams}{Parameters}
 {\em g} & Graph structure in question \\
 \hline
@@ -406,15 +395,12 @@ In this first version, the operations are implemented around a double-\/linked l
 \begin{DoxyReturn}{Returns}
 Count of nodes, if graph is not null; otherwise, return 0 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_a187c85f2cda044843a3e806f38d22f21}\label{linkops_8h_a187c85f2cda044843a3e806f38d22f21}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Remove\+Edge@{link\+Remove\+Edge}}
 \index{link\+Remove\+Edge@{link\+Remove\+Edge}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Remove\+Edge(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, struct graph\+\_\+t $\ast$g)}{linkRemoveEdge(const size\_t *uid, const size\_t *vid, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int link\+Remove\+Edge (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{uid, }
-\item[{const size\+\_\+t $\ast$}]{vid, }
-\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_a187c85f2cda044843a3e806f38d22f21}{}\label{linkops_8h_a187c85f2cda044843a3e806f38d22f21}
+\subsubsection{\texorpdfstring{link\+Remove\+Edge()}{linkRemoveEdge()}}
+{\footnotesize\ttfamily int link\+Remove\+Edge (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{uid,  }\item[{const size\+\_\+t $\ast$}]{vid,  }\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Function pointer to remove an edge from the given graph. 
@@ -433,14 +419,12 @@ Allows implementations to remove a given edge from the graph, if necessary.
 \begin{DoxyReturn}{Returns}
 0 if there was an error (e.\+g. the edge was not found); otherwise, 1 if the edge was removed. 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_af3ce69def47a5e7e872b66dbf7443cde}\label{linkops_8h_af3ce69def47a5e7e872b66dbf7443cde}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Remove\+Node@{link\+Remove\+Node}}
 \index{link\+Remove\+Node@{link\+Remove\+Node}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Remove\+Node(const size\+\_\+t $\ast$nodeid, struct graph\+\_\+t $\ast$g)}{linkRemoveNode(const size\_t *nodeid, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int link\+Remove\+Node (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{nodeid, }
-\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_af3ce69def47a5e7e872b66dbf7443cde}{}\label{linkops_8h_af3ce69def47a5e7e872b66dbf7443cde}
+\subsubsection{\texorpdfstring{link\+Remove\+Node()}{linkRemoveNode()}}
+{\footnotesize\ttfamily int link\+Remove\+Node (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{nodeid,  }\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Remove a node from the graph. 
@@ -453,17 +437,26 @@ Not all implementations will allow removal of nodes.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
+0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful.
+\end{DoxyReturn}
+Remove the given node from the list, and repair the linkages appropriately.
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodeid} & Node id to be added. \\
+\hline
+{\em g} & Graph structure in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
 0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful. 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_ae0643a5a8536054963f6c08871eb610d}\label{linkops_8h_ae0643a5a8536054963f6c08871eb610d}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Reset\+Graph@{link\+Reset\+Graph}}
 \index{link\+Reset\+Graph@{link\+Reset\+Graph}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Reset\+Graph(struct graph\+\_\+t $\ast$g, void $\ast$args, void($\ast$callback)(void))}{linkResetGraph(struct graph\_t *g, void *args, void(*callback)(void))}}]{\setlength{\rightskip}{0pt plus 5cm}int link\+Reset\+Graph (
-\begin{DoxyParamCaption}
-\item[{struct {\bf graph\+\_\+t} $\ast$}]{g, }
-\item[{void $\ast$}]{args, }
-\item[{void($\ast$)(void)}]{callback}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_ae0643a5a8536054963f6c08871eb610d}{}\label{linkops_8h_ae0643a5a8536054963f6c08871eb610d}
+\subsubsection{\texorpdfstring{link\+Reset\+Graph()}{linkResetGraph()}}
+{\footnotesize\ttfamily int link\+Reset\+Graph (\begin{DoxyParamCaption}\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g,  }\item[{void $\ast$}]{args,  }\item[{void($\ast$)(void)}]{callback }\end{DoxyParamCaption})}
+
 
 
 Function pointer to \char`\"{}reset\char`\"{} the graph according to the given argument pointer. 
@@ -478,18 +471,28 @@ For some implementations, it is more efficient to reuse the existing graph struc
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
+0 if there was an error during the reset; 1 if the reset completed;
+\end{DoxyReturn}
+Walk the edges and set capacities and flows to zero.
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & Graph structure to be zeroed or modified according to reset logic \\
+\hline
+{\em args} & Arguments to be used in the reset process, if necessary \\
+\hline
+{\em callback} & Callback to be executed when graph has been reset. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
 0 if there was an error during the reset; 1 if the reset completed; 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_a9c825e186227bf9d215e2a10dd5ee3b9}\label{linkops_8h_a9c825e186227bf9d215e2a10dd5ee3b9}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Set\+Capacity@{link\+Set\+Capacity}}
 \index{link\+Set\+Capacity@{link\+Set\+Capacity}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Set\+Capacity(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$cap, struct graph\+\_\+t $\ast$g)}{linkSetCapacity(const size\_t *uid, const size\_t *vid, const double *cap, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int link\+Set\+Capacity (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{uid, }
-\item[{const size\+\_\+t $\ast$}]{vid, }
-\item[{const double $\ast$}]{cap, }
-\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_a9c825e186227bf9d215e2a10dd5ee3b9}{}\label{linkops_8h_a9c825e186227bf9d215e2a10dd5ee3b9}
+\subsubsection{\texorpdfstring{link\+Set\+Capacity()}{linkSetCapacity()}}
+{\footnotesize\ttfamily int link\+Set\+Capacity (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{uid,  }\item[{const size\+\_\+t $\ast$}]{vid,  }\item[{const double $\ast$}]{cap,  }\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph. 
@@ -508,16 +511,12 @@ Function pointer to set the capacity (cost, weight, etc.) of an edge in the give
 \begin{DoxyReturn}{Returns}
 0 if there was an error; 1 if the capacity was successfully set 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkops_8h_a91c413fe7ea546d91b7ccd97039b8617}\label{linkops_8h_a91c413fe7ea546d91b7ccd97039b8617}} 
 \index{linkops.\+h@{linkops.\+h}!link\+Set\+Flow@{link\+Set\+Flow}}
 \index{link\+Set\+Flow@{link\+Set\+Flow}!linkops.\+h@{linkops.\+h}}
-\subsubsection[{\texorpdfstring{link\+Set\+Flow(const size\+\_\+t $\ast$uid, const size\+\_\+t $\ast$vid, const double $\ast$flow, struct graph\+\_\+t $\ast$g)}{linkSetFlow(const size\_t *uid, const size\_t *vid, const double *flow, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int link\+Set\+Flow (
-\begin{DoxyParamCaption}
-\item[{const size\+\_\+t $\ast$}]{uid, }
-\item[{const size\+\_\+t $\ast$}]{vid, }
-\item[{const double $\ast$}]{flow, }
-\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkops_8h_a91c413fe7ea546d91b7ccd97039b8617}{}\label{linkops_8h_a91c413fe7ea546d91b7ccd97039b8617}
+\subsubsection{\texorpdfstring{link\+Set\+Flow()}{linkSetFlow()}}
+{\footnotesize\ttfamily int link\+Set\+Flow (\begin{DoxyParamCaption}\item[{const size\+\_\+t $\ast$}]{uid,  }\item[{const size\+\_\+t $\ast$}]{vid,  }\item[{const double $\ast$}]{flow,  }\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Function to set the flow value for an edge (amount of capacity currently \char`\"{}used\char`\"{}) 

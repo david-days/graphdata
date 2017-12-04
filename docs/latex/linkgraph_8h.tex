@@ -1,27 +1,29 @@
 \hypertarget{linkgraph_8h}{}\section{/home/david/devel/graphdata/code/graphdata/include/impl/linkgraph.h File Reference}
 \label{linkgraph_8h}\index{/home/david/devel/graphdata/code/graphdata/include/impl/linkgraph.\+h@{/home/david/devel/graphdata/code/graphdata/include/impl/linkgraph.\+h}}
-{\ttfamily \#include $<$graphdata.\+h$>$}\\*
+{\ttfamily \#include $<$graphdata.\+h$>$}\newline
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 int \hyperlink{linkgraph_8h_a66165776845d1fad551f76de175096c4}{link\+Graph\+Init} (enum \hyperlink{graphdata_8h_a384e88b524b782ff50439055cbc8a5c2}{G\+R\+A\+P\+H\+T\+Y\+PE} gtype, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g)
 \begin{DoxyCompactList}\small\item\em Initialize a linked-\/list graph backing structure. \end{DoxyCompactList}\item 
 int \hyperlink{linkgraph_8h_a937f7abc960d8483382d23784fc92e85}{link\+Graph\+Label\+Init} (enum \hyperlink{graphdata_8h_a384e88b524b782ff50439055cbc8a5c2}{G\+R\+A\+P\+H\+T\+Y\+PE} gtype, struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$g, size\+\_\+t lblcount)
-\begin{DoxyCompactList}\small\item\em Initialize a linked-\/list graph structure with the given number of avaiable label values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Initialize a linked-\/list graph structure with the given number of available label values. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
+\mbox{\Hypertarget{linkgraph_8h_a66165776845d1fad551f76de175096c4}\label{linkgraph_8h_a66165776845d1fad551f76de175096c4}} 
 \index{linkgraph.\+h@{linkgraph.\+h}!link\+Graph\+Init@{link\+Graph\+Init}}
 \index{link\+Graph\+Init@{link\+Graph\+Init}!linkgraph.\+h@{linkgraph.\+h}}
-\subsubsection[{\texorpdfstring{link\+Graph\+Init(enum G\+R\+A\+P\+H\+T\+Y\+P\+E gtype, struct graph\+\_\+t $\ast$g)}{linkGraphInit(enum GRAPHTYPE gtype, struct graph\_t *g)}}]{\setlength{\rightskip}{0pt plus 5cm}int link\+Graph\+Init (
-\begin{DoxyParamCaption}
-\item[{enum {\bf G\+R\+A\+P\+H\+T\+Y\+PE}}]{gtype, }
-\item[{struct {\bf graph\+\_\+t} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}\hypertarget{linkgraph_8h_a66165776845d1fad551f76de175096c4}{}\label{linkgraph_8h_a66165776845d1fad551f76de175096c4}
+\subsubsection{\texorpdfstring{link\+Graph\+Init()}{linkGraphInit()}}
+{\footnotesize\ttfamily int link\+Graph\+Init (\begin{DoxyParamCaption}\item[{enum \hyperlink{graphdata_8h_a384e88b524b782ff50439055cbc8a5c2}{G\+R\+A\+P\+H\+T\+Y\+PE}}]{gtype,  }\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g }\end{DoxyParamCaption})}
+
 
 
 Initialize a linked-\/list graph backing structure. 
+
+Perform a basic initialization of the graph structure of the given type.
+
+For the L\+I\+N\+K\+ED implementation, little interior work is actually done in this release. Graph structures of this type are the most general.
 
 
 \begin{DoxyParams}{Parameters}
@@ -33,18 +35,29 @@ Initialize a linked-\/list graph backing structure.
 \begin{DoxyReturn}{Returns}
 1 if successful; 0 if there was a problem. 
 \end{DoxyReturn}
+\mbox{\Hypertarget{linkgraph_8h_a937f7abc960d8483382d23784fc92e85}\label{linkgraph_8h_a937f7abc960d8483382d23784fc92e85}} 
 \index{linkgraph.\+h@{linkgraph.\+h}!link\+Graph\+Label\+Init@{link\+Graph\+Label\+Init}}
 \index{link\+Graph\+Label\+Init@{link\+Graph\+Label\+Init}!linkgraph.\+h@{linkgraph.\+h}}
-\subsubsection[{\texorpdfstring{link\+Graph\+Label\+Init(enum G\+R\+A\+P\+H\+T\+Y\+P\+E gtype, struct graph\+\_\+t $\ast$g, size\+\_\+t lblcount)}{linkGraphLabelInit(enum GRAPHTYPE gtype, struct graph\_t *g, size\_t lblcount)}}]{\setlength{\rightskip}{0pt plus 5cm}int link\+Graph\+Label\+Init (
-\begin{DoxyParamCaption}
-\item[{enum {\bf G\+R\+A\+P\+H\+T\+Y\+PE}}]{gtype, }
-\item[{struct {\bf graph\+\_\+t} $\ast$}]{g, }
-\item[{size\+\_\+t}]{lblcount}
-\end{DoxyParamCaption}
-)}\hypertarget{linkgraph_8h_a937f7abc960d8483382d23784fc92e85}{}\label{linkgraph_8h_a937f7abc960d8483382d23784fc92e85}
+\subsubsection{\texorpdfstring{link\+Graph\+Label\+Init()}{linkGraphLabelInit()}}
+{\footnotesize\ttfamily int link\+Graph\+Label\+Init (\begin{DoxyParamCaption}\item[{enum \hyperlink{graphdata_8h_a384e88b524b782ff50439055cbc8a5c2}{G\+R\+A\+P\+H\+T\+Y\+PE}}]{gtype,  }\item[{struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$}]{g,  }\item[{size\+\_\+t}]{lblcount }\end{DoxyParamCaption})}
 
 
-Initialize a linked-\/list graph structure with the given number of avaiable label values. 
+
+Initialize a linked-\/list graph structure with the given number of available label values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gtype} & D\+I\+R\+E\+C\+T\+ED or U\+N\+D\+I\+R\+E\+C\+T\+ED graph \\
+\hline
+{\em g} & Graph structure \\
+\hline
+{\em lblcount} & number of labels to be allocated \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful; 0 if there was a problem
+\end{DoxyReturn}
+Initialize a linked-\/list graph structure with the given number of available label values.
 
 
 \begin{DoxyParams}{Parameters}

@@ -8,6 +8,8 @@
 
 #include <util/hashes.h>
 #include <stdint.h>
+#include <stdlib.h>
+
 
 #undef get16bits
 #if (defined(__GNUC__) && defined(__i386__)) || defined(__WATCOMC__) \
@@ -63,4 +65,42 @@ size_t SuperFastHash (const char * data, int len) {
     hash += hash >> 6;
 
     return hash;
+}
+
+/**
+ * @brief Using the Sieve of Eratosthenes, calculate the max prime value below the given value
+ *
+ * Quick and dirty (not necessarily computationally quick) way to get the max prime number below the given
+ * value.
+ *
+ * Implementation based off example code at https://www.programminglogic.com/the-sieve-of-eratosthenes-implemented-in-c/
+ *
+ * @param idx Size value to search the max prime number below
+ * @return Prime number within the range given by the input, if successful; otherwise, returns 0
+ */
+size_t maxEratosthenesPrime(size_t *idx) {
+    size_t mprime = 0;
+    size_t plen = *idx;
+    char *sieve = (char *)malloc(plen * sizeof(size_t));
+    if (sieve != NULL) {
+        //mark as possible
+        for (size_t i=2;i<plen;i++) *(sieve + i) = 1;
+
+        for (size_t i=2;i<plen;i++) {
+            if (sieve[i]) {
+                for (size_t j = i;i*j<plen;j++) {
+                    sieve[i*j] = 0;
+                }
+            }
+        }
+
+        //scan for max
+        size_t ppos = 0;
+        for (size_t i=0;i<plen;i++) {
+            if (sieve[i] > 0) ppos = i;
+        }
+        mprime = ppos;
+    }
+    free(sieve);
+    return mprime;
 }

@@ -4,6 +4,7 @@
 
 #include <CUnit/Basic.h>
 #include <graphinit.h>
+#include <util/crudops.h>
 #include <stdlib.h>
 
 /**
@@ -55,14 +56,11 @@ void rawGraphopsTest(void) {
     CU_ASSERT(NULL == gops->addEdge);
     CU_ASSERT(NULL == gops->addNode);
     CU_ASSERT(NULL == gops->edgeCount);
-    CU_ASSERT(NULL == gops->edgePath);
-    CU_ASSERT(NULL == gops->edgePath);
     CU_ASSERT(NULL == gops->getEdge);
     CU_ASSERT(NULL == gops->getEdges);
     CU_ASSERT(NULL == gops->getNeighbors);
     CU_ASSERT(NULL == gops->getNode);
     CU_ASSERT(NULL == gops->nodeCount);
-    CU_ASSERT(NULL == gops->nodePath);
     CU_ASSERT(NULL == gops->resetGraph);
     CU_ASSERT(NULL == gops->setCapacity);
     free(gops);

@@ -4,9 +4,9 @@
 
 #include <CUnit/Basic.h>
 #include <graphdata.h>
-#include <util/spatial.h>
-#include <graphinit.h>
-#include <stdlib.h>
+#include <util/cartesian.h>
+#include <util/crudops.h>
+
 
 static void checkArrays(size_t *expected, size_t *calced, size_t len) {
     CU_ASSERT(expected != NULL);
@@ -22,19 +22,19 @@ static void checkArrays(size_t *expected, size_t *calced, size_t len) {
 void indexLengthTest(void) {
     struct dimensions_t *dim1 = createDimensions(3,100,100,100);
     CU_ASSERT(NULL != dim1);
-    size_t len1 = indexLength(dim1);
+    size_t len1 = cartesianIndexLength(dim1);
     CU_ASSERT(len1 == 1000000);
     free(dim1);
 
     struct dimensions_t *dim2 = createDimensions(2,10,10);
     CU_ASSERT(NULL != dim2);
-    size_t len2 = indexLength(dim2);
+    size_t len2 = cartesianIndexLength(dim2);
     CU_ASSERT(len2 == 100);
     free(dim2);
 
     struct dimensions_t *dim3 = createDimensions(2, 256,256);
     CU_ASSERT(NULL != dim3);
-    size_t len3 = indexLength(dim3);
+    size_t len3 = cartesianIndexLength(dim3);
     CU_ASSERT(len3 == 65536)
     free(dim3);
 }
@@ -50,7 +50,7 @@ void coordTest(void) {
     size_t calc1[3] = {0,0,0};
     struct dimensions_t *dim1 = createDimensions(3,100,100,100);
     CU_ASSERT(NULL != dim1);
-    int ret1 = spatialFromIndex(&idx1, calc1, dim1);
+    int ret1 = cartesianFromIndex(&idx1, calc1, dim1);
     CU_ASSERT( ret1 == 0);
     checkArrays(coord3d, calc1, dim1->dimcount);
     free(dim1);
@@ -59,7 +59,7 @@ void coordTest(void) {
     size_t calc2[3] = {0,0,0};
     struct dimensions_t *dim2 = createDimensions(3,256,256,256);
     CU_ASSERT(NULL != dim2);
-    int ret2 = spatialFromIndex(&idx2, calc2, dim2);
+    int ret2 = cartesianFromIndex(&idx2, calc2, dim2);
     CU_ASSERT(ret2 == 0);
     checkArrays(coord3d, calc2, dim2->dimcount);
     free(dim2);
@@ -68,7 +68,7 @@ void coordTest(void) {
     size_t calc3[2] = {0,0};
     struct dimensions_t *dim3 = createDimensions(2,256,256);
     CU_ASSERT(NULL != dim3);
-    int ret3 = spatialFromIndex(&idx3, calc3, dim3);
+    int ret3 = cartesianFromIndex(&idx3, calc3, dim3);
     CU_ASSERT(ret3 == 0);
     checkArrays(coord2d, calc3, dim3->dimcount);
     free(dim3);
@@ -85,14 +85,14 @@ void coordFailTest(void) {
     size_t calc[3] = {0,0,0};
     struct dimensions_t *dim1 = createDimensions(3,100,100,100);
     CU_ASSERT(NULL != dim1);
-    int ret1 = spatialFromIndex(&idx1, calc, dim1);
+    int ret1 = cartesianFromIndex(&idx1, calc, dim1);
     CU_ASSERT( ret1 == 1);
     free(dim1);
 
     size_t idx2 = 26777216;
     struct dimensions_t *dim2 = createDimensions(3,256,256,256);
     CU_ASSERT(NULL != dim2);
-    int ret2 = spatialFromIndex(&idx2, calc, dim2);
+    int ret2 = cartesianFromIndex(&idx2, calc, dim2);
     CU_ASSERT(ret2 == 1);
     free(dim2);
 
@@ -100,7 +100,7 @@ void coordFailTest(void) {
     size_t calc2[2] = {0,0};
     struct dimensions_t *dim3 = createDimensions(2,256,256);
     CU_ASSERT(NULL != dim3);
-    int ret3 = spatialFromIndex(&idx3, calc2, dim3);
+    int ret3 = cartesianFromIndex(&idx3, calc2, dim3);
     CU_ASSERT(ret3 == 1);
     free(dim3);
 }
@@ -115,7 +115,7 @@ void indexTest(void) {
     size_t coord1[3] = {5,55,32};
     struct dimensions_t *dim1 = createDimensions(3,100,100,100);
     CU_ASSERT(NULL != dim1);
-    int ret1 = indexFromDimensions(dim1, &calc1, coord1);
+    int ret1 = indexFromCartesian(dim1, &calc1, coord1);
     CU_ASSERT( ret1 == 0);
     CU_ASSERT(calc1 == idx1);
     free(dim1);
@@ -125,7 +125,7 @@ void indexTest(void) {
     size_t coord2[3] = {5,55,32};
     struct dimensions_t *dim2 = createDimensions(3,256,256,256);
     CU_ASSERT(NULL != dim2);
-    int ret2 = indexFromDimensions(dim2, &calc2, coord2);
+    int ret2 = indexFromCartesian(dim2, &calc2, coord2);
     CU_ASSERT(ret2 == 0);
     CU_ASSERT(calc2 == idx2);
     free(dim2);
@@ -135,7 +135,7 @@ void indexTest(void) {
     size_t coord3[2] = {77,222};
     struct dimensions_t *dim3 = createDimensions(2,256,256);
     CU_ASSERT(NULL != dim3);
-    int ret3 = indexFromDimensions(dim3, &calc3, coord3);
+    int ret3 = indexFromCartesian(dim3, &calc3, coord3);
     CU_ASSERT(ret3 == 0);
     CU_ASSERT(calc3 == idx3);
     free(dim3);
@@ -149,7 +149,7 @@ void indexFailTest(void) {
     size_t bad1[3] = {10,42,101};
     struct dimensions_t *dim1 = createDimensions(3,100,100,100);
     CU_ASSERT(NULL != dim1);
-    int ret1 = indexFromDimensions(dim1, &calc1, bad1);
+    int ret1 = indexFromCartesian(dim1, &calc1, bad1);
     CU_ASSERT( ret1 == 1);
 
     free(dim1);
@@ -158,7 +158,7 @@ void indexFailTest(void) {
     size_t bad2[3] = {256,256,256};
     struct dimensions_t *dim2 = createDimensions(3,256,256,256);
     CU_ASSERT(NULL != dim2);
-    int ret2 = indexFromDimensions(dim2, &calc2, bad2);
+    int ret2 = indexFromCartesian(dim2, &calc2, bad2);
     CU_ASSERT(ret2 == 1);
     free(dim2);
 
@@ -166,7 +166,7 @@ void indexFailTest(void) {
     size_t bad3[2] = {10,258};
     struct dimensions_t *dim3 = createDimensions(2,256,256);
     CU_ASSERT(NULL != dim3);
-    int ret3 = indexFromDimensions(dim3, &calc3, bad3);
+    int ret3 = indexFromCartesian(dim3, &calc3, bad3);
     CU_ASSERT(ret3 == 1);
     free(dim3);
 }
@@ -183,27 +183,27 @@ void badDataTests(void) {
 
     CU_ASSERT(NULL != dim);
     //Bad inputs
-    int ret1 = spatialFromIndex(nullidx, calcarr, dim);
+    int ret1 = cartesianFromIndex(nullidx, calcarr, dim);
     CU_ASSERT( ret1 == -1);
     ret1 = 0;
-    ret1 = spatialFromIndex(&idx1, nullarr, dim);
+    ret1 = cartesianFromIndex(&idx1, nullarr, dim);
     CU_ASSERT( ret1 == -1);
     ret1 = 0;
-    ret1 = spatialFromIndex(&idx1, calcarr, nulldim);
+    ret1 = cartesianFromIndex(&idx1, calcarr, nulldim);
     CU_ASSERT( ret1 == -1);
     ret1 = 0;
 
     //Bad spatial inputs
     //NULL dimensions
-    ret1 = indexFromDimensions(nulldim, &calcidx, coord3);
+    ret1 = indexFromCartesian(nulldim, &calcidx, coord3);
     CU_ASSERT(ret1 == -1);
     ret1 = 0;
     //NULL output ref
-    ret1 = indexFromDimensions(dim, nullidx, coord3);
+    ret1 = indexFromCartesian(dim, nullidx, coord3);
     CU_ASSERT(ret1 == -1);
     ret1 = 0;
     //Too few coords
-    ret1 = indexFromDimensions(dim, &calcidx, nullarr);
+    ret1 = indexFromCartesian(dim, &calcidx, nullarr);
     CU_ASSERT(ret1 == -1);
     ret1 = 0;
 

@@ -2,7 +2,7 @@
 // Created by david on 11/18/17.
 //
 
-#include <util/spatial.h>
+#include <util/cartesian.h>
 #include <stdarg.h>
 
 /**
@@ -16,7 +16,7 @@
  * @return 0 if successful; 1 if the coordinates are outside the bounds of the dimensions; -1 if there is a problem with the
  * values passed.
  */
-int indexFromDimensions(struct dimensions_t *dims, size_t *idx, size_t *coords) {
+int indexFromCartesian(struct dimensions_t *dims, size_t *idx, size_t *coords) {
     int retval = -1;
     if (NULL != dims && NULL != idx && NULL != coords) {
         size_t dxval = coords[0];
@@ -25,7 +25,7 @@ int indexFromDimensions(struct dimensions_t *dims, size_t *idx, size_t *coords) 
             dxval += dimmult*coords[i];
             dimmult *= dims->dimarr[i];
         }
-        size_t dlen = indexLength(dims);
+        size_t dlen = cartesianIndexLength(dims);
         if (dxval >= dlen) {
             retval = 1;
         } else {
@@ -47,10 +47,10 @@ int indexFromDimensions(struct dimensions_t *dims, size_t *idx, size_t *coords) 
  * @param dims Dimensional value to be calculated against
  * @return 0 if successful; 1 if the index is outside the bounds of the dimensions; -1 if there is a problem with the values passed.
  */
-int spatialFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims) {
+int cartesianFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims) {
     int retval = -1;
     if (NULL != idx && NULL != coords && NULL != dims) {
-        size_t dimdiv = indexLength(dims);
+        size_t dimdiv = cartesianIndexLength(dims);
         if (*idx < dimdiv) {
             size_t remval = *idx;
             if (dimdiv > 0) {
@@ -80,7 +80,7 @@ int spatialFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims) {
  * @param dims Dimensions to be checked
  * @return Size of index calculation, or 0 if the dims pointer is NULL.
  */
-size_t indexLength(struct dimensions_t *dims) {
+size_t cartesianIndexLength(struct dimensions_t *dims) {
     size_t retval = 0;
     if (NULL != dims) {
         retval = 1;

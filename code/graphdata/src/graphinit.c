@@ -18,7 +18,6 @@ static void setArrayOps(struct graphops_t *gops) {
     gops->addNode = arrayAddNode;
     gops->getNode = arrayGetNode;
     gops->nodeCount = arrayNodeCount;
-    gops->nodePath = arrayGetNodePath;
     gops->getNeighbors = arrayGetNeighbors;
     gops->removeNode = arrayRemoveNode;
 
@@ -28,7 +27,6 @@ static void setArrayOps(struct graphops_t *gops) {
     gops->getEdges = arrayGetEdges;
     gops->removeEdge = arrayRemoveEdge;
     gops->edgeCount = arrayEdgeCount;
-    gops->edgePath = arrayGetEdgePath;
 
     //Value operations
     gops->setCapacity = arraySetCapacity;
@@ -48,7 +46,6 @@ static void setLinkOps(struct graphops_t *gops) {
     gops->addNode = linkAddNode;
     gops->getNode = linkGetNode;
     gops->nodeCount = linkNodeCount;
-    gops->nodePath = linkGetNodePath;
     gops->getNeighbors = linkGetNeighbors;
     gops->removeNode = linkRemoveNode;
 
@@ -58,7 +55,6 @@ static void setLinkOps(struct graphops_t *gops) {
     gops->getEdges = linkGetEdges;
     gops->removeEdge = linkRemoveEdge;
     gops->edgeCount = linkEdgeCount;
-    gops->edgePath = linkGetEdgePath;
 
     //Value operations
     gops->setCapacity = linkSetCapacity;

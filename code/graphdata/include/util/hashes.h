@@ -16,4 +16,15 @@
  */
 size_t SuperFastHash (const char * data, int len);
 
+/**
+ * @brief Using the Sieve of Eratosthenes, calculate the max prime value below the given value
+ *
+ * Quick and dirty (not necessarily computationally quick) way to get the max prime number below the given
+ * value.
+ *
+ * @param idx Size value to search the max prime number below
+ * @return Max prime number within the range given by the input, if successful; otherwise 0
+ */
+size_t maxEratosthenesPrime(size_t *idx);
+
 #endif //GRAPHDATA_HASHES_H

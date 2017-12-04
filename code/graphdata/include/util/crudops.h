@@ -60,7 +60,50 @@ struct graphops_t * initGraphops();
  */
 struct edge_t * initEdge();
 
+/**
+ * @brief Allocate and initialize a node
+ *
+ * @return pointer to new node_t memory, if successful; otherwise, NULL.
+ */
+struct node_t * initNode();
+
+/**
+ * @brief Allocate and initialize a feature structure
+ * @return pointer to new feature_t memory, if successful; otherwise, NULL.
+ */
+struct feature_t * initFeature();
+
 //Clone operations
+
+/**
+ * @brief Create a copy of the given node
+ *
+ * This operation is intended to be used for extracting data from the graph to be used for external purposes, such as
+ * delineating paths, without unintentionally altering the underlying graph structure.
+ *
+ * @param onode Original node_t to be cloned
+ * @return pointer to the cloned structure, if successful; otherwise, a pointer to NULL
+ */
+struct node_t * cloneNode(const struct node_t *onode);
+
+/**
+ * @brief Create a copy of the given edge
+ *
+ * This operation is intended to be used for extracting data from the graph to be used for external purposes, such as
+ * processing stacks, queues, and paths, without unintentionally altering the underlying graph structure.
+ *
+ * @param oedge Original edge_t structure to be cloned.
+ * @return pointer to the cloned data, if successful; otherwise, a pointer to NULL
+ */
+struct edge_t * cloneEdge(const struct edge_t *oedge);
+
+/**
+ * @brief Create a copy of the given feature data
+ *
+ * @param ofeat Original feature to be copied.
+ * @return pointer to the cloned data, if successful; otherwise, a pointer to NULL
+ */
+struct feature_t * cloneFeature(const struct feature_t *ofeat);
 
 
 //Free operations.

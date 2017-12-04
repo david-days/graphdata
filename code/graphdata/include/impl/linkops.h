@@ -65,26 +65,6 @@ struct node_t * linkGetNeighbors(const size_t *nodeid, const struct graph_t *g);
 struct edge_t * linkGetEdges(const size_t *nodeid, const struct graph_t *g);
 
 /**
- * @brief Function pointer to retrieve linked-list path of nodes from start to destination, beginning with the starting node.
- * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
- * @param uid Path start identifier
- * @param vid Path end identifier
- * @param g Graph in question
- * @return Linked-list of nodes, starting from uid and ending at vid, if found; otherwise, pointer to NULL.
- */
-struct node_t * linkGetNodePath(const size_t *uid, const size_t *vid, const struct graph_t *g);
-
-/**
- * @brief Function pointer to retrieve linked-list of path edges from start to destination, beginning with the starting node.
- * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
- * @param uid Path start identifier
- * @param vid Path end identifier
- * @param g Graph in question
- * @return Linked-list of edges, starting from uid and ending at vid, if found; otherwise, pointer to NULL.
- */
-struct edge_t * linkGetEdgePath(const size_t *uid, const size_t *vid, const struct graph_t *g);
-
-/**
  * @brief Function pointer to retrieve the current capacity value for a given edge.
  *
  * For implementations that support this, the capacity value will be written to the *cap parameter.

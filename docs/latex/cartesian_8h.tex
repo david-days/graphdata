@@ -1,0 +1,123 @@
+\hypertarget{cartesian_8h}{}\section{/home/david/devel/graphdata/code/graphdata/include/util/cartesian.h File Reference}
+\label{cartesian_8h}\index{/home/david/devel/graphdata/code/graphdata/include/util/cartesian.\+h@{/home/david/devel/graphdata/code/graphdata/include/util/cartesian.\+h}}
+{\ttfamily \#include $<$graphdata.\+h$>$}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{cartesian_8h_ab4c388e4c0cdaa501769611d7d27dd15}{index\+From\+Cartesian} (struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$dims, size\+\_\+t $\ast$idx, size\+\_\+t $\ast$coords)
+\begin{DoxyCompactList}\small\item\em Sets array index value of the given set of dimensions, when calculated against the given dimensional array. \end{DoxyCompactList}\item 
+int \hyperlink{cartesian_8h_adb0b66a0b2a52a8f503e639d878a1446}{cartesian\+From\+Index} (size\+\_\+t $\ast$idx, size\+\_\+t $\ast$coords, struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$dims)
+\begin{DoxyCompactList}\small\item\em Sets the size\+\_\+t array (whose length must be initialized to match dims-\/$>$dimcount) to the coordinates within the given spatial dimensions. \end{DoxyCompactList}\item 
+size\+\_\+t \hyperlink{cartesian_8h_aa2112e1cfe7c6baf0a029bd37edb08af}{cartesian\+Index\+Length} (struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$dims)
+\begin{DoxyCompactList}\small\item\em Calculates the index length, based on the given coordinates. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{cartesian_8h_adb0b66a0b2a52a8f503e639d878a1446}\label{cartesian_8h_adb0b66a0b2a52a8f503e639d878a1446}} 
+\index{cartesian.\+h@{cartesian.\+h}!cartesian\+From\+Index@{cartesian\+From\+Index}}
+\index{cartesian\+From\+Index@{cartesian\+From\+Index}!cartesian.\+h@{cartesian.\+h}}
+\subsubsection{\texorpdfstring{cartesian\+From\+Index()}{cartesianFromIndex()}}
+{\footnotesize\ttfamily int cartesian\+From\+Index (\begin{DoxyParamCaption}\item[{size\+\_\+t $\ast$}]{idx,  }\item[{size\+\_\+t $\ast$}]{coords,  }\item[{struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$}]{dims }\end{DoxyParamCaption})}
+
+
+
+Sets the size\+\_\+t array (whose length must be initialized to match dims-\/$>$dimcount) to the coordinates within the given spatial dimensions. 
+
+This function is used to transform between zero-\/based coordinates to a zero-\/based array index, for example.
+
+
+\begin{DoxyParams}{Parameters}
+{\em idx} & Index value to be used \\
+\hline
+{\em coords} & Array to hold the result \\
+\hline
+{\em dims} & Dimensional value to be calculated against \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if successful, 1 if the index is outside the bounds of the dimensions.
+\end{DoxyReturn}
+This function is used to transform between zero-\/based coordinates to a zero-\/based array index, for example.
+
+
+\begin{DoxyParams}{Parameters}
+{\em idx} & Index value to be used \\
+\hline
+{\em coords} & Array to hold the result \\
+\hline
+{\em dims} & Dimensional value to be calculated against \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if successful; 1 if the index is outside the bounds of the dimensions; -\/1 if there is a problem with the values passed. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{cartesian_8h_aa2112e1cfe7c6baf0a029bd37edb08af}\label{cartesian_8h_aa2112e1cfe7c6baf0a029bd37edb08af}} 
+\index{cartesian.\+h@{cartesian.\+h}!cartesian\+Index\+Length@{cartesian\+Index\+Length}}
+\index{cartesian\+Index\+Length@{cartesian\+Index\+Length}!cartesian.\+h@{cartesian.\+h}}
+\subsubsection{\texorpdfstring{cartesian\+Index\+Length()}{cartesianIndexLength()}}
+{\footnotesize\ttfamily size\+\_\+t cartesian\+Index\+Length (\begin{DoxyParamCaption}\item[{struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$}]{dims }\end{DoxyParamCaption})}
+
+
+
+Calculates the index length, based on the given coordinates. 
+
+This function multiplies the given dimensions and returns the size of an array that would be necessary to hold all possible dimension values. This is provided both as a consistent check and a means to consistently return the proper value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dims} & Dimensions to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Size of index calculation.
+\end{DoxyReturn}
+This function multiplies the given dimensions and returns the size of an array that would be necessary to hold all possible dimension values. This is provided both as a consistent check and a means to consistently return the proper value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dims} & Dimensions to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Size of index calculation, or 0 if the dims pointer is N\+U\+LL. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{cartesian_8h_ab4c388e4c0cdaa501769611d7d27dd15}\label{cartesian_8h_ab4c388e4c0cdaa501769611d7d27dd15}} 
+\index{cartesian.\+h@{cartesian.\+h}!index\+From\+Cartesian@{index\+From\+Cartesian}}
+\index{index\+From\+Cartesian@{index\+From\+Cartesian}!cartesian.\+h@{cartesian.\+h}}
+\subsubsection{\texorpdfstring{index\+From\+Cartesian()}{indexFromCartesian()}}
+{\footnotesize\ttfamily int index\+From\+Cartesian (\begin{DoxyParamCaption}\item[{struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$}]{dims,  }\item[{size\+\_\+t $\ast$}]{idx,  }\item[{size\+\_\+t $\ast$}]{coords }\end{DoxyParamCaption})}
+
+
+
+Sets array index value of the given set of dimensions, when calculated against the given dimensional array. 
+
+This is function is used to provide transform between zero-\/based coordinates to a zero-\/based array index, for example.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dims} & Dimensions to be use for index calculation \\
+\hline
+{\em idx} & size\+\_\+t reference to be set \\
+\hline
+{\em dimsz} & Number of dimensions in question--can pass dims-\/$>$dimcount for consistency \\
+\hline
+{\em ...} & zero-\/based spatial coordinates for calculation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if successful; 1 if the coordinates are outside the bounds of the dimensions
+\end{DoxyReturn}
+This is function is used to provide transform between zero-\/based coordinates to a zero-\/based array index, for example.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dims} & Dimensions to be use for index calculation \\
+\hline
+{\em idx} & size\+\_\+t reference to be set \\
+\hline
+{\em coords} & array pointer of length dims-\/$>$dimcount, holding the coordinates in question \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if successful; 1 if the coordinates are outside the bounds of the dimensions; -\/1 if there is a problem with the values passed. 
+\end{DoxyReturn}

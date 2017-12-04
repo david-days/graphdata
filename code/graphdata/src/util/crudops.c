@@ -5,6 +5,7 @@
 #include <util/crudops.h>
 #include <stdarg.h>
 
+//Create operations
 /**
  * @brief Utility method to create and preset graph structure.
  * @return A pointer to a graph_t structure.
@@ -101,14 +102,11 @@ struct graphops_t * initGraphops() {
         gops->addEdge = NULL;
         gops->addNode = NULL;
         gops->edgeCount = NULL;
-        gops->edgePath = NULL;
-        gops->edgePath = NULL;
         gops->getEdge = NULL;
         gops->getEdges = NULL;
         gops->getNeighbors = NULL;
         gops->getNode = NULL;
         gops->nodeCount = NULL;
-        gops->nodePath = NULL;
         gops->resetGraph = NULL;
         gops->setCapacity = NULL;
     }
@@ -131,11 +129,118 @@ struct edge_t * initEdge() {
         edge->cap = 0.0;
         edge->flow = 0.0;
     }
+    return edge;
 }
 
 
 /**
- * @brief Clear the graph and all underlying structures
+ * @brief Allocate and initialize a node
+ *
+ * @return pointer to new node_t memory, if successful; otherwise, NULL.
+ */
+struct node_t * initNode() {
+    struct node_t *node = NULL;
+    node = (struct node_t *)malloc(sizeof(struct node_t));
+    if (node != NULL) {
+        node->next = NULL;
+        node->prev = NULL;
+        node->nodeid = 0;
+        node->attrs = NULL;
+        node->edges = NULL;
+    }
+    return node;
+}
+
+/**
+ * @brief Allocate and initialize a feature structure
+ * @return pointer to new feature_t memory, if successful; otherwise, NULL.
+ */
+struct feature_t * initFeature() {
+    struct feature_t *f = NULL;
+    f = (struct feature_t *)malloc(sizeof(struct feature_t));
+    if (f != NULL) {
+        f->val = 0.0;
+        f->hashid = 0;
+        f->fdata = NULL;
+        f->prev = NULL;
+        f->next = NULL;
+    }
+    return f;
+}
+
+
+
+//Clone operations
+
+/**
+ * @brief Create a copy of the given node
+ *
+ * This operation is intended to be used for extracting data from the graph to be used for external purposes, such as
+ * delineating paths, without unintentionally altering the underlying graph structure.
+ *
+ * @param onode Original node_t to be cloned
+ * @return pointer to the cloned structure, if successful; otherwise, a pointer to NULL
+ */
+struct node_t * cloneNode(const struct node_t *onode) {
+    struct node_t *nnode = NULL;
+    if (onode != NULL) {
+        nnode = initNode();
+        if (nnode != NULL) {
+            nnode->nodeid = onode->nodeid;
+        }
+    }
+    return nnode;
+}
+
+/**
+ * @brief Create a copy of the given edge
+ *
+ * This operation is intended to be used for extracting data from the graph to be used for external purposes, such as
+ * processing stacks, queues, and paths, without unintentionally altering the underlying graph structure.
+ *
+ * @param oedge Original edge_t structure to be cloned.
+ * @return pointer to the cloned data, if successful; otherwise, a pointer to NULL
+ */
+struct edge_t * cloneEdge(const struct edge_t *oedge) {
+    struct edge_t *nedge = NULL;
+    if (oedge != NULL) {
+        nedge = initEdge();
+        if (nedge != NULL) {
+            nedge->u = oedge->u;
+            nedge->v = oedge->v;
+            nedge->cap = oedge->cap;
+            nedge->flow = oedge->flow;
+        }
+    }
+    return nedge;
+}
+
+/**
+ * @brief Create a copy of the given feature data
+ *
+ * @param ofeat Original feature to be copied.
+ * @return pointer to the cloned data, if successful; otherwise, a pointer to NULL
+ */
+struct feature_t * cloneFeature(const struct feature_t *ofeat) {
+    struct feature_t *nf = NULL;
+    nf = initFeature();
+    if (nf != NULL) {
+        //TODO:  Explicitly state fdata and featurename refer to originals, or work on making copies?
+        nf->fdata = ofeat->fdata;
+        nf->hashid = ofeat->hashid;
+        nf->val = ofeat->val;
+        nf->featurename = ofeat->featurename;
+    }
+    return nf;
+}
+
+
+
+
+//Destroy/clearing operations
+
+/**
+ * @brief Clear the graph and all underlying standard structures
  *
  * The pointer itself will be changed to NULL
  *
@@ -143,7 +248,16 @@ struct edge_t * initEdge() {
  * @return 1 if success; 0 if error
  */
 int destroyGraph(void** gptr) {
-    return 0;
+    int retval = 0;
+    if (NULL != *gptr) {
+        struct graph_t *graph = (struct graph_t *)*gptr;
+        retval = retval | destroyDimensions((void **)&(graph->dims));
+        retval = retval | destroyLabels((void **)&(graph->labels));
+        free(*gptr);
+        *gptr = NULL;
+        retval = retval & 1;
+    }
+    return retval;
 }
 
 /**
@@ -199,7 +313,20 @@ int destroyLabels(void** lptr) {
  * @return 1 if success; 0 if error.
  */
 int destroyEdges(void** eptr) {
-    return 0;
+    int retval = 0;
+    if (*eptr != NULL) {
+        struct edge_t *curr = (struct edge_t *)*eptr;
+        struct edge_t *next;
+        while (curr != NULL) {
+            next = curr->next;
+            free(curr);
+            curr = next;
+        }
+        *eptr = NULL;
+        retval = 1;
+    }
+
+    return retval;
 }
 
 /**
@@ -217,13 +344,11 @@ int destroyGraphops(void** opsptr) {
         gops->g = NULL;
         gops->setCapacity = NULL;
         gops->resetGraph = NULL;
-        gops->nodePath = NULL;
         gops->nodeCount = NULL;
         gops->getNode = NULL;
         gops->getNeighbors = NULL;
         gops->getEdges = NULL;
         gops->getEdge = NULL;
-        gops->edgePath = NULL;
         gops->edgeCount = NULL;
         gops->addNode = NULL;
         gops->addEdge = NULL;
@@ -243,7 +368,20 @@ int destroyGraphops(void** opsptr) {
  * @return 1 if successful; 0 if error
  */
 int destroyNodes(void** nptr) {
-    return 0;
+    int retval = 0;
+    if (*nptr != NULL) {
+        struct node_t *curr = (struct node_t *)*nptr;
+        struct node_t *next;
+        while (curr != NULL) {
+            next = curr->next;
+            free(curr);
+            curr = next;
+        }
+        *nptr = NULL;
+        retval = 1;
+    }
+
+    return retval;
 }
 
 /**
@@ -255,5 +393,18 @@ int destroyNodes(void** nptr) {
  * @return 1 if successful; 0 if error
  */
 int destroyFeatures(void** fptr) {
-    return 0;
+    int retval = 0;
+    if (*fptr != NULL) {
+        struct feature_t *curr = (struct feature_t *)*fptr;
+        struct feature_t *next;
+        while (curr != NULL) {
+            next = curr->next;
+            free(curr);
+            curr = next;
+        }
+        *fptr = NULL;
+        retval = 1;
+    }
+
+    return retval;
 }
