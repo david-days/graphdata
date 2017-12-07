@@ -7,6 +7,8 @@ include(CTest)
 set(SOURCES
         ${CMAKE_SOURCE_DIR}
         src
+        src/testprep.c
+        src/testprep.h
 )
 
 set(LIBS ${LIBS} ${PROJECT_NAME})
