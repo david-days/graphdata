@@ -14,60 +14,58 @@
 #include<stdio.h>
 
 /**
- * @brief Basic graph type.
+ * @brief Descriptor of the graph structure and usage.
  *
- * Type of graph being implemented.  DIRECTED vs. UNDIRECTED gives appropriate hints to the graph operations that will
- * be used, both to access the data and to minimize memory usage.
+ * This enum is used to described, as best as possible, the types of operations that will be necessary for this graph to
+ * fulfill the consumer's needs.
  */
-enum GRAPHTYPE {
+enum GRAPHDOMAIN {
+    //Graph type values
     /**
-     * @brief Undirected graph (edge u->v == edge v->u, always).
+     * @brief An undirected graph structure e(u,v) == e(v,u)
      *
-     * Structure implementations will make all efforts to ensure no duplicates, and only one representative edge will be used.
+     * The minimum number of edges will be used to represent connectivity between nodes.
      */
-    UNDIRECTED,
+    UNDIRECTED  = 0x0001,
     /**
-     * @brief Directed graph (edge u->v != edge v->u).
+     * @brief A directed graph structure e(u,v) != e(v,u)
      *
-     * Structure implementations will maintain separate values for each direction.  More memory, but (at times) faster or more explicit
-     * path operations.
+     * Each edge description {u,v} will be distinct.
      */
-    DIRECTED
-};
+    DIRECTED    = 0x0002,
+    //Underlying Implementation
+    /**
+     * @brief The underlying implementation is an array-based structure
+     */
+    ARRAY       = 0x0010,
+    /**
+     * @brief The underlying structure is a double-linked list of nodes and edges
+     */
+    LINKED      = 0x0020,
+    /**
+     * @brief The underlying structure is a set of adjacency lists in hashtable form.
+     */
+    HASHED      = 0x0040,
+    //Graph domain
+    /**
+     * @brief The graph represents a generic structure with no particular standardized relationship between nodes
+     */
+    GENERIC     = 0x0100,
+    /**
+     * @brief The graph represents an ordered set of nodes within a coordinate system, and edges are related to spatial
+     * "neighborhoods".
+     */
+    SPATIAL     = 0x0200,
+    //Specialization
+    /**
+     * @brief The graph has no specialized node values
+     */
+    UNLABELED   = 0x1000,
+    /**
+     * @brief The graph has a set of nodes representing categorical labeling of associated nodes.
+     */
+    LABELED     = 0x2000
 
-/**
- * @brief Definition of backing implementation (array-based, linked-lists, hashtable/unique adjacency lists)
- *
- * Type of underlying graph implementation used.  Each type implies certain graph characteristics (fixed vs. dynamic) and
- * drives the graphops function implementations
- *
- */
-enum GRAPHIMPL {
-    /**
-     * @brief An unspecified, growable implementation.
-     * It is assumed that the user does not care about the underlying details,
-     * merely that the graph behaves in a manner that supports the most general behavior (growable, dynamic, etc).
-     */
-    GENERIC,
-    /**
-     * @brief Array-backed graph data.
-     *
-     * Nodes, edges, and capacities are maintained in adjacency array form.  The graph dimensions (counts, edges, membership)
-     * are expected to be fixed at initialization.
-     */
-    ARRAY,
-    /**
-     * @brief Linked-list backed graph data.
-     *
-     * Underlying graph structures are dynamically allocated and adjustable at runtime.
-     */
-    LINKED,
-    /**
-     * @brief Hashtable-based implementation of adjacency lists.
-     * Management of hashtables and id-lookups is handled by the graphops implementations.  Graph structure is dynamic and
-     * adjustable at runtime.
-     */
-    HASHED
 };
 
 /**
@@ -225,11 +223,7 @@ struct graph_t {
     /**
      * @brief Type of graph being represented.
      */
-    enum GRAPHTYPE gtype;
-    /**
-     * @brief Backing implementation of graph data.
-     */
-    enum GRAPHIMPL gimpl;
+    enum GRAPHDOMAIN gtype;
 
     /**
      * @brief Dimensions structure for spatial graphs
@@ -271,11 +265,6 @@ struct graph_t {
      */
     void *flowImpl;
 };
-
-
-
-
-
 
 
 #endif //GRAPHDATA_H

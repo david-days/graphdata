@@ -19,16 +19,15 @@
  * @param g Graph structure
  * @return 1 if successful; 0 if there was a problem.
  */
-int linkGraphInit(enum GRAPHTYPE gtype, struct graph_t *g);
+int linkGraphInit(struct graph_t *g);
+
 
 /**
- * @brief Initialize a linked-list graph structure with the given number of available label values
+ * @brief Clear out the underlying data structures for the given LINK graph.
  *
- * @param gtype DIRECTED or UNDIRECTED graph
- * @param g Graph structure
- * @param lblcount number of labels to be allocated
- * @return 1 if successful; 0 if there was a problem
+ * @param g Graph to be cleared and memory deallocated
+ * @return 1 if the operation as a success; otherwise, 0.
  */
-int linkGraphLabelInit(enum GRAPHTYPE gtype, struct graph_t *g, size_t lblcount);
+int linkGraphFree(struct graph_t *g);
 
 #endif //GRAPHDATA_LINKGRAPH_H

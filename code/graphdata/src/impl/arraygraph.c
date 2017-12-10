@@ -89,18 +89,17 @@ static void * createDoubleArray(size_t alen, size_t conlen) {
 
 /**
  * @brief Set up a graph with array backing data
- * @param gtype UNDIRECTED graph will be returned, regardless of passed type.
+ *
  * @param g Graph structure
+ * @param lblcount Number of labels to be used--may be zero, depending on the graph domain.
  * @return 1 if successful; 0 if an error
  */
-int arrayGraphInit(enum GRAPHTYPE gtype, struct graph_t *g) {
+int arrayGraphInit(struct graph_t *g) {
     int retval = 0;
     if (NULL == g) return 0;
     //Can't continue if no dimensions
     if (g->dims == NULL) return 0;
     size_t arrlen = cartesianIndexLength(g->dims);
-    g->gtype = UNDIRECTED;
-    g->gimpl = ARRAY;
     if (arrlen > 0) {
         struct arraydata_t *arrmeta = initArrayMeta();
         arrmeta->nodelen = arrlen;
@@ -121,19 +120,6 @@ int arrayGraphInit(enum GRAPHTYPE gtype, struct graph_t *g) {
     return retval;
 }
 
-
-/**
- * @brief Set up a graph with array and backing data, adding on label connections as necessary.
- * @param gtype DIRECTED or UNDIRECTED graph
- * @param g Graph structure
- * @param lblcount Number of label nodes to be added
- * @return 1 if successful; 0 of an error.
- */
-int arrayGraphLabelInit(enum GRAPHTYPE gtype, struct graph_t *g, size_t lblcount) {
-    int retval = 0;
-
-    return retval;
-}
 
 
 /**

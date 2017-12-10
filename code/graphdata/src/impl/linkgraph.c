@@ -3,6 +3,7 @@
 //
 #include <graphdata.h>
 #include <impl/linkgraph.h>
+#include <util/crudops.h>
 
 
 /**
@@ -17,24 +18,33 @@
  * @param g Graph structure
  * @return 1 if successful; 0 if there was a problem.
  */
-int linkGraphInit(enum GRAPHTYPE gtype, struct graph_t *g) {
+int linkGraphInit(struct graph_t *g) {
     int retval = 0;
     if (g != NULL) {
-        g->gtype = gtype;
-        g->gimpl = LINKED;
+        //TODO:  Fill in basic structure
+        retval = 1;
     }
     return retval;
 }
 
 /**
- * @brief Initialize a linked-list graph structure with the given number of avaiable label values
+ * @brief Clear out the underlying data structures for the given LINK graph.
  *
- * @param gtype DIRECTED or UNDIRECTED graph
- * @param g Graph structure
- * @param lblcount number of labels to be allocated
- * @return 1 if successful; 0 if there was a problem
+ * @param g Graph to be cleared and memory deallocated
+ * @return 1 if the operation as a success; otherwise, 0.
  */
-int linkGraphLabelInit(enum GRAPHTYPE gtype, struct graph_t *g, size_t lblcount) {
-    return 0;
+int linkGraphFree(struct graph_t *g) {
+    int retval = 1;
+    if (g != NULL) {
+        if ((g->gtype & LINKED) == LINKED) {
+            struct node_t *currnode = (struct node_t *)g->nodeImpl;
+            while (currnode != NULL) {
+                retval = retval & destroyEdges((void **)&currnode->edges);
+                currnode = currnode->next;
+            }
+            //now clear out nodes
+            retval = retval & destroyNodes(&(g->nodeImpl));
+        }
+    }
+    return retval;
 }
-

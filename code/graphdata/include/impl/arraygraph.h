@@ -42,21 +42,13 @@ struct arraydata_t {
 
 /**
  * @brief Set up a graph with array backing data
- * @param gtype DIRECTED or UNDIRECTED graph
+ *
  * @param g Graph structure
+ * @param lblcount Number of labels to be used--may be zero, depending on the graph domain.
  * @return 1 if successful; 0 if an error
  */
-int arrayGraphInit(enum GRAPHTYPE gtype, struct graph_t *g);
+int arrayGraphInit(struct graph_t *g);
 
-
-/**
- * @brief Set up a graph with array and backing data, adding on label connections as necessary.
- * @param gtype DIRECTED or UNDIRECTED graph
- * @param g Graph structure
- * @param lblcount Number of label nodes to be added
- * @return 1 if successful; 0 of an error.
- */
-int arrayGraphLabelInit(enum GRAPHTYPE gtype, struct graph_t *g, size_t lblcount);
 
 /**
  * @brief Perform clearing operations to deallocate the array graph internal values and structures.

@@ -15,6 +15,48 @@
 #include <graphops.h>
 #include <stdlib.h>
 
+/**
+ * @brief Selector for graph directionality
+ */
+#define DIRSELECT DIRECTED | UNDIRECTED
+/**
+ * @brief Selector for underlying structure
+ */
+#define IMPLSELECT ARRAY | LINKED | HASHED
+/**
+ * @brief Selector for domain
+ */
+#define DOMAINSELECT GENERIC | SPATIAL
+/**
+ * @brief Selector for labels
+ */
+#define LABELSELECT LABELED | UNLABELED
+/**
+ * @brief Check for no flags passed--return default
+ */
+#define DEFAULTSELECT 0
+/**
+ * @brief Default graph type returned, if no parameters passed
+ */
+#define DEFAULTGRAPH UNDIRECTED | LINKED | GENERIC | UNLABELED
+
+/**
+ * @brief Parse the flag values passed, and write the evaluation into the separate references
+ *
+ * Parses out the separate possibilities for the flags. If the flag are empty, the default values
+ * are written back to the tflags reference.
+ *
+ * @param tflags Flag values passed to be evaluated
+ * @param dirflag Directionality result of the operation
+ * @param impflag Implementation type result
+ * @param lblflag Label type result
+ * @param domflag Domain type result
+ * @return 1 if the parsing is successful; otherwise, 0.
+ */
+int parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum GRAPHDOMAIN *impflag,
+                   enum GRAPHDOMAIN *lblflag, enum GRAPHDOMAIN *domflag);
+
+
 //Creation operations
 
 /**

@@ -5,6 +5,39 @@
 #include <util/crudops.h>
 #include <stdarg.h>
 
+
+
+int parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum GRAPHDOMAIN *impflag,
+                   enum GRAPHDOMAIN *lblflag, enum GRAPHDOMAIN *domflag) {
+    //retval used for future cases where illegitimate combinations may be used.
+    int retval = 0;
+    if (*tflags == DEFAULTSELECT) *tflags = DEFAULTGRAPH;
+    //Create switch selectors for graph types
+    enum GRAPHDOMAIN dirtype = (DIRSELECT) & *tflags;
+    enum GRAPHDOMAIN imptype = (IMPLSELECT) & *tflags;
+    enum GRAPHDOMAIN labtype = (LABELSELECT) & *tflags;
+    enum GRAPHDOMAIN domaintype = (DOMAINSELECT) & *tflags;
+
+    //check and set defaults for empty values
+    if (dirtype == 0) dirtype = UNDIRECTED;
+    if (imptype == 0) imptype = LINKED;
+    if (labtype == 0) labtype = UNLABELED;
+    if (domaintype == 0) domaintype = GENERIC;
+
+    *dirflag = dirtype;
+    *impflag = imptype;
+    *lblflag = labtype;
+    *domflag = domaintype;
+
+    //write the cleaned-up values back to the reference
+    *tflags = dirtype | imptype | labtype | domaintype;
+
+    retval = 1;
+
+    return retval;
+}
+
+
 //Create operations
 /**
  * @brief Utility method to create and preset graph structure.
@@ -250,12 +283,9 @@ struct feature_t * cloneFeature(const struct feature_t *ofeat) {
 int destroyGraph(void** gptr) {
     int retval = 0;
     if (NULL != *gptr) {
-        struct graph_t *graph = (struct graph_t *)*gptr;
-        retval = retval | destroyDimensions((void **)&(graph->dims));
-        retval = retval | destroyLabels((void **)&(graph->labels));
         free(*gptr);
         *gptr = NULL;
-        retval = retval & 1;
+        retval = 1;
     }
     return retval;
 }
