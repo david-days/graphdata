@@ -99,7 +99,10 @@ int arrayGraphInit(struct graph_t *g) {
     if (NULL == g) return 0;
     //Can't continue if no dimensions
     if (g->dims == NULL) return 0;
-    size_t arrlen = cartesianIndexLength(g->dims);
+    size_t cartlen = cartesianIndexLength(g->dims);
+    size_t arrlen = cartlen;
+    //if label graph, modify the array length accordingly
+
     if (arrlen > 0) {
         struct arraydata_t *arrmeta = initArrayMeta();
         arrmeta->nodelen = arrlen;
@@ -113,8 +116,7 @@ int arrayGraphInit(struct graph_t *g) {
         g->capImpl = createDoubleArray(arrmeta->edgelen, arrmeta->degree);
         g->flowImpl = createDoubleArray(arrmeta->edgelen, arrmeta->degree);
         g->metaImpl = (void *)arrmeta;
-        if (g->nodeImpl != NULL && g->edgeImpl != NULL
-                && g->capImpl != NULL && g->flowImpl != NULL)
+        if (g->nodeImpl != NULL && g->capImpl != NULL && g->flowImpl != NULL)
             retval = 1;
     }
     return retval;
