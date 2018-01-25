@@ -12,6 +12,7 @@
 #include <util/cartesian.h>
 #include <stdlib.h>
 #include <impl/arrayops.h>
+#include <util/crudops.h>
 
 /**
  * @brief Utility function to create array-graph metatdata
@@ -99,10 +100,19 @@ int arrayGraphInit(struct graph_t *g) {
     if (NULL == g) return 0;
     //Can't continue if no dimensions
     if (g->dims == NULL) return 0;
+    //Create switch selectors for graph types
+    enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype;
+    //parse type flags, and quit if not parsable
+    if (parseTypeFlags(g->gtype, &dirtype, &imptype, &labtype, &domaintype) == 0) {
+        return 0;
+    }
     size_t cartlen = cartesianIndexLength(g->dims);
     size_t arrlen = cartlen;
     //if label graph, modify the array length accordingly
-
+    if (labtype == LABELED) {
+        arrlen = g->labels->labelcount * cartlen;
+    }
+    
     if (arrlen > 0) {
         struct arraydata_t *arrmeta = initArrayMeta();
         arrmeta->nodelen = arrlen;
