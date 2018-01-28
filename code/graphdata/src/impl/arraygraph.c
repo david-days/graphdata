@@ -112,7 +112,7 @@ int arrayGraphInit(struct graph_t *g) {
     if (labtype == LABELED) {
         arrlen = g->labels->labelcount * cartlen;
     }
-    
+
     if (arrlen > 0) {
         struct arraydata_t *arrmeta = initArrayMeta();
         arrmeta->nodelen = arrlen;
