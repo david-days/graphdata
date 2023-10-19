@@ -57,7 +57,7 @@ int cartesianFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims) {
                 //we have a real coordinate system
                 for (size_t i = dims->dimcount - 1; i > 0; i--) {
                     dimdiv /= dims->dimarr[i];
-                    coords[i] = *idx / dimdiv;
+                    coords[i] = remval / dimdiv;
                     remval = *idx % dimdiv;
                 }
                 coords[0] = remval;
