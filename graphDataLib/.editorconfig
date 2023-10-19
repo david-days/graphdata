@@ -1,0 +1,77 @@
+# Root .editorconfig for MapLarge solution
+# May be overridden by more specific .editorconfig files within a project or in a specific folder
+# Order of precedence for rules: Latest in file wins (such as for a specific file type over a general rule), and .editorconfig in the same folder
+# overrides a more general one (at a higher level directory).
+
+root = true
+
+# Directives for all files
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = tab
+insert_final_newline = false
+tab_width = 4
+trim_trailing_whitespace = false
+
+
+# C/C++ directives
+[*.{c,c++,cc,cpp,cxx,h,h++,hh,hpp,hxx,inl,ipp,tlh,tli}]
+max_line_length = 80
+
+# curly brackets
+cpp_new_line_before_open_brace_type = same_line
+cpp_new_line_before_open_brace_namespace = same_line
+cpp_new_line_before_open_brace_function = same_line
+cpp_new_line_close_brace_same_line_empty_type = true
+cpp_new_line_close_brace_same_line_empty_function = true
+
+# indentation
+cpp_indent_multi_line_relative_to = statemt_begin
+cpp_indent_within_parentheses = indent
+
+cpp_indent_case_contents = true
+cpp_indent_case_labels = true
+cpp_indent_case_contents_when_block = true
+
+[CMakeLists.txt]
+
+
+[*.cmake]
+
+
+# Rules for .less files
+[*.less]
+
+# Rules for Powershell
+[*.{ps1,psm1,psd1}]
+indent_style = tab
+
+[*.{sh,run,bat}]
+indent_size = tab
+indent_style = tab
+
+shell_variant      = posix
+binary_next_line   = true  # like -bn
+switch_case_indent = true  # like -ci
+space_redirects    = true  # like -sr
+keep_padding       = false # like -kp
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.bat]
+indent_size = tab
+indent_style = tab
+shell_variant	= bats
+end_of_line = crlf
+
+# Rules for make files
+[Makefile]
+indent_style = tab
+
+# Markdown Files
+[*.md]
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = false

@@ -6,7 +6,7 @@
 #define GRAPHDATA_GRAPHINIT_H
 
 #include <graphdata.h>
-#include <graphops.h>
+#include "graphops.h"
 
 
 /**

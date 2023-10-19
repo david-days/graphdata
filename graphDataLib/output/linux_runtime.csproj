@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <NoBuild>true</NoBuild>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <NuspecFile>/devel/graphdata/graphDataLib/output/linux-x64-runtime.nuspec</NuspecFile>
+    <NuspecBasePath>/devel/graphdata/graphDataLib</NuspecBasePath>
+  </PropertyGroup>
+</Project>

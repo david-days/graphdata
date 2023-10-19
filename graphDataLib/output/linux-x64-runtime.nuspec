@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>graphData.runtime.linux-x64</id>
+        <version>1.0.0</version>
+        <title>graphData for Linux x64</title>
+        <authors>MapLarge</authors>
+        <!--<license type="expression">Apache-2.0</license>-->
+        <!--<licenseUrl>https://opensource.org/licenses/BSD-3-Clause</licenseUrl>-->
+        <projectUrl>https://dev.azure.com/MapLarge/Internal/_git/changeme</projectUrl>
+        <!--<iconUrl></iconUrl>-->
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Native libraries implementation for graphData</description>
+        <summary>MapLarge C++ library for graphData</summary>
+        <releaseNotes>Initial release</releaseNotes>
+        <copyright>Copyright 2018-2023</copyright>
+        <tags>Native native graphData</tags>
+        <repository type="git" url="https://MapLarge@dev.azure.com/MapLarge/Internal/_git/changeme" />
+        <dependencies>
+            <group targetFramework="net6.0"></group>
+        </dependencies>
+        <frameworkAssemblies>
+        </frameworkAssemblies>
+    </metadata>
+    <files>
+        <file src="output/linux-x64/*" target="runtimes/linux-x64/native/lib" />
+        <file src="runtimes/linux-x64/native/*" target="runtimes/linux-x64/native/lib" />
+    </files>
+</package>
