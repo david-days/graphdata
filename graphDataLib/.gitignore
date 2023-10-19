@@ -1,0 +1,16 @@
+# Binaries to be included
+!**/runtimes/**/*.a
+!**/runtimes/**/*.so
+!**/runtimes/**/*.so.*
+!**/runtimes/**/*.dll
+!**/runtimes/**/*.pdb
+!**/lib-win-x64/*
+
+# Build products that should never be included
+**/output
+**/build-*
+**/nupkgs
+**/tests/bin
+
+# Test data
+**/tests/data

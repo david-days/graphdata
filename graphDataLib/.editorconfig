@@ -1,4 +1,4 @@
-# Root .editorconfig for MapLarge solution
+# Root .editorconfig for graphData solution
 # May be overridden by more specific .editorconfig files within a project or in a specific folder
 # Order of precedence for rules: Latest in file wins (such as for a specific file type over a general rule), and .editorconfig in the same folder
 # overrides a more general one (at a higher level directory).

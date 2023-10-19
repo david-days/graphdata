@@ -35,7 +35,7 @@ add_subdirectory(util)
 #include(FetchContent)
 #set(FETCHCONTENT_QUIET FALSE)
 #FetchContent_Declare(testdata
-#        URL https://maplarge-public.s3.amazonaws.com/ImportTestData/FileGDB/filegdb-data-20230912.zip
+#        URL https://some/url/to/data/file.zip
 #        SOURCE_DIR ${dataDir}
 #)
 #FetchContent_MakeAvailable(testdata)

@@ -14,7 +14,7 @@ The basic test is composed of the following:
    │
    ├─📂💽 bin
    ├─📂🗃️ data
-   ├─📂⚒️ MapLarge
+   ├─📂⚒️ crud
    ├─🗒️ Testing.md
    └─📜 CMakeLists.txt
 ```

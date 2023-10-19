@@ -4,7 +4,7 @@ project(graphData LANGUAGES C)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # C compiler settings
-set_property(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD 17)
+set(C_STANDARD 17)
 set(CMAKE_C_FLAGS "-Wall")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-format-truncation")

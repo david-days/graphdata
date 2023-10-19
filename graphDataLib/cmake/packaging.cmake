@@ -2,7 +2,7 @@
 macro(configPackaging)
 
     # General reusable settings
-    set(MAPLARGE_PKG_VENDOR "Mad Goat")
+    set(GRAPHDATA_PKG_VENDOR "Mad Goat")
     set(GRAPHDATA_PKG_NAME "graphData")
     set(GRAPHDATA_PKG_MAINTAINER "David C Days <david.c.days@gmail.com>")
     set(GRAPHDATA_PKG_SUMMARY "Efficient implementation for common graph data operations")

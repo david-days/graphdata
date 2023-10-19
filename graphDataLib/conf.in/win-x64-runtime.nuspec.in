@@ -4,18 +4,18 @@
         <id>@PROJECT_NAME@.runtime.win-x64</id>
         <version>@PROJECT_VERSION@</version>
         <title>@PROJECT_NAME@ for Windows x64</title>
-        <authors>MapLarge</authors>
+        <authors>Silicon Holler</authors>
         <!--<license type="expression">Apache-2.0</license>-->
         <!--<licenseUrl>https://opensource.org/licenses/BSD-3-Clause</licenseUrl>-->
-        <projectUrl>https://dev.azure.com/MapLarge/Internal/_git/changeme</projectUrl>
+        <projectUrl>https://github.com/david-days/graphdata.git</projectUrl>
         <!--<iconUrl></iconUrl>-->
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Native libraries for @PROJECT_NAME@</description>
-        <summary>MapLarge C/C++ library for @PROJECT_NAME@</summary>
+        <summary>FOSS C library for @PROJECT_NAME@</summary>
         <releaseNotes>Initial release</releaseNotes>
         <copyright>Copyright 2018-2023</copyright>
         <tags>Native native @PROJECT_NAME@</tags>
-        <repository type="git" url="https://MapLarge@dev.azure.com/MapLarge/Internal/_git/changeme" />
+        <repository type="git" url="https://github.com/david-days/graphdata.git"" />
         <dependencies>
             <group targetFramework="net6.0"></group>
         </dependencies>
