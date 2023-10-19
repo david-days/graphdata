@@ -3,5 +3,5 @@ add_executable(comptests
 )
 
 target_link_libraries(comptests
-        ${PROJECT_NAME}
+        PUBLIC ${PROJECT_NAME}
 )

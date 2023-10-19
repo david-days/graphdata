@@ -4,11 +4,7 @@ set(TEST_DIR ${PROJECT_SOURCE_DIR}/tests)
 set(dataDir ${TEST_DIR}/data)
 
 add_compile_definitions(
-        -DUNICODE
-        -D_UNICODE
-        -DUNIX
-        -D_REENTRANT
-        -D_LARGEFILE64_SOURCE
+        
 )
 
 add_definitions(
@@ -22,6 +18,10 @@ link_libraries(
 
 include_directories(
         ${PROJECT_SOURCE_DIR}/include
+)
+
+add_link_options(
+        -lcheck
 )
 
 # Builds for test binaries
@@ -43,6 +43,28 @@ add_subdirectory(util)
 # Test executables
 enable_testing()
 
-add_test(NAME LibFunctionTest COMMAND "LibFunctionTest"
+
+# Math ops
+add_test(NAME comptests COMMAND "comptests"
+        WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
+)
+
+# Utility functions
+add_test(NAME hashtests COMMAND "hashtests"
+        WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
+)
+
+# Spatial ops and calculations
+add_test(NAME spatialtests COMMAND "spatialtests"
+        WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
+)
+
+# CRUD group
+add_test(NAME inittests COMMAND "inittests"
+        WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
+)
+
+# Graph manipulation
+add_test(NAME graphtests COMMAND "graphtests"
         WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
 )

@@ -6,6 +6,10 @@ add_library(${PROJECT_NAME} SHARED
         impl/hashops.c
         impl/linkgraph.c
         impl/linkops.c
+        util/cartesian.c
+        util/crudops.c
+        util/graphcomp.c
+        util/hashes.c
 )
 set(BUILD_SHARED_LIBS 1)
 

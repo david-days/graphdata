@@ -3,5 +3,5 @@ add_executable(inittests
 )
 
 target_link_libraries(inittests
-        ${PROJECT_NAME}
+        PUBLIC ${PROJECT_NAME}
 )

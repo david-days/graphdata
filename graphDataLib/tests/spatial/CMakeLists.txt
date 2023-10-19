@@ -3,5 +3,5 @@ add_executable(spatialtests
 )
 
 target_link_libraries(spatialtests
-        ${PROJECT_NAME}
+        PUBLIC ${PROJECT_NAME}
 )

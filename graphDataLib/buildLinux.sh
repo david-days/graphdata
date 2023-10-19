@@ -19,10 +19,10 @@ while getopts ":cithvxp" option; do
         c)
         	# [c]lean
         	echo cleaning...
-        	rm -rvf ${LINUX_BUILD_DIR}/*
-            rm -rvf ${BINARY_OUT_DIR}/*
-            rm -rvf ${TEST_BINARIES}/*
-            rm -rvf ${CMAKE_BUILD_DIR}/*
+        	rm -rvf "${LINUX_BUILD_DIR}/*"
+            rm -rvf "${BINARY_OUT_DIR}/*"
+            rm -rvf "${TEST_BINARIES}/*"
+            rm -rvf "${CMAKE_BUILD_DIR}/*"
       		exit 0
         	;;
      	i)
@@ -63,15 +63,15 @@ while getopts ":cithvxp" option; do
 done
 
 if [ ! -d "${LINUX_BUILD_DIR}" ]; then
-  mkdir ${LINUX_BUILD_DIR}
+  mkdir "${LINUX_BUILD_DIR}"
 fi
 
 if [ "$OUTPUT_VARS" == "true" ]; then
-	cmake . -LH --toolchain ${LINUX_TOOLCHAIN} -B ${LINUX_BUILD_DIR}
+	cmake . -LH --toolchain "${LINUX_TOOLCHAIN}" -B "${LINUX_BUILD_DIR}"
 	exit 0
 fi
 
-cmake . --toolchain ${LINUX_TOOLCHAIN} -B ${LINUX_BUILD_DIR} -DPRINT_ALL_VARS=${OUTPUT_ALL_VARS} && cd ${LINUX_BUILD_DIR} && make all
+cmake . --toolchain "${LINUX_TOOLCHAIN}" -B "${LINUX_BUILD_DIR}" -DPRINT_ALL_VARS="${OUTPUT_ALL_VARS}" && cd "${LINUX_BUILD_DIR}" && make all
 
 # From here on we're in the build directory unless other actions are taken
 if [ "$RUN_TESTS" == "TEST" ]; then

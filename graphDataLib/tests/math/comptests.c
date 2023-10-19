@@ -2,86 +2,89 @@
 // Created by david on 11/14/17.
 //
 
-#include <CUnit/Basic.h>
+#include <check.h>
+#include <stdlib.h>
 #include <util/graphcomp.h>
 
-void minNodeTest(void) {
+START_TEST(minNodeTest) {
     size_t big = 1000;
     size_t small = 5;
     size_t *result = NULL;
     result = minNode(&big, &small);
-    CU_ASSERT(result == &small);
+    ck_assert(result == &small);
     result = NULL;
     result = minNode(&small, &big);
-    CU_ASSERT(result == &small);
+    ck_assert(result == &small);
 }
+END_TEST
 
-void maxNodeTest(void) {
+START_TEST(maxNodeTest) {
     size_t big = 1000;
     size_t small = 5;
     size_t *result = NULL;
     result = maxNode(&big, &small);
-    CU_ASSERT(result == &big);
+    ck_assert(result == &big);
     result = NULL;
     result = maxNode(&small, &big);
-    CU_ASSERT(result == &big);
+    ck_assert(result == &big);
 }
+END_TEST
 
-void minValTest(void) {
+START_TEST(minValTest) {
     double big = 3200.0;
     double small = 12.0;
     double *result = NULL;
     result = minVal(&big, &small);
-    CU_ASSERT(result == &small);
+    ck_assert(result == &small);
     result = NULL;
     result = minVal(&small, &big);
-    CU_ASSERT(result == &small);
+    ck_assert(result == &small);
 }
+END_TEST
 
-void maxValTest(void) {
+START_TEST(maxValTest) {
     double big = 3200.0;
     double small = 12.0;
     double *result = NULL;
     result = maxVal(&big, &small);
-    CU_ASSERT(result == &big);
+    ck_assert(result == &big);
     result = NULL;
     result = maxVal(&small, &big);
-    CU_ASSERT(result == &big);
+    ck_assert(result == &big);
+}
+END_TEST
+
+Suite * init_suite(void)
+{
+    Suite *s;
+    TCase *tc_core;
+
+    s = suite_create("Compare");
+
+    /* Core test case */
+    tc_core = tcase_create("Core");
+
+    tcase_add_test(tc_core, minNodeTest);
+    tcase_add_test(tc_core, maxNodeTest);
+    tcase_add_test(tc_core, minValTest);
+    tcase_add_test(tc_core, maxValTest);
+
+    suite_add_tcase(s, tc_core);
+
+    return s;
 }
 
-int main (int argc, char** argv) {
-    CU_pSuite  pSuite = NULL;
-    if (CUE_SUCCESS != CU_initialize_registry())
-        return CU_get_error();
+int main(void)
+{
+    int number_failed;
+    Suite *s;
+    SRunner *sr;
 
-    pSuite = CU_add_suite("MinMax Suite", NULL, NULL);
-    if (NULL == pSuite) {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
+    s = init_suite();
+    sr = srunner_create(s);
 
-    if (NULL == CU_add_test(pSuite, "Min size_t", minNodeTest)) {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-    if (NULL == CU_add_test(pSuite, "Max size_t", maxNodeTest)) {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-    if (NULL == CU_add_test(pSuite, "Min double", minValTest)) {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-    if (NULL == CU_add_test(pSuite, "Max double", maxValTest)) {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-    CU_basic_set_mode(CU_BRM_VERBOSE);
-    CU_basic_run_tests();
-    CU_cleanup_registry();
-    return CU_get_error();
+    srunner_run_all(sr, CK_NORMAL);
+    number_failed = srunner_ntests_failed(sr);
+    srunner_free(sr);
+    return (number_failed == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
 }

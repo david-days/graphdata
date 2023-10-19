@@ -3,5 +3,5 @@ add_executable(graphtests
 )
 
 target_link_libraries(graphtests
-        ${PROJECT_NAME}
+        PUBLIC ${PROJECT_NAME}
 )
