@@ -1,0 +1,98 @@
+.TH "graph_t" 3 "Graph Data Shared Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+graph_t \- Structure containing the backing data for the graph representation\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <graphData\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char * \fBgraphname\fP"
+.br
+.RI "identifier for the graph, to differentiate between multiple graph structures "
+.ti -1c
+.RI "enum \fBGRAPHDOMAIN\fP \fBgtype\fP"
+.br
+.RI "Type of graph being represented\&. "
+.ti -1c
+.RI "struct \fBdimensions_t\fP * \fBdims\fP"
+.br
+.RI "Dimensions structure for spatial graphs\&. "
+.ti -1c
+.RI "struct \fBlabels_t\fP * \fBlabels\fP"
+.br
+.RI "Label data for the graph\&. "
+.ti -1c
+.RI "void * \fBmetaImpl\fP"
+.br
+.RI "Implementation-specific pointer to metadata for graph structure\&. "
+.ti -1c
+.RI "void * \fBnodeImpl\fP"
+.br
+.RI "Implementation-specific pointer to node backing data\&. "
+.ti -1c
+.RI "void * \fBedgeImpl\fP"
+.br
+.RI "Implementation-specific pointer to the edge backing data\&. "
+.ti -1c
+.RI "void * \fBcapImpl\fP"
+.br
+.RI "Implementation-specific pointer to capacity data\&. "
+.ti -1c
+.RI "void * \fBflowImpl\fP"
+.br
+.RI "Implementation-specific pointer to the flow data\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure containing the backing data for the graph representation\&. 
+
+This is the representation of the graph, with necessary metadata (type, spatial dimensions, etc) as necessary\&. Consumers choose the best implementation for their purposes, and pass around references as necessary\&. 
+.SH "Field Documentation"
+.PP 
+.SS "void* graph_t::capImpl"
+
+.PP
+Implementation-specific pointer to capacity data\&. Central pointer to the capacity values, to be interpreted by the specific graphOps implementations\&. 
+.SS "struct \fBdimensions_t\fP* graph_t::dims"
+
+.PP
+Dimensions structure for spatial graphs\&. 
+.SS "void* graph_t::edgeImpl"
+
+.PP
+Implementation-specific pointer to the edge backing data\&. Central pointer to the edge data, to be interpreted by the specific graphOps implementations\&. 
+.SS "void* graph_t::flowImpl"
+
+.PP
+Implementation-specific pointer to the flow data\&. Central pointer to the flow values, to be interpreted by the specific graphOps implementations\&. 
+.SS "char* graph_t::graphname"
+
+.PP
+identifier for the graph, to differentiate between multiple graph structures 
+.SS "enum \fBGRAPHDOMAIN\fP graph_t::gtype"
+
+.PP
+Type of graph being represented\&. 
+.SS "struct \fBlabels_t\fP* graph_t::labels"
+
+.PP
+Label data for the graph\&. 
+.SS "void* graph_t::metaImpl"
+
+.PP
+Implementation-specific pointer to metadata for graph structure\&. 
+.SS "void* graph_t::nodeImpl"
+
+.PP
+Implementation-specific pointer to node backing data\&. Central pointer to node data, to be interpreted by the specific graphOps implementations 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Graph Data Shared Library from the source code\&.

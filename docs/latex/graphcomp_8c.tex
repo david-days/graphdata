@@ -1,29 +1,29 @@
-\hypertarget{graphcomp_8c}{}\section{/home/david/devel/graphdata/code/graphdata/src/util/graphcomp.c File Reference}
-\label{graphcomp_8c}\index{/home/david/devel/graphdata/code/graphdata/src/util/graphcomp.\+c@{/home/david/devel/graphdata/code/graphdata/src/util/graphcomp.\+c}}
+\doxysection{/devel/graphdata/graph\+Data\+Lib/src/util/graphcomp.c File Reference}
+\hypertarget{graphcomp_8c}{}\label{graphcomp_8c}\index{/devel/graphdata/graphDataLib/src/util/graphcomp.c@{/devel/graphdata/graphDataLib/src/util/graphcomp.c}}
 {\ttfamily \#include $<$util/graphcomp.\+h$>$}\newline
-\subsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-size\+\_\+t $\ast$ \hyperlink{graphcomp_8c_a44d818ea7139dae633df15872777edf3}{min\+Node} (size\+\_\+t $\ast$a, size\+\_\+t $\ast$b)
+size\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{graphcomp_8c_a3df6ecf04cc81e6c952035c4d393ad0c}{min\+Node}} (size\+\_\+t \texorpdfstring{$\ast$}{*}a, size\+\_\+t \texorpdfstring{$\ast$}{*}b)
 \item 
-size\+\_\+t $\ast$ \hyperlink{graphcomp_8c_a4988fbc422b2dcdf1879810f103922a6}{max\+Node} (size\+\_\+t $\ast$a, size\+\_\+t $\ast$b)
+size\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{graphcomp_8c_a529cb1c0a8d7305fe94e6e203533991c}{max\+Node}} (size\+\_\+t \texorpdfstring{$\ast$}{*}a, size\+\_\+t \texorpdfstring{$\ast$}{*}b)
 \item 
-double $\ast$ \hyperlink{graphcomp_8c_aa8b1aa46429eb87a9836ee3f9dd08911}{min\+Val} (double $\ast$a, double $\ast$b)
+double \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{graphcomp_8c_aed91bcbe32d37dcdc2020e48ed47feed}{min\+Val}} (double \texorpdfstring{$\ast$}{*}a, double \texorpdfstring{$\ast$}{*}b)
 \item 
-double $\ast$ \hyperlink{graphcomp_8c_a4fcbba3a60a7bffa7fcb9c8e9bdcbbd9}{max\+Val} (double $\ast$a, double $\ast$b)
+double \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{graphcomp_8c_a4217d53b81484359104985874a7aa50e}{max\+Val}} (double \texorpdfstring{$\ast$}{*}a, double \texorpdfstring{$\ast$}{*}b)
 \item 
-double \hyperlink{graphcomp_8c_a3c4eb4b7f87b83f1b0f717e3e43464f6}{min\+Capacity} (const struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$path)
+double \mbox{\hyperlink{graphcomp_8c_a3c4eb4b7f87b83f1b0f717e3e43464f6}{min\+Capacity}} (const struct \mbox{\hyperlink{structedge__t}{edge\+\_\+t}} \texorpdfstring{$\ast$}{*}path)
 \item 
-double \hyperlink{graphcomp_8c_a9b3fb4168babe26494f661eb847520a5}{max\+Capacity} (const struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$path)
+double \mbox{\hyperlink{graphcomp_8c_a9b3fb4168babe26494f661eb847520a5}{max\+Capacity}} (const struct \mbox{\hyperlink{structedge__t}{edge\+\_\+t}} \texorpdfstring{$\ast$}{*}path)
 \end{DoxyCompactItemize}
 
 
-\subsection{Function Documentation}
-\mbox{\Hypertarget{graphcomp_8c_a9b3fb4168babe26494f661eb847520a5}\label{graphcomp_8c_a9b3fb4168babe26494f661eb847520a5}} 
-\index{graphcomp.\+c@{graphcomp.\+c}!max\+Capacity@{max\+Capacity}}
-\index{max\+Capacity@{max\+Capacity}!graphcomp.\+c@{graphcomp.\+c}}
-\subsubsection{\texorpdfstring{max\+Capacity()}{maxCapacity()}}
-{\footnotesize\ttfamily double max\+Capacity (\begin{DoxyParamCaption}\item[{const struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$}]{path }\end{DoxyParamCaption})}
+\doxysubsection{Function Documentation}
+\Hypertarget{graphcomp_8c_a9b3fb4168babe26494f661eb847520a5}\label{graphcomp_8c_a9b3fb4168babe26494f661eb847520a5} 
+\index{graphcomp.c@{graphcomp.c}!maxCapacity@{maxCapacity}}
+\index{maxCapacity@{maxCapacity}!graphcomp.c@{graphcomp.c}}
+\doxysubsubsection{\texorpdfstring{maxCapacity()}{maxCapacity()}}
+{\footnotesize\ttfamily double max\+Capacity (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structedge__t}{edge\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{path }\end{DoxyParamCaption})}
 
 Given an edge path, return the max capacity along that path. 
 \begin{DoxyParams}{Parameters}
@@ -31,13 +31,13 @@ Given an edge path, return the max capacity along that path.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-maximum value along the given path, if path exists; otherwise, value $<$ 0 if $\ast$path is N\+U\+LL 
+maximum value along the given path, if path exists; otherwise, value \texorpdfstring{$<$}{<} 0 if \texorpdfstring{$\ast$}{*}path is NULL 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphcomp_8c_a4988fbc422b2dcdf1879810f103922a6}\label{graphcomp_8c_a4988fbc422b2dcdf1879810f103922a6}} 
-\index{graphcomp.\+c@{graphcomp.\+c}!max\+Node@{max\+Node}}
-\index{max\+Node@{max\+Node}!graphcomp.\+c@{graphcomp.\+c}}
-\subsubsection{\texorpdfstring{max\+Node()}{maxNode()}}
-{\footnotesize\ttfamily size\+\_\+t$\ast$ max\+Node (\begin{DoxyParamCaption}\item[{size\+\_\+t $\ast$}]{a,  }\item[{size\+\_\+t $\ast$}]{b }\end{DoxyParamCaption})}
+\Hypertarget{graphcomp_8c_a529cb1c0a8d7305fe94e6e203533991c}\label{graphcomp_8c_a529cb1c0a8d7305fe94e6e203533991c} 
+\index{graphcomp.c@{graphcomp.c}!maxNode@{maxNode}}
+\index{maxNode@{maxNode}!graphcomp.c@{graphcomp.c}}
+\doxysubsubsection{\texorpdfstring{maxNode()}{maxNode()}}
+{\footnotesize\ttfamily size\+\_\+t \texorpdfstring{$\ast$}{*} max\+Node (\begin{DoxyParamCaption}\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{a,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{b }\end{DoxyParamCaption})}
 
 Compare nodeid values, returning the maximum value (if different) 
 \begin{DoxyParams}{Parameters}
@@ -49,11 +49,11 @@ Compare nodeid values, returning the maximum value (if different)
 \begin{DoxyReturn}{Returns}
 pointer to the first value, if same or larger, otherwise, pointer to second value 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphcomp_8c_a4fcbba3a60a7bffa7fcb9c8e9bdcbbd9}\label{graphcomp_8c_a4fcbba3a60a7bffa7fcb9c8e9bdcbbd9}} 
-\index{graphcomp.\+c@{graphcomp.\+c}!max\+Val@{max\+Val}}
-\index{max\+Val@{max\+Val}!graphcomp.\+c@{graphcomp.\+c}}
-\subsubsection{\texorpdfstring{max\+Val()}{maxVal()}}
-{\footnotesize\ttfamily double$\ast$ max\+Val (\begin{DoxyParamCaption}\item[{double $\ast$}]{a,  }\item[{double $\ast$}]{b }\end{DoxyParamCaption})}
+\Hypertarget{graphcomp_8c_a4217d53b81484359104985874a7aa50e}\label{graphcomp_8c_a4217d53b81484359104985874a7aa50e} 
+\index{graphcomp.c@{graphcomp.c}!maxVal@{maxVal}}
+\index{maxVal@{maxVal}!graphcomp.c@{graphcomp.c}}
+\doxysubsubsection{\texorpdfstring{maxVal()}{maxVal()}}
+{\footnotesize\ttfamily double \texorpdfstring{$\ast$}{*} max\+Val (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{a,  }\item[{double \texorpdfstring{$\ast$}{*}}]{b }\end{DoxyParamCaption})}
 
 Compare double values, returning the maximum value, if different. 
 \begin{DoxyParams}{Parameters}
@@ -65,11 +65,11 @@ Compare double values, returning the maximum value, if different.
 \begin{DoxyReturn}{Returns}
 pointer to the first value, if same or larger; otherwise, pointer to the second value 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphcomp_8c_a3c4eb4b7f87b83f1b0f717e3e43464f6}\label{graphcomp_8c_a3c4eb4b7f87b83f1b0f717e3e43464f6}} 
-\index{graphcomp.\+c@{graphcomp.\+c}!min\+Capacity@{min\+Capacity}}
-\index{min\+Capacity@{min\+Capacity}!graphcomp.\+c@{graphcomp.\+c}}
-\subsubsection{\texorpdfstring{min\+Capacity()}{minCapacity()}}
-{\footnotesize\ttfamily double min\+Capacity (\begin{DoxyParamCaption}\item[{const struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$}]{path }\end{DoxyParamCaption})}
+\Hypertarget{graphcomp_8c_a3c4eb4b7f87b83f1b0f717e3e43464f6}\label{graphcomp_8c_a3c4eb4b7f87b83f1b0f717e3e43464f6} 
+\index{graphcomp.c@{graphcomp.c}!minCapacity@{minCapacity}}
+\index{minCapacity@{minCapacity}!graphcomp.c@{graphcomp.c}}
+\doxysubsubsection{\texorpdfstring{minCapacity()}{minCapacity()}}
+{\footnotesize\ttfamily double min\+Capacity (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structedge__t}{edge\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{path }\end{DoxyParamCaption})}
 
 Given an edge path, return the min capacity along that path. 
 \begin{DoxyParams}{Parameters}
@@ -77,13 +77,13 @@ Given an edge path, return the min capacity along that path.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-minimum value along the given path, if path exists; otherwise, value $<$ 0 if $\ast$path is N\+U\+LL 
+minimum value along the given path, if path exists; otherwise, value \texorpdfstring{$<$}{<} 0 if \texorpdfstring{$\ast$}{*}path is NULL 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphcomp_8c_a44d818ea7139dae633df15872777edf3}\label{graphcomp_8c_a44d818ea7139dae633df15872777edf3}} 
-\index{graphcomp.\+c@{graphcomp.\+c}!min\+Node@{min\+Node}}
-\index{min\+Node@{min\+Node}!graphcomp.\+c@{graphcomp.\+c}}
-\subsubsection{\texorpdfstring{min\+Node()}{minNode()}}
-{\footnotesize\ttfamily size\+\_\+t$\ast$ min\+Node (\begin{DoxyParamCaption}\item[{size\+\_\+t $\ast$}]{a,  }\item[{size\+\_\+t $\ast$}]{b }\end{DoxyParamCaption})}
+\Hypertarget{graphcomp_8c_a3df6ecf04cc81e6c952035c4d393ad0c}\label{graphcomp_8c_a3df6ecf04cc81e6c952035c4d393ad0c} 
+\index{graphcomp.c@{graphcomp.c}!minNode@{minNode}}
+\index{minNode@{minNode}!graphcomp.c@{graphcomp.c}}
+\doxysubsubsection{\texorpdfstring{minNode()}{minNode()}}
+{\footnotesize\ttfamily size\+\_\+t \texorpdfstring{$\ast$}{*} min\+Node (\begin{DoxyParamCaption}\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{a,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{b }\end{DoxyParamCaption})}
 
 Compare to nodeid values, returning the minimum value (if different) 
 \begin{DoxyParams}{Parameters}
@@ -95,11 +95,11 @@ Compare to nodeid values, returning the minimum value (if different)
 \begin{DoxyReturn}{Returns}
 pointer to first value, if same or smaller; otherwise, pointer to second value. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{graphcomp_8c_aa8b1aa46429eb87a9836ee3f9dd08911}\label{graphcomp_8c_aa8b1aa46429eb87a9836ee3f9dd08911}} 
-\index{graphcomp.\+c@{graphcomp.\+c}!min\+Val@{min\+Val}}
-\index{min\+Val@{min\+Val}!graphcomp.\+c@{graphcomp.\+c}}
-\subsubsection{\texorpdfstring{min\+Val()}{minVal()}}
-{\footnotesize\ttfamily double$\ast$ min\+Val (\begin{DoxyParamCaption}\item[{double $\ast$}]{a,  }\item[{double $\ast$}]{b }\end{DoxyParamCaption})}
+\Hypertarget{graphcomp_8c_aed91bcbe32d37dcdc2020e48ed47feed}\label{graphcomp_8c_aed91bcbe32d37dcdc2020e48ed47feed} 
+\index{graphcomp.c@{graphcomp.c}!minVal@{minVal}}
+\index{minVal@{minVal}!graphcomp.c@{graphcomp.c}}
+\doxysubsubsection{\texorpdfstring{minVal()}{minVal()}}
+{\footnotesize\ttfamily double \texorpdfstring{$\ast$}{*} min\+Val (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{a,  }\item[{double \texorpdfstring{$\ast$}{*}}]{b }\end{DoxyParamCaption})}
 
 Compare double values, returning the minimum value, if different. 
 \begin{DoxyParams}{Parameters}

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['graphimpl',['GRAPHIMPL',['../graphdata_8h.html#ad7f3a639f97221897a0429715dccefe6',1,'graphdata.h']]],
-  ['graphtype',['GRAPHTYPE',['../graphdata_8h.html#a384e88b524b782ff50439055cbc8a5c2',1,'graphdata.h']]]
+  ['graphdomain_0',['GRAPHDOMAIN',['../graphData_8h.html#ac80bf91477d8e97e3b158fd6b4e0114a',1,'graphData.h']]]
 ];

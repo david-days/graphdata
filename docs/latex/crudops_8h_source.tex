@@ -1,0 +1,67 @@
+\doxysection{crudops.\+h}
+\hypertarget{crudops_8h_source}{}\label{crudops_8h_source}\index{/devel/graphdata/graphDataLib/include/util/crudops.h@{/devel/graphdata/graphDataLib/include/util/crudops.h}}
+\mbox{\hyperlink{crudops_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ GRAPHDATA\_CRUDOPS\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ GRAPHDATA\_CRUDOPS\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{graphData_8h}{graphData.h}}>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{graphOps_8h}{graphOps.h}}>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ DIRSELECT\ DIRECTED\ |\ UNDIRECTED}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ IMPLSELECT\ ARRAY\ |\ LINKED\ |\ HASHED}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ DOMAINSELECT\ GENERIC\ |\ SPATIAL}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ LABELSELECT\ LABELED\ |\ UNLABELED}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ DEFAULTSELECT\ 0}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ DEFAULTGRAPH\ UNDIRECTED\ |\ LINKED\ |\ GENERIC\ |\ UNLABELED}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00056\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{crudops_8h_a63e2d0e7a35dc4efa5b3465b5db83681}{parseTypeFlags}}(\textcolor{keyword}{enum}\ \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}}\ *tflags,\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}}\ *dirflag,\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}}\ *impflag,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}}\ *lblflag,\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}}\ *domflag);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{comment}{//Creation\ operations}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgraph__t}{graph\_t}}\ *\ \mbox{\hyperlink{crudops_8h_af0dc0628618ba1c2e9b5ebb5845c30da}{basicGraphInit}}();}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdimensions__t}{dimensions\_t}}\ *\ \mbox{\hyperlink{crudops_8h_a3940cc797dda61f19159d9044bb16ec0}{createDimensions}}(\textcolor{keywordtype}{size\_t}\ dimval,\ ...);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlabels__t}{labels\_t}}\ *\ \mbox{\hyperlink{crudops_8h_aec9429d44ee341225d126f13ccaec3a8}{initLabels}}(\textcolor{keywordtype}{size\_t}\ lblcount);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgraphops__t}{graphops\_t}}\ *\ \mbox{\hyperlink{crudops_8h_a0d9885ae55ee7deed921000af6f88444}{initGraphops}}();}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00103\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structedge__t}{edge\_t}}\ *\ \mbox{\hyperlink{crudops_8h_ab248f78fd5c8211d38a95effdac67842}{initEdge}}();}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnode__t}{node\_t}}\ *\ \mbox{\hyperlink{crudops_8h_a510ef56dbf795e6011e68cd25e3f0245}{initNode}}();}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00116\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfeature__t}{feature\_t}}\ *\ \mbox{\hyperlink{crudops_8h_ab941569dbc138c5aa0e7211af9f64c26}{initFeature}}();}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{comment}{//Clone\ operations}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00129\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnode__t}{node\_t}}\ *\ \mbox{\hyperlink{crudops_8h_a75345d6e21ebf30ea0f93486da5d22f0}{cloneNode}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structnode__t}{node\_t}}\ *onode);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00140\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structedge__t}{edge\_t}}\ *\ \mbox{\hyperlink{crudops_8h_a57f17335d7257128fcf89f11946ebf5c}{cloneEdge}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structedge__t}{edge\_t}}\ *oedge);}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00148\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfeature__t}{feature\_t}}\ *\ \mbox{\hyperlink{crudops_8h_a2c99127d105ea77de4ccb686b89ad166}{cloneFeature}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structfeature__t}{feature\_t}}\ *ofeat);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{comment}{//Free\ operations.}}
+\DoxyCodeLine{00160\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{crudops_8h_af1d15d112f4ca2b65e94859c26c09521}{destroyGraph}}(\textcolor{keywordtype}{void}**\ gptr);}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00167\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{crudops_8h_a75578671ab00969861564c70e61cffd2}{destroyDimensions}}(\textcolor{keywordtype}{void}**\ dimptr);}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00174\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{crudops_8h_adc5ca553fd6e958ba92862c21b2b25ae}{destroyLabels}}(\textcolor{keywordtype}{void}**\ lblptr);}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00184\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{crudops_8h_a1857fe19957384a5e4abff6b9f87ee77}{destroyEdges}}(\textcolor{keywordtype}{void}**\ eptr);}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00193\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{crudops_8h_aab13c370e7246fac212f45f167d79a28}{destroyGraphops}}(\textcolor{keywordtype}{void}**\ opsptr);}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00203\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{crudops_8h_a184eea7bdfb9dcd477b2a1eb02e89a2f}{destroyNodes}}(\textcolor{keywordtype}{void}**\ nptr);}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00213\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{crudops_8h_ae1dbb279b04d953f217d1bb2f615ae83}{destroyFeatures}}(\textcolor{keywordtype}{void}**\ fptr);}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//GRAPHDATA\_CRUDOPS\_H}}
+
+\end{DoxyCode}

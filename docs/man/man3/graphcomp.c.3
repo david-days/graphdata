@@ -1,0 +1,130 @@
+.TH "/devel/graphdata/graphDataLib/src/util/graphcomp.c" 3 "Graph Data Shared Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/devel/graphdata/graphDataLib/src/util/graphcomp.c
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <util/graphcomp\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "size_t * \fBminNode\fP (size_t *a, size_t *b)"
+.br
+.ti -1c
+.RI "size_t * \fBmaxNode\fP (size_t *a, size_t *b)"
+.br
+.ti -1c
+.RI "double * \fBminVal\fP (double *a, double *b)"
+.br
+.ti -1c
+.RI "double * \fBmaxVal\fP (double *a, double *b)"
+.br
+.ti -1c
+.RI "double \fBminCapacity\fP (const struct \fBedge_t\fP *path)"
+.br
+.ti -1c
+.RI "double \fBmaxCapacity\fP (const struct \fBedge_t\fP *path)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "double maxCapacity (const struct \fBedge_t\fP * path)"
+Given an edge path, return the max capacity along that path\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpath\fP linked-list of edges, representing a path 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+maximum value along the given path, if path exists; otherwise, value < 0 if *path is NULL 
+.RE
+.PP
+
+.SS "size_t * maxNode (size_t * a, size_t * b)"
+Compare nodeid values, returning the maximum value (if different) 
+.PP
+\fBParameters\fP
+.RS 4
+\fIa\fP first value to be compared 
+.br
+\fIb\fP second value to be compared 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+pointer to the first value, if same or larger, otherwise, pointer to second value 
+.RE
+.PP
+
+.SS "double * maxVal (double * a, double * b)"
+Compare double values, returning the maximum value, if different\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIa\fP First value to be compared 
+.br
+\fIb\fP Second value to be compared 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+pointer to the first value, if same or larger; otherwise, pointer to the second value 
+.RE
+.PP
+
+.SS "double minCapacity (const struct \fBedge_t\fP * path)"
+Given an edge path, return the min capacity along that path\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpath\fP linked-list of edges, representing a path 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+minimum value along the given path, if path exists; otherwise, value < 0 if *path is NULL 
+.RE
+.PP
+
+.SS "size_t * minNode (size_t * a, size_t * b)"
+Compare to nodeid values, returning the minimum value (if different) 
+.PP
+\fBParameters\fP
+.RS 4
+\fIa\fP first value to be compared 
+.br
+\fIb\fP second value to be compared 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+pointer to first value, if same or smaller; otherwise, pointer to second value\&. 
+.RE
+.PP
+
+.SS "double * minVal (double * a, double * b)"
+Compare double values, returning the minimum value, if different\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIa\fP First value to be compared 
+.br
+\fIb\fP Second value to be compared 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+pointer to the first value, if same or smaller; otherwise, pointer to the second value 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Graph Data Shared Library from the source code\&.

@@ -32,7 +32,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER ${PROJECT_SOURCE_
 
 
 include(${PROJECT_SOURCE_DIR}/cmake/packaging.cmake)
-
+include(${PROJECT_SOURCE_DIR}/cmake/docs.cmake)
 
 install(TARGETS ${PROJECT_NAME}
         DESTINATION "lib"
@@ -46,3 +46,4 @@ install(FILES
 )
 
 configPackaging()
+configDocs()

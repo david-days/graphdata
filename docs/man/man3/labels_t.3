@@ -1,0 +1,36 @@
+.TH "labels_t" 3 "Graph Data Shared Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+labels_t \- Structure holding identifiers for 'label' nodes\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <graphData\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "size_t \fBlabelcount\fP"
+.br
+.ti -1c
+.RI "size_t * \fBlabelarr\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure holding identifiers for 'label' nodes\&. 
+
+Generally, a label node is one that holds a unique or preferential status within a graph\&. For segmentation or partition operations, this may be the representative for a group\&. For other operations, it may designate certain starting or ending points, or roots to max- or min-trees or forests\&. 
+.SH "Field Documentation"
+.PP 
+.SS "size_t* labels_t::labelarr"
+Array pointer to the labels\&. 
+.SS "size_t labels_t::labelcount"
+Number of labels in the graph\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Graph Data Shared Library from the source code\&.

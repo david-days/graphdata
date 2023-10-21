@@ -1,0 +1,54 @@
+\doxysection{hashops.\+h}
+\hypertarget{hashops_8h_source}{}\label{hashops_8h_source}\index{/devel/graphdata/graphDataLib/include/impl/hashops.h@{/devel/graphdata/graphDataLib/include/impl/hashops.h}}
+\mbox{\hyperlink{hashops_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ david\ on\ 11/18/17.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ GRAPHDATA\_HASHOPS\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ GRAPHDATA\_HASHOPS\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{graphData_8h}{graphData.h}}>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{comment}{//Read\ functions\ to\ extract\ data}}
+\DoxyCodeLine{00016\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{hashops_8h_a489378018cfbdba534a66701b724824f}{hashNodeCount}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{hashops_8h_a0111079215edcceda5b22b3175e0635d}{hashEdgeCount}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnode__t}{node\_t}}\ *\ \mbox{\hyperlink{hashops_8h_ae2bdf3da90c951a3ad31794d84d5990e}{hashGetNode}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *\mbox{\hyperlink{structnode__t_a3fe17f2fd1e7a7b2ec5f7bfae826816c}{nodeid}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structedge__t}{edge\_t}}\ *\ \mbox{\hyperlink{hashops_8h_a0b21b881902cc2d3c4fc0fb316c0a350}{hashGetEdge}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *\mbox{\hyperlink{structedge__t_a2bd21781f62242a78e70595ea781769c}{u}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *\mbox{\hyperlink{structedge__t_a23bf912e6f3c953e2f8577ab7c692e85}{v}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnode__t}{node\_t}}\ *\ \mbox{\hyperlink{hashops_8h_a49e6b22c63e126e406e20cb1739a2d1c}{hashGetNeighbors}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *\mbox{\hyperlink{structnode__t_a3fe17f2fd1e7a7b2ec5f7bfae826816c}{nodeid}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structedge__t}{edge\_t}}\ *\ \mbox{\hyperlink{hashops_8h_a4377413aa8ab190b36342e6b66286d4e}{hashGetEdges}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *nodeid,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hashops_8h_a6cc0b33b64c01e0e93e025c6a53785b2}{hashGetCapacity}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keywordtype}{double}\ *\mbox{\hyperlink{structedge__t_a008f610ba47f30e49b6350e4bb00d6aa}{cap}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00089\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hashops_8h_a2af849be13b2ccd64cd26e3496c02109}{hashGetFlow}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keywordtype}{double}\ *\mbox{\hyperlink{structedge__t_a45d88baf5d0fa8abd4b512e6856b9b2d}{flow}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{comment}{//Write\ functions\ to\ modify\ graph}}
+\DoxyCodeLine{00099\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hashops_8h_ac6c6131740e66796f16c72c0c22da888}{hashAddNode}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *nodeid,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00109\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hashops_8h_a1feb949935af80aecd73ef649dd1fe4c}{hashRemoveNode}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *nodeid,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00120\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hashops_8h_acfd6f331768a74d7bb03e34ee9875ae7}{hashAddEdge}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keywordtype}{double}\ *\mbox{\hyperlink{structedge__t_a008f610ba47f30e49b6350e4bb00d6aa}{cap}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00132\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hashops_8h_ab73b1ea8891dfce0e3bb4807d8218b29}{hashRemoveEdge}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00142\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hashops_8h_a2270dd2c3b33825d58c91fa033de6f72}{hashSetCapacity}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *\mbox{\hyperlink{structedge__t_a008f610ba47f30e49b6350e4bb00d6aa}{cap}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00155\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hashops_8h_aea2efc23713e8c0a11839f53c9be2ce9}{hashAddCapacity}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *\mbox{\hyperlink{structedge__t_a008f610ba47f30e49b6350e4bb00d6aa}{cap}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00168\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hashops_8h_a8cf5371a0f60699d979177088a68750c}{hashSetFlow}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *\mbox{\hyperlink{structedge__t_a45d88baf5d0fa8abd4b512e6856b9b2d}{flow}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00181\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hashops_8h_a51de130d95b36785ad477cc9ae10d829}{hashAddFlow}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *\mbox{\hyperlink{structedge__t_a45d88baf5d0fa8abd4b512e6856b9b2d}{flow}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00193\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hashops_8h_a3ace1da964971b88af61771af75ddd27}{hashResetGraph}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g,\ \textcolor{keywordtype}{void}\ *args,\ \textcolor{keywordtype}{void}\ (*callback)(\textcolor{keywordtype}{void}));}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//GRAPHDATA\_HASHOPS\_H}}
+
+\end{DoxyCode}

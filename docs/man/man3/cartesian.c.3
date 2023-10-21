@@ -1,0 +1,90 @@
+.TH "/devel/graphdata/graphDataLib/src/util/cartesian.c" 3 "Graph Data Shared Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/devel/graphdata/graphDataLib/src/util/cartesian.c
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <util/cartesian\&.h>\fP
+.br
+\fC#include <stdarg\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBindexFromCartesian\fP (struct \fBdimensions_t\fP *dims, size_t *idx, size_t *coords)"
+.br
+.RI "Sets array index value of the given set of dimensions, when calculated against the given dimensional array\&. "
+.ti -1c
+.RI "int \fBcartesianFromIndex\fP (size_t *idx, size_t *coords, struct \fBdimensions_t\fP *dims)"
+.br
+.RI "Sets the size_t array (whose length must be initialized to match dims->dimcount) to the coordinates within the given spatial dimensions\&. "
+.ti -1c
+.RI "size_t \fBcartesianIndexLength\fP (struct \fBdimensions_t\fP *dims)"
+.br
+.RI "Calculates the index length, based on the given coordinates\&. "
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int cartesianFromIndex (size_t * idx, size_t * coords, struct \fBdimensions_t\fP * dims)"
+
+.PP
+Sets the size_t array (whose length must be initialized to match dims->dimcount) to the coordinates within the given spatial dimensions\&. This function is used to transform between zero-based coordinates to a zero-based array index, for example\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIidx\fP Index value to be used 
+.br
+\fIcoords\fP Array to hold the result 
+.br
+\fIdims\fP Dimensional value to be calculated against 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+0 if successful; 1 if the index is outside the bounds of the dimensions; -1 if there is a problem with the values passed\&. 
+.RE
+.PP
+
+.SS "size_t cartesianIndexLength (struct \fBdimensions_t\fP * dims)"
+
+.PP
+Calculates the index length, based on the given coordinates\&. This function multiplies the given dimensions and returns the size of an array that would be necessary to hold all possible dimension values\&. This is provided both as a consistent check and a means to consistently return the proper value\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIdims\fP Dimensions to be checked 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Size of index calculation, or 0 if the dims pointer is NULL\&. 
+.RE
+.PP
+
+.SS "int indexFromCartesian (struct \fBdimensions_t\fP * dims, size_t * idx, size_t * coords)"
+
+.PP
+Sets array index value of the given set of dimensions, when calculated against the given dimensional array\&. This is function is used to provide transform between zero-based coordinates to a zero-based array index, for example\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIdims\fP Dimensions to be use for index calculation 
+.br
+\fIidx\fP size_t reference to be set 
+.br
+\fIcoords\fP array pointer of length dims->dimcount, holding the coordinates in question 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+0 if successful; 1 if the coordinates are outside the bounds of the dimensions; -1 if there is a problem with the values passed\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Graph Data Shared Library from the source code\&.

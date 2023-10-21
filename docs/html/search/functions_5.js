@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['getoperations',['getOperations',['../graphinit_8c.html#a4fd158a86ffce2d237d326738de43e73',1,'getOperations(struct graph_t *g):&#160;graphinit.c'],['../graphinit_8h.html#a4fd158a86ffce2d237d326738de43e73',1,'getOperations(struct graph_t *g):&#160;graphinit.c']]]
+  ['getoperations_0',['getoperations',['../graphInit_8c.html#a99d590213257f6b809db5068c53b62a2',1,'getOperations(struct graph_t *g):&#160;graphInit.c'],['../graphInit_8h.html#a99d590213257f6b809db5068c53b62a2',1,'getOperations(struct graph_t *g):&#160;graphInit.c']]]
 ];

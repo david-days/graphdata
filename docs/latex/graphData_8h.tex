@@ -1,0 +1,100 @@
+\doxysection{/devel/graphdata/graph\+Data\+Lib/include/graph\+Data.h File Reference}
+\hypertarget{graphData_8h}{}\label{graphData_8h}\index{/devel/graphdata/graphDataLib/include/graphData.h@{/devel/graphdata/graphDataLib/include/graphData.h}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structfeature__t}{feature\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Feature/attribute structure for a graph item. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structnode__t}{node\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Graph node structure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structedge__t}{edge\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Graph edge structure, representing linkages between nodes. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structdimensions__t}{dimensions\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure to hold values for dimensional graphs. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structlabels__t}{labels\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure holding identifiers for "{}label"{} nodes. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structgraph__t}{graph\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure containing the backing data for the graph representation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}} \{ \newline
+\mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa814399045afe50d214d2607be2f27677}{UNDIRECTED}} = 0x0000
+, \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa2a58242d50c7fcc4067abd9c4db01be5}{DIRECTED}} = 0x0001
+, \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aaa0625bb58068c4d03f4b2654c8c8833b}{SHARED\+\_\+\+MMAP}} = 0x0002
+, \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa3a8c83848b4f4207f7e2d0bf7b8410b9}{SHARED\+\_\+\+MEM}} = 0x0004
+, \newline
+\mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa1e029fbf0c881b85d80fc8e89b753688}{ARRAY}} = 0x0010
+, \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa03745475c6df1217f2fd3200875fb376}{LINKED}} = 0x0020
+, \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aaa2512e870f83d17d3dfcd0bf0082bca2}{HASHED}} = 0x0040
+, \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa9e022e6380da28dd73210ed34b137c36}{GENERIC}} = 0x0100
+, \newline
+\mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa608c1acc2033e0e07248c48ea01746ce}{SPATIAL}} = 0x0200
+, \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aabdcc1805fc659d979c4bedb0f6ba7c2d}{UNLABELED}} = 0x1000
+, \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa6e12de322a27cd32fe68fe55bde3affe}{LABELED}} = 0x2000
+ \}
+\begin{DoxyCompactList}\small\item\em Basic graph data definitions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}\label{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a} 
+\index{graphData.h@{graphData.h}!GRAPHDOMAIN@{GRAPHDOMAIN}}
+\index{GRAPHDOMAIN@{GRAPHDOMAIN}!graphData.h@{graphData.h}}
+\doxysubsubsection{\texorpdfstring{GRAPHDOMAIN}{GRAPHDOMAIN}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}}}
+
+
+
+Basic graph data definitions. 
+
+This header contains the basic structures and definitions for graph data.
+
+Descriptor of the graph structure and usage.
+
+This enum is used to described, as best as possible, the types of operations that will be necessary for this graph to fulfill the consumer\textquotesingle{}s needs. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UNDIRECTED@{UNDIRECTED}!graphData.h@{graphData.h}}\index{graphData.h@{graphData.h}!UNDIRECTED@{UNDIRECTED}}}\Hypertarget{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa814399045afe50d214d2607be2f27677}\label{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa814399045afe50d214d2607be2f27677} 
+UNDIRECTED&An undirected graph structure e(u,v) == e(v,u) The minimum number of edges will be used to represent connectivity between nodes. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DIRECTED@{DIRECTED}!graphData.h@{graphData.h}}\index{graphData.h@{graphData.h}!DIRECTED@{DIRECTED}}}\Hypertarget{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa2a58242d50c7fcc4067abd9c4db01be5}\label{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa2a58242d50c7fcc4067abd9c4db01be5} 
+DIRECTED&A directed graph structure e(u,v) != e(v,u) Each edge description \{u,v\} will be distinct. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SHARED\_MMAP@{SHARED\_MMAP}!graphData.h@{graphData.h}}\index{graphData.h@{graphData.h}!SHARED\_MMAP@{SHARED\_MMAP}}}\Hypertarget{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aaa0625bb58068c4d03f4b2654c8c8833b}\label{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aaa0625bb58068c4d03f4b2654c8c8833b} 
+SHARED\+\_\+\+MMAP&Graph structures shared with other processes via memory-\/mapped files. Shared graph structures directly denote array-\/based graphs \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SHARED\_MEM@{SHARED\_MEM}!graphData.h@{graphData.h}}\index{graphData.h@{graphData.h}!SHARED\_MEM@{SHARED\_MEM}}}\Hypertarget{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa3a8c83848b4f4207f7e2d0bf7b8410b9}\label{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa3a8c83848b4f4207f7e2d0bf7b8410b9} 
+SHARED\+\_\+\+MEM&Graph structures shared with other process via shared memory locations. Shared graph structures directly denote array-\/based graphs \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ARRAY@{ARRAY}!graphData.h@{graphData.h}}\index{graphData.h@{graphData.h}!ARRAY@{ARRAY}}}\Hypertarget{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa1e029fbf0c881b85d80fc8e89b753688}\label{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa1e029fbf0c881b85d80fc8e89b753688} 
+ARRAY&The underlying implementation is an array-\/based structure. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LINKED@{LINKED}!graphData.h@{graphData.h}}\index{graphData.h@{graphData.h}!LINKED@{LINKED}}}\Hypertarget{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa03745475c6df1217f2fd3200875fb376}\label{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa03745475c6df1217f2fd3200875fb376} 
+LINKED&The underlying structure is a double-\/linked list of nodes and edges. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HASHED@{HASHED}!graphData.h@{graphData.h}}\index{graphData.h@{graphData.h}!HASHED@{HASHED}}}\Hypertarget{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aaa2512e870f83d17d3dfcd0bf0082bca2}\label{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aaa2512e870f83d17d3dfcd0bf0082bca2} 
+HASHED&The underlying structure is a set of adjacency lists in hashtable form. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GENERIC@{GENERIC}!graphData.h@{graphData.h}}\index{graphData.h@{graphData.h}!GENERIC@{GENERIC}}}\Hypertarget{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa9e022e6380da28dd73210ed34b137c36}\label{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa9e022e6380da28dd73210ed34b137c36} 
+GENERIC&The graph represents a generic structure with no particular standardized relationship between nodes. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPATIAL@{SPATIAL}!graphData.h@{graphData.h}}\index{graphData.h@{graphData.h}!SPATIAL@{SPATIAL}}}\Hypertarget{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa608c1acc2033e0e07248c48ea01746ce}\label{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa608c1acc2033e0e07248c48ea01746ce} 
+SPATIAL&The graph represents an ordered set of nodes within a coordinate system, and edges are related to spatial "{}neighborhoods"{}. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UNLABELED@{UNLABELED}!graphData.h@{graphData.h}}\index{graphData.h@{graphData.h}!UNLABELED@{UNLABELED}}}\Hypertarget{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aabdcc1805fc659d979c4bedb0f6ba7c2d}\label{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aabdcc1805fc659d979c4bedb0f6ba7c2d} 
+UNLABELED&The graph has no specialized node values. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LABELED@{LABELED}!graphData.h@{graphData.h}}\index{graphData.h@{graphData.h}!LABELED@{LABELED}}}\Hypertarget{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa6e12de322a27cd32fe68fe55bde3affe}\label{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa6e12de322a27cd32fe68fe55bde3affe} 
+LABELED&The graph has a set of nodes representing categorical labeling of associated nodes. \\
+\hline
+
+\end{DoxyEnumFields}

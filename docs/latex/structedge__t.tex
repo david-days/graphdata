@@ -1,5 +1,5 @@
-\hypertarget{structedge__t}{}\section{edge\+\_\+t Struct Reference}
-\label{structedge__t}\index{edge\+\_\+t@{edge\+\_\+t}}
+\doxysection{edge\+\_\+t Struct Reference}
+\hypertarget{structedge__t}{}\label{structedge__t}\index{edge\_t@{edge\_t}}
 
 
 Graph edge structure, representing linkages between nodes.  
@@ -7,85 +7,85 @@ Graph edge structure, representing linkages between nodes.
 
 
 
-{\ttfamily \#include $<$graphdata.\+h$>$}
+{\ttfamily \#include $<$graph\+Data.\+h$>$}
 
-\subsection*{Data Fields}
+\doxysubsubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-size\+\_\+t \hyperlink{structedge__t_a2bd21781f62242a78e70595ea781769c}{u}
+size\+\_\+t \mbox{\hyperlink{structedge__t_a2bd21781f62242a78e70595ea781769c}{u}}
 \item 
-size\+\_\+t \hyperlink{structedge__t_a23bf912e6f3c953e2f8577ab7c692e85}{v}
+size\+\_\+t \mbox{\hyperlink{structedge__t_a23bf912e6f3c953e2f8577ab7c692e85}{v}}
 \item 
-double \hyperlink{structedge__t_a008f610ba47f30e49b6350e4bb00d6aa}{cap}
+double \mbox{\hyperlink{structedge__t_a008f610ba47f30e49b6350e4bb00d6aa}{cap}}
 \item 
-double \hyperlink{structedge__t_a45d88baf5d0fa8abd4b512e6856b9b2d}{flow}
+double \mbox{\hyperlink{structedge__t_a45d88baf5d0fa8abd4b512e6856b9b2d}{flow}}
 \item 
-struct \hyperlink{structfeature__t}{feature\+\_\+t} $\ast$ \hyperlink{structedge__t_afef8b0abae38e565a0c21a3f9c863870}{attrs}
+struct \mbox{\hyperlink{structfeature__t}{feature\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structedge__t_afef8b0abae38e565a0c21a3f9c863870}{attrs}}
 \item 
-struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$ \hyperlink{structedge__t_ad68c87997feb8fdf8f38703a275b3b29}{prev}
+struct \mbox{\hyperlink{structedge__t}{edge\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structedge__t_ad68c87997feb8fdf8f38703a275b3b29}{prev}}
 \begin{DoxyCompactList}\small\item\em Previous edge in the list. \end{DoxyCompactList}\item 
-struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$ \hyperlink{structedge__t_a1e36360af59a1ec80463b82e00362480}{next}
+struct \mbox{\hyperlink{structedge__t}{edge\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structedge__t_a1e36360af59a1ec80463b82e00362480}{next}}
 \begin{DoxyCompactList}\small\item\em Next edge in the list. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
+\doxysubsection{Detailed Description}
 Graph edge structure, representing linkages between nodes. 
 
 The interpretation of an edge (path, traversal, relationship, association) is usage-\/dependent. In general, this structure contains enough information to carry out typical graph operations and algorithms. 
 
-\subsection{Field Documentation}
-\mbox{\Hypertarget{structedge__t_afef8b0abae38e565a0c21a3f9c863870}\label{structedge__t_afef8b0abae38e565a0c21a3f9c863870}} 
-\index{edge\+\_\+t@{edge\+\_\+t}!attrs@{attrs}}
-\index{attrs@{attrs}!edge\+\_\+t@{edge\+\_\+t}}
-\subsubsection{\texorpdfstring{attrs}{attrs}}
-{\footnotesize\ttfamily struct \hyperlink{structfeature__t}{feature\+\_\+t}$\ast$ edge\+\_\+t\+::attrs}
+\doxysubsection{Field Documentation}
+\Hypertarget{structedge__t_afef8b0abae38e565a0c21a3f9c863870}\label{structedge__t_afef8b0abae38e565a0c21a3f9c863870} 
+\index{edge\_t@{edge\_t}!attrs@{attrs}}
+\index{attrs@{attrs}!edge\_t@{edge\_t}}
+\doxysubsubsection{\texorpdfstring{attrs}{attrs}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structfeature__t}{feature\+\_\+t}}\texorpdfstring{$\ast$}{*} edge\+\_\+t\+::attrs}
 
-Features associated with the edge. \mbox{\Hypertarget{structedge__t_a008f610ba47f30e49b6350e4bb00d6aa}\label{structedge__t_a008f610ba47f30e49b6350e4bb00d6aa}} 
-\index{edge\+\_\+t@{edge\+\_\+t}!cap@{cap}}
-\index{cap@{cap}!edge\+\_\+t@{edge\+\_\+t}}
-\subsubsection{\texorpdfstring{cap}{cap}}
+Features associated with the edge. \Hypertarget{structedge__t_a008f610ba47f30e49b6350e4bb00d6aa}\label{structedge__t_a008f610ba47f30e49b6350e4bb00d6aa} 
+\index{edge\_t@{edge\_t}!cap@{cap}}
+\index{cap@{cap}!edge\_t@{edge\_t}}
+\doxysubsubsection{\texorpdfstring{cap}{cap}}
 {\footnotesize\ttfamily double edge\+\_\+t\+::cap}
 
-Baseline capacity or cost value. \mbox{\Hypertarget{structedge__t_a45d88baf5d0fa8abd4b512e6856b9b2d}\label{structedge__t_a45d88baf5d0fa8abd4b512e6856b9b2d}} 
-\index{edge\+\_\+t@{edge\+\_\+t}!flow@{flow}}
-\index{flow@{flow}!edge\+\_\+t@{edge\+\_\+t}}
-\subsubsection{\texorpdfstring{flow}{flow}}
+Baseline capacity or cost value. \Hypertarget{structedge__t_a45d88baf5d0fa8abd4b512e6856b9b2d}\label{structedge__t_a45d88baf5d0fa8abd4b512e6856b9b2d} 
+\index{edge\_t@{edge\_t}!flow@{flow}}
+\index{flow@{flow}!edge\_t@{edge\_t}}
+\doxysubsubsection{\texorpdfstring{flow}{flow}}
 {\footnotesize\ttfamily double edge\+\_\+t\+::flow}
 
-Additional flow (change in capacity value) for the edge. \mbox{\Hypertarget{structedge__t_a1e36360af59a1ec80463b82e00362480}\label{structedge__t_a1e36360af59a1ec80463b82e00362480}} 
-\index{edge\+\_\+t@{edge\+\_\+t}!next@{next}}
-\index{next@{next}!edge\+\_\+t@{edge\+\_\+t}}
-\subsubsection{\texorpdfstring{next}{next}}
-{\footnotesize\ttfamily struct \hyperlink{structedge__t}{edge\+\_\+t}$\ast$ edge\+\_\+t\+::next}
+Additional flow (change in capacity value) for the edge. \Hypertarget{structedge__t_a1e36360af59a1ec80463b82e00362480}\label{structedge__t_a1e36360af59a1ec80463b82e00362480} 
+\index{edge\_t@{edge\_t}!next@{next}}
+\index{next@{next}!edge\_t@{edge\_t}}
+\doxysubsubsection{\texorpdfstring{next}{next}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structedge__t}{edge\+\_\+t}}\texorpdfstring{$\ast$}{*} edge\+\_\+t\+::next}
 
 
 
 Next edge in the list. 
 
-Typical usage would be either for normal adjacency lists, or for edge-\/based path values. \mbox{\Hypertarget{structedge__t_ad68c87997feb8fdf8f38703a275b3b29}\label{structedge__t_ad68c87997feb8fdf8f38703a275b3b29}} 
-\index{edge\+\_\+t@{edge\+\_\+t}!prev@{prev}}
-\index{prev@{prev}!edge\+\_\+t@{edge\+\_\+t}}
-\subsubsection{\texorpdfstring{prev}{prev}}
-{\footnotesize\ttfamily struct \hyperlink{structedge__t}{edge\+\_\+t}$\ast$ edge\+\_\+t\+::prev}
+Typical usage would be either for normal adjacency lists, or for edge-\/based path values. \Hypertarget{structedge__t_ad68c87997feb8fdf8f38703a275b3b29}\label{structedge__t_ad68c87997feb8fdf8f38703a275b3b29} 
+\index{edge\_t@{edge\_t}!prev@{prev}}
+\index{prev@{prev}!edge\_t@{edge\_t}}
+\doxysubsubsection{\texorpdfstring{prev}{prev}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structedge__t}{edge\+\_\+t}}\texorpdfstring{$\ast$}{*} edge\+\_\+t\+::prev}
 
 
 
 Previous edge in the list. 
 
-Typical usage would be either for normal edge lists, or for edge-\/based path values. \mbox{\Hypertarget{structedge__t_a2bd21781f62242a78e70595ea781769c}\label{structedge__t_a2bd21781f62242a78e70595ea781769c}} 
-\index{edge\+\_\+t@{edge\+\_\+t}!u@{u}}
-\index{u@{u}!edge\+\_\+t@{edge\+\_\+t}}
-\subsubsection{\texorpdfstring{u}{u}}
+Typical usage would be either for normal edge lists, or for edge-\/based path values. \Hypertarget{structedge__t_a2bd21781f62242a78e70595ea781769c}\label{structedge__t_a2bd21781f62242a78e70595ea781769c} 
+\index{edge\_t@{edge\_t}!u@{u}}
+\index{u@{u}!edge\_t@{edge\_t}}
+\doxysubsubsection{\texorpdfstring{u}{u}}
 {\footnotesize\ttfamily size\+\_\+t edge\+\_\+t\+::u}
 
-Starting node \mbox{\Hypertarget{structedge__t_a23bf912e6f3c953e2f8577ab7c692e85}\label{structedge__t_a23bf912e6f3c953e2f8577ab7c692e85}} 
-\index{edge\+\_\+t@{edge\+\_\+t}!v@{v}}
-\index{v@{v}!edge\+\_\+t@{edge\+\_\+t}}
-\subsubsection{\texorpdfstring{v}{v}}
+Starting node \Hypertarget{structedge__t_a23bf912e6f3c953e2f8577ab7c692e85}\label{structedge__t_a23bf912e6f3c953e2f8577ab7c692e85} 
+\index{edge\_t@{edge\_t}!v@{v}}
+\index{v@{v}!edge\_t@{edge\_t}}
+\doxysubsubsection{\texorpdfstring{v}{v}}
 {\footnotesize\ttfamily size\+\_\+t edge\+\_\+t\+::v}
 
 Ending node 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\hyperlink{graphdata_8h}{graphdata.\+h}\end{DoxyCompactItemize}
+/devel/graphdata/graph\+Data\+Lib/include/\mbox{\hyperlink{graphData_8h}{graph\+Data.\+h}}\end{DoxyCompactItemize}

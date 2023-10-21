@@ -12,9 +12,10 @@ RUN_TESTS=""
 OUTPUT_VARS="false"
 OUTPUT_ALL_VARS=0
 PACKAGE="false"
+GEN_DOCS=0
 
 # Immediate action flags
-while getopts ":cithvxp" option; do
+while getopts ":cithvxpd" option; do
     case $option in
         c)
         	# [c]lean
@@ -45,6 +46,10 @@ while getopts ":cithvxp" option; do
  			# extra verbose
  			OUTPUT_ALL_VARS=1
  			;;
+		d)
+			# [d]ocumentation
+			GEN_DOCS=1
+			;;
   		h)
   			# [h]elp
   			echo "Usage: ./buildLinux.sh [-c | -i | -t | -v | -h]"
@@ -72,6 +77,10 @@ if [ "$OUTPUT_VARS" == "true" ]; then
 fi
 
 cmake . --toolchain "${LINUX_TOOLCHAIN}" -B "${LINUX_BUILD_DIR}" -DPRINT_ALL_VARS="${OUTPUT_ALL_VARS}" && cd "${LINUX_BUILD_DIR}" && make all
+
+if [ "$GEN_DOCS" ]; then
+	make docs
+fi
 
 # From here on we're in the build directory unless other actions are taken
 if [ "$RUN_TESTS" == "TEST" ]; then

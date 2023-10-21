@@ -1,42 +1,43 @@
-\hypertarget{hashes_8c}{}\section{/home/david/devel/graphdata/code/graphdata/src/util/hashes.c File Reference}
-\label{hashes_8c}\index{/home/david/devel/graphdata/code/graphdata/src/util/hashes.\+c@{/home/david/devel/graphdata/code/graphdata/src/util/hashes.\+c}}
+\doxysection{/devel/graphdata/graph\+Data\+Lib/src/util/hashes.c File Reference}
+\hypertarget{hashes_8c}{}\label{hashes_8c}\index{/devel/graphdata/graphDataLib/src/util/hashes.c@{/devel/graphdata/graphDataLib/src/util/hashes.c}}
 {\ttfamily \#include $<$util/hashes.\+h$>$}\newline
 {\ttfamily \#include $<$stdint.\+h$>$}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
-\subsection*{Macros}
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \hyperlink{hashes_8c_abc7d71657be8975a51684e41029b7964}{get16bits}(d)
+\#define \mbox{\hyperlink{hashes_8c_abc7d71657be8975a51684e41029b7964}{get16bits}}(d)
 \end{DoxyCompactItemize}
-\subsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-size\+\_\+t \hyperlink{hashes_8c_adfa799e7b7b1b26c7f6c0e82ad8ff13b}{Super\+Fast\+Hash} (const char $\ast$data, int len)
+size\+\_\+t \mbox{\hyperlink{hashes_8c_adfa799e7b7b1b26c7f6c0e82ad8ff13b}{Super\+Fast\+Hash}} (const char \texorpdfstring{$\ast$}{*}data, int len)
 \item 
-size\+\_\+t \hyperlink{hashes_8c_a650d83612101013824349752eef1ee65}{max\+Eratosthenes\+Prime} (size\+\_\+t $\ast$idx)
+size\+\_\+t \mbox{\hyperlink{hashes_8c_a650d83612101013824349752eef1ee65}{max\+Eratosthenes\+Prime}} (size\+\_\+t \texorpdfstring{$\ast$}{*}idx)
 \begin{DoxyCompactList}\small\item\em Using the Sieve of Eratosthenes, calculate the max prime value below the given value. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Macro Definition Documentation}
-\mbox{\Hypertarget{hashes_8c_abc7d71657be8975a51684e41029b7964}\label{hashes_8c_abc7d71657be8975a51684e41029b7964}} 
-\index{hashes.\+c@{hashes.\+c}!get16bits@{get16bits}}
-\index{get16bits@{get16bits}!hashes.\+c@{hashes.\+c}}
-\subsubsection{\texorpdfstring{get16bits}{get16bits}}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{hashes_8c_abc7d71657be8975a51684e41029b7964}\label{hashes_8c_abc7d71657be8975a51684e41029b7964} 
+\index{hashes.c@{hashes.c}!get16bits@{get16bits}}
+\index{get16bits@{get16bits}!hashes.c@{hashes.c}}
+\doxysubsubsection{\texorpdfstring{get16bits}{get16bits}}
 {\footnotesize\ttfamily \#define get16bits(\begin{DoxyParamCaption}\item[{}]{d }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
-\begin{DoxyCode}
-((((size\_t)(((\textcolor{keyword}{const} uint8\_t *)(d))[1])) << 8)\(\backslash\)
-                       +(\textcolor{keywordtype}{size\_t})(((\textcolor{keyword}{const} uint8\_t *)(d))[0]) )
-\end{DoxyCode}
-Source code for Super\+Fast\+Hash used from \href{http://www.azillionmonkeys.com/qed/hash.html}{\tt http\+://www.\+azillionmonkeys.\+com/qed/hash.\+html} under L\+G\+PL 2.\+1 license 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((((size\_t)(((\textcolor{keyword}{const}\ uint8\_t\ *)(d))[1]))\ <<\ 8)\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +(\textcolor{keywordtype}{size\_t})(((\textcolor{keyword}{const}\ uint8\_t\ *)(d))[0])\ )}
 
-\subsection{Function Documentation}
-\mbox{\Hypertarget{hashes_8c_a650d83612101013824349752eef1ee65}\label{hashes_8c_a650d83612101013824349752eef1ee65}} 
-\index{hashes.\+c@{hashes.\+c}!max\+Eratosthenes\+Prime@{max\+Eratosthenes\+Prime}}
-\index{max\+Eratosthenes\+Prime@{max\+Eratosthenes\+Prime}!hashes.\+c@{hashes.\+c}}
-\subsubsection{\texorpdfstring{max\+Eratosthenes\+Prime()}{maxEratosthenesPrime()}}
-{\footnotesize\ttfamily size\+\_\+t max\+Eratosthenes\+Prime (\begin{DoxyParamCaption}\item[{size\+\_\+t $\ast$}]{idx }\end{DoxyParamCaption})}
+\end{DoxyCode}
+Source code for Super\+Fast\+Hash used from \href{http://www.azillionmonkeys.com/qed/hash.html}{\texttt{ http\+://www.\+azillionmonkeys.\+com/qed/hash.\+html}} under LGPL 2.\+1 license 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{hashes_8c_a650d83612101013824349752eef1ee65}\label{hashes_8c_a650d83612101013824349752eef1ee65} 
+\index{hashes.c@{hashes.c}!maxEratosthenesPrime@{maxEratosthenesPrime}}
+\index{maxEratosthenesPrime@{maxEratosthenesPrime}!hashes.c@{hashes.c}}
+\doxysubsubsection{\texorpdfstring{maxEratosthenesPrime()}{maxEratosthenesPrime()}}
+{\footnotesize\ttfamily size\+\_\+t max\+Eratosthenes\+Prime (\begin{DoxyParamCaption}\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{idx }\end{DoxyParamCaption})}
 
 
 
@@ -44,7 +45,7 @@ Using the Sieve of Eratosthenes, calculate the max prime value below the given v
 
 Quick and dirty (not necessarily computationally quick) way to get the max prime number below the given value.
 
-Implementation based off example code at \href{https://www.programminglogic.com/the-sieve-of-eratosthenes-implemented-in-c/}{\tt https\+://www.\+programminglogic.\+com/the-\/sieve-\/of-\/eratosthenes-\/implemented-\/in-\/c/}
+Implementation based off example code at \href{https://www.programminglogic.com/the-sieve-of-eratosthenes-implemented-in-c/}{\texttt{ https\+://www.\+programminglogic.\+com/the-\/sieve-\/of-\/eratosthenes-\/implemented-\/in-\/c/}}
 
 
 \begin{DoxyParams}{Parameters}
@@ -54,13 +55,13 @@ Implementation based off example code at \href{https://www.programminglogic.com/
 \begin{DoxyReturn}{Returns}
 Prime number within the range given by the input, if successful; otherwise, returns 0 
 \end{DoxyReturn}
-\mbox{\Hypertarget{hashes_8c_adfa799e7b7b1b26c7f6c0e82ad8ff13b}\label{hashes_8c_adfa799e7b7b1b26c7f6c0e82ad8ff13b}} 
-\index{hashes.\+c@{hashes.\+c}!Super\+Fast\+Hash@{Super\+Fast\+Hash}}
-\index{Super\+Fast\+Hash@{Super\+Fast\+Hash}!hashes.\+c@{hashes.\+c}}
-\subsubsection{\texorpdfstring{Super\+Fast\+Hash()}{SuperFastHash()}}
-{\footnotesize\ttfamily size\+\_\+t Super\+Fast\+Hash (\begin{DoxyParamCaption}\item[{const char $\ast$}]{data,  }\item[{int}]{len }\end{DoxyParamCaption})}
+\Hypertarget{hashes_8c_adfa799e7b7b1b26c7f6c0e82ad8ff13b}\label{hashes_8c_adfa799e7b7b1b26c7f6c0e82ad8ff13b} 
+\index{hashes.c@{hashes.c}!SuperFastHash@{SuperFastHash}}
+\index{SuperFastHash@{SuperFastHash}!hashes.c@{hashes.c}}
+\doxysubsubsection{\texorpdfstring{SuperFastHash()}{SuperFastHash()}}
+{\footnotesize\ttfamily size\+\_\+t Super\+Fast\+Hash (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{data,  }\item[{int}]{len }\end{DoxyParamCaption})}
 
-Calculate a unique hash for the char data. Super\+Fast\+Hash used from \href{http://www.azillionmonkeys.com/qed/hash.html}{\tt http\+://www.\+azillionmonkeys.\+com/qed/hash.\+html} under L\+G\+PL 2.\+1 license 
+Calculate a unique hash for the char data. Super\+Fast\+Hash used from \href{http://www.azillionmonkeys.com/qed/hash.html}{\texttt{ http\+://www.\+azillionmonkeys.\+com/qed/hash.\+html}} under LGPL 2.\+1 license 
 \begin{DoxyParams}{Parameters}
 {\em data} & character data (string value) to be hashed \\
 \hline

@@ -1,0 +1,68 @@
+.TH "/devel/graphdata/graphDataLib/src/impl/linkgraph.c" 3 "Graph Data Shared Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/devel/graphdata/graphDataLib/src/impl/linkgraph.c
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <graphData\&.h>\fP
+.br
+\fC#include <impl/linkgraph\&.h>\fP
+.br
+\fC#include <util/crudops\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBlinkGraphInit\fP (struct \fBgraph_t\fP *g)"
+.br
+.RI "Initialize a linked-list graph backing structure\&. "
+.ti -1c
+.RI "int \fBlinkGraphFree\fP (struct \fBgraph_t\fP *g)"
+.br
+.RI "Clear out the underlying data structures for the given LINK graph\&. "
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int linkGraphFree (struct \fBgraph_t\fP * g)"
+
+.PP
+Clear out the underlying data structures for the given LINK graph\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIg\fP Graph to be cleared and memory deallocated 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if the operation as a success; otherwise, 0\&. 
+.RE
+.PP
+
+.SS "int linkGraphInit (struct \fBgraph_t\fP * g)"
+
+.PP
+Initialize a linked-list graph backing structure\&. Perform a basic initialization of the graph structure of the given type\&.
+.PP
+For the LINKED implementation, little interior work is actually done in this release\&. Graph structures of this type are the most general\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIgtype\fP DIRECTED or UNDIRECTED graph 
+.br
+\fIg\fP Graph structure 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if successful; 0 if there was a problem\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Graph Data Shared Library from the source code\&.
