@@ -1,0 +1,1 @@
+# Place any OSX build variables and settings here

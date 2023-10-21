@@ -1,0 +1,10 @@
+# Binaries to be included
+
+# Build products that should never be included
+**/output
+**/build-*
+**/nupkgs
+**/tests/bin
+
+# Test data
+**/tests/data

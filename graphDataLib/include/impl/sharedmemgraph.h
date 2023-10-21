@@ -1,0 +1,8 @@
+//
+// Created by david on 10/21/23.
+//
+
+#ifndef GRAPHDATA_SHAREDMEMGRAPH_H
+#define GRAPHDATA_SHAREDMEMGRAPH_H
+
+#endif //GRAPHDATA_SHAREDMEMGRAPH_H
