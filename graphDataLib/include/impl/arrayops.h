@@ -5,7 +5,7 @@
 #ifndef GRAPHDATA_ARRAYOPS_H
 #define GRAPHDATA_ARRAYOPS_H
 
-#include <graphdata.h>
+#include <graphData.h>
 
 //Read functions to extract data
 /**

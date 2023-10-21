@@ -5,7 +5,7 @@
 #ifndef GRAPHDATA_SPATIAL_H
 #define GRAPHDATA_SPATIAL_H
 
-#include <graphdata.h>
+#include <graphData.h>
 
 /**
  * @brief Sets array index value of the given set of dimensions, when calculated against the given dimensional array.

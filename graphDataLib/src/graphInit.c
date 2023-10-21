@@ -2,7 +2,7 @@
 // Created by david on 11/11/17.
 //
 
-#include<graphinit.h>
+#include<graphInit.h>
 
 #include <stdlib.h>
 #include <util/crudops.h>
@@ -11,6 +11,11 @@
 #include <impl/linkgraph.h>
 #include <impl/linkops.h>
 #include <impl/hashgraph.h>
+#include <impl/sharedmemgraph.h>
+#include <impl/sharedmemops.h>
+#include <impl/sharedmmapgraph.h>
+#include <impl/sharedmmapops.h>
+
 
 
 static void setArrayOps(struct graphops_t *gops) {

@@ -4,7 +4,7 @@
 
 #include <stdlib.h>
 #include <check.h>
-#include <graphinit.h>
+#include <graphInit.h>
 #include <util/crudops.h>
 
 /**

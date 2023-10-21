@@ -5,7 +5,7 @@
 #ifndef GRAPHDATA_LINKOPS_H
 #define GRAPHDATA_LINKOPS_H
 
-#include <graphdata.h>
+#include <graphData.h>
 
 //Read functions to extract data
 /**

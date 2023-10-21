@@ -1,6 +1,6 @@
 /**
  * This is the implementation of the array-based graph structure.  The primary purpose is speed and fixed memory usage,
- * in order to create predictable memory usage.
+ * in order to create predictable memory performance.
  *
  * The arrays are one-dimensional arrays of size nodecount x connectivity. Pointer math is used where possible
  * to allow quick access.

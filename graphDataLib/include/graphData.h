@@ -7,7 +7,7 @@
 #ifndef GRAPHDATA_H
 #define GRAPHDATA_H
 
-#include<stdio.h>
+#include <stdio.h>
 
 /**
  * @brief Descriptor of the graph structure and usage.
@@ -22,13 +22,25 @@ enum GRAPHDOMAIN {
      *
      * The minimum number of edges will be used to represent connectivity between nodes.
      */
-    UNDIRECTED  = 0x0001,
+    UNDIRECTED  = 0x0000,
     /**
      * @brief A directed graph structure e(u,v) != e(v,u)
      *
      * Each edge description {u,v} will be distinct.
      */
-    DIRECTED    = 0x0002,
+    DIRECTED    = 0x0001,
+    /**
+     * @brief Graph structures shared with other processes via memory-mapped files
+     * 
+     * Shared graph structures directly denote array-based graphs
+     */
+    SHARED_MMAP = 0x0002,
+    /**
+     * @brief Graph structures shared with other process via shared memory locations
+     * 
+     * Shared graph structures directly denote array-based graphs
+     */
+    SHARED_MEM  = 0x0004,
     //Underlying Implementation
     /**
      * @brief The underlying implementation is an array-based structure
@@ -61,7 +73,6 @@ enum GRAPHDOMAIN {
      * @brief The graph has a set of nodes representing categorical labeling of associated nodes.
      */
     LABELED     = 0x2000
-
 };
 
 /**
@@ -216,6 +227,12 @@ struct labels_t {
  * choose the best implementation for their purposes, and pass around references as necessary.
  */
 struct graph_t {
+    
+    /**
+     * @brief identifier for the graph, to differentiate between multiple graph structures
+     */
+    char *graphname; 
+    
     /**
      * @brief Type of graph being represented.
      */
@@ -239,25 +256,25 @@ struct graph_t {
     /**
      * @brief Implementation-specific pointer to node backing data
      *
-     * Central pointer to node data, to be interpreted by the specific graphops implementations
+     * Central pointer to node data, to be interpreted by the specific graphOps implementations
      */
     void *nodeImpl;
     /**
      * @brief Implementation-specific pointer to the edge backing data
      *
-     * Central pointer to the edge data, to be interpreted by the specific graphops implementations.
+     * Central pointer to the edge data, to be interpreted by the specific graphOps implementations.
      */
     void *edgeImpl;
     /**
      * @brief Implementation-specific pointer to capacity data.
      *
-     * Central pointer to the capacity values, to be interpreted by the specific graphops implementations.
+     * Central pointer to the capacity values, to be interpreted by the specific graphOps implementations.
      */
     void *capImpl;
     /**
      * @brief Implementation-specific pointer to the flow data
      *
-     * Central pointer to the flow values, to be interpreted by the specific graphops implementations.
+     * Central pointer to the flow values, to be interpreted by the specific graphOps implementations.
      */
     void *flowImpl;
 };

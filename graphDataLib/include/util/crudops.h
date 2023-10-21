@@ -11,8 +11,8 @@
 #ifndef GRAPHDATA_CRUDOPS_H
 #define GRAPHDATA_CRUDOPS_H
 
-#include <graphdata.h>
-#include <graphops.h>
+#include <graphData.h>
+#include <graphOps.h>
 #include <stdlib.h>
 
 /**
@@ -92,7 +92,7 @@ struct labels_t * initLabels(size_t lblcount);
  * Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to
  * a standard cleanup function.
  *
- * @return Pointer to a graphops structure, or NULL if there was a problem with memory allocation
+ * @return Pointer to a graphOps structure, or NULL if there was a problem with memory allocation
  */
 struct graphops_t * initGraphops();
 

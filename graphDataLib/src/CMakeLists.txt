@@ -1,11 +1,15 @@
 add_library(${PROJECT_NAME} SHARED
-        graphinit.c
+        graphInit.c
         impl/arraygraph.c
         impl/arrayops.c
         impl/hashgraph.c
         impl/hashops.c
         impl/linkgraph.c
         impl/linkops.c
+        impl/sharedmemgraph.c
+        impl/sharedmemops.c
+        impl/sharedmmapgraph.c
+        impl/sharedmmapops.c
         util/cartesian.c
         util/crudops.c
         util/graphcomp.c
@@ -36,6 +40,8 @@ install(TARGETS ${PROJECT_NAME}
 
 install(FILES
         ${PROJECT_SOURCE_DIR}/include/graphData.h
+        ${PROJECT_SOURCE_DIR}/include/graphInit.h
+        ${PROJECT_SOURCE_DIR}/include/graphOps.h
         DESTINATION "include"
 )
 

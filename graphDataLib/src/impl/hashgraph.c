@@ -1,7 +1,7 @@
 //
 // Created by david on 11/18/17.
 //
-#include <graphdata.h>
+#include <graphData.h>
 #include <impl/hashgraph.h>
 
 /**

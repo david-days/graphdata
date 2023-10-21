@@ -13,7 +13,7 @@
 #ifndef GRAPHDATA_ARRAYGRAPH_H
 #define GRAPHDATA_ARRAYGRAPH_H
 
-#include <graphdata.h>
+#include <graphData.h>
 
 /**
  * @brief Metadata structure for array graphs

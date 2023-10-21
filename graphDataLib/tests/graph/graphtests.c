@@ -4,8 +4,8 @@
 
 
 #include <check.h>
-#include <graphinit.h>
-#include <graphops.h>
+#include <graphInit.h>
+#include <graphOps.h>
 #include <util/crudops.h>
 #include <stdlib.h>
 #include <util/cartesian.h>

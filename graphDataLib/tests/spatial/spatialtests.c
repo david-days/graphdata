@@ -3,7 +3,7 @@
 //
 
 #include <check.h>
-#include <graphdata.h>
+#include <graphData.h>
 #include <string.h>
 #include <util/cartesian.h>
 #include <util/crudops.h>

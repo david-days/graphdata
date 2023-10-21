@@ -8,7 +8,7 @@
 #define GRAPHDATA_GRAPHCOMP_H
 
 #include <stdio.h>
-#include <graphdata.h>
+#include <graphData.h>
 
 /**
  * Compare to nodeid values, returning the minimum value (if different)

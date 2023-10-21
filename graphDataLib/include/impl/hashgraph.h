@@ -5,7 +5,7 @@
 #ifndef GRAPHDATA_HASHGRAPH_H
 #define GRAPHDATA_HASHGRAPH_H
 
-#include <graphdata.h>
+#include <graphData.h>
 
 /**
  * @brief Initialize the graph using the hashtable adjacency list structure.

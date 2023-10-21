@@ -5,8 +5,8 @@
 #ifndef GRAPHDATA_GRAPHINIT_H
 #define GRAPHDATA_GRAPHINIT_H
 
-#include <graphdata.h>
-#include "graphops.h"
+#include <graphData.h>
+#include "graphOps.h"
 
 
 /**
@@ -29,7 +29,7 @@
 struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct dimensions_t *dims);
 
 /**
- * @brief Create and fill the graphops_t structure that handles basic operations for the graph
+ * @brief Create and fill the graphOps_t structure that handles basic operations for the graph
  *
  * Using the graph_t implementation pass, this function creates a graphops_t structure necessary to handle basic functions
  * for the given graph.
