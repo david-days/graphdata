@@ -1,0 +1,373 @@
+.TH "/devel/graphdata/graphDataLib/src/util/crudops.c" 3 "Graph Data Shared Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/devel/graphdata/graphDataLib/src/util/crudops.c
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <util/crudops\&.h>\fP
+.br
+\fC#include <stdarg\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBparseTypeFlags\fP (enum \fBGRAPHDOMAIN\fP *tflags, enum \fBGRAPHDOMAIN\fP *dirflag, enum \fBGRAPHDOMAIN\fP *impflag, enum \fBGRAPHDOMAIN\fP *lblflag, enum \fBGRAPHDOMAIN\fP *domflag)"
+.br
+.RI "Parse the flag values passed, and write the evaluation into the separate references\&. "
+.ti -1c
+.RI "struct \fBgraph_t\fP * \fBbasicGraphInit\fP ()"
+.br
+.RI "Utility method to create and preset graph structure\&. "
+.ti -1c
+.RI "struct \fBdimensions_t\fP * \fBcreateDimensions\fP (size_t dimsz,\&.\&.\&.)"
+.br
+.RI "Create a dimension structure containing the given values in order (x, y, z, etc) "
+.ti -1c
+.RI "struct \fBlabels_t\fP * \fBinitLabels\fP (size_t lblcount)"
+.br
+.RI "Create a raw label structure of the given size\&. "
+.ti -1c
+.RI "struct \fBgraphops_t\fP * \fBinitGraphops\fP ()"
+.br
+.RI "Raw initializer for \fBgraphops_t\fP structure with all NULL interior pointers\&. "
+.ti -1c
+.RI "struct \fBedge_t\fP * \fBinitEdge\fP ()"
+.br
+.RI "Allocate and initialize an edge\&. "
+.ti -1c
+.RI "struct \fBnode_t\fP * \fBinitNode\fP ()"
+.br
+.RI "Allocate and initialize a node\&. "
+.ti -1c
+.RI "struct \fBfeature_t\fP * \fBinitFeature\fP ()"
+.br
+.RI "Allocate and initialize a feature structure\&. "
+.ti -1c
+.RI "struct \fBnode_t\fP * \fBcloneNode\fP (const struct \fBnode_t\fP *onode)"
+.br
+.RI "Create a copy of the given node\&. "
+.ti -1c
+.RI "struct \fBedge_t\fP * \fBcloneEdge\fP (const struct \fBedge_t\fP *oedge)"
+.br
+.RI "Create a copy of the given edge\&. "
+.ti -1c
+.RI "struct \fBfeature_t\fP * \fBcloneFeature\fP (const struct \fBfeature_t\fP *ofeat)"
+.br
+.RI "Create a copy of the given feature data\&. "
+.ti -1c
+.RI "int \fBdestroyGraph\fP (void **gptr)"
+.br
+.RI "Clear the graph and all underlying standard structures\&. "
+.ti -1c
+.RI "int \fBdestroyDimensions\fP (void **dptr)"
+.br
+.RI "Clear out the dimensions and all underlying structures\&. "
+.ti -1c
+.RI "int \fBdestroyLabels\fP (void **lptr)"
+.br
+.RI "Clear out the label and all underlying structures\&. "
+.ti -1c
+.RI "int \fBdestroyEdges\fP (void **eptr)"
+.br
+.RI "Clear an edge structure and any linked edges (use on single or a path) "
+.ti -1c
+.RI "int \fBdestroyGraphops\fP (void **opsptr)"
+.br
+.RI "Clear a \fBgraphops_t\fP structure\&. "
+.ti -1c
+.RI "int \fBdestroyNodes\fP (void **nptr)"
+.br
+.RI "Clear a node or node list (use on single or a path) "
+.ti -1c
+.RI "int \fBdestroyFeatures\fP (void **fptr)"
+.br
+.RI "Clear a feature or feature list (use on single or multiple attributes) "
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "struct \fBgraph_t\fP * basicGraphInit ()"
+
+.PP
+Utility method to create and preset graph structure\&. 
+.PP
+\fBReturns\fP
+.RS 4
+A pointer to a \fBgraph_t\fP structure\&. 
+.RE
+.PP
+
+.SS "struct \fBedge_t\fP * cloneEdge (const struct \fBedge_t\fP * oedge)"
+
+.PP
+Create a copy of the given edge\&. This operation is intended to be used for extracting data from the graph to be used for external purposes, such as processing stacks, queues, and paths, without unintentionally altering the underlying graph structure\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIoedge\fP Original \fBedge_t\fP structure to be cloned\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+pointer to the cloned data, if successful; otherwise, a pointer to NULL 
+.RE
+.PP
+
+.SS "struct \fBfeature_t\fP * cloneFeature (const struct \fBfeature_t\fP * ofeat)"
+
+.PP
+Create a copy of the given feature data\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIofeat\fP Original feature to be copied\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+pointer to the cloned data, if successful; otherwise, a pointer to NULL 
+.RE
+.PP
+
+.SS "struct \fBnode_t\fP * cloneNode (const struct \fBnode_t\fP * onode)"
+
+.PP
+Create a copy of the given node\&. This operation is intended to be used for extracting data from the graph to be used for external purposes, such as delineating paths, without unintentionally altering the underlying graph structure\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIonode\fP Original \fBnode_t\fP to be cloned 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+pointer to the cloned structure, if successful; otherwise, a pointer to NULL 
+.RE
+.PP
+
+.SS "struct \fBdimensions_t\fP * createDimensions (size_t dimsz,  \&.\&.\&.)"
+
+.PP
+Create a dimension structure containing the given values in order (x, y, z, etc) This is used to initialize (and contain) the ordered size of the spatial dimensions given\&. Consumers are responsible for calling free() on the structure, or passing it to a standard clearing function
+.PP
+\fBParameters\fP
+.RS 4
+\fIdimsz\fP Number of dimensions 
+.br
+\fI\&.\&.\&.\fP Additional dimension values passed 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Pointer to a \fBdimensions_t\fP structure that holds the count and values of the structure, or a null pointer if there is a problem allocating the memory\&. 
+.RE
+.PP
+
+.SS "int destroyDimensions (void ** dptr)"
+
+.PP
+Clear out the dimensions and all underlying structures\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIdptr\fP pointer-to-pointer for \fBdimensions_t\fP structure to be cleared 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if success; 0 if error 
+.RE
+.PP
+
+.SS "int destroyEdges (void ** eptr)"
+
+.PP
+Clear an edge structure and any linked edges (use on single or a path) The pointer itself will be changed to NULL
+.PP
+\fBParameters\fP
+.RS 4
+\fIeptr\fP pointer-to-pointer for initial edge pointer 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if success; 0 if error\&. 
+.RE
+.PP
+
+.SS "int destroyFeatures (void ** fptr)"
+
+.PP
+Clear a feature or feature list (use on single or multiple attributes) The pointer itself will be changed to NULL
+.PP
+\fBParameters\fP
+.RS 4
+\fIfptr\fP pointer-to-pointer for initial feature structure 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if successful; 0 if error 
+.RE
+.PP
+
+.SS "int destroyGraph (void ** gptr)"
+
+.PP
+Clear the graph and all underlying standard structures\&. Clear the graph and all underlying structures\&.
+.PP
+The pointer itself will be changed to NULL
+.PP
+\fBParameters\fP
+.RS 4
+\fIgptr\fP pointer-to-pointer for \fBgraph_t\fP structure to be cleared 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if success; 0 if error 
+.RE
+.PP
+
+.SS "int destroyGraphops (void ** opsptr)"
+
+.PP
+Clear a \fBgraphops_t\fP structure\&. Clear a \fBgraphops_t\fP structure\&. The graph itself will not be cleared, only the reference to it\&. The pointer itself will be changed to NULL\&.
+.PP
+The graph itself will not be cleared, only the reference to it\&. The pointer itself will be changed to NULL
+.PP
+\fBParameters\fP
+.RS 4
+\fIopsptr\fP pointer-to-pointer for \fBgraphops_t\fP structuure to be cleared and deallocated 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if successful; 0 if error 
+.RE
+.PP
+
+.SS "int destroyLabels (void ** lptr)"
+
+.PP
+Clear out the label and all underlying structures\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIlabels\fP pointer-to-pointer for \fBlabels_t\fP structure to be cleared 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if success; 0 if error 
+.RE
+.PP
+
+.SS "int destroyNodes (void ** nptr)"
+
+.PP
+Clear a node or node list (use on single or a path) The pointer itself will be changed to NULL
+.PP
+\fBParameters\fP
+.RS 4
+\fInptr\fP pointer-to-pointer for initial node structure 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if successful; 0 if error 
+.RE
+.PP
+
+.SS "struct \fBedge_t\fP * initEdge ()"
+
+.PP
+Allocate and initialize an edge\&. 
+.PP
+\fBReturns\fP
+.RS 4
+pointer to new \fBedge_t\fP memory, if successful; otherwise NULL\&. 
+.RE
+.PP
+
+.SS "struct \fBfeature_t\fP * initFeature ()"
+
+.PP
+Allocate and initialize a feature structure\&. 
+.PP
+\fBReturns\fP
+.RS 4
+pointer to new \fBfeature_t\fP memory, if successful; otherwise, NULL\&. 
+.RE
+.PP
+
+.SS "struct \fBgraphops_t\fP * initGraphops ()"
+
+.PP
+Raw initializer for \fBgraphops_t\fP structure with all NULL interior pointers\&. Raw initializer for \fBgraphops_t\fP structure\&.
+.PP
+Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to a standard cleanup function\&.
+.PP
+\fBReturns\fP
+.RS 4
+Pointer to a graphops structure, or NULL if there was a problem with memory allocation 
+.RE
+.PP
+
+.SS "struct \fBlabels_t\fP * initLabels (size_t lblcount)"
+
+.PP
+Create a raw label structure of the given size\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIlblcount\fP Number of labels required 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Label structure properly initialized with a size_t array of the given size, if successful; otherwise, a NULL pointer\&. 
+.RE
+.PP
+
+.SS "struct \fBnode_t\fP * initNode ()"
+
+.PP
+Allocate and initialize a node\&. 
+.PP
+\fBReturns\fP
+.RS 4
+pointer to new \fBnode_t\fP memory, if successful; otherwise, NULL\&. 
+.RE
+.PP
+
+.SS "int parseTypeFlags (enum \fBGRAPHDOMAIN\fP * tflags, enum \fBGRAPHDOMAIN\fP * dirflag, enum \fBGRAPHDOMAIN\fP * impflag, enum \fBGRAPHDOMAIN\fP * lblflag, enum \fBGRAPHDOMAIN\fP * domflag)"
+
+.PP
+Parse the flag values passed, and write the evaluation into the separate references\&. Parses out the separate possibilities for the flags\&. If the flag are empty, the default values are written back to the tflags reference\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fItflags\fP Flag values passed to be evaluated 
+.br
+\fIdirflag\fP Directionality result of the operation 
+.br
+\fIimpflag\fP Implementation type result 
+.br
+\fIlblflag\fP Label type result 
+.br
+\fIdomflag\fP Domain type result 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if the parsing is successful; otherwise, 0\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Graph Data Shared Library from the source code\&.

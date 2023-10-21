@@ -1,0 +1,70 @@
+.TH "/devel/graphdata/graphDataLib/include/impl/arraygraph.h" 3 "Graph Data Shared Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/devel/graphdata/graphDataLib/include/impl/arraygraph.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <graphData\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBarraydata_t\fP"
+.br
+.RI "Array implementation of the graph structure for fixed-size, fixed-degree, UNDIRECTED graphs\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBarrayGraphInit\fP (struct \fBgraph_t\fP *g)"
+.br
+.RI "Set up a graph with array backing data\&. "
+.ti -1c
+.RI "int \fBarrayGraphFree\fP (struct \fBgraph_t\fP *g)"
+.br
+.RI "Perform clearing operations to deallocate the array graph internal values and structures\&. "
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int arrayGraphFree (struct \fBgraph_t\fP * g)"
+
+.PP
+Perform clearing operations to deallocate the array graph internal values and structures\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIg\fP \fBgraph_t\fP with array structures to be deallocated 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if successful; otherwise, 0\&. 
+.RE
+.PP
+
+.SS "int arrayGraphInit (struct \fBgraph_t\fP * g)"
+
+.PP
+Set up a graph with array backing data\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIg\fP Graph structure 
+.br
+\fIlblcount\fP Number of labels to be used--may be zero, depending on the graph domain\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if successful; 0 if an error 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Graph Data Shared Library from the source code\&.

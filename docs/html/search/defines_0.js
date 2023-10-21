@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['get16bits',['get16bits',['../hashes_8c.html#abc7d71657be8975a51684e41029b7964',1,'hashes.c']]],
-  ['graphdata_5fversion_5fmajor',['GRAPHDATA_VERSION_MAJOR',['../graphdata_8h.html#a5c8d9e729183139874537b500b905c86',1,'graphdata.h']]],
-  ['graphdata_5fversion_5fminor',['GRAPHDATA_VERSION_MINOR',['../graphdata_8h.html#a8da108e36efe7497628097c65486dde1',1,'graphdata.h']]],
-  ['graphdata_5fversion_5fpatch',['GRAPHDATA_VERSION_PATCH',['../graphdata_8h.html#afe82eb665296ed2b05d144b702efae91',1,'graphdata.h']]]
+  ['defaultgraph_0',['DEFAULTGRAPH',['../crudops_8h.html#a4e84104fc50e3f167fd71d8a2eb392ec',1,'crudops.h']]],
+  ['defaultselect_1',['DEFAULTSELECT',['../crudops_8h.html#ab4a4b3207fe861ca346e402e8b63cfc5',1,'crudops.h']]],
+  ['dirselect_2',['DIRSELECT',['../crudops_8h.html#a039d565e90c95e024624299a13d4682f',1,'crudops.h']]],
+  ['domainselect_3',['DOMAINSELECT',['../crudops_8h.html#ac80ef8a164ef3b6cc1f1e6993af55f84',1,'crudops.h']]]
 ];

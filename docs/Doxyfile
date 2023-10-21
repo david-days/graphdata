@@ -1,3 +1,36 @@
-OUTPUT_DIRECTORY	= /home/david/devel/graphdata/code/graphdata/../../docs
-INPUT			= /home/david/devel/graphdata/code/graphdata/src /home/david/devel/graphdata/code/graphdata/include /home/david/devel/graphdata/code/graphdata/../../docs
+PROJECT_NAME		= "Graph Data Shared Library"
+PROJECT_BRIEF		= "Library for graph structure models and core operations"
 
+OUTPUT_DIRECTORY	= docs
+INPUT				= graphDataLib/src
+INPUT				+= graphDataLib/include
+INPUT				+= graphDataLib/docs
+
+EXCLUDE				= .git bin data
+
+RECURSIVE			= YES
+EXTRACT_ALL			= YES
+OPTIMIZE_OUTPUT_FOR_C	= YES
+
+# man page settings
+GENERATE_MAN           = YES
+MAN_OUTPUT             = man
+MAN_LINKS              = YES
+
+# HTML settings
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+
+# LateX settings
+GENERATE_LATEX         = YES
+LATEX_OUTPUT           = latex
+LATEX_CMD_NAME         = latex
+MAKEINDEX_CMD_NAME     = makeindex
+COMPACT_LATEX          = NO
+PAPER_TYPE             = a4wide
+EXTRA_PACKAGES         =
+LATEX_HEADER           =
+PDF_HYPERLINKS         = YES
+USE_PDFLATEX           = YES
+LATEX_BATCHMODE        = NO
+LATEX_HIDE_INDICES     = NO

@@ -1,0 +1,158 @@
+.TH "graphops_t" 3 "Graph Data Shared Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+graphops_t \- Structure relating graph data to implementations\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <graphOps\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "struct \fBgraph_t\fP * \fBg\fP"
+.br
+.RI "Graph data structure\&. "
+.ti -1c
+.RI "\fBfuncNodeCount\fP \fBnodeCount\fP"
+.br
+.RI "Return count of nodes\&. "
+.ti -1c
+.RI "\fBfuncEdgeCount\fP \fBedgeCount\fP"
+.br
+.RI "Return count of edges\&. "
+.ti -1c
+.RI "\fBfuncGetNode\fP \fBgetNode\fP"
+.br
+.RI "Return a given node (by identifier) "
+.ti -1c
+.RI "\fBfuncGetEdge\fP \fBgetEdge\fP"
+.br
+.RI "Return a given edge (by start-end identifiers) "
+.ti -1c
+.RI "\fBfuncGetNeighbors\fP \fBgetNeighbors\fP"
+.br
+.RI "Return a linked-list of neighbors\&. "
+.ti -1c
+.RI "\fBfuncGetEdges\fP \fBgetEdges\fP"
+.br
+.RI "Return a linked-list of edges starting at this node\&. "
+.ti -1c
+.RI "\fBfuncGetCapacity\fP \fBgetCapacity\fP"
+.br
+.RI "Retrieve the capacity value for the given edge\&. "
+.ti -1c
+.RI "\fBfuncGetFlow\fP \fBgetFlow\fP"
+.br
+.RI "Retrieve the flow value for a given edge\&. "
+.ti -1c
+.RI "\fBfuncAddNode\fP \fBaddNode\fP"
+.br
+.RI "Add a node to the graph\&. Expected to be NULL (no implementation) for fixed-size graph structures\&. "
+.ti -1c
+.RI "\fBfuncRemoveNode\fP \fBremoveNode\fP"
+.br
+.RI "Remove a node from the graph\&. Expected to be NULL or NOOP for fixed-size graph structures\&. "
+.ti -1c
+.RI "\fBfuncAddEdge\fP \fBaddEdge\fP"
+.br
+.RI "Add an edge to the graph\&. Expected to be NULL (no implementation) for fixed-size graph structures\&. "
+.ti -1c
+.RI "\fBfuncRemoveEdge\fP \fBremoveEdge\fP"
+.br
+.RI "Remove an edge from the graph\&. "
+.ti -1c
+.RI "\fBfuncSetCapacity\fP \fBsetCapacity\fP"
+.br
+.ti -1c
+.RI "\fBfuncAddCapacity\fP \fBaddCapacity\fP"
+.br
+.ti -1c
+.RI "\fBfuncSetFlow\fP \fBsetFlow\fP"
+.br
+.ti -1c
+.RI "\fBfuncAddFlow\fP \fBaddFlow\fP"
+.br
+.ti -1c
+.RI "\fBfuncResetGraph\fP \fBresetGraph\fP"
+.br
+.RI "Reset the graph to an initial state, according to implementation logic Means of resetting the graph to an initial state without having to re-implement cleanup logic or creating a new graph structure\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure relating graph data to implementations\&. 
+
+This is the structure containing both a reference to the graph data and the supporting basic operations\&. Function pointers (according to the typedefs) are set if there is a function implementation associated with the type of graph and implementation\&. 
+.SH "Field Documentation"
+.PP 
+.SS "\fBfuncAddCapacity\fP graphops_t::addCapacity"
+Adjust the capacity of an edge 
+.SS "\fBfuncAddEdge\fP graphops_t::addEdge"
+
+.PP
+Add an edge to the graph\&. Expected to be NULL (no implementation) for fixed-size graph structures\&. 
+.SS "\fBfuncAddFlow\fP graphops_t::addFlow"
+Adjust the flow value of an edge 
+.SS "\fBfuncAddNode\fP graphops_t::addNode"
+
+.PP
+Add a node to the graph\&. Expected to be NULL (no implementation) for fixed-size graph structures\&. 
+.SS "\fBfuncEdgeCount\fP graphops_t::edgeCount"
+
+.PP
+Return count of edges\&. 
+.SS "struct \fBgraph_t\fP* graphops_t::g"
+
+.PP
+Graph data structure\&. 
+.SS "\fBfuncGetCapacity\fP graphops_t::getCapacity"
+
+.PP
+Retrieve the capacity value for the given edge\&. 
+.SS "\fBfuncGetEdge\fP graphops_t::getEdge"
+
+.PP
+Return a given edge (by start-end identifiers) 
+.SS "\fBfuncGetEdges\fP graphops_t::getEdges"
+
+.PP
+Return a linked-list of edges starting at this node\&. 
+.SS "\fBfuncGetFlow\fP graphops_t::getFlow"
+
+.PP
+Retrieve the flow value for a given edge\&. 
+.SS "\fBfuncGetNeighbors\fP graphops_t::getNeighbors"
+
+.PP
+Return a linked-list of neighbors\&. 
+.SS "\fBfuncGetNode\fP graphops_t::getNode"
+
+.PP
+Return a given node (by identifier) 
+.SS "\fBfuncNodeCount\fP graphops_t::nodeCount"
+
+.PP
+Return count of nodes\&. 
+.SS "\fBfuncRemoveEdge\fP graphops_t::removeEdge"
+
+.PP
+Remove an edge from the graph\&. 
+.SS "\fBfuncRemoveNode\fP graphops_t::removeNode"
+
+.PP
+Remove a node from the graph\&. Expected to be NULL or NOOP for fixed-size graph structures\&. 
+.SS "\fBfuncResetGraph\fP graphops_t::resetGraph"
+
+.PP
+Reset the graph to an initial state, according to implementation logic Means of resetting the graph to an initial state without having to re-implement cleanup logic or creating a new graph structure\&. 
+.SS "\fBfuncSetCapacity\fP graphops_t::setCapacity"
+Set the capacity for a given edge\&. 
+.SS "\fBfuncSetFlow\fP graphops_t::setFlow"
+Set the flow value of an edge\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Graph Data Shared Library from the source code\&.

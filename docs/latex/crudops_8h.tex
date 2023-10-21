@@ -1,71 +1,150 @@
-\hypertarget{crudops_8h}{}\section{/home/david/devel/graphdata/code/graphdata/include/util/crudops.h File Reference}
-\label{crudops_8h}\index{/home/david/devel/graphdata/code/graphdata/include/util/crudops.\+h@{/home/david/devel/graphdata/code/graphdata/include/util/crudops.\+h}}
-{\ttfamily \#include $<$graphdata.\+h$>$}\newline
-{\ttfamily \#include $<$graphops.\+h$>$}\newline
+\doxysection{/devel/graphdata/graph\+Data\+Lib/include/util/crudops.h File Reference}
+\hypertarget{crudops_8h}{}\label{crudops_8h}\index{/devel/graphdata/graphDataLib/include/util/crudops.h@{/devel/graphdata/graphDataLib/include/util/crudops.h}}
+{\ttfamily \#include $<$graph\+Data.\+h$>$}\newline
+{\ttfamily \#include $<$graph\+Ops.\+h$>$}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
-\subsection*{Functions}
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-struct \hyperlink{structgraph__t}{graph\+\_\+t} $\ast$ \hyperlink{crudops_8h_a11691f9f59d146634ed2cd6c79aec634}{basic\+Graph\+Init} ()
+\#define \mbox{\hyperlink{crudops_8h_a039d565e90c95e024624299a13d4682f}{DIRSELECT}}~\mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa2a58242d50c7fcc4067abd9c4db01be5}{DIRECTED}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa814399045afe50d214d2607be2f27677}{UNDIRECTED}}
 \begin{DoxyCompactList}\small\item\em This header is for basic graph structure operations (Create,Read,Update,Delete and similar). \end{DoxyCompactList}\item 
-struct \hyperlink{structdimensions__t}{dimensions\+\_\+t} $\ast$ \hyperlink{crudops_8h_a0266de528018be5d6bc3ebdcfc6be874}{create\+Dimensions} (size\+\_\+t dimval,...)
+\#define \mbox{\hyperlink{crudops_8h_a3ef660d716454c3b8e210fd05711de07}{IMPLSELECT}}~\mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa1e029fbf0c881b85d80fc8e89b753688}{ARRAY}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa03745475c6df1217f2fd3200875fb376}{LINKED}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aaa2512e870f83d17d3dfcd0bf0082bca2}{HASHED}}
+\begin{DoxyCompactList}\small\item\em Selector for underlying structure. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{crudops_8h_ac80ef8a164ef3b6cc1f1e6993af55f84}{DOMAINSELECT}}~\mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa9e022e6380da28dd73210ed34b137c36}{GENERIC}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa608c1acc2033e0e07248c48ea01746ce}{SPATIAL}}
+\begin{DoxyCompactList}\small\item\em Selector for domain. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{crudops_8h_aba752512f4655b668c6455022c559cd3}{LABELSELECT}}~\mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa6e12de322a27cd32fe68fe55bde3affe}{LABELED}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aabdcc1805fc659d979c4bedb0f6ba7c2d}{UNLABELED}}
+\begin{DoxyCompactList}\small\item\em Selector for labels. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{crudops_8h_ab4a4b3207fe861ca346e402e8b63cfc5}{DEFAULTSELECT}}~0
+\begin{DoxyCompactList}\small\item\em Check for no flags passed--return default. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{crudops_8h_a4e84104fc50e3f167fd71d8a2eb392ec}{DEFAULTGRAPH}}~\mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa814399045afe50d214d2607be2f27677}{UNDIRECTED}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa03745475c6df1217f2fd3200875fb376}{LINKED}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa9e022e6380da28dd73210ed34b137c36}{GENERIC}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aabdcc1805fc659d979c4bedb0f6ba7c2d}{UNLABELED}}
+\begin{DoxyCompactList}\small\item\em Default graph type returned, if no parameters passed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{crudops_8h_a63e2d0e7a35dc4efa5b3465b5db83681}{parse\+Type\+Flags}} (enum \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}} \texorpdfstring{$\ast$}{*}tflags, enum \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}} \texorpdfstring{$\ast$}{*}dirflag, enum \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}} \texorpdfstring{$\ast$}{*}impflag, enum \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}} \texorpdfstring{$\ast$}{*}lblflag, enum \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}} \texorpdfstring{$\ast$}{*}domflag)
+\begin{DoxyCompactList}\small\item\em Parse the flag values passed, and write the evaluation into the separate references. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structgraph__t}{graph\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crudops_8h_af0dc0628618ba1c2e9b5ebb5845c30da}{basic\+Graph\+Init}} ()
+\begin{DoxyCompactList}\small\item\em Utility method to create and preset graph structure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structdimensions__t}{dimensions\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crudops_8h_a3940cc797dda61f19159d9044bb16ec0}{create\+Dimensions}} (size\+\_\+t dimval,...)
 \begin{DoxyCompactList}\small\item\em Create a dimension structure containing the given values in order (x, y, z, etc) \end{DoxyCompactList}\item 
-struct \hyperlink{structlabels__t}{labels\+\_\+t} $\ast$ \hyperlink{crudops_8h_ad0dd6d2c5033af247f956bfdc8ce8532}{init\+Labels} (size\+\_\+t lblcount)
+struct \mbox{\hyperlink{structlabels__t}{labels\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crudops_8h_aec9429d44ee341225d126f13ccaec3a8}{init\+Labels}} (size\+\_\+t lblcount)
 \begin{DoxyCompactList}\small\item\em Create a raw label structure of the given size. \end{DoxyCompactList}\item 
-struct \hyperlink{structgraphops__t}{graphops\+\_\+t} $\ast$ \hyperlink{crudops_8h_a251634055d0f0e6837b0b0075ada8540}{init\+Graphops} ()
-\begin{DoxyCompactList}\small\item\em Raw initializer for \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. \end{DoxyCompactList}\item 
-struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$ \hyperlink{crudops_8h_ac20702cdda52d8c25badc79236435584}{init\+Edge} ()
+struct \mbox{\hyperlink{structgraphops__t}{graphops\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crudops_8h_a0d9885ae55ee7deed921000af6f88444}{init\+Graphops}} ()
+\begin{DoxyCompactList}\small\item\em Raw initializer for \doxylink{structgraphops__t}{graphops\+\_\+t} structure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structedge__t}{edge\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crudops_8h_ab248f78fd5c8211d38a95effdac67842}{init\+Edge}} ()
 \begin{DoxyCompactList}\small\item\em Allocate and initialize an edge. \end{DoxyCompactList}\item 
-struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$ \hyperlink{crudops_8h_ad90debdd5896df2134eb574335a54927}{init\+Node} ()
+struct \mbox{\hyperlink{structnode__t}{node\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crudops_8h_a510ef56dbf795e6011e68cd25e3f0245}{init\+Node}} ()
 \begin{DoxyCompactList}\small\item\em Allocate and initialize a node. \end{DoxyCompactList}\item 
-struct \hyperlink{structfeature__t}{feature\+\_\+t} $\ast$ \hyperlink{crudops_8h_abad2cfd46c4e533485c0f3166b38188f}{init\+Feature} ()
+struct \mbox{\hyperlink{structfeature__t}{feature\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crudops_8h_ab941569dbc138c5aa0e7211af9f64c26}{init\+Feature}} ()
 \begin{DoxyCompactList}\small\item\em Allocate and initialize a feature structure. \end{DoxyCompactList}\item 
-struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$ \hyperlink{crudops_8h_a6378a8788536a885add68b0dae9cfe06}{clone\+Node} (const struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$onode)
+struct \mbox{\hyperlink{structnode__t}{node\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crudops_8h_a75345d6e21ebf30ea0f93486da5d22f0}{clone\+Node}} (const struct \mbox{\hyperlink{structnode__t}{node\+\_\+t}} \texorpdfstring{$\ast$}{*}onode)
 \begin{DoxyCompactList}\small\item\em Create a copy of the given node. \end{DoxyCompactList}\item 
-struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$ \hyperlink{crudops_8h_a88340214aa9ea9fa8f42a97d61b18bba}{clone\+Edge} (const struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$oedge)
+struct \mbox{\hyperlink{structedge__t}{edge\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crudops_8h_a57f17335d7257128fcf89f11946ebf5c}{clone\+Edge}} (const struct \mbox{\hyperlink{structedge__t}{edge\+\_\+t}} \texorpdfstring{$\ast$}{*}oedge)
 \begin{DoxyCompactList}\small\item\em Create a copy of the given edge. \end{DoxyCompactList}\item 
-struct \hyperlink{structfeature__t}{feature\+\_\+t} $\ast$ \hyperlink{crudops_8h_a34491a58f95e0f8cc41f0b7be961661e}{clone\+Feature} (const struct \hyperlink{structfeature__t}{feature\+\_\+t} $\ast$ofeat)
+struct \mbox{\hyperlink{structfeature__t}{feature\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crudops_8h_a2c99127d105ea77de4ccb686b89ad166}{clone\+Feature}} (const struct \mbox{\hyperlink{structfeature__t}{feature\+\_\+t}} \texorpdfstring{$\ast$}{*}ofeat)
 \begin{DoxyCompactList}\small\item\em Create a copy of the given feature data. \end{DoxyCompactList}\item 
-int \hyperlink{crudops_8h_af1d15d112f4ca2b65e94859c26c09521}{destroy\+Graph} (void $\ast$$\ast$gptr)
+int \mbox{\hyperlink{crudops_8h_af1d15d112f4ca2b65e94859c26c09521}{destroy\+Graph}} (void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}gptr)
 \begin{DoxyCompactList}\small\item\em Clear the graph and all underlying structures. \end{DoxyCompactList}\item 
-int \hyperlink{crudops_8h_a75578671ab00969861564c70e61cffd2}{destroy\+Dimensions} (void $\ast$$\ast$dimptr)
+int \mbox{\hyperlink{crudops_8h_a75578671ab00969861564c70e61cffd2}{destroy\+Dimensions}} (void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}dimptr)
 \begin{DoxyCompactList}\small\item\em Clear out the dimensions and all underlying structures. \end{DoxyCompactList}\item 
-int \hyperlink{crudops_8h_adc5ca553fd6e958ba92862c21b2b25ae}{destroy\+Labels} (void $\ast$$\ast$lblptr)
+int \mbox{\hyperlink{crudops_8h_adc5ca553fd6e958ba92862c21b2b25ae}{destroy\+Labels}} (void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}lblptr)
 \begin{DoxyCompactList}\small\item\em Clear out the label and all underlying structures. \end{DoxyCompactList}\item 
-int \hyperlink{crudops_8h_a1857fe19957384a5e4abff6b9f87ee77}{destroy\+Edges} (void $\ast$$\ast$eptr)
+int \mbox{\hyperlink{crudops_8h_a1857fe19957384a5e4abff6b9f87ee77}{destroy\+Edges}} (void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}eptr)
 \begin{DoxyCompactList}\small\item\em Clear an edge structure and any linked edges (use on single or a path) \end{DoxyCompactList}\item 
-int \hyperlink{crudops_8h_aab13c370e7246fac212f45f167d79a28}{destroy\+Graphops} (void $\ast$$\ast$opsptr)
-\begin{DoxyCompactList}\small\item\em Clear a \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to N\+U\+LL. \end{DoxyCompactList}\item 
-int \hyperlink{crudops_8h_a184eea7bdfb9dcd477b2a1eb02e89a2f}{destroy\+Nodes} (void $\ast$$\ast$nptr)
+int \mbox{\hyperlink{crudops_8h_aab13c370e7246fac212f45f167d79a28}{destroy\+Graphops}} (void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}opsptr)
+\begin{DoxyCompactList}\small\item\em Clear a \doxylink{structgraphops__t}{graphops\+\_\+t} structure. The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to NULL. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{crudops_8h_a184eea7bdfb9dcd477b2a1eb02e89a2f}{destroy\+Nodes}} (void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}nptr)
 \begin{DoxyCompactList}\small\item\em Clear a node or node list (use on single or a path) \end{DoxyCompactList}\item 
-int \hyperlink{crudops_8h_ae1dbb279b04d953f217d1bb2f615ae83}{destroy\+Features} (void $\ast$$\ast$fptr)
+int \mbox{\hyperlink{crudops_8h_ae1dbb279b04d953f217d1bb2f615ae83}{destroy\+Features}} (void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}fptr)
 \begin{DoxyCompactList}\small\item\em Clear a feature or feature list (use on single or multiple attributes) \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Function Documentation}
-\mbox{\Hypertarget{crudops_8h_a11691f9f59d146634ed2cd6c79aec634}\label{crudops_8h_a11691f9f59d146634ed2cd6c79aec634}} 
-\index{crudops.\+h@{crudops.\+h}!basic\+Graph\+Init@{basic\+Graph\+Init}}
-\index{basic\+Graph\+Init@{basic\+Graph\+Init}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{basic\+Graph\+Init()}{basicGraphInit()}}
-{\footnotesize\ttfamily struct \hyperlink{structgraph__t}{graph\+\_\+t}$\ast$ basic\+Graph\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{crudops_8h_a4e84104fc50e3f167fd71d8a2eb392ec}\label{crudops_8h_a4e84104fc50e3f167fd71d8a2eb392ec} 
+\index{crudops.h@{crudops.h}!DEFAULTGRAPH@{DEFAULTGRAPH}}
+\index{DEFAULTGRAPH@{DEFAULTGRAPH}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{DEFAULTGRAPH}{DEFAULTGRAPH}}
+{\footnotesize\ttfamily \#define DEFAULTGRAPH~\mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa814399045afe50d214d2607be2f27677}{UNDIRECTED}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa03745475c6df1217f2fd3200875fb376}{LINKED}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa9e022e6380da28dd73210ed34b137c36}{GENERIC}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aabdcc1805fc659d979c4bedb0f6ba7c2d}{UNLABELED}}}
+
+
+
+Default graph type returned, if no parameters passed. 
+
+\Hypertarget{crudops_8h_ab4a4b3207fe861ca346e402e8b63cfc5}\label{crudops_8h_ab4a4b3207fe861ca346e402e8b63cfc5} 
+\index{crudops.h@{crudops.h}!DEFAULTSELECT@{DEFAULTSELECT}}
+\index{DEFAULTSELECT@{DEFAULTSELECT}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{DEFAULTSELECT}{DEFAULTSELECT}}
+{\footnotesize\ttfamily \#define DEFAULTSELECT~0}
+
+
+
+Check for no flags passed--return default. 
+
+\Hypertarget{crudops_8h_a039d565e90c95e024624299a13d4682f}\label{crudops_8h_a039d565e90c95e024624299a13d4682f} 
+\index{crudops.h@{crudops.h}!DIRSELECT@{DIRSELECT}}
+\index{DIRSELECT@{DIRSELECT}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{DIRSELECT}{DIRSELECT}}
+{\footnotesize\ttfamily \#define DIRSELECT~\mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa2a58242d50c7fcc4067abd9c4db01be5}{DIRECTED}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa814399045afe50d214d2607be2f27677}{UNDIRECTED}}}
 
 
 
 This header is for basic graph structure operations (Create,Read,Update,Delete and similar). 
 
-The functions specified here are for general graph structures and data, for use in various other implementations. These are the most general operations, dealing with basic graph structures (nodes, edges, dimensional data, etc.). For implementation-\/specific operations, use the X\+X\+Xgraph and X\+X\+Xops headers under the impl folders. Utility method to create and preset graph structure. \begin{DoxyReturn}{Returns}
-A pointer to a \hyperlink{structgraph__t}{graph\+\_\+t} structure, if successful; otherwise, a pointer to N\+U\+LL
-\end{DoxyReturn}
-This header is for basic graph structure operations (Create,Read,Update,Delete and similar).
+The functions specified here are for general graph structures and data, for use in various other implementations. These are the most general operations, dealing with basic graph structures (nodes, edges, dimensional data, etc.). For implementation-\/specific operations, use the XXXgraph and XXXops headers under the impl folders.
+
+Selector for graph directionality \Hypertarget{crudops_8h_ac80ef8a164ef3b6cc1f1e6993af55f84}\label{crudops_8h_ac80ef8a164ef3b6cc1f1e6993af55f84} 
+\index{crudops.h@{crudops.h}!DOMAINSELECT@{DOMAINSELECT}}
+\index{DOMAINSELECT@{DOMAINSELECT}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{DOMAINSELECT}{DOMAINSELECT}}
+{\footnotesize\ttfamily \#define DOMAINSELECT~\mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa9e022e6380da28dd73210ed34b137c36}{GENERIC}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa608c1acc2033e0e07248c48ea01746ce}{SPATIAL}}}
+
+
+
+Selector for domain. 
+
+\Hypertarget{crudops_8h_a3ef660d716454c3b8e210fd05711de07}\label{crudops_8h_a3ef660d716454c3b8e210fd05711de07} 
+\index{crudops.h@{crudops.h}!IMPLSELECT@{IMPLSELECT}}
+\index{IMPLSELECT@{IMPLSELECT}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{IMPLSELECT}{IMPLSELECT}}
+{\footnotesize\ttfamily \#define IMPLSELECT~\mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa1e029fbf0c881b85d80fc8e89b753688}{ARRAY}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa03745475c6df1217f2fd3200875fb376}{LINKED}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aaa2512e870f83d17d3dfcd0bf0082bca2}{HASHED}}}
+
+
+
+Selector for underlying structure. 
+
+\Hypertarget{crudops_8h_aba752512f4655b668c6455022c559cd3}\label{crudops_8h_aba752512f4655b668c6455022c559cd3} 
+\index{crudops.h@{crudops.h}!LABELSELECT@{LABELSELECT}}
+\index{LABELSELECT@{LABELSELECT}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{LABELSELECT}{LABELSELECT}}
+{\footnotesize\ttfamily \#define LABELSELECT~\mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aa6e12de322a27cd32fe68fe55bde3affe}{LABELED}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114aabdcc1805fc659d979c4bedb0f6ba7c2d}{UNLABELED}}}
+
+
+
+Selector for labels. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{crudops_8h_af0dc0628618ba1c2e9b5ebb5845c30da}\label{crudops_8h_af0dc0628618ba1c2e9b5ebb5845c30da} 
+\index{crudops.h@{crudops.h}!basicGraphInit@{basicGraphInit}}
+\index{basicGraphInit@{basicGraphInit}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{basicGraphInit()}{basicGraphInit()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structgraph__t}{graph\+\_\+t}} \texorpdfstring{$\ast$}{*} basic\+Graph\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Utility method to create and preset graph structure. 
 
 \begin{DoxyReturn}{Returns}
-A pointer to a \hyperlink{structgraph__t}{graph\+\_\+t} structure. 
+A pointer to a \doxylink{structgraph__t}{graph\+\_\+t} structure, if successful; otherwise, a pointer to NULL
+
+A pointer to a \doxylink{structgraph__t}{graph\+\_\+t} structure. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_a88340214aa9ea9fa8f42a97d61b18bba}\label{crudops_8h_a88340214aa9ea9fa8f42a97d61b18bba}} 
-\index{crudops.\+h@{crudops.\+h}!clone\+Edge@{clone\+Edge}}
-\index{clone\+Edge@{clone\+Edge}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{clone\+Edge()}{cloneEdge()}}
-{\footnotesize\ttfamily struct \hyperlink{structedge__t}{edge\+\_\+t}$\ast$ clone\+Edge (\begin{DoxyParamCaption}\item[{const struct \hyperlink{structedge__t}{edge\+\_\+t} $\ast$}]{oedge }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_a57f17335d7257128fcf89f11946ebf5c}\label{crudops_8h_a57f17335d7257128fcf89f11946ebf5c} 
+\index{crudops.h@{crudops.h}!cloneEdge@{cloneEdge}}
+\index{cloneEdge@{cloneEdge}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{cloneEdge()}{cloneEdge()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structedge__t}{edge\+\_\+t}} \texorpdfstring{$\ast$}{*} clone\+Edge (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structedge__t}{edge\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{oedge }\end{DoxyParamCaption})}
 
 
 
@@ -75,17 +154,17 @@ This operation is intended to be used for extracting data from the graph to be u
 
 
 \begin{DoxyParams}{Parameters}
-{\em oedge} & Original \hyperlink{structedge__t}{edge\+\_\+t} structure to be cloned. \\
+{\em oedge} & Original \doxylink{structedge__t}{edge\+\_\+t} structure to be cloned. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-pointer to the cloned data, if successful; otherwise, a pointer to N\+U\+LL 
+pointer to the cloned data, if successful; otherwise, a pointer to NULL 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_a34491a58f95e0f8cc41f0b7be961661e}\label{crudops_8h_a34491a58f95e0f8cc41f0b7be961661e}} 
-\index{crudops.\+h@{crudops.\+h}!clone\+Feature@{clone\+Feature}}
-\index{clone\+Feature@{clone\+Feature}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{clone\+Feature()}{cloneFeature()}}
-{\footnotesize\ttfamily struct \hyperlink{structfeature__t}{feature\+\_\+t}$\ast$ clone\+Feature (\begin{DoxyParamCaption}\item[{const struct \hyperlink{structfeature__t}{feature\+\_\+t} $\ast$}]{ofeat }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_a2c99127d105ea77de4ccb686b89ad166}\label{crudops_8h_a2c99127d105ea77de4ccb686b89ad166} 
+\index{crudops.h@{crudops.h}!cloneFeature@{cloneFeature}}
+\index{cloneFeature@{cloneFeature}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{cloneFeature()}{cloneFeature()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structfeature__t}{feature\+\_\+t}} \texorpdfstring{$\ast$}{*} clone\+Feature (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structfeature__t}{feature\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ofeat }\end{DoxyParamCaption})}
 
 
 
@@ -97,13 +176,13 @@ Create a copy of the given feature data.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-pointer to the cloned data, if successful; otherwise, a pointer to N\+U\+LL 
+pointer to the cloned data, if successful; otherwise, a pointer to NULL 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_a6378a8788536a885add68b0dae9cfe06}\label{crudops_8h_a6378a8788536a885add68b0dae9cfe06}} 
-\index{crudops.\+h@{crudops.\+h}!clone\+Node@{clone\+Node}}
-\index{clone\+Node@{clone\+Node}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{clone\+Node()}{cloneNode()}}
-{\footnotesize\ttfamily struct \hyperlink{structnode__t}{node\+\_\+t}$\ast$ clone\+Node (\begin{DoxyParamCaption}\item[{const struct \hyperlink{structnode__t}{node\+\_\+t} $\ast$}]{onode }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_a75345d6e21ebf30ea0f93486da5d22f0}\label{crudops_8h_a75345d6e21ebf30ea0f93486da5d22f0} 
+\index{crudops.h@{crudops.h}!cloneNode@{cloneNode}}
+\index{cloneNode@{cloneNode}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{cloneNode()}{cloneNode()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structnode__t}{node\+\_\+t}} \texorpdfstring{$\ast$}{*} clone\+Node (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structnode__t}{node\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{onode }\end{DoxyParamCaption})}
 
 
 
@@ -113,17 +192,17 @@ This operation is intended to be used for extracting data from the graph to be u
 
 
 \begin{DoxyParams}{Parameters}
-{\em onode} & Original \hyperlink{structnode__t}{node\+\_\+t} to be cloned \\
+{\em onode} & Original \doxylink{structnode__t}{node\+\_\+t} to be cloned \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-pointer to the cloned structure, if successful; otherwise, a pointer to N\+U\+LL 
+pointer to the cloned structure, if successful; otherwise, a pointer to NULL 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_a0266de528018be5d6bc3ebdcfc6be874}\label{crudops_8h_a0266de528018be5d6bc3ebdcfc6be874}} 
-\index{crudops.\+h@{crudops.\+h}!create\+Dimensions@{create\+Dimensions}}
-\index{create\+Dimensions@{create\+Dimensions}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{create\+Dimensions()}{createDimensions()}}
-{\footnotesize\ttfamily struct \hyperlink{structdimensions__t}{dimensions\+\_\+t}$\ast$ create\+Dimensions (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{dimsz,  }\item[{}]{... }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_a3940cc797dda61f19159d9044bb16ec0}\label{crudops_8h_a3940cc797dda61f19159d9044bb16ec0} 
+\index{crudops.h@{crudops.h}!createDimensions@{createDimensions}}
+\index{createDimensions@{createDimensions}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{createDimensions()}{createDimensions()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structdimensions__t}{dimensions\+\_\+t}} \texorpdfstring{$\ast$}{*} create\+Dimensions (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{dimsz,  }\item[{}]{... }\end{DoxyParamCaption})}
 
 
 
@@ -139,7 +218,7 @@ This is used to initialize (and contain) the ordered size of the spatial dimensi
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Pointer to a \hyperlink{structdimensions__t}{dimensions\+\_\+t} structure that holds the count and values of the structure
+Pointer to a \doxylink{structdimensions__t}{dimensions\+\_\+t} structure that holds the count and values of the structure
 \end{DoxyReturn}
 This is used to initialize (and contain) the ordered size of the spatial dimensions given. Consumers are responsible for calling free() on the structure, or passing it to a standard clearing function
 
@@ -151,13 +230,13 @@ This is used to initialize (and contain) the ordered size of the spatial dimensi
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Pointer to a \hyperlink{structdimensions__t}{dimensions\+\_\+t} structure that holds the count and values of the structure, or a null pointer if there is a problem allocating the memory. 
+Pointer to a \doxylink{structdimensions__t}{dimensions\+\_\+t} structure that holds the count and values of the structure, or a null pointer if there is a problem allocating the memory. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_a75578671ab00969861564c70e61cffd2}\label{crudops_8h_a75578671ab00969861564c70e61cffd2}} 
-\index{crudops.\+h@{crudops.\+h}!destroy\+Dimensions@{destroy\+Dimensions}}
-\index{destroy\+Dimensions@{destroy\+Dimensions}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{destroy\+Dimensions()}{destroyDimensions()}}
-{\footnotesize\ttfamily int destroy\+Dimensions (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{dptr }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_a75578671ab00969861564c70e61cffd2}\label{crudops_8h_a75578671ab00969861564c70e61cffd2} 
+\index{crudops.h@{crudops.h}!destroyDimensions@{destroyDimensions}}
+\index{destroyDimensions@{destroyDimensions}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{destroyDimensions()}{destroyDimensions()}}
+{\footnotesize\ttfamily int destroy\+Dimensions (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{dptr }\end{DoxyParamCaption})}
 
 
 
@@ -173,23 +252,23 @@ Clear out the dimensions and all underlying structures.
 \end{DoxyReturn}
 
 \begin{DoxyParams}{Parameters}
-{\em dptr} & pointer-\/to-\/pointer for \hyperlink{structdimensions__t}{dimensions\+\_\+t} structure to be cleared \\
+{\em dptr} & pointer-\/to-\/pointer for \doxylink{structdimensions__t}{dimensions\+\_\+t} structure to be cleared \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 1 if success; 0 if error 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_a1857fe19957384a5e4abff6b9f87ee77}\label{crudops_8h_a1857fe19957384a5e4abff6b9f87ee77}} 
-\index{crudops.\+h@{crudops.\+h}!destroy\+Edges@{destroy\+Edges}}
-\index{destroy\+Edges@{destroy\+Edges}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{destroy\+Edges()}{destroyEdges()}}
-{\footnotesize\ttfamily int destroy\+Edges (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{eptr }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_a1857fe19957384a5e4abff6b9f87ee77}\label{crudops_8h_a1857fe19957384a5e4abff6b9f87ee77} 
+\index{crudops.h@{crudops.h}!destroyEdges@{destroyEdges}}
+\index{destroyEdges@{destroyEdges}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{destroyEdges()}{destroyEdges()}}
+{\footnotesize\ttfamily int destroy\+Edges (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{eptr }\end{DoxyParamCaption})}
 
 
 
 Clear an edge structure and any linked edges (use on single or a path) 
 
-The pointer itself will be changed to N\+U\+LL
+The pointer itself will be changed to NULL
 
 
 \begin{DoxyParams}{Parameters}
@@ -199,7 +278,7 @@ The pointer itself will be changed to N\+U\+LL
 \begin{DoxyReturn}{Returns}
 1 if success; 0 if error.
 \end{DoxyReturn}
-The pointer itself will be changed to N\+U\+LL
+The pointer itself will be changed to NULL
 
 
 \begin{DoxyParams}{Parameters}
@@ -209,17 +288,17 @@ The pointer itself will be changed to N\+U\+LL
 \begin{DoxyReturn}{Returns}
 1 if success; 0 if error. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_ae1dbb279b04d953f217d1bb2f615ae83}\label{crudops_8h_ae1dbb279b04d953f217d1bb2f615ae83}} 
-\index{crudops.\+h@{crudops.\+h}!destroy\+Features@{destroy\+Features}}
-\index{destroy\+Features@{destroy\+Features}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{destroy\+Features()}{destroyFeatures()}}
-{\footnotesize\ttfamily int destroy\+Features (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{fptr }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_ae1dbb279b04d953f217d1bb2f615ae83}\label{crudops_8h_ae1dbb279b04d953f217d1bb2f615ae83} 
+\index{crudops.h@{crudops.h}!destroyFeatures@{destroyFeatures}}
+\index{destroyFeatures@{destroyFeatures}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{destroyFeatures()}{destroyFeatures()}}
+{\footnotesize\ttfamily int destroy\+Features (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{fptr }\end{DoxyParamCaption})}
 
 
 
 Clear a feature or feature list (use on single or multiple attributes) 
 
-The pointer itself will be changed to N\+U\+LL
+The pointer itself will be changed to NULL
 
 
 \begin{DoxyParams}{Parameters}
@@ -229,7 +308,7 @@ The pointer itself will be changed to N\+U\+LL
 \begin{DoxyReturn}{Returns}
 1 if successful; 0 if error
 \end{DoxyReturn}
-The pointer itself will be changed to N\+U\+LL
+The pointer itself will be changed to NULL
 
 
 \begin{DoxyParams}{Parameters}
@@ -239,17 +318,17 @@ The pointer itself will be changed to N\+U\+LL
 \begin{DoxyReturn}{Returns}
 1 if successful; 0 if error 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_af1d15d112f4ca2b65e94859c26c09521}\label{crudops_8h_af1d15d112f4ca2b65e94859c26c09521}} 
-\index{crudops.\+h@{crudops.\+h}!destroy\+Graph@{destroy\+Graph}}
-\index{destroy\+Graph@{destroy\+Graph}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{destroy\+Graph()}{destroyGraph()}}
-{\footnotesize\ttfamily int destroy\+Graph (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{gptr }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_af1d15d112f4ca2b65e94859c26c09521}\label{crudops_8h_af1d15d112f4ca2b65e94859c26c09521} 
+\index{crudops.h@{crudops.h}!destroyGraph@{destroyGraph}}
+\index{destroyGraph@{destroyGraph}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{destroyGraph()}{destroyGraph()}}
+{\footnotesize\ttfamily int destroy\+Graph (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{gptr }\end{DoxyParamCaption})}
 
 
 
 Clear the graph and all underlying structures. 
 
-The pointer itself will be changed to N\+U\+LL
+The pointer itself will be changed to NULL
 
 
 \begin{DoxyParams}{Parameters}
@@ -261,25 +340,25 @@ The pointer itself will be changed to N\+U\+LL
 \end{DoxyReturn}
 Clear the graph and all underlying structures.
 
-The pointer itself will be changed to N\+U\+LL
+The pointer itself will be changed to NULL
 
 
 \begin{DoxyParams}{Parameters}
-{\em gptr} & pointer-\/to-\/pointer for \hyperlink{structgraph__t}{graph\+\_\+t} structure to be cleared \\
+{\em gptr} & pointer-\/to-\/pointer for \doxylink{structgraph__t}{graph\+\_\+t} structure to be cleared \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 1 if success; 0 if error 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_aab13c370e7246fac212f45f167d79a28}\label{crudops_8h_aab13c370e7246fac212f45f167d79a28}} 
-\index{crudops.\+h@{crudops.\+h}!destroy\+Graphops@{destroy\+Graphops}}
-\index{destroy\+Graphops@{destroy\+Graphops}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{destroy\+Graphops()}{destroyGraphops()}}
-{\footnotesize\ttfamily int destroy\+Graphops (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{opsptr }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_aab13c370e7246fac212f45f167d79a28}\label{crudops_8h_aab13c370e7246fac212f45f167d79a28} 
+\index{crudops.h@{crudops.h}!destroyGraphops@{destroyGraphops}}
+\index{destroyGraphops@{destroyGraphops}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{destroyGraphops()}{destroyGraphops()}}
+{\footnotesize\ttfamily int destroy\+Graphops (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{opsptr }\end{DoxyParamCaption})}
 
 
 
-Clear a \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to N\+U\+LL. 
+Clear a \doxylink{structgraphops__t}{graphops\+\_\+t} structure. The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to NULL. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -289,23 +368,23 @@ Clear a \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. The graph itse
 \begin{DoxyReturn}{Returns}
 1 if successful; 0 if error
 \end{DoxyReturn}
-Clear a \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to N\+U\+LL.
+Clear a \doxylink{structgraphops__t}{graphops\+\_\+t} structure. The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to NULL.
 
-The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to N\+U\+LL
+The graph itself will not be cleared, only the reference to it. The pointer itself will be changed to NULL
 
 
 \begin{DoxyParams}{Parameters}
-{\em opsptr} & pointer-\/to-\/pointer for \hyperlink{structgraphops__t}{graphops\+\_\+t} structuure to be cleared and deallocated \\
+{\em opsptr} & pointer-\/to-\/pointer for \doxylink{structgraphops__t}{graphops\+\_\+t} structuure to be cleared and deallocated \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 1 if successful; 0 if error 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_adc5ca553fd6e958ba92862c21b2b25ae}\label{crudops_8h_adc5ca553fd6e958ba92862c21b2b25ae}} 
-\index{crudops.\+h@{crudops.\+h}!destroy\+Labels@{destroy\+Labels}}
-\index{destroy\+Labels@{destroy\+Labels}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{destroy\+Labels()}{destroyLabels()}}
-{\footnotesize\ttfamily int destroy\+Labels (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{lptr }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_adc5ca553fd6e958ba92862c21b2b25ae}\label{crudops_8h_adc5ca553fd6e958ba92862c21b2b25ae} 
+\index{crudops.h@{crudops.h}!destroyLabels@{destroyLabels}}
+\index{destroyLabels@{destroyLabels}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{destroyLabels()}{destroyLabels()}}
+{\footnotesize\ttfamily int destroy\+Labels (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{lptr }\end{DoxyParamCaption})}
 
 
 
@@ -321,23 +400,23 @@ Clear out the label and all underlying structures.
 \end{DoxyReturn}
 
 \begin{DoxyParams}{Parameters}
-{\em labels} & pointer-\/to-\/pointer for \hyperlink{structlabels__t}{labels\+\_\+t} structure to be cleared \\
+{\em labels} & pointer-\/to-\/pointer for \doxylink{structlabels__t}{labels\+\_\+t} structure to be cleared \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 1 if success; 0 if error 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_a184eea7bdfb9dcd477b2a1eb02e89a2f}\label{crudops_8h_a184eea7bdfb9dcd477b2a1eb02e89a2f}} 
-\index{crudops.\+h@{crudops.\+h}!destroy\+Nodes@{destroy\+Nodes}}
-\index{destroy\+Nodes@{destroy\+Nodes}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{destroy\+Nodes()}{destroyNodes()}}
-{\footnotesize\ttfamily int destroy\+Nodes (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{nptr }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_a184eea7bdfb9dcd477b2a1eb02e89a2f}\label{crudops_8h_a184eea7bdfb9dcd477b2a1eb02e89a2f} 
+\index{crudops.h@{crudops.h}!destroyNodes@{destroyNodes}}
+\index{destroyNodes@{destroyNodes}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{destroyNodes()}{destroyNodes()}}
+{\footnotesize\ttfamily int destroy\+Nodes (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{nptr }\end{DoxyParamCaption})}
 
 
 
 Clear a node or node list (use on single or a path) 
 
-The pointer itself will be changed to N\+U\+LL
+The pointer itself will be changed to NULL
 
 
 \begin{DoxyParams}{Parameters}
@@ -347,7 +426,7 @@ The pointer itself will be changed to N\+U\+LL
 \begin{DoxyReturn}{Returns}
 1 if successful; 0 if error
 \end{DoxyReturn}
-The pointer itself will be changed to N\+U\+LL
+The pointer itself will be changed to NULL
 
 
 \begin{DoxyParams}{Parameters}
@@ -357,59 +436,59 @@ The pointer itself will be changed to N\+U\+LL
 \begin{DoxyReturn}{Returns}
 1 if successful; 0 if error 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_ac20702cdda52d8c25badc79236435584}\label{crudops_8h_ac20702cdda52d8c25badc79236435584}} 
-\index{crudops.\+h@{crudops.\+h}!init\+Edge@{init\+Edge}}
-\index{init\+Edge@{init\+Edge}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{init\+Edge()}{initEdge()}}
-{\footnotesize\ttfamily struct \hyperlink{structedge__t}{edge\+\_\+t}$\ast$ init\+Edge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_ab248f78fd5c8211d38a95effdac67842}\label{crudops_8h_ab248f78fd5c8211d38a95effdac67842} 
+\index{crudops.h@{crudops.h}!initEdge@{initEdge}}
+\index{initEdge@{initEdge}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{initEdge()}{initEdge()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structedge__t}{edge\+\_\+t}} \texorpdfstring{$\ast$}{*} init\+Edge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
 Allocate and initialize an edge. 
 
 \begin{DoxyReturn}{Returns}
-pointer to new \hyperlink{structedge__t}{edge\+\_\+t} memory, if successful; otherwise N\+U\+LL. 
+pointer to new \doxylink{structedge__t}{edge\+\_\+t} memory, if successful; otherwise NULL. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_abad2cfd46c4e533485c0f3166b38188f}\label{crudops_8h_abad2cfd46c4e533485c0f3166b38188f}} 
-\index{crudops.\+h@{crudops.\+h}!init\+Feature@{init\+Feature}}
-\index{init\+Feature@{init\+Feature}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{init\+Feature()}{initFeature()}}
-{\footnotesize\ttfamily struct \hyperlink{structfeature__t}{feature\+\_\+t}$\ast$ init\+Feature (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_ab941569dbc138c5aa0e7211af9f64c26}\label{crudops_8h_ab941569dbc138c5aa0e7211af9f64c26} 
+\index{crudops.h@{crudops.h}!initFeature@{initFeature}}
+\index{initFeature@{initFeature}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{initFeature()}{initFeature()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structfeature__t}{feature\+\_\+t}} \texorpdfstring{$\ast$}{*} init\+Feature (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
 Allocate and initialize a feature structure. 
 
 \begin{DoxyReturn}{Returns}
-pointer to new \hyperlink{structfeature__t}{feature\+\_\+t} memory, if successful; otherwise, N\+U\+LL. 
+pointer to new \doxylink{structfeature__t}{feature\+\_\+t} memory, if successful; otherwise, NULL. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_a251634055d0f0e6837b0b0075ada8540}\label{crudops_8h_a251634055d0f0e6837b0b0075ada8540}} 
-\index{crudops.\+h@{crudops.\+h}!init\+Graphops@{init\+Graphops}}
-\index{init\+Graphops@{init\+Graphops}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{init\+Graphops()}{initGraphops()}}
-{\footnotesize\ttfamily struct \hyperlink{structgraphops__t}{graphops\+\_\+t}$\ast$ init\+Graphops (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_a0d9885ae55ee7deed921000af6f88444}\label{crudops_8h_a0d9885ae55ee7deed921000af6f88444} 
+\index{crudops.h@{crudops.h}!initGraphops@{initGraphops}}
+\index{initGraphops@{initGraphops}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{initGraphops()}{initGraphops()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structgraphops__t}{graphops\+\_\+t}} \texorpdfstring{$\ast$}{*} init\+Graphops (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Raw initializer for \hyperlink{structgraphops__t}{graphops\+\_\+t} structure. 
+Raw initializer for \doxylink{structgraphops__t}{graphops\+\_\+t} structure. 
 
 Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to a standard cleanup function.
 
 \begin{DoxyReturn}{Returns}
-Pointer to a graphops structure, or N\+U\+LL if there was a problem with memory allocation
+Pointer to a graph\+Ops structure, or NULL if there was a problem with memory allocation
 \end{DoxyReturn}
-Raw initializer for \hyperlink{structgraphops__t}{graphops\+\_\+t} structure.
+Raw initializer for \doxylink{structgraphops__t}{graphops\+\_\+t} structure.
 
 Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to a standard cleanup function.
 
 \begin{DoxyReturn}{Returns}
-Pointer to a graphops structure, or N\+U\+LL if there was a problem with memory allocation 
+Pointer to a graphops structure, or NULL if there was a problem with memory allocation 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_ad0dd6d2c5033af247f956bfdc8ce8532}\label{crudops_8h_ad0dd6d2c5033af247f956bfdc8ce8532}} 
-\index{crudops.\+h@{crudops.\+h}!init\+Labels@{init\+Labels}}
-\index{init\+Labels@{init\+Labels}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{init\+Labels()}{initLabels()}}
-{\footnotesize\ttfamily struct \hyperlink{structlabels__t}{labels\+\_\+t}$\ast$ init\+Labels (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{lblcount }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_aec9429d44ee341225d126f13ccaec3a8}\label{crudops_8h_aec9429d44ee341225d126f13ccaec3a8} 
+\index{crudops.h@{crudops.h}!initLabels@{initLabels}}
+\index{initLabels@{initLabels}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{initLabels()}{initLabels()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structlabels__t}{labels\+\_\+t}} \texorpdfstring{$\ast$}{*} init\+Labels (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{lblcount }\end{DoxyParamCaption})}
 
 
 
@@ -421,18 +500,46 @@ Create a raw label structure of the given size.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Label structure properly initialized with a size\+\_\+t array of the given size, if successful; otherwise, a N\+U\+LL pointer. 
+Label structure properly initialized with a size\+\_\+t array of the given size, if successful; otherwise, a NULL pointer. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{crudops_8h_ad90debdd5896df2134eb574335a54927}\label{crudops_8h_ad90debdd5896df2134eb574335a54927}} 
-\index{crudops.\+h@{crudops.\+h}!init\+Node@{init\+Node}}
-\index{init\+Node@{init\+Node}!crudops.\+h@{crudops.\+h}}
-\subsubsection{\texorpdfstring{init\+Node()}{initNode()}}
-{\footnotesize\ttfamily struct \hyperlink{structnode__t}{node\+\_\+t}$\ast$ init\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+\Hypertarget{crudops_8h_a510ef56dbf795e6011e68cd25e3f0245}\label{crudops_8h_a510ef56dbf795e6011e68cd25e3f0245} 
+\index{crudops.h@{crudops.h}!initNode@{initNode}}
+\index{initNode@{initNode}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{initNode()}{initNode()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structnode__t}{node\+\_\+t}} \texorpdfstring{$\ast$}{*} init\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
 Allocate and initialize a node. 
 
 \begin{DoxyReturn}{Returns}
-pointer to new \hyperlink{structnode__t}{node\+\_\+t} memory, if successful; otherwise, N\+U\+LL. 
+pointer to new \doxylink{structnode__t}{node\+\_\+t} memory, if successful; otherwise, NULL. 
+\end{DoxyReturn}
+\Hypertarget{crudops_8h_a63e2d0e7a35dc4efa5b3465b5db83681}\label{crudops_8h_a63e2d0e7a35dc4efa5b3465b5db83681} 
+\index{crudops.h@{crudops.h}!parseTypeFlags@{parseTypeFlags}}
+\index{parseTypeFlags@{parseTypeFlags}!crudops.h@{crudops.h}}
+\doxysubsubsection{\texorpdfstring{parseTypeFlags()}{parseTypeFlags()}}
+{\footnotesize\ttfamily int parse\+Type\+Flags (\begin{DoxyParamCaption}\item[{enum \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}} \texorpdfstring{$\ast$}{*}}]{tflags,  }\item[{enum \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}} \texorpdfstring{$\ast$}{*}}]{dirflag,  }\item[{enum \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}} \texorpdfstring{$\ast$}{*}}]{impflag,  }\item[{enum \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}} \texorpdfstring{$\ast$}{*}}]{lblflag,  }\item[{enum \mbox{\hyperlink{graphData_8h_ac80bf91477d8e97e3b158fd6b4e0114a}{GRAPHDOMAIN}} \texorpdfstring{$\ast$}{*}}]{domflag }\end{DoxyParamCaption})}
+
+
+
+Parse the flag values passed, and write the evaluation into the separate references. 
+
+Parses out the separate possibilities for the flags. If the flag are empty, the default values are written back to the tflags reference.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tflags} & Flag values passed to be evaluated \\
+\hline
+{\em dirflag} & Directionality result of the operation \\
+\hline
+{\em impflag} & Implementation type result \\
+\hline
+{\em lblflag} & Label type result \\
+\hline
+{\em domflag} & Domain type result \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the parsing is successful; otherwise, 0. 
 \end{DoxyReturn}

@@ -1,0 +1,53 @@
+\doxysection{linkops.\+h}
+\hypertarget{linkops_8h_source}{}\label{linkops_8h_source}\index{/devel/graphdata/graphDataLib/include/impl/linkops.h@{/devel/graphdata/graphDataLib/include/impl/linkops.h}}
+\mbox{\hyperlink{linkops_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ david\ on\ 11/18/17.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ GRAPHDATA\_LINKOPS\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ GRAPHDATA\_LINKOPS\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{graphData_8h}{graphData.h}}>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{comment}{//Read\ functions\ to\ extract\ data}}
+\DoxyCodeLine{00016\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linkops_8h_adbd453907c3c413e1bb87bf5a696f931}{linkNodeCount}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{linkops_8h_a006894923e878b592dd18e02aacb2995}{linkEdgeCount}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnode__t}{node\_t}}\ *\ \mbox{\hyperlink{linkops_8h_aa87bcf7d133efe38b230c2700c706767}{linkGetNode}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *\mbox{\hyperlink{structnode__t_a3fe17f2fd1e7a7b2ec5f7bfae826816c}{nodeid}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structedge__t}{edge\_t}}\ *\ \mbox{\hyperlink{linkops_8h_ab1706e742fa818222130f557cbe2f0b3}{linkGetEdge}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *\mbox{\hyperlink{structedge__t_a2bd21781f62242a78e70595ea781769c}{u}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *\mbox{\hyperlink{structedge__t_a23bf912e6f3c953e2f8577ab7c692e85}{v}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnode__t}{node\_t}}\ *\ \mbox{\hyperlink{linkops_8h_ae06499b6ea1a3fa1bc35b7cb6c3fc089}{linkGetNeighbors}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *\mbox{\hyperlink{structnode__t_a3fe17f2fd1e7a7b2ec5f7bfae826816c}{nodeid}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structedge__t}{edge\_t}}\ *\ \mbox{\hyperlink{linkops_8h_ae59788224a9f404fa2f36c422254f733}{linkGetEdges}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *nodeid,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{linkops_8h_abb438f05ce9a07a834bf57c5441c4573}{linkGetCapacity}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keywordtype}{double}\ *\mbox{\hyperlink{structedge__t_a008f610ba47f30e49b6350e4bb00d6aa}{cap}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00093\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{linkops_8h_a2286fd38316a469be33169b51d55cba7}{linkGetFlow}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keywordtype}{double}\ *\mbox{\hyperlink{structedge__t_a45d88baf5d0fa8abd4b512e6856b9b2d}{flow}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{comment}{//Write\ functions\ to\ modify\ graph}}
+\DoxyCodeLine{00103\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{linkops_8h_aa6c7adcc9423afebcff19abe10e5cba2}{linkAddNode}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *nodeid,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00113\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{linkops_8h_af3ce69def47a5e7e872b66dbf7443cde}{linkRemoveNode}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *nodeid,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00124\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{linkops_8h_aeb44c3398415d33a717229f0dfca133f}{linkAddEdge}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keywordtype}{double}\ *\mbox{\hyperlink{structedge__t_a008f610ba47f30e49b6350e4bb00d6aa}{cap}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00136\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{linkops_8h_a187c85f2cda044843a3e806f38d22f21}{linkRemoveEdge}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00146\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{linkops_8h_a9c825e186227bf9d215e2a10dd5ee3b9}{linkSetCapacity}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *\mbox{\hyperlink{structedge__t_a008f610ba47f30e49b6350e4bb00d6aa}{cap}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00159\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{linkops_8h_aabbcd5368c3916cdcfb3e2577910bb13}{linkAddCapacity}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *\mbox{\hyperlink{structedge__t_a008f610ba47f30e49b6350e4bb00d6aa}{cap}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00172\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{linkops_8h_a91c413fe7ea546d91b7ccd97039b8617}{linkSetFlow}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *\mbox{\hyperlink{structedge__t_a45d88baf5d0fa8abd4b512e6856b9b2d}{flow}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00185\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{linkops_8h_aa9214e41c118b71031041825ce3ba6a1}{linkAddFlow}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *uid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *vid,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *\mbox{\hyperlink{structedge__t_a45d88baf5d0fa8abd4b512e6856b9b2d}{flow}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g);}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00197\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{linkops_8h_ae0643a5a8536054963f6c08871eb610d}{linkResetGraph}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structgraph__t}{graph\_t}}\ *g,\ \textcolor{keywordtype}{void}\ *args,\ \textcolor{keywordtype}{void}\ (*callback)(\textcolor{keywordtype}{void}));}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//GRAPHDATA\_LINKOPS\_H}}
+
+\end{DoxyCode}
