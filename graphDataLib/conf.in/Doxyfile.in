@@ -1,16 +1,18 @@
 PROJECT_NAME		= "Graph Data Shared Library"
 PROJECT_BRIEF		= "Library for graph structure models and core operations"
 
-OUTPUT_DIRECTORY       	= @PROJECT_SOURCE_DIR@/../docs
+OUTPUT_DIRECTORY       	= @PROJECT_SOURCE_DIR@/output/docs
 INPUT                  	= @PROJECT_SOURCE_DIR@/src
 INPUT					+= @PROJECT_SOURCE_DIR@/include
 INPUT					+= @PROJECT_SOURCE_DIR@/docs
 
 EXCLUDE				= .git bin data
 
+# General doc settings
+OPTIMIZE_OUTPUT_FOR_C	= YES
+JAVADOC_AUTOBRIEF		= YES
 RECURSIVE			= YES
 EXTRACT_ALL			= YES
-OPTIMIZE_OUTPUT_FOR_C	= YES
 
 # man page settings
 GENERATE_MAN           = YES

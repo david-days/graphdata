@@ -69,3 +69,8 @@ cmake-build-*/
 #Temp files
 *.*~
 
+# Docs--generate these locally
+docs/html
+docs/latex
+docs/man
+
