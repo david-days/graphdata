@@ -27,4 +27,17 @@ size_t SuperFastHash (const char * data, int len);
  */
 size_t maxEratosthenesPrime(size_t *idx);
 
+/**
+ * @brief Utility function to determine next-ish higher prime number
+ * 
+ * This method is not necessarily mathematically rigorous in determining the "next"
+ * prime number, but rather is used to obtain a prime number that is in the range of
+ * \f$2^n * currPrime\f$
+ * 
+ * The intent is to create a modulo for the hashtable to prevent collisions
+ * @param currPrime 
+ * @return a higher prime values on the order of \f$2^n * currPrime\f$ for some n
+ */
+size_t nextPrime(size_t currPrime);
+
 #endif //GRAPHDATA_HASHES_H
