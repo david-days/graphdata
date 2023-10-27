@@ -9,12 +9,12 @@
 
 /**
  * Calculate a unique hash for the char data.
- * SuperFastHash used from http://www.azillionmonkeys.com/qed/hash.html under LGPL 2.1 license
+ * superFastHash used from http://www.azillionmonkeys.com/qed/hash.html under LGPL 2.1 license
  * @param data character data (string value) to be hashed
  * @param len Length of the character data
  * @return hash value of the character data, if not null; otherwise, zero.
  */
-size_t SuperFastHash (const char * data, int len);
+size_t superFastHash (const char * data, int len);
 
 /**
  * @brief Using the Sieve of Eratosthenes, calculate the max prime value below the given value

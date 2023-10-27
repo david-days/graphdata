@@ -103,4 +103,23 @@ int hashtable_check(struct hash_table *ht);
  */
 int hashtable_move(struct hash_table *oldHt, struct hash_table *nextHt);
 
+
+// utility function definitions
+/**
+ * Initialize the internals of the hashtable structure
+ * @param ht Hashtable pointer to be initialized
+ * @param htPrime Prime number to be used for capacity and modulus
+ */
+void init_hashtable_items(struct hash_table *ht, size_t htPrime);
+
+/**
+ * Given a reference to a (possible) ht_item linked list, find the entry with the given hash value
+ * @param chain ht_item linked list
+ * @param hashVal size_t value identifying the entry
+ * @return pointer to the entry value, if found; otherwise, NULL
+ */
+void * itemChain_find(struct ht_item *chain, size_t hashVal);
+
+// end utility function definitions
+
 #endif //GRAPHDATA_HASHTABLE_H

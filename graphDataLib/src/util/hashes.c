@@ -3,7 +3,7 @@
 //
 
 /**
- * Source code for SuperFastHash used from http://www.azillionmonkeys.com/qed/hash.html under LGPL 2.1 license
+ * Source code for superFastHash used from http://www.azillionmonkeys.com/qed/hash.html under LGPL 2.1 license
  */
 
 #include <util/hashes.h>
@@ -22,7 +22,7 @@
                        +(size_t)(((const uint8_t *)(d))[0]) )
 #endif
 
-size_t SuperFastHash (const char * data, int len) {
+size_t superFastHash (const char * data, int len) {
     size_t hash = len, tmp;
     int rem;
 

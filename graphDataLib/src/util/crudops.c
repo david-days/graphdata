@@ -344,17 +344,16 @@ int destroyLabels(void** lptr) {
  */
 int destroyEdges(void** eptr) {
     int retval = 0;
-    if (*eptr != NULL) {
-        struct edge_t *curr = (struct edge_t *)*eptr;
-        struct edge_t *next;
-        while (curr != NULL) {
-            next = curr->next;
-            free(curr);
-            curr = next;
-        }
-        *eptr = NULL;
-        retval = 1;
+    if (*eptr == NULL) return 1;
+    struct edge_t *curr = (struct edge_t *)*eptr;
+    struct edge_t *next;
+    while (curr != NULL) {
+        next = curr->next;
+        free(curr);
+        curr = next;
     }
+    *eptr = NULL;
+    retval = 1;
 
     return retval;
 }

@@ -78,7 +78,7 @@ fi
 
 cmake . --toolchain "${LINUX_TOOLCHAIN}" -B "${LINUX_BUILD_DIR}" -DPRINT_ALL_VARS="${OUTPUT_ALL_VARS}" && cd "${LINUX_BUILD_DIR}" && make all
 
-if [ ${GEN_DOCS} ]; then
+if [ ${GEN_DOCS} == 1 ]; then
 	make docs
 fi
 

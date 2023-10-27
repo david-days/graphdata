@@ -4,18 +4,11 @@
 
 #include<graphInit.h>
 
-#include <stdlib.h>
 #include <util/crudops.h>
 #include <impl/arraygraph.h>
 #include <impl/arrayops.h>
 #include <impl/linkgraph.h>
 #include <impl/linkops.h>
-#include <impl/hashgraph.h>
-#include <impl/sharedmemgraph.h>
-#include <impl/sharedmemops.h>
-#include <impl/sharedmmapgraph.h>
-#include <impl/sharedmmapops.h>
-
 
 
 static void setArrayOps(struct graphops_t *gops) {
@@ -126,7 +119,7 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
                     initSuccess = arrayGraphInit(g);
                     break;
                 case HASHED:
-                    initSuccess = hashGraphInit(g);
+                    //initSuccess = hashGraphInit(g);
                     break;
                 default:
                     initSuccess = linkGraphInit(g);

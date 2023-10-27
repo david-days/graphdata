@@ -9,6 +9,7 @@
 
 #include <check.h>
 #include <stdlib.h>
+#include <string.h>
 #include <util/hashes.h>
 
 /**
@@ -58,6 +59,86 @@ START_TEST(primeNumberTest) {
 }
 END_TEST
 
+/**
+ * Using a know starting prime number, verify that the next prime number is larger
+ * @param _i nextPrimeTest
+ */
+START_TEST(nextPrimeTest) {
+    size_t expPrime = 43;
+    size_t checkIdx = 45;
+    size_t foundPrime = maxEratosthenesPrime(&checkIdx);
+    ck_assert(foundPrime == expPrime);
+    size_t next_Prime = nextPrime(foundPrime);
+    ck_assert(next_Prime > foundPrime);
+    
+    checkIdx = 50;
+    expPrime = 47;
+    foundPrime = maxEratosthenesPrime(&checkIdx);
+    ck_assert(foundPrime == expPrime);
+    next_Prime = nextPrime(foundPrime);
+    ck_assert(next_Prime > foundPrime);
+
+    checkIdx = 60;
+    expPrime = 59;
+    foundPrime = maxEratosthenesPrime(&checkIdx);
+    ck_assert(foundPrime == expPrime);
+    next_Prime = nextPrime(foundPrime);
+    ck_assert(next_Prime > foundPrime);
+
+    checkIdx = 102;
+    expPrime = 101;
+    foundPrime = maxEratosthenesPrime(&checkIdx);
+    ck_assert(foundPrime == expPrime);
+    next_Prime = nextPrime(foundPrime);
+    ck_assert(next_Prime > foundPrime);
+
+    checkIdx = 795;
+    expPrime = 787;
+    foundPrime = maxEratosthenesPrime(&checkIdx);
+    ck_assert(foundPrime == expPrime);
+    next_Prime = nextPrime(foundPrime);
+    ck_assert(next_Prime > foundPrime);
+
+    checkIdx = 275;
+    expPrime = 271;
+    foundPrime = maxEratosthenesPrime(&checkIdx);
+    ck_assert(foundPrime == expPrime);
+    next_Prime = nextPrime(foundPrime);
+    ck_assert(next_Prime > foundPrime);
+
+
+    checkIdx = 580;
+    expPrime = 577;
+    foundPrime = maxEratosthenesPrime(&checkIdx);
+    ck_assert(foundPrime == expPrime);
+    next_Prime = nextPrime(foundPrime);
+    ck_assert(next_Prime > foundPrime);
+
+    checkIdx = 700;
+    expPrime = 691;
+    foundPrime = maxEratosthenesPrime(&checkIdx);
+    ck_assert(foundPrime == expPrime);
+    next_Prime = nextPrime(foundPrime);
+    ck_assert(next_Prime > foundPrime);
+}
+END_TEST
+
+
+START_TEST(charHashTest) {
+    char *char1 = "0123456789";
+    char *char2 = "0123456789";
+    char *revChar = "9876543210";
+    
+    size_t hash1 = superFastHash(char1, 10);
+    size_t hash2 = superFastHash(char2, 10);
+    size_t revHash = superFastHash(revChar, 10);
+    
+    ck_assert(hash1 == hash2);
+    ck_assert(hash1 != revHash);
+    ck_assert(hash2 != revHash);
+}
+END_TEST
+
 Suite * init_suite(void) {
     Suite * s;
     TCase *tc_core;
@@ -68,6 +149,8 @@ Suite * init_suite(void) {
     tc_core = tcase_create("Core");
 
     tcase_add_test(tc_core, primeNumberTest);
+    tcase_add_test(tc_core, nextPrimeTest);
+    tcase_add_test(tc_core, charHashTest);
     suite_add_tcase(s, tc_core);
 
     return s;
