@@ -1,9 +1,11 @@
 add_library(${PROJECT_NAME} SHARED
         graphInit.c
-        impl/arraygraph.c
-        impl/arrayops.c
-        impl/linkgraph.c
-        impl/linkops.c
+        impl/array/arraygraph.c
+        impl/array/arrayops.c
+        impl/link/linkgraph.c
+        impl/link/linkops.c
+        impl/memmap/mmapgraph.c
+        impl/memmap/mmapops.c
         util/cartesian.c
         util/crudops.c
         util/graphcomp.c

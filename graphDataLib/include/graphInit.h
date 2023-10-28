@@ -20,13 +20,17 @@
  *
  * If an empty set of flags are passed to the typeflags parameter, the returned graph will be UNDIRECTED | LINKED | GENERIC | UNLABELED.
  *
- * @param gtype Type of graph implementation to be created. Flag values set underlying structures and metadata.
- * @param lblcount Number of label nodes to be used within the graph.  Required for LABELED flag; ignored for all others.
+ * @param typeFlags Type of graph implementation to be created. Flag values set underlying structures and metadata.
+ * @param shareFlags Access control flags (privated, shared, file-based, etc)
+ * @param lblCount Number of label nodes to be used within the graph.  Required for LABELED flag; ignored for all others.
  * @param dims Dimensional parameters structure.  Required for ARRAY graphs; otherwise, may be NULL.  The returned graph will
  * hold the reference to the structure that was passed.
- * @return If successful and valied, initialized graph structure, according to the flags.  Otherwise, a NULL pointer.
+ * @return If successful and valid, initialized graph structure, according to the flags.  Otherwise, a NULL pointer.
  */
-struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct dimensions_t *dims);
+struct graph_t * initGraph(enum GRAPHDOMAIN typeFlags, size_t lblCount, struct dimensions_t *dims);
+
+
+struct graph_t * initSharedGraph(enum GRAPHDOMAIN typeFlags, enum GRAPHACCESS shareFlags, size_t lblCount, struct dimensions_t *dims, void *sharedMeta);
 
 /**
  * @brief Create and fill the graphOps_t structure that handles basic operations for the graph

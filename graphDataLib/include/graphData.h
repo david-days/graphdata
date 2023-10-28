@@ -29,18 +29,7 @@ enum GRAPHDOMAIN {
      * Each edge description {u,v} will be distinct.
      */
     DIRECTED    = 0x0001,
-    /**
-     * @brief Graph structures shared with other processes via memory-mapped files
-     * 
-     * Shared graph structures directly denote array-based graphs
-     */
-    SHARED_MMAP = 0x0002,
-    /**
-     * @brief Graph structures shared with other process via shared memory locations
-     * 
-     * Shared graph structures directly denote array-based graphs
-     */
-    SHARED_MEM  = 0x0004,
+    
     //Underlying Implementation
     /**
      * @brief The underlying implementation is an array-based structure
@@ -73,6 +62,48 @@ enum GRAPHDOMAIN {
      * @brief The graph has a set of nodes representing categorical labeling of associated nodes.
      */
     LABELED     = 0x2000
+};
+
+enum GRAPHACCESS {
+
+    /**
+     * @brief Default mode for basic graph structures.  Implies full read/write access, and memory-based.
+     * 
+     */
+    PRIVATE = 0x0000,
+
+    /**
+     * @brief Graph structures shared with other process via shared memory locations
+     * 
+     * Shared graph structures directly denote array-based graph operations
+     */
+    SHARED = 0x0001,
+    
+    /**
+     * @brief The graph structure to be access already exists, so do not reinit or zero out any values.
+     * 
+     * Default is to treat all graph init functions as starting from unstructured data.
+     */
+    EXISTING = 0x0002,
+    /**
+     * @brief Flag to indicate using a file-based (persisted) format.
+     * 
+     * Default is one of the memory based formats.  If FILE_BASED is set, then
+     * the underlying implementation is equivalent to an array-based graph
+     */
+    FILE_BASED  = 0x0010,
+    
+    /**
+     * @brief Flag to indicate read permission.  Required flag for any shared or file-based flag that is set.
+     */
+    GRAPH_READONLY = 0x0100,
+    /**
+     * @brief Flag to indicate write permission.  Required flag for any shared or file-based flag that is set.
+     * 
+     * GRAPH_WRITE also gives full READ access.
+     * 
+     */
+    GRAPH_WRITE = 0x0200
 };
 
 /**
@@ -237,6 +268,11 @@ struct graph_t {
      * @brief Type of graph being represented.
      */
     enum GRAPHDOMAIN gtype;
+    
+    /**
+     * @brief Flags for graph access and implementation structure
+     */
+    enum GRAPHACCESS gaccess;
 
     /**
      * @brief Dimensions structure for spatial graphs

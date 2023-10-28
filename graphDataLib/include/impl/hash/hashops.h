@@ -2,72 +2,63 @@
 // Created by david on 11/18/17.
 //
 
-#ifndef GRAPHDATA_ARRAYOPS_H
-#define GRAPHDATA_ARRAYOPS_H
+#ifndef GRAPHDATA_HASHOPS_H
+#define GRAPHDATA_HASHOPS_H
 
-#include <graphData.h>
+#include "graphData.h"
 
 //Read functions to extract data
 /**
- * @brief Implementation for getting the node count;
+ * @brief Function pointer definition for getting the node count;
  * @param g Graph structure in question
  * @return Count of nodes, if graph is not null; otherwise, return 0
  */
-size_t arrayNodeCount(struct graph_t *g);
+size_t hashNodeCount(struct graph_t *g);
+
 /**
- * @brief Implementation to extract count of edges
+ * @brief Function pointer to extract count of edges
  * @param g Graph structure in question
  * @return Count of edges, if graph is not null; otherwise, return 0
  */
-size_t arrayEdgeCount(struct graph_t *g);
+size_t hashEdgeCount(struct graph_t *g);
+
 /**
- * @brief Implementation to retrieve a node structure reference.
+ * @brief Function pointer to retrieve a node structure reference.
  *
- * Implementation-specific on whether this
- * structure is part of the original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based).
  * @param nodeid Identifier of the node to be retrieved
  * @param g Graph structure in question
  * @return pointer to the node structure, if found; otherwise, pointer to NULL
  */
-struct node_t * arrayGetNode(const size_t *nodeid, const struct graph_t *g);
+struct node_t * hashGetNode(const size_t *nodeid, const struct graph_t *g);
+
 /**
- * @brief Remove a node from the graph.
+ * @brief Function pointer to retrieve a edge structure reference.
  *
- * NOOP implementation.  ARRAY-based graphs are defined at initialization and do not allow removing nodes.
- *
- * @param nodeid Node id to be added.
- * @param g Graph structure in question
- * @return 0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful.
- */
-int arrayRemoveNode(const size_t *nodeid, struct graph_t *g);
-/**
- * @brief Implementation to retrieve a edge structure reference.
- *
- * Implementation-specific on whether this structure is part of the
- * original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based).
  * @param u nodeid of the starting edge.
  * @param v nodeid of the ending edge.
  * @param g Graph structure in question
  * @return pointer to the edge structure, if found; otherwise, pointer to NULL.
  */
-struct edge_t * arrayGetEdge(const size_t *u, const size_t *v, const struct graph_t *g);
+struct edge_t * hashGetEdge(const size_t *u, const size_t *v, const struct graph_t *g);
+
 /**
- * @brief Implementation to retrieve linked-list of nodes that are currently defined as neighbors to the given node.
+ * @brief Function pointer to retrieve linked-list of nodes that are currently defined as neighbors to the given node.
  *
  * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
  * @param nodeid Identifier of the node in question
  * @param g Graph structure in question
- * @return linked-list of node references, starting with the given node, if found; otherwise, pointer to NULL.
+ * @return hashed-list of node references, starting with the given node, if found; otherwise, pointer to NULL.
  */
-struct node_t * arrayGetNeighbors(const size_t *nodeid, const struct graph_t *g);
+struct node_t * hashGetNeighbors(const size_t *nodeid, const struct graph_t *g);
+
 /**
- * @brief Implementation to retrieve linked-list of edges from a given node.
+ * @brief Function pointer to retrieve linked-list of edges from a given node.
  * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
  * @param nodeid Identifier of the node in question
  * @param g Graph structure in question
- * @return linked-list of edges starting from the given node, if found; otherwise, pointer to NULL.
+ * @return hashed-list of edges starting from the given node, if found; otherwise, pointer to NULL.
  */
-struct edge_t * arrayGetEdges(const size_t *nodeid, const struct graph_t *g);
+struct edge_t * hashGetEdges(const size_t *nodeid, const struct graph_t *g);
 
 /**
  * @brief Function pointer to retrieve the current capacity value for a given edge.
@@ -81,7 +72,7 @@ struct edge_t * arrayGetEdges(const size_t *nodeid, const struct graph_t *g);
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
-int arrayGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g);
+int hashGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g);
 
 /**
  * @brief Function pointer to retrieve the current flow value for a given edge.
@@ -95,20 +86,30 @@ int arrayGetCapacity(const size_t *uid, const size_t *vid, double *cap, const st
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
-int arrayGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g);
-
+int hashGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g);
 
 //Write functions to modify graph
 /**
- * @brief Implementation to add a node to a given graph.
+ * @brief Function pointer to add a node to a given graph.
  * Not all implementations may use this (for example, fixed-size graphs such as spatial ARRAY implementations).
  * @param nodeid Node identifier to be added
  * @param g Graph structure to add the node
  * @return 0 if there was an error, 1 if the node was successfully added
  */
-int arrayAddNode(const size_t *nodeid, struct graph_t *g);
+int hashAddNode(const size_t *nodeid, struct graph_t *g);
+
 /**
- * @brief Implementation to add an edge to a given graph.
+ * @brief Remove a node from the graph.
+ *
+ * Not all implementations will allow removal of nodes.
+ * @param nodeid Node id to be added.
+ * @param g Graph structure in question
+ * @return 0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful.
+ */
+int hashRemoveNode(const size_t *nodeid, struct graph_t *g);
+
+/**
+ * @brief Function pointer to add an edge to a given graph.
  * Not all implementations may use this (for example, fixed-size ARRAY implementations representing a set domain of nodes and relationships).
  * @param uid identifer for start of edge
  * @param vid identifier for end of edge
@@ -116,34 +117,34 @@ int arrayAddNode(const size_t *nodeid, struct graph_t *g);
  * @param g graph structure in question
  * @return 0 if there was an error; 1 if the edge was successfully added.
  */
-int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g);
+int hashAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g);
 
 /**
  * @brief Function pointer to remove an edge from the given graph.
  *
- * Remove references for an edge within the structure.
+ * Allows implementations to remove a given edge from the graph, if necessary.
  *
  * @param uid Identifier for the edge start
  * @param vid Identifier for the edge end.
  * @param g Graph structure in question
  * @return 0 if there was an error (e.g. the edge was not found); otherwise, 1 if the edge was removed.
  */
-int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
+int hashRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
 
 /**
- * @brief Implementation to set the capacity (cost, weight, etc.) of an edge in the given graph.
+ * @brief Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph.
  * @param uid identifier of the edge start
  * @param vid identifier of the edge ending.
  * @param cap capacity value to be set
  * @param g Graph structure in question
  * @return 0 if there was an error; 1 if the capacity was successfully set
  */
-int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
+int hashSetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
 
 /**
  * @brief Function to add (adjust) the capacity for an edge by a given amount.
  *
- * Add the capacity value to the current capacity for the given edge.
+ * For implementations that require it, this function allows the altering of a specified edge capacity by the given amount.
  *
  * @param uid Identifier of the edge start
  * @param vid Identifier of the edge end.
@@ -151,13 +152,12 @@ int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, st
  * @param g Graph structure in question
  * @return 0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted
  */
-int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
-
+int hashAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
 
 /**
  * @brief Function to set the flow value for an edge (amount of capacity currently "used")
  *
- * Set the flow value for the given edge.
+ * For implementations that require it, this allows tracking of flow values that are used within the graph.
  *
  * @param uid Identifier of the edge start.
  * @param vid Identifier of the edge end.
@@ -165,12 +165,12 @@ int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, st
  * @param g Graph structure in question
  * @return 0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set.
  */
-int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
+int hashSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
 
 /**
  * @brief Function to adjust the flow value of a given edge.
  *
- * Add the flow value to the flow tracking of the given graph.
+ * For implementations that require it, this allows ajustment of the amount of capacity that is being "used".
  *
  * @param uid Identifier of the edge start
  * @param vid Identifier of the edge end.
@@ -178,11 +178,10 @@ int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  * @param g The graph structure in question
  * @return 0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted.
  */
-int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
-
+int hashAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
 
 /**
- * @brief Implementation to "reset" the graph according to the given argument pointer.
+ * @brief Function pointer to "reset" the graph according to the given argument pointer.
  *
  * For some implementations, it is more efficient to reuse the existing graph structure and perform a "zero-out"
  * of the data, rather than rebuilding from scratch.  This function pointer provides that option.
@@ -191,17 +190,8 @@ int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  * @param callback Callback to be executed when graph has been reset.
  * @return 0 if there was an error during the reset; 1 if the reset completed;
  */
-int arrayResetGraph(struct graph_t *g, void *args, void (*callback)(void));
-
-/**
- * @brief Utility method to free up an array
- *
- * Deallocates all unerlying arrays and the containing array.
- * @param arraylen Number of elements in the array
- * @param arr 2D array to be cleared
- * @return 1 if successful; 0 if error.
- */
-int freeGraphArray(size_t arraylen, void** arrptr);
+int hashResetGraph(struct graph_t *g, void *args, void (*callback)(void));
 
 
-#endif //GRAPHDATA_ARRAYOPS_H
+
+#endif //GRAPHDATA_HASHOPS_H

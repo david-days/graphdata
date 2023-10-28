@@ -1,9 +1,9 @@
 //
 // Created by david on 11/18/17.
 //
-#include <graphData.h>
-#include <impl/linkgraph.h>
-#include <util/crudops.h>
+#include "graphData.h"
+#include "impl/link/linkgraph.h"
+#include "util/crudops.h"
 
 
 /**

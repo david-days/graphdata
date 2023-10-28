@@ -10,9 +10,9 @@
  * layouts in order to speed up operations.
  */
 
-#include <impl/linkops.h>
-#include <util/crudops.h>
-#include <util/graphcomp.h>
+#include "impl/link/linkops.h"
+#include "util/crudops.h"
+#include "util/graphcomp.h"
 
 
 

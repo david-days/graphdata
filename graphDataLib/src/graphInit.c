@@ -5,10 +5,10 @@
 #include<graphInit.h>
 
 #include <util/crudops.h>
-#include <impl/arraygraph.h>
-#include <impl/arrayops.h>
-#include <impl/linkgraph.h>
-#include <impl/linkops.h>
+#include "impl/array/arraygraph.h"
+#include "impl/array/arrayops.h"
+#include "impl/link/linkgraph.h"
+#include "impl/link/linkops.h"
 
 
 static void setArrayOps(struct graphops_t *gops) {

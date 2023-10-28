@@ -4,9 +4,9 @@
  *
  *
  */
-#include <impl/arraygraph.h>
-#include <impl/arrayops.h>
-#include <util/graphcomp.h>
+#include "impl/array/arraygraph.h"
+#include "impl/array/arrayops.h"
+#include "util/graphcomp.h"
 #include <stdlib.h>
 
 /**

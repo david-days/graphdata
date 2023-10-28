@@ -5,7 +5,7 @@
 #ifndef GRAPHDATA_LINKGRAPH_H
 #define GRAPHDATA_LINKGRAPH_H
 
-#include <graphData.h>
+#include "graphData.h"
 
 /**
  * @brief Initialize a linked-list graph backing structure

@@ -1,8 +1,0 @@
-//
-// Created by david on 10/21/23.
-//
-
-#ifndef GRAPHDATA_SHAREDMMAPOPS_H
-#define GRAPHDATA_SHAREDMMAPOPS_H
-
-#endif //GRAPHDATA_SHAREDMMAPOPS_H

@@ -2,10 +2,10 @@
 // Created by david on 11/18/17.
 //
 
-#ifndef GRAPHDATA_HASHOPS_H
-#define GRAPHDATA_HASHOPS_H
+#ifndef GRAPHDATA_LINKOPS_H
+#define GRAPHDATA_LINKOPS_H
 
-#include <graphData.h>
+#include "graphData.h"
 
 //Read functions to extract data
 /**
@@ -13,33 +13,37 @@
  * @param g Graph structure in question
  * @return Count of nodes, if graph is not null; otherwise, return 0
  */
-size_t hashNodeCount(struct graph_t *g);
+size_t linkNodeCount(struct graph_t *g);
 
 /**
  * @brief Function pointer to extract count of edges
  * @param g Graph structure in question
  * @return Count of edges, if graph is not null; otherwise, return 0
  */
-size_t hashEdgeCount(struct graph_t *g);
+size_t linkEdgeCount(struct graph_t *g);
 
 /**
  * @brief Function pointer to retrieve a node structure reference.
  *
+ * Implementation-specific on whether this
+ * structure is part of the original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based).
  * @param nodeid Identifier of the node to be retrieved
  * @param g Graph structure in question
  * @return pointer to the node structure, if found; otherwise, pointer to NULL
  */
-struct node_t * hashGetNode(const size_t *nodeid, const struct graph_t *g);
+struct node_t * linkGetNode(const size_t *nodeid, const struct graph_t *g);
 
 /**
  * @brief Function pointer to retrieve a edge structure reference.
  *
+ * Implementation-specific on whether this structure is part of the
+ * original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based).
  * @param u nodeid of the starting edge.
  * @param v nodeid of the ending edge.
  * @param g Graph structure in question
  * @return pointer to the edge structure, if found; otherwise, pointer to NULL.
  */
-struct edge_t * hashGetEdge(const size_t *u, const size_t *v, const struct graph_t *g);
+struct edge_t * linkGetEdge(const size_t *u, const size_t *v, const struct graph_t *g);
 
 /**
  * @brief Function pointer to retrieve linked-list of nodes that are currently defined as neighbors to the given node.
@@ -47,18 +51,18 @@ struct edge_t * hashGetEdge(const size_t *u, const size_t *v, const struct graph
  * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
  * @param nodeid Identifier of the node in question
  * @param g Graph structure in question
- * @return hashed-list of node references, starting with the given node, if found; otherwise, pointer to NULL.
+ * @return linked-list of node references, starting with the given node, if found; otherwise, pointer to NULL.
  */
-struct node_t * hashGetNeighbors(const size_t *nodeid, const struct graph_t *g);
+struct node_t * linkGetNeighbors(const size_t *nodeid, const struct graph_t *g);
 
 /**
  * @brief Function pointer to retrieve linked-list of edges from a given node.
  * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
  * @param nodeid Identifier of the node in question
  * @param g Graph structure in question
- * @return hashed-list of edges starting from the given node, if found; otherwise, pointer to NULL.
+ * @return linked-list of edges starting from the given node, if found; otherwise, pointer to NULL.
  */
-struct edge_t * hashGetEdges(const size_t *nodeid, const struct graph_t *g);
+struct edge_t * linkGetEdges(const size_t *nodeid, const struct graph_t *g);
 
 /**
  * @brief Function pointer to retrieve the current capacity value for a given edge.
@@ -72,7 +76,7 @@ struct edge_t * hashGetEdges(const size_t *nodeid, const struct graph_t *g);
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
-int hashGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g);
+int linkGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g);
 
 /**
  * @brief Function pointer to retrieve the current flow value for a given edge.
@@ -86,7 +90,7 @@ int hashGetCapacity(const size_t *uid, const size_t *vid, double *cap, const str
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
-int hashGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g);
+int linkGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g);
 
 //Write functions to modify graph
 /**
@@ -96,7 +100,7 @@ int hashGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct
  * @param g Graph structure to add the node
  * @return 0 if there was an error, 1 if the node was successfully added
  */
-int hashAddNode(const size_t *nodeid, struct graph_t *g);
+int linkAddNode(const size_t *nodeid, struct graph_t *g);
 
 /**
  * @brief Remove a node from the graph.
@@ -106,7 +110,7 @@ int hashAddNode(const size_t *nodeid, struct graph_t *g);
  * @param g Graph structure in question
  * @return 0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful.
  */
-int hashRemoveNode(const size_t *nodeid, struct graph_t *g);
+int linkRemoveNode(const size_t *nodeid, struct graph_t *g);
 
 /**
  * @brief Function pointer to add an edge to a given graph.
@@ -117,7 +121,7 @@ int hashRemoveNode(const size_t *nodeid, struct graph_t *g);
  * @param g graph structure in question
  * @return 0 if there was an error; 1 if the edge was successfully added.
  */
-int hashAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g);
+int linkAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g);
 
 /**
  * @brief Function pointer to remove an edge from the given graph.
@@ -129,7 +133,7 @@ int hashAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_
  * @param g Graph structure in question
  * @return 0 if there was an error (e.g. the edge was not found); otherwise, 1 if the edge was removed.
  */
-int hashRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
+int linkRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
 
 /**
  * @brief Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph.
@@ -139,7 +143,7 @@ int hashRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
  * @param g Graph structure in question
  * @return 0 if there was an error; 1 if the capacity was successfully set
  */
-int hashSetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
+int linkSetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
 
 /**
  * @brief Function to add (adjust) the capacity for an edge by a given amount.
@@ -152,7 +156,7 @@ int hashSetCapacity(const size_t *uid, const size_t *vid, const double *cap, str
  * @param g Graph structure in question
  * @return 0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted
  */
-int hashAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
+int linkAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
 
 /**
  * @brief Function to set the flow value for an edge (amount of capacity currently "used")
@@ -165,7 +169,7 @@ int hashAddCapacity(const size_t *uid, const size_t *vid, const double *cap, str
  * @param g Graph structure in question
  * @return 0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set.
  */
-int hashSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
+int linkSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
 
 /**
  * @brief Function to adjust the flow value of a given edge.
@@ -178,7 +182,7 @@ int hashSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct
  * @param g The graph structure in question
  * @return 0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted.
  */
-int hashAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
+int linkAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
 
 /**
  * @brief Function pointer to "reset" the graph according to the given argument pointer.
@@ -190,8 +194,7 @@ int hashAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct
  * @param callback Callback to be executed when graph has been reset.
  * @return 0 if there was an error during the reset; 1 if the reset completed;
  */
-int hashResetGraph(struct graph_t *g, void *args, void (*callback)(void));
+int linkResetGraph(struct graph_t *g, void *args, void (*callback)(void));
 
 
-
-#endif //GRAPHDATA_HASHOPS_H
+#endif //GRAPHDATA_LINKOPS_H

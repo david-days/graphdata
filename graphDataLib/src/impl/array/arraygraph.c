@@ -8,10 +8,10 @@
  * The node structure also holds the edge structure, so graph_t->edgeImpl is NULL.
  */
 
-#include <impl/arraygraph.h>
+#include <impl/array/arraygraph.h>
 #include <util/cartesian.h>
 #include <stdlib.h>
-#include <impl/arrayops.h>
+#include <impl/array/arrayops.h>
 #include <util/crudops.h>
 
 /**
