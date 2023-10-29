@@ -337,20 +337,20 @@ int arrayRemoveNode(const size_t *nodeid, struct graph_t *g) {
  * @param uid identifer for start of edge
  * @param vid identifier for end of edge
  * @param cap capacity value to be assigned
- * @param g graph structure in question
+ * @param graph graph structure in question
  * @return 0 if there was an error; 1 if the edge was successfully added.
  */
-int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g) {
+int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *graph) {
     int added = 0;
-    if (g != NULL) {
-        if (g->metaImpl != NULL) {
-            struct arraydata_t *meta = (struct arraydata_t *)g->metaImpl;
+    if (graph != NULL) {
+        if (graph->metaImpl != NULL) {
+            struct arraydata_t *meta = (struct arraydata_t *)graph->metaImpl;
             const size_t *u = minNode((size_t *)uid, (size_t *)vid);
             const size_t *v = maxNode((size_t *)uid, (size_t *)vid);
             size_t nidx = *u * meta->degree;
-            size_t *nodarr = (size_t *)g->nodeImpl;
-            double *caparr = (double *)g->capImpl;
-            double *farr = (double *)g->flowImpl;
+            size_t *nodarr = (size_t *)graph->nodeImpl;
+            double *caparr = (double *)graph->capImpl;
+            double *farr = (double *)graph->flowImpl;
             if (*u < meta->nodelen) {
                 size_t offset = 0;
                 while (!added && offset < meta->degree) {
@@ -377,30 +377,30 @@ int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph
  *
  * @param uid Identifier for the edge start
  * @param vid Identifier for the edge end.
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return 0 if there was an error (e.g. the edge was not found); otherwise, 1 if the edge was removed.
  */
-int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g) {
+int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *graph) {
     int removed = 0;
     size_t eOffset = 0;
     size_t eIdx = 0;
     const size_t *u = uid;
     const size_t *v = vid;
-    if (g->gtype == UNDIRECTED) {
+    if (graph->gtype == UNDIRECTED) {
         u = minNode((size_t *)uid, (size_t *)vid);
         v = maxNode((size_t *)uid, (size_t *)vid);
     }
 
-    if (g->metaImpl != NULL) {
-        if (findEdgeOffset(u, v, &eIdx, &eOffset, g)) {
-            size_t *narr = (size_t *)g->nodeImpl;
+    if (graph->metaImpl != NULL) {
+        if (findEdgeOffset(u, v, &eIdx, &eOffset, graph)) {
+            size_t *narr = (size_t *)graph->nodeImpl;
             *(narr + eIdx + eOffset) = 0;
-            if (g->capImpl != NULL) {
-                double *caparr = (double *)g->capImpl;
+            if (graph->capImpl != NULL) {
+                double *caparr = (double *)graph->capImpl;
                 *(caparr + eIdx + eOffset) = 0.0;
             }
-            if (g->flowImpl != NULL) {
-                double *farr = (double *)g->flowImpl;
+            if (graph->flowImpl != NULL) {
+                double *farr = (double *)graph->flowImpl;
                 *(farr + eIdx + eOffset) = 0.0;
             }
             removed = 1;
@@ -414,23 +414,23 @@ int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g) {
  * @param uid identifier of the edge start
  * @param vid identifier of the edge ending.
  * @param cap capacity value to be set
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return 0 if there was an error; 1 if the capacity was successfully set
  */
-int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g){
+int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph){
     int retval = 0;
     size_t eOffset = 0;
     size_t eIdx = 0;
     const size_t *u = uid;
     const size_t *v = vid;
-    if (g->gtype == UNDIRECTED) {
+    if (graph->gtype == UNDIRECTED) {
         u = minNode((size_t *)uid, (size_t *)vid);
         v = maxNode((size_t *)uid, (size_t *)vid);
     }
 
-    if (g->capImpl != NULL && g->metaImpl != NULL) {
-        if (findEdgeOffset(u, v, &eIdx, &eOffset, g)) {
-            double *caparr = (double *)g->capImpl;
+    if (graph->capImpl != NULL && graph->metaImpl != NULL) {
+        if (findEdgeOffset(u, v, &eIdx, &eOffset, graph)) {
+            double *caparr = (double *)graph->capImpl;
             *(caparr + eIdx + eOffset) = *cap;
             retval = 1;
         }
@@ -448,22 +448,22 @@ int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, st
  * @param uid Identifier of the edge start
  * @param vid Identifier of the edge end.
  * @param cap Value to adjust the capacity
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return 0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted
  */
-int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g){
+int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph){
     int retval = 0;
     size_t eIdx = 0;
     size_t eOffset = 0;
     const size_t *u = uid;
     const size_t *v = vid;
-    if (g->gtype == UNDIRECTED) {
+    if (graph->gtype == UNDIRECTED) {
         u = minNode((size_t *)uid, (size_t *)vid);
         v = maxNode((size_t *) uid, (size_t *)vid);
     }
-    if (g->capImpl != NULL && g->metaImpl != NULL) {
-        if (findEdgeOffset(u,v,&eIdx, &eOffset, g)) {
-            double *caparr = (double *)g->capImpl;
+    if (graph->capImpl != NULL && graph->metaImpl != NULL) {
+        if (findEdgeOffset(u, v, &eIdx, &eOffset, graph)) {
+            double *caparr = (double *)graph->capImpl;
             *(caparr + eIdx + eOffset) += *cap;
             retval = 1;
         }
@@ -479,23 +479,23 @@ int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, st
  * @param uid Identifier of the edge start.
  * @param vid Identifier of the edge end.
  * @param flow Value to be set for the flow.
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return 0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set.
  */
-int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g){
+int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph){
     int retval = 0;
     size_t eOffset = 0;
     size_t eIdx = 0;
     const size_t *u = uid;
     const size_t *v = vid;
-    if (g->gtype == UNDIRECTED) {
+    if (graph->gtype == UNDIRECTED) {
         u = minNode((size_t *)uid, (size_t *)vid);
         v = maxNode((size_t *)uid, (size_t *)vid);
     }
 
-    if (g->flowImpl != NULL && g->metaImpl != NULL) {
-        if (findEdgeOffset(u, v, &eIdx, &eOffset, g)) {
-            double *farr = (double *)g->flowImpl;
+    if (graph->flowImpl != NULL && graph->metaImpl != NULL) {
+        if (findEdgeOffset(u, v, &eIdx, &eOffset, graph)) {
+            double *farr = (double *)graph->flowImpl;
             *(farr + eIdx + eOffset) = *flow;
             retval = 1;
         }
@@ -512,22 +512,22 @@ int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  * @param uid Identifier of the edge start
  * @param vid Identifier of the edge end.
  * @param flow The value to be added to adjust the flow value.
- * @param g The graph structure in question
+ * @param graph The graph structure in question
  * @return 0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted.
  */
-int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g){
+int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph){
     int retval = 0;
     size_t eIdx = 0;
     size_t eOffset = 0;
     const size_t *u = uid;
     const size_t *v = vid;
-    if (g->gtype == UNDIRECTED) {
+    if (graph->gtype == UNDIRECTED) {
         u = minNode((size_t *)uid, (size_t *)vid);
         v = maxNode((size_t *) uid, (size_t *)vid);
     }
-    if (g->flowImpl != NULL && g->metaImpl != NULL) {
-        if (findEdgeOffset(u,v,&eIdx, &eOffset, g)) {
-            double *farr = (double *)g->flowImpl;
+    if (graph->flowImpl != NULL && graph->metaImpl != NULL) {
+        if (findEdgeOffset(u, v, &eIdx, &eOffset, graph)) {
+            double *farr = (double *)graph->flowImpl;
             *(farr + eIdx + eOffset) += *flow;
             retval = 1;
         }
@@ -541,17 +541,17 @@ int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  *
  * For this implementation, the args value is ignored and the edge values are set to 0.0 again.
  *
- * @param g Graph structure to be zeroed or modified according to reset logic
+ * @param graph Graph structure to be zeroed or modified according to reset logic
  * @param args Arguments to be((arraydata_t *)g->metaImpl used in the reset process, if necessary
  * @param callback Callback to be executed when graph has been reset.
  * @return 0 if there was an error during the reset; 1 if the reset completed;
  */
-int arrayResetGraph(struct graph_t *g, void *args, void (*callback)(void)) {
+int arrayResetGraph(struct graph_t *graph, void *args, void (*callback)(void)) {
     int retval = 0;
-    struct arraydata_t *gmeta = (struct arraydata_t *)g->metaImpl;
+    struct arraydata_t *gmeta = (struct arraydata_t *)graph->metaImpl;
     if (gmeta != NULL) {
-        retval = zeroDoubleArray(gmeta->edgelen, gmeta->degree, (double *)g->capImpl);
-        retval = retval & zeroDoubleArray(gmeta->edgelen, gmeta->degree, (double *)g->flowImpl);
+        retval = zeroDoubleArray(gmeta->edgelen, gmeta->degree, (double *)graph->capImpl);
+        retval = retval & zeroDoubleArray(gmeta->edgelen, gmeta->degree, (double *)graph->flowImpl);
     }
     return retval;
 }

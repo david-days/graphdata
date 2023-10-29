@@ -48,7 +48,7 @@ cpp_indent_case_contents_when_block = true
 [*.{ps1,psm1,psd1}]
 indent_style = tab
 
-[*.{sh,run,bat}]
+[*.{sh,run}]
 indent_size = tab
 indent_style = tab
 

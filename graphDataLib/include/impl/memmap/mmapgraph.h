@@ -69,6 +69,39 @@ struct mmapdata_t {
 };
 
 /**
+ * @brief Initialize a memory-mapped structure a node neighbors array 
+ * @param nlen Number/length of the nodes
+ * @param conlen number of connnections per
+ * @param zeroOut 0 to use the mempry as-is (going to revive a persisted graph, for example); 1 to initialize to all zeroes 
+ * @param prot_flags MMap PROT_ flags
+ * @param mmap_flags MMap access flags
+ * @param nodeFd File descriptor for the backing file.
+ * @return Memory address of the file-backed mmap array
+ */
+void * initMmapInt(size_t nlen, size_t conlen, size_t zeroOut, int prot_flags, int mmap_flags, int nodeFd);
+
+/**
+ * @brief Initialize a memory-backed double array
+ * @param nlen Number of nodes
+ * @param conlen connectivity (number of edges)
+ * @param zeroOut 0 to use the memory as-is; 1 to initialize to all zeroes.
+ * @param prot_flags MMap PROT_ flags
+ * @param mmap_flags MMap access flags
+ * @param doubleFd File descriptor for the backing file
+ * @return Memroy address of the file-backed mmap array
+ */
+void * initMMapDouble(size_t nlen, size_t conlen, size_t zeroOut, int prot_flags, int mmap_flags, int doubleFd);
+
+struct mmapdata_t * initMMapMeta(void *addr, int prot_flags, int mmap_flags, int metaFd);
+
+/**
+ * Free the metadata memory at the given location
+ * @param metaptr 
+ * @return 1 if successful, 0 if not
+ */
+int freeMMapMeta(void **metaptr);
+
+/**
  * @brief Set up a graph with memory-mapped files backing data
  *
  * @param g Graph structure
@@ -85,5 +118,20 @@ int mmapGraphInit(struct graph_t *g);
  */
 int mmapGraphFree(struct graph_t *g);
 
+/**
+ * @brief Free the mmap memory for an integer (size_t values) structure at the given address and length
+ * @param arrPtr in-memory address address
+ * @param memLen number of buckets of the memory segment
+ * @return 1 if successful, 0 if not 
+ */
+int freeMMapInt(void **arrPtr, size_t memLen);
+
+/**
+ * @brief Free the mmap memory for a double structure at the given address and length
+ * @param dblPtr  in-memory address
+ * @param memLen number of buckets of the memory segment
+ * @return 1 if successful, 0 if not
+ */
+int freeMMapDouble(void **dblPtr, size_t memLen);
 
 #endif //GRAPHDATA_MMAPGRAPH_H

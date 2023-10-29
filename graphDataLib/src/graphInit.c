@@ -86,10 +86,13 @@ static void setLinkOps(struct graphops_t *gops) {
  */
 struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct dimensions_t *dims) {
 
-    struct graph_t *g = NULL;
+    struct graph_t *graph = NULL;
 
     //Create switch selectors for graph types
-    enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype;
+    enum GRAPHDOMAIN dirtype;
+    enum GRAPHDOMAIN imptype;
+    enum GRAPHDOMAIN labtype;
+    enum GRAPHDOMAIN domaintype;
 
     if (parseTypeFlags(&typeflags, &dirtype, &imptype, &labtype, &domaintype)) {
         //need dimensions for array type
@@ -103,38 +106,38 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
             return NULL;
         }
 
-        g = basicGraphInit();
-        if (g != NULL) {
+        graph = basicGraphInit();
+        if (graph != NULL) {
             struct labels_t *labels = NULL;
             if (labtype == LABELED) {
                 labels = initLabels(lblcount);
             }
 
-            g->gtype = typeflags;
-            g->dims = dims;
-            g->labels = labels;
+            graph->gtype = typeflags;
+            graph->dims = dims;
+            graph->labels = labels;
             int initSuccess = 0;
             switch(imptype) {
                 case ARRAY:
-                    initSuccess = arrayGraphInit(g);
+                    initSuccess = arrayGraphInit(graph);
                     break;
                 case HASHED:
                     //initSuccess = hashGraphInit(g);
                     break;
                 default:
-                    initSuccess = linkGraphInit(g);
+                    initSuccess = linkGraphInit(graph);
                     break;
             }
             if (!initSuccess) {
                 //something went wrong--clean up
-                clearGraph(g);
-                destroyGraph((void **)&(g));
+                clearGraph(graph);
+                destroyGraph((void **)&(graph));
             }
         }
 
     }
 
-    return g;
+    return graph;
 }
 
 
@@ -144,20 +147,23 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
  * Using the graph_t implementation pass, this function creates a graphops_t structure necessary to handle basic functions
  * for the given graph.
  *
- * @param g Graph structure being used
+ * @param graph Graph structure being used
  * @return Pointer to a new graphops_t structure, if successful; otherwise, a pointer to NULL
  *
  */
-struct graphops_t * getOperations(struct graph_t *g) {
+struct graphops_t * getOperations(struct graph_t *graph) {
     struct graphops_t *gops = NULL;
     //Create switch selectors for graph types
 
-    if (g != NULL) {
-        enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype;
-        enum GRAPHDOMAIN gflags = g->gtype;
+    if (graph != NULL) {
+        enum GRAPHDOMAIN dirtype;
+        enum GRAPHDOMAIN imptype;
+        enum GRAPHDOMAIN labtype;
+        enum GRAPHDOMAIN domaintype;
+        enum GRAPHDOMAIN gflags = graph->gtype;
         if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype)) {
             gops = initGraphops();
-            gops->g = g;
+            gops->graph = graph;
             switch (imptype) {
                 case ARRAY:
                     setArrayOps(gops);
@@ -180,22 +186,25 @@ struct graphops_t * getOperations(struct graph_t *g) {
  *
  * All underlying graph structures will be cleared and the associated memory to the structures freed.
  *
- * @param g Graph to be cleared
+ * @param graph Graph to be cleared
  * @return 1 if successful; otherwise, 0.
  */
-int clearGraph(struct graph_t *g) {
+int clearGraph(struct graph_t *graph) {
     int retval = 1;
-    if (g != NULL) {
-        enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype;
-        enum GRAPHDOMAIN gflags = g->gtype;
+    if (graph != NULL) {
+        enum GRAPHDOMAIN dirtype;
+        enum GRAPHDOMAIN imptype;
+        enum GRAPHDOMAIN labtype;
+        enum GRAPHDOMAIN domaintype;
+        enum GRAPHDOMAIN gflags = graph->gtype;
         if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype)) {
 
             switch (imptype) {
                 case ARRAY:
-                    retval = retval & arrayGraphFree(g);
+                    retval = retval & arrayGraphFree(graph);
                     break;
                 case LINKED:
-                    retval = retval & linkGraphFree(g);
+                    retval = retval & linkGraphFree(graph);
                     break;
                 case HASHED:
                     //TODO:  implement clearing operations

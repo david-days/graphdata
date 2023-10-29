@@ -13,14 +13,14 @@
  * @param g Graph structure in question
  * @return Count of nodes, if graph is not null; otherwise, return 0
  */
-typedef size_t (*funcNodeCount)(struct graph_t *g);
+typedef size_t (*funcNodeCount)(struct graph_t *graph);
 
 /**
  * @brief Function pointer to extract count of edges
  * @param g Graph structure in question
  * @return Count of edges, if graph is not null; otherwise, return 0
  */
-typedef size_t (*funcEdgeCount)(struct graph_t *g);
+typedef size_t (*funcEdgeCount)(struct graph_t *graph);
 
 /**
  * @brief Function pointer to retrieve a node structure reference.
@@ -31,7 +31,7 @@ typedef size_t (*funcEdgeCount)(struct graph_t *g);
  * @param g Graph structure in question
  * @return pointer to the node structure, if found; otherwise, pointer to NULL
  */
-typedef struct node_t * (*funcGetNode)(const size_t *nodeid, const struct graph_t *g);
+typedef struct node_t * (*funcGetNode)(const size_t *nodeid, const struct graph_t *graph);
 
 /**
  * @brief Function pointer to retrieve a edge structure reference.
@@ -43,7 +43,8 @@ typedef struct node_t * (*funcGetNode)(const size_t *nodeid, const struct graph_
  * @param g Graph structure in question
  * @return pointer to the edge structure, if found; otherwise, pointer to NULL.
  */
-typedef struct edge_t * (*funcGetEdge)(const size_t *u, const size_t *v, const struct graph_t *g);
+ //NOLINT readability-identifier-length
+typedef struct edge_t * (*funcGetEdge)(const size_t *u, const size_t *v, const struct graph_t *graph);
 
 /**
  * @brief Function pointer to retrieve linked-list of nodes that are currently defined as neighbors to the given node.
@@ -53,7 +54,7 @@ typedef struct edge_t * (*funcGetEdge)(const size_t *u, const size_t *v, const s
  * @param g Graph structure in question
  * @return linked-list of node references, starting with the given node, if found; otherwise, pointer to NULL.
  */
-typedef struct node_t * (*funcGetNeighbors)(const size_t *nodeid, const struct graph_t *g);
+typedef struct node_t * (*funcGetNeighbors)(const size_t *nodeid, const struct graph_t *graph);
 
 /**
  * @brief Function pointer to retrieve linked-list of edges from a given node.
@@ -62,7 +63,7 @@ typedef struct node_t * (*funcGetNeighbors)(const size_t *nodeid, const struct g
  * @param g Graph structure in question
  * @return linked-list of edges starting from the given node, if found; otherwise, pointer to NULL.
  */
-typedef struct edge_t * (*funcGetEdges)(const size_t *nodeid, const struct graph_t *g);
+typedef struct edge_t * (*funcGetEdges)(const size_t *nodeid, const struct graph_t *graph);
 
 /**
  * @brief Function pointer to retrieve the current capacity value for a given edge.
@@ -76,7 +77,7 @@ typedef struct edge_t * (*funcGetEdges)(const size_t *nodeid, const struct graph
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
-typedef int (*funcGetCapacity)(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g);
+typedef int (*funcGetCapacity)(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *graph);
 
 /**
  * @brief Function pointer to retrieve the current flow value for a given edge.
@@ -90,7 +91,7 @@ typedef int (*funcGetCapacity)(const size_t *uid, const size_t *vid, double *cap
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
-typedef int (*funcGetFlow)(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g);
+typedef int (*funcGetFlow)(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *graph);
 
 //Write functions to modify graph
 /**
@@ -100,7 +101,7 @@ typedef int (*funcGetFlow)(const size_t *uid, const size_t *vid, double *flow, c
  * @param g Graph structure to add the node
  * @return 0 if there was an error, 1 if the node was successfully added
  */
-typedef int (*funcAddNode)(const size_t *nodeid, struct graph_t *g);
+typedef int (*funcAddNode)(const size_t *nodeid, struct graph_t *graph);
 
 /**
  * @brief Remove a node from the graph.
@@ -110,7 +111,7 @@ typedef int (*funcAddNode)(const size_t *nodeid, struct graph_t *g);
  * @param g Graph structure in question
  * @return 0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful.
  */
-typedef int (*funcRemoveNode)(const size_t *nodeid, struct graph_t *g);
+typedef int (*funcRemoveNode)(const size_t *nodeid, struct graph_t *graph);
 
 /**
  * @brief Function pointer to add an edge to a given graph.
@@ -121,7 +122,7 @@ typedef int (*funcRemoveNode)(const size_t *nodeid, struct graph_t *g);
  * @param g graph structure in question
  * @return 0 if there was an error; 1 if the edge was successfully added.
  */
-typedef int (*funcAddEdge)(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g);
+typedef int (*funcAddEdge)(const size_t *uid, const size_t *vid, double *cap, struct graph_t *graph);
 
 /**
  * @brief Function pointer to remove an edge from the given graph.
@@ -133,7 +134,7 @@ typedef int (*funcAddEdge)(const size_t *uid, const size_t *vid, double *cap, st
  * @param g Graph structure in question
  * @return 0 if there was an error (e.g. the edge was not found); otherwise, 1 if the edge was removed.
  */
-typedef int (*funcRemoveEdge)(const size_t *uid, const size_t *vid, struct graph_t *g);
+typedef int (*funcRemoveEdge)(const size_t *uid, const size_t *vid, struct graph_t *graph);
 
 /**
  * @brief Function pointer to set the capacity (cost, weight, etc.) of an edge in the given graph.
@@ -143,7 +144,7 @@ typedef int (*funcRemoveEdge)(const size_t *uid, const size_t *vid, struct graph
  * @param g Graph structure in question
  * @return 0 if there was an error; 1 if the capacity was successfully set
  */
-typedef int (*funcSetCapacity)(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
+typedef int (*funcSetCapacity)(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph);
 
 /**
  * @brief Function to add (adjust) the capacity for an edge by a given amount.
@@ -156,7 +157,7 @@ typedef int (*funcSetCapacity)(const size_t *uid, const size_t *vid, const doubl
  * @param g Graph structure in question
  * @return 0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted
  */
-typedef int (*funcAddCapacity)(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
+typedef int (*funcAddCapacity)(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph);
 
 /**
  * @brief Function to set the flow value for an edge (amount of capacity currently "used")
@@ -169,7 +170,7 @@ typedef int (*funcAddCapacity)(const size_t *uid, const size_t *vid, const doubl
  * @param g Graph structure in question
  * @return 0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set.
  */
-typedef int (*funcSetFlow)(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
+typedef int (*funcSetFlow)(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph);
 
 /**
  * @brief Function to adjust the flow value of a given edge.
@@ -182,7 +183,7 @@ typedef int (*funcSetFlow)(const size_t *uid, const size_t *vid, const double *f
  * @param g The graph structure in question
  * @return 0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted.
  */
-typedef int (*funcAddFlow)(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
+typedef int (*funcAddFlow)(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph);
 
 /**
  * @brief Function pointer to "reset" the graph according to the given argument pointer.
@@ -194,7 +195,7 @@ typedef int (*funcAddFlow)(const size_t *uid, const size_t *vid, const double *f
  * @param callback Callback to be executed when graph has been reset.
  * @return 0 if there was an error during the reset; 1 if the reset completed;
  */
-typedef int (*funcResetGraph)(struct graph_t *g, void *args, void (*callback)(void));
+typedef int (*funcResetGraph)(struct graph_t *graph, void *args, void (*callback)(void));
 
 
 /**
@@ -209,7 +210,7 @@ struct graphops_t {
     /**
      * @brief Graph data structure
      */
-    struct graph_t *g;
+    struct graph_t *graph;
 
     //Getters
     /**

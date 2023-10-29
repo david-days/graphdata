@@ -13,7 +13,7 @@
 START_TEST(rawGraphopsTest) {
     struct graphops_t *gops = initGraphops();
     ck_assert(NULL != gops);
-    ck_assert(NULL == gops->g);
+    ck_assert(NULL == gops->graph);
     ck_assert(NULL == gops->addEdge);
     ck_assert(NULL == gops->addNode);
     ck_assert(NULL == gops->edgeCount);

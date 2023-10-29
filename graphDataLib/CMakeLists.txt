@@ -19,6 +19,10 @@ string(TIMESTAMP PROJECT_VERSION_TWEAK %Y%m%d%H%M%S)
 
 set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 
+if ( RUN_LINTER )
+    set(CMAKE_C_CLANG_TIDY clang-tidy -extra-arg=-Wno-unknown-warning-option)
+endif( RUN_LINTER )
+
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
     message(STATUS "Configuring for Linux")
     # Linux configuration files

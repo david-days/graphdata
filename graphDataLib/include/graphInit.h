@@ -38,21 +38,21 @@ struct graph_t * initSharedGraph(enum GRAPHDOMAIN typeFlags, enum GRAPHACCESS sh
  * Using the graph_t implementation pass, this function creates a graphops_t structure necessary to handle basic functions
  * for the given graph.
  *
- * @param g Graph structure being used
+ * @param graph Graph structure being used
  * @return Pointer to a new graphops_t structure, if successful; otherwise, a pointer to NULL
  *
  */
-struct graphops_t * getOperations(struct graph_t *g);
+struct graphops_t * getOperations(struct graph_t *graph);
 
 /**
  * @brief Clear out the graph's underlying structures, and null out the memory
  *
  * All underlying graph structures will be cleared and the associated memory to the structures freed.
  *
- * @param g Graph to be cleared
+ * @param graph Graph to be cleared
  * @return 1 if successful; otherwise, 0.
  */
-int clearGraph(struct graph_t *g);
+int clearGraph(struct graph_t *graph);
 
 
 #endif //GRAPHDATA_GRAPHINIT_H

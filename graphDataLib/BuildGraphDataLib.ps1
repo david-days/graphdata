@@ -7,6 +7,7 @@ param (
     [switch]$vv = $false,
     [switch]$package = $false,
     [switch]$d = $false,
+    [switch]$l = $false,
     [switch]$help = $false
 )
 
@@ -69,6 +70,9 @@ if ($help) {
     Write-Host "	-test       Build and run tests, then exit"
     Write-Host "	-v          Print out CMAKE build variables and exit"
     Write-Host "	-vv         Print all CMAKE build variables used during build"
+    Write-Host "    -package    Package the file according to platform"
+    Write-Host "    -d          Create local documentation for the code"
+    Write-Host "    -l          Run the linter on the code during build"
     Write-Host "	-help       Print this help and exit"
     exit 0
     ;;
@@ -111,7 +115,12 @@ if ($vv) {
     $printAllVars = 1
 }
 
-& cmake . --toolchain $toolChainFile -B $projBuildDir -DPRINT_ALL_VARS=$printAllVars 
+$runLinter = 0
+if ($l) {
+    $runLinter = 1
+}
+
+& cmake . --toolchain $toolChainFile -B $projBuildDir -DPRINT_ALL_VARS=$printAllVars -DRUN_LINTER=$runLinter 
 & cd $projBuildDir 
 & make all 
 

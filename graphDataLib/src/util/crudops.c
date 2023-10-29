@@ -131,7 +131,7 @@ struct labels_t * initLabels(size_t lblcount) {
 struct graphops_t * initGraphops() {
     struct graphops_t *gops = (struct graphops_t *) malloc(sizeof(struct graphops_t));
     if (NULL != gops) {
-        gops->g = NULL;
+        gops->graph = NULL;
         gops->addEdge = NULL;
         gops->addNode = NULL;
         gops->edgeCount = NULL;
@@ -370,7 +370,7 @@ int destroyGraphops(void** opsptr) {
     int retval = 0;
     if (NULL != *opsptr) {
         struct graphops_t *gops = *opsptr;
-        gops->g = NULL;
+        gops->graph = NULL;
         gops->setCapacity = NULL;
         gops->resetGraph = NULL;
         gops->nodeCount = NULL;

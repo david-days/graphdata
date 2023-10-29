@@ -19,33 +19,33 @@
  * @return Pointer to new metadata structure, if successful; NULL pointer, otherwise
  */
 static struct arraydata_t * initArrayMeta() {
-    struct arraydata_t *ameta = NULL;
-    ameta = (struct arraydata_t *)malloc(sizeof(struct arraydata_t));
-    if (ameta != NULL) {
-        ameta->nodelen = 0;
-        ameta->edgelen = 0;
-        ameta->degree = 0;
+    struct arraydata_t *aMeta = NULL;
+    aMeta = (struct arraydata_t *)malloc(sizeof(struct arraydata_t));
+    if (aMeta != NULL) {
+        aMeta->nodelen = 0;
+        aMeta->edgelen = 0;
+        aMeta->degree = 0;
     }
-    return ameta;
+    return aMeta;
 }
 
 /**
  * @brief Utilty function to free up allocated memory for array-graph metadata
- * @param metaptr pointer-to-pointer for metadata
+ * @param metaPtr pointer-to-pointer for metadata
  * @return 1 if successful; 0 if error.
  */
-static int freeArrayMeta(void** metaptr) {
-    int retval = 0;
-    if (*metaptr != NULL) {
-        struct arraydata_t *mptr = (struct arraydata_t *)metaptr;
+static int freeArrayMeta(void** metaPtr) {
+    int retVal = 0;
+    if (*metaPtr != NULL) {
+        struct arraydata_t *mptr = (struct arraydata_t *)metaPtr;
         mptr->degree = 0;
         mptr->edgelen = 0;
         mptr->nodelen = 0;
-        free(*metaptr);
-        *metaptr = NULL;
-        retval = 1;
+        free(*metaPtr);
+        *metaPtr = NULL;
+        retVal = 1;
     }
-    return retval;
+    return retVal;
 }
 
 /**

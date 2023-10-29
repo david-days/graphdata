@@ -13,22 +13,27 @@ OUTPUT_VARS="false"
 OUTPUT_ALL_VARS=0
 PACKAGE="false"
 GEN_DOCS=0
+LINTER=0
 
 # Immediate action flags
-while getopts ":cithvxpd" option; do
+while getopts ":cithvxpdl" option; do
     case $option in
         c)
         	# [c]lean
         	echo cleaning...
+        	# shellcheck disable=SC2115
         	rm -rvf "${LINUX_BUILD_DIR}"/*
+            # shellcheck disable=SC2115
             rm -rvf "${BINARY_OUT_DIR}"/*
+            # shellcheck disable=SC2115
             rm -rvf "${TEST_BINARIES}"/*
+            # shellcheck disable=SC2115
             rm -rvf "${CMAKE_BUILD_DIR}"/*
       		exit 0
         	;;
      	i)
      		# [i]install
-     		cd "${LINUX_BUILD_DIR}"
+     		cd "${LINUX_BUILD_DIR}" || exit 1
      		make install
      		exit 0
      		;;
@@ -50,6 +55,10 @@ while getopts ":cithvxpd" option; do
 			# [d]ocumentation
 			GEN_DOCS=1
 			;;
+		l)
+			# [l]inter
+			LINTER=1
+			;;
   		h)
   			# [h]elp
   			echo "Usage: ./buildLinux.sh [-c | -i | -t | -v | -h]"
@@ -59,6 +68,9 @@ while getopts ":cithvxpd" option; do
   			echo "	-t Test.  Build and run tests, then exit"
   			echo "	-v Verbose.  Print out CMAKE build variables and exit"
   			echo "	-x Extra verbose.  Print all CMAKE build variables used"
+  			echo "  -p Package.  Create install packages according to the platform and configuration."
+  			echo "  -d Generate documentation.  Create the doxygen output for this code"
+  			echo "  -l Linter.  Run the clang-tidy linter"
   			echo "	-h Help.  Print this help and exit"
   			exit 0
   			;;
@@ -76,7 +88,7 @@ if [ "${OUTPUT_VARS}" == "true" ]; then
 	exit 0
 fi
 
-cmake . --toolchain "${LINUX_TOOLCHAIN}" -B "${LINUX_BUILD_DIR}" -DPRINT_ALL_VARS="${OUTPUT_ALL_VARS}" && cd "${LINUX_BUILD_DIR}" && make all
+cmake . --toolchain "${LINUX_TOOLCHAIN}" -B "${LINUX_BUILD_DIR}" -DPRINT_ALL_VARS="${OUTPUT_ALL_VARS}"  -DRUN_LINTER="${LINTER}" && cd "${LINUX_BUILD_DIR}" && make all
 
 if [ ${GEN_DOCS} == 1 ]; then
 	make docs

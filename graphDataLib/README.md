@@ -44,7 +44,7 @@ The C project's overall structure is as follows:
 * 📋 Testing
 * 🏗️ Build script
 * 📜 CMake file
-* 🗒️ Documentation (e.g. README)
+* 🗒️ Documentation (e.graph. README)
 
 # Build
 Platform-specific options, settings, and code is typically named or located to indicate the target platform.  Wherever these

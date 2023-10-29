@@ -113,10 +113,10 @@ int arrayAddNode(const size_t *nodeid, struct graph_t *g);
  * @param uid identifer for start of edge
  * @param vid identifier for end of edge
  * @param cap capacity value to be assigned
- * @param g graph structure in question
+ * @param graph graph structure in question
  * @return 0 if there was an error; 1 if the edge was successfully added.
  */
-int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g);
+int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *graph);
 
 /**
  * @brief Function pointer to remove an edge from the given graph.
@@ -125,20 +125,20 @@ int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph
  *
  * @param uid Identifier for the edge start
  * @param vid Identifier for the edge end.
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return 0 if there was an error (e.g. the edge was not found); otherwise, 1 if the edge was removed.
  */
-int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
+int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *graph);
 
 /**
  * @brief Implementation to set the capacity (cost, weight, etc.) of an edge in the given graph.
  * @param uid identifier of the edge start
  * @param vid identifier of the edge ending.
  * @param cap capacity value to be set
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return 0 if there was an error; 1 if the capacity was successfully set
  */
-int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
+int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph);
 
 /**
  * @brief Function to add (adjust) the capacity for an edge by a given amount.
@@ -148,10 +148,10 @@ int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, st
  * @param uid Identifier of the edge start
  * @param vid Identifier of the edge end.
  * @param cap Value to adjust the capacity
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return 0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted
  */
-int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
+int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph);
 
 
 /**
@@ -162,10 +162,10 @@ int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, st
  * @param uid Identifier of the edge start.
  * @param vid Identifier of the edge end.
  * @param flow Value to be set for the flow.
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return 0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set.
  */
-int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
+int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph);
 
 /**
  * @brief Function to adjust the flow value of a given edge.
@@ -175,10 +175,10 @@ int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  * @param uid Identifier of the edge start
  * @param vid Identifier of the edge end.
  * @param flow The value to be added to adjust the flow value.
- * @param g The graph structure in question
+ * @param graph The graph structure in question
  * @return 0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted.
  */
-int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
+int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph);
 
 
 /**
@@ -186,12 +186,12 @@ int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  *
  * For some implementations, it is more efficient to reuse the existing graph structure and perform a "zero-out"
  * of the data, rather than rebuilding from scratch.  This function pointer provides that option.
- * @param g Graph structure to be zeroed or modified according to reset logic
+ * @param graph Graph structure to be zeroed or modified according to reset logic
  * @param args Arguments to be used in the reset process, if necessary
  * @param callback Callback to be executed when graph has been reset.
  * @return 0 if there was an error during the reset; 1 if the reset completed;
  */
-int arrayResetGraph(struct graph_t *g, void *args, void (*callback)(void));
+int arrayResetGraph(struct graph_t *graph, void *args, void (*callback)(void));
 
 /**
  * @brief Utility method to free up an array

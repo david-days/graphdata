@@ -23,4 +23,3 @@ int hashGraphInit(struct graph_t *g);
 int hashGraphFree(struct graph_t *g)
 
 #endif //GRAPHDATA_HASHGRAPH_H
-        
