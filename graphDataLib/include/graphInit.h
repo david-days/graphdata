@@ -8,7 +8,6 @@
 #include <graphData.h>
 #include "graphOps.h"
 
-
 /**
  * @brief Initialize a graph according to the flags set in the GRAPHDOMAIN value.
  *
@@ -29,7 +28,16 @@
  */
 struct graph_t * initGraph(enum GRAPHDOMAIN typeFlags, size_t lblCount, struct dimensions_t *dims);
 
-
+/**
+ * @brief Stand up a shared graph according to the settings. This may be as a memory-only or file-backed structure.
+ * 
+ * @param typeFlags Type of graph to create
+ * @param shareFlags Sharing/access settings
+ * @param lblCount Number of labels to be used
+ * @param dims Dimensional characteristics
+ * @param sharedMeta Shared metaadata structure
+ * @return reference to a fully initialized graph structure
+ */
 struct graph_t * initSharedGraph(enum GRAPHDOMAIN typeFlags, enum GRAPHACCESS shareFlags, size_t lblCount, struct dimensions_t *dims, void *sharedMeta);
 
 /**
@@ -52,7 +60,7 @@ struct graphops_t * getOperations(struct graph_t *graph);
  * @param graph Graph to be cleared
  * @return 1 if successful; otherwise, 0.
  */
-int clearGraph(struct graph_t *graph);
+short clearGraph(struct graph_t *graph);
 
 
 #endif //GRAPHDATA_GRAPHINIT_H

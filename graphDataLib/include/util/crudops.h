@@ -53,12 +53,23 @@
  * @param domflag Domain type result
  * @return 1 if the parsing is successful; otherwise, 0.
  */
-int parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum GRAPHDOMAIN *impflag,
+short parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum GRAPHDOMAIN *impflag,
                    enum GRAPHDOMAIN *lblflag, enum GRAPHDOMAIN *domflag);
 
+/**
+ * @brief Parse the given accFlags as input and separate out into individual flags, according to functionality
+ * 
+ * @param accFlags Flags as input 
+ * @param shareFlag Shared or private
+ * @param savedFlag Create new or use existing (saved)
+ * @param fileFlag Memory or file-based
+ * @param rwFlag Read-only structure or read-write.
+ * @return 1 if the parsing is successful; otherwise, 0
+ */
+short parseAccessFlags(enum GRAPHACCESS *accFlags, enum GRAPHACCESS *shareFlag, enum GRAPHACCESS *savedFlag, 
+        enum GRAPHACCESS *fileFlag, enum GRAPHACCESS *rwFlag);
 
 //Creation operations
-
 /**
  * @brief Utility method to create and preset graph structure.
  * @return A pointer to a graph_t structure, if successful; otherwise, a pointer to NULL
@@ -157,21 +168,21 @@ struct feature_t * cloneFeature(const struct feature_t *ofeat);
  * @param gptr Graph structure to be cleared
  * @return 1 if success; 0 if error
  */
-int destroyGraph(void** gptr);
+short destroyGraph(void** gptr);
 
 /**
  * @brief Clear out the dimensions and all underlying structures
  * @param dimptr Dimensions structure to be cleared
  * @return 1 if success; 0 if error
  */
-int destroyDimensions(void** dimptr);
+short destroyDimensions(void** dimptr);
 
 /**
  * @brief Clear out the label and all underlying structures
  * @param lblptr Label structure to be cleared
  * @return 1 if success; 0 if error
  */
-int destroyLabels(void** lblptr);
+short destroyLabels(void** lblptr);
 
 /**
  * @brief Clear an edge structure and any linked edges (use on single or a path)
@@ -181,7 +192,7 @@ int destroyLabels(void** lblptr);
  * @param eptr Initial edge pointer
  * @return 1 if success; 0 if error.
  */
-int destroyEdges(void** eptr);
+short destroyEdges(void** eptr);
 
 /**
  * @brief Clear a graphops_t structure.
@@ -190,7 +201,7 @@ int destroyEdges(void** eptr);
  * @param optptr Graphops structuure to be cleared and deallocated
  * @return 1 if successful; 0 if error
  */
-int destroyGraphops(void** opsptr);
+short destroyGraphops(void** opsptr);
 
 /**
  * @brief Clear a node or node list (use on single or a path)
@@ -200,7 +211,7 @@ int destroyGraphops(void** opsptr);
  * @param nptr Initial node pointer
  * @return 1 if successful; 0 if error
  */
-int destroyNodes(void** nptr);
+short destroyNodes(void** nptr);
 
 /**
  * @brief Clear a feature or feature list (use on single or multiple attributes)
@@ -210,6 +221,6 @@ int destroyNodes(void** nptr);
  * @param fptr Initial feature pointer
  * @return 1 if successful; 0 if error
  */
-int destroyFeatures(void** fptr);
+short destroyFeatures(void** fptr);
 
 #endif //GRAPHDATA_CRUDOPS_H

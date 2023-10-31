@@ -18,7 +18,7 @@
  * @param ... zero-based spatial coordinates for calculation
  * @return 0 if successful; 1 if the coordinates are outside the bounds of the dimensions
  */
-int indexFromCartesian(struct dimensions_t *dims, size_t *idx, size_t *coords);
+short indexFromCartesian(struct dimensions_t *dims, size_t *idx, size_t *coords);
 
 /**
  * @brief Sets the size_t array (whose length must be initialized to match dims->dimcount) to the coordinates within
@@ -31,7 +31,7 @@ int indexFromCartesian(struct dimensions_t *dims, size_t *idx, size_t *coords);
  * @param dims Dimensional value to be calculated against
  * @return 0 if successful, 1 if the index is outside the bounds of the dimensions.
  */
-int cartesianFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims);
+short cartesianFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims);
 
 /**
  * @brief Calculates the index length, based on the given coordinates

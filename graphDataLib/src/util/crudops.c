@@ -7,10 +7,10 @@
 
 
 
-int parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum GRAPHDOMAIN *impflag,
+short parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum GRAPHDOMAIN *impflag,
                    enum GRAPHDOMAIN *lblflag, enum GRAPHDOMAIN *domflag) {
     //retval used for future cases where illegitimate combinations may be used.
-    int retval = 0;
+    short retval = OP_FAIL;
     if (*tflags == DEFAULTSELECT) *tflags = DEFAULTGRAPH;
     //Create switch selectors for graph types
     enum GRAPHDOMAIN dirtype = (DIRSELECT) & *tflags;
@@ -32,7 +32,7 @@ int parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum GRA
     //write the cleaned-up values back to the reference
     *tflags = dirtype | imptype | labtype | domaintype;
 
-    retval = 1;
+    retval = OP_SUCCESS;
 
     return retval;
 }
@@ -280,12 +280,12 @@ struct feature_t * cloneFeature(const struct feature_t *ofeat) {
  * @param gptr pointer-to-pointer for graph_t structure to be cleared
  * @return 1 if success; 0 if error
  */
-int destroyGraph(void** gptr) {
-    int retval = 0;
+short destroyGraph(void** gptr) {
+    short retval = OP_FAIL;
     if (NULL != *gptr) {
         free(*gptr);
         *gptr = NULL;
-        retval = 1;
+        retval = OP_SUCCESS;
     }
     return retval;
 }
@@ -295,8 +295,8 @@ int destroyGraph(void** gptr) {
  * @param dptr pointer-to-pointer for dimensions_t structure to be cleared
  * @return 1 if success; 0 if error
  */
-int destroyDimensions(void** dptr) {
-    int retval = 0;
+short destroyDimensions(void** dptr) {
+    short retval = OP_FAIL;
     if (NULL != *dptr) {
         struct dimensions_t *dims = *dptr;
         size_t *dimarr = dims->dimarr;
@@ -307,7 +307,7 @@ int destroyDimensions(void** dptr) {
         dims->dimcount = 0;
         free(*dptr);
         *dptr = NULL;
-        retval = 1;
+        retval = OP_SUCCESS;
     }
     return retval;
 }
@@ -317,8 +317,8 @@ int destroyDimensions(void** dptr) {
  * @param labels pointer-to-pointer for labels_t structure to be cleared
  * @return 1 if success; 0 if error
  */
-int destroyLabels(void** lptr) {
-    int retval = 0;
+short destroyLabels(void** lptr) {
+    short retval = OP_FAIL;
     if (NULL != *lptr) {
         struct labels_t *labels = *lptr;
         size_t *larr = labels->labelarr;
@@ -329,7 +329,7 @@ int destroyLabels(void** lptr) {
         labels->labelcount = 0;
         free(*lptr);
         *lptr = NULL;
-        retval = 1;
+        retval = OP_SUCCESS;
     }
     return retval;
 }
@@ -340,10 +340,10 @@ int destroyLabels(void** lptr) {
  * The pointer itself will be changed to NULL
  *
  * @param eptr pointer-to-pointer for initial edge pointer
- * @return 1 if success; 0 if error.
+ * @return OP_SUCCESS if success; OP_FAIL if error.
  */
-int destroyEdges(void** eptr) {
-    int retval = 0;
+short destroyEdges(void** eptr) {
+    short retval = OP_FAIL;
     if (*eptr == NULL) return 1;
     struct edge_t *curr = (struct edge_t *)*eptr;
     struct edge_t *next;
@@ -353,7 +353,7 @@ int destroyEdges(void** eptr) {
         curr = next;
     }
     *eptr = NULL;
-    retval = 1;
+    retval = OP_SUCCESS;
 
     return retval;
 }
@@ -366,8 +366,8 @@ int destroyEdges(void** eptr) {
  * @param opsptr pointer-to-pointer for graphops_t structuure to be cleared and deallocated
  * @return 1 if successful; 0 if error
  */
-int destroyGraphops(void** opsptr) {
-    int retval = 0;
+short destroyGraphops(void** opsptr) {
+    short retval = OP_FAIL;
     if (NULL != *opsptr) {
         struct graphops_t *gops = *opsptr;
         gops->graph = NULL;
@@ -383,7 +383,7 @@ int destroyGraphops(void** opsptr) {
         gops->addEdge = NULL;
         free(*opsptr);
         *opsptr = NULL;
-        retval = 1;
+        retval = OP_SUCCESS;
     }
     return retval;
 }
@@ -396,8 +396,8 @@ int destroyGraphops(void** opsptr) {
  * @param nptr pointer-to-pointer for initial node structure
  * @return 1 if successful; 0 if error
  */
-int destroyNodes(void** nptr) {
-    int retval = 0;
+short destroyNodes(void** nptr) {
+    short retval = OP_FAIL;
     if (*nptr != NULL) {
         struct node_t *curr = (struct node_t *)*nptr;
         struct node_t *next;
@@ -407,7 +407,7 @@ int destroyNodes(void** nptr) {
             curr = next;
         }
         *nptr = NULL;
-        retval = 1;
+        retval = OP_SUCCESS;
     }
 
     return retval;
@@ -421,8 +421,8 @@ int destroyNodes(void** nptr) {
  * @param fptr pointer-to-pointer for initial feature structure
  * @return 1 if successful; 0 if error
  */
-int destroyFeatures(void** fptr) {
-    int retval = 0;
+short destroyFeatures(void** fptr) {
+    short retval = OP_FAIL;
     if (*fptr != NULL) {
         struct feature_t *curr = (struct feature_t *)*fptr;
         struct feature_t *next;
@@ -432,7 +432,7 @@ int destroyFeatures(void** fptr) {
             curr = next;
         }
         *fptr = NULL;
-        retval = 1;
+        retval = OP_SUCCESS;
     }
 
     return retval;

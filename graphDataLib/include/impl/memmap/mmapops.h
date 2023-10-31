@@ -40,7 +40,7 @@ struct node_t * mmapGetNode(const size_t *nodeid, const struct graph_t *g);
  * @param g Graph structure in question
  * @return 0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful.
  */
-int mmapRemoveNode(const size_t *nodeid, struct graph_t *g);
+short mmapRemoveNode(const size_t *nodeid, struct graph_t *g);
 /**
  * @brief Implementation to retrieve a edge structure reference.
  *
@@ -82,7 +82,7 @@ struct edge_t * mmapGetEdges(const size_t *nodeid, const struct graph_t *g);
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
-int mmapGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g);
+short mmapGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g);
 
 /**
  * @brief Function pointer to retrieve the current flow value for a given edge.
@@ -96,7 +96,7 @@ int mmapGetCapacity(const size_t *uid, const size_t *vid, double *cap, const str
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
-int mmapGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g);
+short mmapGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g);
 
 
 //Write functions to modify graph
@@ -107,7 +107,7 @@ int mmapGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct
  * @param g Graph structure to add the node
  * @return 0 if there was an error, 1 if the node was successfully added
  */
-int mmapAddNode(const size_t *nodeid, struct graph_t *g);
+short mmapAddNode(const size_t *nodeid, struct graph_t *g);
 /**
  * @brief Implementation to add an edge to a given graph.
  * Not all implementations may use this (for example, fixed-size ARRAY implementations representing a set domain of nodes and relationships).
@@ -117,7 +117,7 @@ int mmapAddNode(const size_t *nodeid, struct graph_t *g);
  * @param g graph structure in question
  * @return 0 if there was an error; 1 if the edge was successfully added.
  */
-int mmapAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g);
+short mmapAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g);
 
 /**
  * @brief Function pointer to remove an edge from the given graph.
@@ -129,7 +129,7 @@ int mmapAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_
  * @param g Graph structure in question
  * @return 0 if there was an error (e.g. the edge was not found); otherwise, 1 if the edge was removed.
  */
-int mmapRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
+short mmapRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
 
 /**
  * @brief Implementation to set the capacity (cost, weight, etc.) of an edge in the given graph.
@@ -139,7 +139,7 @@ int mmapRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
  * @param g Graph structure in question
  * @return 0 if there was an error; 1 if the capacity was successfully set
  */
-int mmapSetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
+short mmapSetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
 
 /**
  * @brief Function to add (adjust) the capacity for an edge by a given amount.
@@ -152,7 +152,7 @@ int mmapSetCapacity(const size_t *uid, const size_t *vid, const double *cap, str
  * @param g Graph structure in question
  * @return 0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted
  */
-int mmapAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
+short mmapAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
 
 
 /**
@@ -166,7 +166,7 @@ int mmapAddCapacity(const size_t *uid, const size_t *vid, const double *cap, str
  * @param g Graph structure in question
  * @return 0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set.
  */
-int mmapSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
+short mmapSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
 
 /**
  * @brief Function to adjust the flow value of a given edge.
@@ -179,7 +179,7 @@ int mmapSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct
  * @param g The graph structure in question
  * @return 0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted.
  */
-int mmapAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
+short mmapAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
 
 
 /**
@@ -192,7 +192,7 @@ int mmapAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct
  * @param callback Callback to be executed when graph has been reset.
  * @return 0 if there was an error during the reset; 1 if the reset completed;
  */
-int mmapResetGraph(struct graph_t *g, void *args, void (*callback)(void));
+short mmapResetGraph(struct graph_t *g, void *args, void (*callback)(void));
 
 /**
  * @brief Utility method to free up mmap

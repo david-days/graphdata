@@ -54,7 +54,7 @@ struct hash_table * init_hashtable(size_t exp_capacity, hashFunc hashFunction);
  * @param ht Hashtable to which the key-value pair are added
  * @return 1 if successful, otherwise 0
  */
-int hashtable_add(void *keyVal, void *valVal, struct hash_table *ht);
+short hashtable_add(void *keyVal, void *valVal, struct hash_table *ht);
 
 /**
  * @brief retrieve the value, from the given hashtable, that matches the given key
@@ -78,7 +78,7 @@ void * hashtable_remove(void *keyVal, struct hash_table *ht);
  * @param ht Hashtable whose memory is to be freed
  * @return if successful, 1; otherwise return 0
  */
-int hashtable_free(struct hash_table *ht);
+short hashtable_free(struct hash_table *ht);
 
 /**
  * @brief Create a hashtable with the next designated/available size, and all the entries moved over 
@@ -93,7 +93,7 @@ struct hash_table * hashtable_grow(struct hash_table *ht);
  * @param ht Hashtable to be checked
  * @return Returns 1 if there is > 10% capacity available; otherwise, returns 0
  */
-int hashtable_check(struct hash_table *ht);
+short hashtable_check(struct hash_table *ht);
 
 /**
  * @brief Move the items from the old hashtable to the new one
@@ -101,7 +101,7 @@ int hashtable_check(struct hash_table *ht);
  * @param nextHt Next hash table
  * @return 1 if successful; otherwise, returns 0
  */
-int hashtable_move(struct hash_table *oldHt, struct hash_table *nextHt);
+short hashtable_move(struct hash_table *oldHt, struct hash_table *nextHt);
 
 
 // utility function definitions

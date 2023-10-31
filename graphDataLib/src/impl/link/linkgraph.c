@@ -18,11 +18,11 @@
  * @param g Graph structure
  * @return 1 if successful; 0 if there was a problem.
  */
-int linkGraphInit(struct graph_t *g) {
-    int retval = 0;
+short linkGraphInit(struct graph_t *g) {
+    short retval = OP_FAIL;
     if (g != NULL) {
         //TODO:  Fill in basic structure
-        retval = 1;
+        retval = OP_SUCCESS;
     }
     return retval;
 }
@@ -33,17 +33,17 @@ int linkGraphInit(struct graph_t *g) {
  * @param g Graph to be cleared and memory deallocated
  * @return 1 if the operation as a success; otherwise, 0.
  */
-int linkGraphFree(struct graph_t *g) {
-    int retval = 1;
+short linkGraphFree(struct graph_t *g) {
+    short retval = OP_FAIL;
     if (g != NULL) {
         if ((g->gtype & LINKED) == LINKED) {
             struct node_t *currnode = (struct node_t *)g->nodeImpl;
             while (currnode != NULL) {
-                retval = retval & destroyEdges((void **)&currnode->edges);
+                retval = retval | destroyEdges((void **)&currnode->edges);
                 currnode = currnode->next;
             }
             //now clear out nodes
-            retval = retval & destroyNodes(&(g->nodeImpl));
+            retval = retval | destroyNodes(&(g->nodeImpl));
         }
     }
     return retval;

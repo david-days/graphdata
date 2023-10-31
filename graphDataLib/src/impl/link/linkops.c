@@ -197,12 +197,12 @@ struct edge_t * linkGetEdges(const size_t *nodeid, const struct graph_t *graph) 
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
-int linkGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *graph) {
-    int retval = 0;
+short linkGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *graph) {
+    short retval = OP_FAIL;
     struct edge_t *e = linkGetEdge(uid, vid, graph);
     if (e != NULL) {
         *cap = e->cap;
-        retval = 1;
+        retval = OP_SUCCESS;
     }
     return retval;
 }
@@ -219,12 +219,12 @@ int linkGetCapacity(const size_t *uid, const size_t *vid, double *cap, const str
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
-int linkGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *graph) {
-    int retval = 0;
+short linkGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *graph) {
+    short retval = OP_FAIL;
     struct edge_t *e = linkGetEdge(uid, vid, graph);
     if (e != NULL) {
         *flow = e->flow;
-        retval = 1;
+        retval = OP_SUCCESS;
     }
     return retval;
 }
@@ -239,8 +239,8 @@ int linkGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct
  * @param graph Graph structure to add the node
  * @return 0 if there was an error, 1 if the node was successfully added
  */
-int linkAddNode(const size_t *nodeid, struct graph_t *graph) {
-    int retval = 0;
+short linkAddNode(const size_t *nodeid, struct graph_t *graph) {
+    short retval = OP_FAIL;
     if ((graph->gtype & LINKED) == LINKED) {
         struct node_t *exists = linkGetNode(nodeid, graph);
         if (exists == NULL) {
@@ -256,7 +256,7 @@ int linkAddNode(const size_t *nodeid, struct graph_t *graph) {
                 curr->next = nnode;
                 nnode->prev = curr;
             }
-            retval = 1;
+            retval = OP_SUCCESS;
         }
     }
     return retval;
@@ -271,8 +271,8 @@ int linkAddNode(const size_t *nodeid, struct graph_t *graph) {
  * @param graph Graph structure in question
  * @return 0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful.
  */
-int linkRemoveNode(const size_t *nodeid, struct graph_t *graph) {
-    int retval = 0;
+short linkRemoveNode(const size_t *nodeid, struct graph_t *graph) {
+    short retval = OP_FAIL;
     if ((graph->gtype & LINKED) == LINKED) {
         struct node_t *rnode = linkGetNode(nodeid, graph);
         if (rnode != NULL) {
@@ -295,7 +295,7 @@ int linkRemoveNode(const size_t *nodeid, struct graph_t *graph) {
             free(rnode);
             if (prev != NULL) prev->next = next;
             if (next != NULL) next->prev = prev;
-            retval = 1;
+            retval = OP_SUCCESS;
         }
     }
     return retval;
@@ -312,8 +312,8 @@ int linkRemoveNode(const size_t *nodeid, struct graph_t *graph) {
  * @param graph graph structure in question
  * @return 0 if there was an error; 1 if the edge was successfully added.
  */
-int linkAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *graph) {
-    int retval = 0;
+short linkAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *graph) {
+    short retval = OP_FAIL;
     if ((graph->gtype & LINKED) == LINKED) {
         //Is there a node?
         size_t u = *uid;
@@ -340,7 +340,7 @@ int linkAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_
                 curr->next = nedge;
                 nedge->prev = curr;
             }
-            retval = 1;
+            retval = OP_SUCCESS;
         }
     }
     return retval;
@@ -356,8 +356,8 @@ int linkAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_
  * @param graph Graph structure in question
  * @return 0 if there was an error (e.g. the edge was not found); otherwise, 1 if the edge was removed.
  */
-int linkRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *graph) {
-    int retval = 0;
+short linkRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *graph) {
+    short retval = OP_FAIL;
     if ((graph->gtype & LINKED) == LINKED) {
         struct edge_t *redge = linkGetEdge(uid, vid, graph);
         if (redge != NULL) {
@@ -370,7 +370,7 @@ int linkRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *graph) 
             free(redge);
             if (prev != NULL) prev->next = next;
             if (next != NULL) next->prev = prev;
-            retval = 1;
+            retval = OP_SUCCESS;
         }
     }
     return retval;
@@ -384,12 +384,12 @@ int linkRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *graph) 
  * @param graph Graph structure in question
  * @return 0 if there was an error; 1 if the capacity was successfully set
  */
-int linkSetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph) {
-    int retval = 0;
+short linkSetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph) {
+    short retval = OP_FAIL;
     struct edge_t *e = linkGetEdge(uid, vid, graph);
     if (e != NULL) {
         e->cap = *cap;
-        retval = 1;
+        retval = OP_SUCCESS;
     }
     return retval;
 }
@@ -405,13 +405,13 @@ int linkSetCapacity(const size_t *uid, const size_t *vid, const double *cap, str
  * @param graph Graph structure in question
  * @return 0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted
  */
-int linkAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph) {
-    int retval = 0;
+short linkAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph) {
+    short retval = OP_FAIL;
     if ((graph->gtype & LINKED) == LINKED) {
         struct edge_t *e = linkGetEdge(uid, vid, graph);
         if (e != NULL) {
             e->cap += *cap;
-            retval = 1;
+            retval = OP_SUCCESS;
         }
     }
     return retval;
@@ -428,13 +428,13 @@ int linkAddCapacity(const size_t *uid, const size_t *vid, const double *cap, str
  * @param graph Graph structure in question
  * @return 0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set.
  */
-int linkSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph) {
-    int retval = 0;
+short linkSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph) {
+    short retval = OP_FAIL;
     if ((graph->gtype & LINKED) == LINKED) {
         struct edge_t *e = linkGetEdge(uid, vid, graph);
         if (e != NULL) {
             e->flow = *flow;
-            retval = 1;
+            retval = OP_SUCCESS;
         }
     }
     return retval;
@@ -451,13 +451,13 @@ int linkSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct
  * @param graph The graph structure in question
  * @return 0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted.
  */
-int linkAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph) {
-    int retval = 0;
+short linkAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph) {
+    short retval = OP_FAIL;
     if ((graph->gtype & LINKED) == LINKED) {
         struct edge_t *e = linkGetEdge(uid, vid, graph);
         if (e != NULL) {
             e->flow += *flow;
-            retval = 1;
+            retval = OP_SUCCESS;
         }
     }
     return retval;
@@ -473,8 +473,8 @@ int linkAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct
  * @param callback Callback to be executed when graph has been reset.
  * @return 0 if there was an error during the reset; 1 if the reset completed;
  */
-int linkResetGraph(struct graph_t *graph, void *args, void (*callback)(void)) {
-    int retval = 0;
+short linkResetGraph(struct graph_t *graph, void *args, void (*callback)(void)) {
+    short retval = OP_FAIL;
     if ((graph->gtype & LINKED) == LINKED) {
         struct node_t *currnode = (struct node_t *)graph->nodeImpl;
         struct edge_t *curredge = NULL;
@@ -487,7 +487,7 @@ int linkResetGraph(struct graph_t *graph, void *args, void (*callback)(void)) {
             }
             currnode = currnode->next;
         }
-        retval = 1;
+        retval = OP_SUCCESS;
     }
     if (callback != NULL) callback();
     return retval;

@@ -9,6 +9,9 @@
 
 #include <stdio.h>
 
+extern const short OP_SUCCESS;
+extern const short OP_FAIL;
+
 /**
  * @brief Descriptor of the graph structure and usage.
  *
@@ -92,18 +95,13 @@ enum GRAPHACCESS {
      * the underlying implementation is equivalent to an array-based graph
      */
     FILE_BASED  = 0x0010,
-    
     /**
-     * @brief Flag to indicate read permission.  Required flag for any shared or file-based flag that is set.
-     */
-    GRAPH_READONLY = 0x0100,
-    /**
-     * @brief Flag to indicate write permission.  Required flag for any shared or file-based flag that is set.
+     * @brief Flag to indicate write permission.  Default is read-only.  This is a required flag for any shared or 
+     * file-based flag that is set.
      * 
      * GRAPH_WRITE also gives full READ access.
-     * 
      */
-    GRAPH_WRITE = 0x0200
+    GRAPH_WRITE = 0x0100
 };
 
 /**

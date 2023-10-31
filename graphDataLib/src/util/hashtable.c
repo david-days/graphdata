@@ -25,9 +25,9 @@ struct hash_table * init_hashtable(size_t exp_capacity, hashFunc hashFunction) {
     return ht;
 }
 
-int hashtable_add(void *keyVal, void *valVal, struct hash_table *ht) {
-    int retVal = hashtable_check(ht);
-    if (retVal > 0) {
+short hashtable_add(void *keyVal, void *valVal, struct hash_table *ht) {
+    short retval = hashtable_check(ht);
+    if (retVal == OP_SUCCESS) {
         size_t keyHash = ht->hash(keyVal);
         size_t hashMod = keyHash % ht->modulo;
         struct ht_item *keyItem = (struct ht_item *)malloc(sizeof(ht_item));
@@ -76,12 +76,12 @@ int hashtable_add(void *keyVal, void *valVal, struct hash_table *ht) {
             
             ht->count++;
             
-            retVal = 1;
+            retVal = OP_SUCCESS;
         } else {
-            retVal = -1;
+            retVal = OP_FAIL;
         }
     }
-    return retVal;
+    return OP_FAIL;
 }
 
 void * hashtable_get(void *keyVal, struct hash_table *ht) {
@@ -161,8 +161,8 @@ void * hashtable_remove(void *keyVal, struct hash_table *ht) {
     return retVal;
 }
 
-int hashtable_free(struct hash_table *ht) {
-    int retval = 1;
+short hashtable_free(struct hash_table *ht) {
+    short retval = 1;
     //Free up the underlying arrays, first
     free(ht->keys);
     free(ht->values);
@@ -189,7 +189,7 @@ struct hash_table * hashtable_grow(struct hash_table *ht) {
     return nextHt;
 }
 
-int hashtable_check(struct hash_table *ht) {
+short hashtable_check(struct hash_table *ht) {
     int capacious = 1;
     size_t room = ht->capacity - ht->count;
     size_t tithe = ht->capacity / 10;
@@ -199,7 +199,7 @@ int hashtable_check(struct hash_table *ht) {
     return capacious;
 }
 
-int hashtable_move(struct hash_table *oldHt, struct hash_table *nextHt) {
+short hashtable_move(struct hash_table *oldHt, struct hash_table *nextHt) {
     int xfr_success = 1;
     size_t oldCap = oldHt->capacity;
     size_t nextCap = nextHt->capacity;

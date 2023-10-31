@@ -41,23 +41,23 @@ void * initMMapDouble(size_t nlen, size_t conlen, size_t zeroOut, int prot_flags
     return doubleBase;
 }
 
-int freeMMapMeta(void **metaptr) {
-    int retval = 0;
+short freeMMapMeta(void **metaptr) {
+    short retval = OP_FAIL;
     if (*metaptr != NULL) {
         munmap(metaptr, sizeof(struct mmapdata_t));
-        retval = 1;
+        retval = OP_SUCCESS;
     }
     return retval;
 }
 
-int freeMMapInt(void **nodeArr, size_t bucketCount) {
-    int retVal = 0;
+short freeMMapInt(void **nodeArr, size_t bucketCount) {
+    short retval = OP_FAIL;
     
     return retVal;
 }
 
-int freeMMapDouble(void **dblArr, size_t bucketCount) {
-    int retVal = 0;
+short freeMMapDouble(void **dblArr, size_t bucketCount) {
+    short retval = OP_FAIL;
     
     return retVal;
 }

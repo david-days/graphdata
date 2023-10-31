@@ -10,6 +10,8 @@
 #include "impl/link/linkgraph.h"
 #include "impl/link/linkops.h"
 
+const short OP_SUCCESS = 0;
+const short OP_FAIL = -1;
 
 static void setArrayOps(struct graphops_t *gops) {
     //Node operations
@@ -140,6 +142,20 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
     return graph;
 }
 
+/**
+ * @brief Stand up a shared graph according to the settings. This may be as a memory-only or file-backed structure.
+ * 
+ * @param typeFlags Type of graph to create
+ * @param shareFlags Sharing/access settings
+ * @param lblCount Number of labels to be used
+ * @param dims Dimensional characteristics
+ * @param sharedMeta Shared metaadata structure
+ * @return reference to a fully initialized graph structure
+ */
+struct graph_t * initSharedGraph(enum GRAPHDOMAIN typeFlags, enum GRAPHACCESS shareFlags, size_t lblCount, struct dimensions_t *dims, void *sharedMeta) {
+    
+}
+
 
 /**
  * @brief Create and fill the graphops_t structure that handles basic operations for the graph
@@ -189,8 +205,8 @@ struct graphops_t * getOperations(struct graph_t *graph) {
  * @param graph Graph to be cleared
  * @return 1 if successful; otherwise, 0.
  */
-int clearGraph(struct graph_t *graph) {
-    int retval = 1;
+short clearGraph(struct graph_t *graph) {
+    short retval = OP_SUCCESS;
     if (graph != NULL) {
         enum GRAPHDOMAIN dirtype;
         enum GRAPHDOMAIN imptype;

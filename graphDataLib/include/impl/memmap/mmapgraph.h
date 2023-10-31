@@ -99,7 +99,7 @@ struct mmapdata_t * initMMapMeta(void *addr, int prot_flags, int mmap_flags, int
  * @param metaptr 
  * @return 1 if successful, 0 if not
  */
-int freeMMapMeta(void **metaptr);
+short freeMMapMeta(void **metaptr);
 
 /**
  * @brief Set up a graph with memory-mapped files backing data
@@ -108,7 +108,7 @@ int freeMMapMeta(void **metaptr);
  * @param lblcount Number of labels to be used--may be zero, depending on the graph domain.
  * @return 1 if successful; 0 if an error
  */
-int mmapGraphInit(struct graph_t *g);
+short mmapGraphInit(struct graph_t *g);
 
 
 /**
@@ -116,7 +116,7 @@ int mmapGraphInit(struct graph_t *g);
  * @param g graph_t with array structures to be deallocated
  * @return 1 if successful; otherwise, 0.
  */
-int mmapGraphFree(struct graph_t *g);
+short mmapGraphFree(struct graph_t *g);
 
 /**
  * @brief Free the mmap memory for an integer (size_t values) structure at the given address and length
@@ -124,7 +124,7 @@ int mmapGraphFree(struct graph_t *g);
  * @param memLen number of buckets of the memory segment
  * @return 1 if successful, 0 if not 
  */
-int freeMMapInt(void **arrPtr, size_t memLen);
+short freeMMapInt(void **arrPtr, size_t memLen);
 
 /**
  * @brief Free the mmap memory for a double structure at the given address and length
@@ -132,6 +132,7 @@ int freeMMapInt(void **arrPtr, size_t memLen);
  * @param memLen number of buckets of the memory segment
  * @return 1 if successful, 0 if not
  */
-int freeMMapDouble(void **dblPtr, size_t memLen);
+short freeMMapDouble(void **dblPtr, size_t memLen);
 
 #endif //GRAPHDATA_MMAPGRAPH_H
+20000000000000000000000000000000

@@ -20,8 +20,8 @@
  * @param g Graph structure data
  * @return 1 if the edge was found and the idx value set; otherwise, 0.
  */
-static int findEdgeOffset(const size_t *u, const size_t *v, size_t *index, size_t *offset, const struct graph_t *g) {
-    int found = 0;
+static short findEdgeOffset(const size_t *u, const size_t *v, size_t *index, size_t *offset, const struct graph_t *g) {
+    short found = OP_FAIL;
     struct arraydata_t *gmeta = (struct arraydata_t *)g->metaImpl;
     size_t *nodearr = (size_t *)g->nodeImpl;
     size_t conn = gmeta->degree;
@@ -30,21 +30,21 @@ static int findEdgeOffset(const size_t *u, const size_t *v, size_t *index, size_
         if (*(nodearr+idx+i) == *v) {
             *index = idx;
             *offset = i;
-            found = 1;
+            found = OP_SUCCESS;
             break;
         }
     }
     return found;
 }
 
-static int zeroDoubleArray(size_t ecount, size_t conncount, double *darr) {
-    int retval = 0;
+static short zeroDoubleArray(size_t ecount, size_t conncount, double *darr) {
+    short retval = OP_FAIL;
     if (darr != NULL) {
         //TODO:  Prevent overwriting outside array?
         for (size_t i = 0;i<ecount*conncount;i++) {
             *(darr + i) = 0;
         }
-        retval = 1;
+        retval = OP_SUCCESS;
     }
     return retval;
 }
@@ -246,8 +246,8 @@ struct edge_t * arrayGetEdges(const size_t *nodeid, const struct graph_t *g) {
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
-int arrayGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g) {
-    int retval = 0;
+short arrayGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g) {
+    short retval = OP_FAIL;
     size_t eOffset = 0;
     size_t eIdx = 0;
     const size_t *u = uid;
@@ -261,7 +261,7 @@ int arrayGetCapacity(const size_t *uid, const size_t *vid, double *cap, const st
         if (findEdgeOffset(u, v, &eIdx, &eOffset, g)) {
             double *caparr = (double *)g->capImpl;
             *cap = *(caparr + eIdx + eOffset);
-            retval = 1;
+            retval = OP_SUCCESS;
         }
     }
     return retval;
@@ -280,8 +280,8 @@ int arrayGetCapacity(const size_t *uid, const size_t *vid, double *cap, const st
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
-int arrayGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g) {
-    int retval = 0;
+short arrayGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g) {
+    short retval = OP_FAIL;
     size_t eOffset = 0;
     size_t eIdx = 0;
     const size_t *u = uid;
@@ -295,7 +295,7 @@ int arrayGetFlow(const size_t *uid, const size_t *vid, double *flow, const struc
         if (findEdgeOffset(u, v, &eIdx, &eOffset, g)) {
             double *farr = (double *)g->flowImpl;
             *flow = *(farr + eIdx + eOffset) ;
-            retval = 1;
+            retval = OP_SUCCESS;
         }
     }
     return retval;
@@ -311,8 +311,8 @@ int arrayGetFlow(const size_t *uid, const size_t *vid, double *flow, const struc
  * @param g Graph structure to add the node
  * @return 0 if there was an error, 1 if the node was successfully added
  */
-int arrayAddNode(const size_t *nodeid, struct graph_t *g){
-    return 0;
+short arrayAddNode(const size_t *nodeid, struct graph_t *g){
+    return OP_FAIL;
 }
 
 /**
@@ -324,8 +324,8 @@ int arrayAddNode(const size_t *nodeid, struct graph_t *g){
  * @param g Graph structure in question
  * @return 0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful.
  */
-int arrayRemoveNode(const size_t *nodeid, struct graph_t *g) {
-    return 0;
+short arrayRemoveNode(const size_t *nodeid, struct graph_t *g) {
+    return OP_FAIL;
 }
 
 /**
@@ -340,8 +340,8 @@ int arrayRemoveNode(const size_t *nodeid, struct graph_t *g) {
  * @param graph graph structure in question
  * @return 0 if there was an error; 1 if the edge was successfully added.
  */
-int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *graph) {
-    int added = 0;
+short arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *graph) {
+    short added = OP_FAIL;
     if (graph != NULL) {
         if (graph->metaImpl != NULL) {
             struct arraydata_t *meta = (struct arraydata_t *)graph->metaImpl;
@@ -358,7 +358,7 @@ int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph
                         *(nodarr + nidx + offset) = *v;
                         *(caparr + nidx + offset) = *cap;
                         *(farr + nidx + offset) = 0.0;
-                        added = 1;
+                        added = OP_SUCCESS;
                     }
                 }
 
@@ -380,8 +380,8 @@ int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph
  * @param graph Graph structure in question
  * @return 0 if there was an error (e.g. the edge was not found); otherwise, 1 if the edge was removed.
  */
-int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *graph) {
-    int removed = 0;
+short arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *graph) {
+    short removed = OP_FAIL;
     size_t eOffset = 0;
     size_t eIdx = 0;
     const size_t *u = uid;
@@ -403,7 +403,7 @@ int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *graph)
                 double *farr = (double *)graph->flowImpl;
                 *(farr + eIdx + eOffset) = 0.0;
             }
-            removed = 1;
+            removed = OP_SUCCESS;
         }
     }
     return removed;
@@ -417,8 +417,8 @@ int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *graph)
  * @param graph Graph structure in question
  * @return 0 if there was an error; 1 if the capacity was successfully set
  */
-int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph){
-    int retval = 0;
+short arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph){
+    short retval = OP_FAIL;
     size_t eOffset = 0;
     size_t eIdx = 0;
     const size_t *u = uid;
@@ -432,7 +432,7 @@ int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, st
         if (findEdgeOffset(u, v, &eIdx, &eOffset, graph)) {
             double *caparr = (double *)graph->capImpl;
             *(caparr + eIdx + eOffset) = *cap;
-            retval = 1;
+            retval = OP_SUCCESS;
         }
     }
     return retval;
@@ -451,8 +451,8 @@ int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, st
  * @param graph Graph structure in question
  * @return 0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted
  */
-int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph){
-    int retval = 0;
+short arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph){
+    short retval = OP_FAIL;
     size_t eIdx = 0;
     size_t eOffset = 0;
     const size_t *u = uid;
@@ -465,7 +465,7 @@ int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, st
         if (findEdgeOffset(u, v, &eIdx, &eOffset, graph)) {
             double *caparr = (double *)graph->capImpl;
             *(caparr + eIdx + eOffset) += *cap;
-            retval = 1;
+            retval = OP_SUCCESS;
         }
     }
     return retval;
@@ -482,8 +482,8 @@ int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, st
  * @param graph Graph structure in question
  * @return 0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set.
  */
-int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph){
-    int retval = 0;
+short arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph){
+    short retval = OP_FAIL;
     size_t eOffset = 0;
     size_t eIdx = 0;
     const size_t *u = uid;
@@ -497,7 +497,7 @@ int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struc
         if (findEdgeOffset(u, v, &eIdx, &eOffset, graph)) {
             double *farr = (double *)graph->flowImpl;
             *(farr + eIdx + eOffset) = *flow;
-            retval = 1;
+            retval = OP_SUCCESS;
         }
     }
     return retval;
@@ -515,8 +515,8 @@ int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  * @param graph The graph structure in question
  * @return 0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted.
  */
-int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph){
-    int retval = 0;
+short arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph){
+    short retval = OP_FAIL;
     size_t eIdx = 0;
     size_t eOffset = 0;
     const size_t *u = uid;
@@ -529,7 +529,7 @@ int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struc
         if (findEdgeOffset(u, v, &eIdx, &eOffset, graph)) {
             double *farr = (double *)graph->flowImpl;
             *(farr + eIdx + eOffset) += *flow;
-            retval = 1;
+            retval = OP_SUCCESS;
         }
     }
     return retval;
@@ -546,12 +546,12 @@ int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  * @param callback Callback to be executed when graph has been reset.
  * @return 0 if there was an error during the reset; 1 if the reset completed;
  */
-int arrayResetGraph(struct graph_t *graph, void *args, void (*callback)(void)) {
-    int retval = 0;
+short arrayResetGraph(struct graph_t *graph, void *args, void (*callback)(void)) {
+    short retval = OP_SUCCESS;
     struct arraydata_t *gmeta = (struct arraydata_t *)graph->metaImpl;
     if (gmeta != NULL) {
         retval = zeroDoubleArray(gmeta->edgelen, gmeta->degree, (double *)graph->capImpl);
-        retval = retval & zeroDoubleArray(gmeta->edgelen, gmeta->degree, (double *)graph->flowImpl);
+        retval = retval | zeroDoubleArray(gmeta->edgelen, gmeta->degree, (double *)graph->flowImpl);
     }
     return retval;
 }
@@ -564,12 +564,12 @@ int arrayResetGraph(struct graph_t *graph, void *args, void (*callback)(void)) {
  * @param arr 2D array to be cleared
  * @return 1 if successful; 0 if error.
  */
-int freeGraphArray(size_t arraylen, void** arrptr) {
-    int retval = 0;
+short freeGraphArray(size_t arraylen, void** arrptr) {
+    short retval = OP_FAIL;
     if (*arrptr != NULL) {
         free(*arrptr);
         *arrptr = NULL;
-        retval = 1;
+        retval = OP_SUCCESS;
     }
     return retval;
 }

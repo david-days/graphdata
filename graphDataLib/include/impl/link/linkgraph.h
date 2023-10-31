@@ -19,7 +19,7 @@
  * @param g Graph structure
  * @return 1 if successful; 0 if there was a problem.
  */
-int linkGraphInit(struct graph_t *g);
+short linkGraphInit(struct graph_t *g);
 
 
 /**
@@ -28,6 +28,6 @@ int linkGraphInit(struct graph_t *g);
  * @param g Graph to be cleared and memory deallocated
  * @return 1 if the operation as a success; otherwise, 0.
  */
-int linkGraphFree(struct graph_t *g);
+short linkGraphFree(struct graph_t *g);
 
 #endif //GRAPHDATA_LINKGRAPH_H

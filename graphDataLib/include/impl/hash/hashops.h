@@ -72,7 +72,7 @@ struct edge_t * hashGetEdges(const size_t *nodeid, const struct graph_t *g);
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
-int hashGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g);
+short hashGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g);
 
 /**
  * @brief Function pointer to retrieve the current flow value for a given edge.
@@ -86,7 +86,7 @@ int hashGetCapacity(const size_t *uid, const size_t *vid, double *cap, const str
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
-int hashGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g);
+short hashGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g);
 
 //Write functions to modify graph
 /**
@@ -96,7 +96,7 @@ int hashGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct
  * @param g Graph structure to add the node
  * @return 0 if there was an error, 1 if the node was successfully added
  */
-int hashAddNode(const size_t *nodeid, struct graph_t *g);
+short hashAddNode(const size_t *nodeid, struct graph_t *g);
 
 /**
  * @brief Remove a node from the graph.
@@ -106,7 +106,7 @@ int hashAddNode(const size_t *nodeid, struct graph_t *g);
  * @param g Graph structure in question
  * @return 0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful.
  */
-int hashRemoveNode(const size_t *nodeid, struct graph_t *g);
+short hashRemoveNode(const size_t *nodeid, struct graph_t *g);
 
 /**
  * @brief Function pointer to add an edge to a given graph.
@@ -117,7 +117,7 @@ int hashRemoveNode(const size_t *nodeid, struct graph_t *g);
  * @param g graph structure in question
  * @return 0 if there was an error; 1 if the edge was successfully added.
  */
-int hashAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g);
+short hashAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g);
 
 /**
  * @brief Function pointer to remove an edge from the given graph.

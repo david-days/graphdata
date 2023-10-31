@@ -35,7 +35,7 @@ static struct arraydata_t * initArrayMeta() {
  * @return 1 if successful; 0 if error.
  */
 static int freeArrayMeta(void** metaPtr) {
-    int retVal = 0;
+    short retval = OP_FAIL;
     if (*metaPtr != NULL) {
         struct arraydata_t *mptr = (struct arraydata_t *)metaPtr;
         mptr->degree = 0;
@@ -43,7 +43,7 @@ static int freeArrayMeta(void** metaPtr) {
         mptr->nodelen = 0;
         free(*metaPtr);
         *metaPtr = NULL;
-        retVal = 1;
+        retVal = OP_SUCCESS;
     }
     return retVal;
 }
@@ -95,16 +95,16 @@ static void * createDoubleArray(size_t alen, size_t conlen) {
  * @param lblcount Number of labels to be used--may be zero, depending on the graph domain.
  * @return 1 if successful; 0 if an error
  */
-int arrayGraphInit(struct graph_t *g) {
-    int retval = 0;
-    if (NULL == g) return 0;
+short arrayGraphInit(struct graph_t *g) {
+    short retval = OP_FAIL;
+    if (NULL == g) return OP_FAIL;
     //Can't continue if no dimensions
-    if (g->dims == NULL) return 0;
+    if (g->dims == NULL) return OP_FAIL;
     //Create switch selectors for graph types
     enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype;
     //parse type flags, and quit if not parsable
-    if (parseTypeFlags(&g->gtype, &dirtype, &imptype, &labtype, &domaintype) == 0) {
-        return 0;
+    if (parseTypeFlags(&g->gtype, &dirtype, &imptype, &labtype, &domaintype) == OP_FAIL) {
+        return OP_FAIL;
     }
     size_t cartlen = cartesianIndexLength(g->dims);
     size_t arrlen = cartlen;
@@ -127,7 +127,7 @@ int arrayGraphInit(struct graph_t *g) {
         g->flowImpl = createDoubleArray(arrmeta->edgelen, arrmeta->degree);
         g->metaImpl = (void *)arrmeta;
         if (g->nodeImpl != NULL && g->capImpl != NULL && g->flowImpl != NULL)
-            retval = 1;
+            retval = OP_SUCCESS;
     }
     return retval;
 }
@@ -139,8 +139,8 @@ int arrayGraphInit(struct graph_t *g) {
  * @param g graph_t with array structures to be deallocated
  * @return 1 if successful; otherwise, 0.
  */
-int arrayGraphFree(struct graph_t *g) {
-    int retval = 0;
+short arrayGraphFree(struct graph_t *g) {
+    short retval = OP_FAIL;
     if (NULL != g) {
         //First, use the arrayMeta to clean up the graph arrays
         struct arraydata_t *arrmeta = (struct arraydata_t *)g->metaImpl;
@@ -149,7 +149,7 @@ int arrayGraphFree(struct graph_t *g) {
         freeGraphArray(arrmeta->edgelen, &(g->capImpl));
         //Lastly, free up the arraydata_t memory
         freeArrayMeta(&(g->metaImpl));
-        retval = 1;
+        retval = OP_SUCCESS;
     }
     return retval;
 }

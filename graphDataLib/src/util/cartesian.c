@@ -16,8 +16,8 @@
  * @return 0 if successful; 1 if the coordinates are outside the bounds of the dimensions; -1 if there is a problem with the
  * values passed.
  */
-int indexFromCartesian(struct dimensions_t *dims, size_t *idx, size_t *coords) {
-    int retval = -1;
+short indexFromCartesian(struct dimensions_t *dims, size_t *idx, size_t *coords) {
+    short retval = OP_FAIL;
     if (NULL != dims && NULL != idx && NULL != coords) {
         size_t dxval = coords[0];
         size_t dimmult = dims->dimarr[0];
@@ -27,9 +27,9 @@ int indexFromCartesian(struct dimensions_t *dims, size_t *idx, size_t *coords) {
         }
         size_t dlen = cartesianIndexLength(dims);
         if (dxval >= dlen) {
-            retval = 1;
+            retval = OP_SUCCESS;
         } else {
-            retval = 0;
+            retval = OP_FAIL;
         }
         *idx = dxval;
     }
@@ -47,8 +47,8 @@ int indexFromCartesian(struct dimensions_t *dims, size_t *idx, size_t *coords) {
  * @param dims Dimensional value to be calculated against
  * @return 0 if successful; 1 if the index is outside the bounds of the dimensions; -1 if there is a problem with the values passed.
  */
-int cartesianFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims) {
-    int retval = -1;
+short cartesianFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims) {
+    short retval = OP_FAIL;
     if (NULL != idx && NULL != coords && NULL != dims) {
         size_t dimdiv = cartesianIndexLength(dims);
         if (*idx < dimdiv) {
@@ -62,9 +62,9 @@ int cartesianFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims) {
                 }
                 coords[0] = remval;
             }
-            retval = 0;
+            retval = OP_SUCCESS;
         } else {
-            retval = 1;
+            retval = OP_FAIL;
         }
     }
     return retval;
