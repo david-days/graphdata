@@ -40,6 +40,7 @@
  */
 #define DEFAULTGRAPH UNDIRECTED | LINKED | GENERIC | UNLABELED
 
+#define DEFAULTSHAREGRAPH SHARED | FILE_BASED | GRAPH_WRITE
 /**
  * @brief Parse the flag values passed, and write the evaluation into the separate references
  *

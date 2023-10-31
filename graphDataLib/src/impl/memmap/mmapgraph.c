@@ -51,13 +51,19 @@ short freeMMapMeta(void **metaptr) {
 }
 
 short freeMMapInt(void **nodeArr, size_t bucketCount) {
-    short retval = OP_FAIL;
-    
+    short retVal = OP_FAIL;
+    if (*nodeArr != NULL) {
+        munmap(nodeArr, bucketCount);
+        retVal = OP_SUCCESS;
+    }
     return retVal;
 }
 
 short freeMMapDouble(void **dblArr, size_t bucketCount) {
-    short retval = OP_FAIL;
-    
+    short retVal = OP_FAIL;
+    if (*dblArr != NULL) {
+        munmap(dblArr, bucketCount);
+        retVal = OP_SUCCESS;
+    }
     return retVal;
 }

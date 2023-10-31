@@ -37,6 +37,39 @@ short parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum G
     return retval;
 }
 
+/**
+ * @brief Parse the given accFlags as input and separate out into individual flags, according to functionality
+ * 
+ * @param accFlags Flags as input 
+ * @param shareFlag Shared or private
+ * @param savedFlag Create new or use existing (saved)
+ * @param fileFlag Memory or file-based
+ * @param rwFlag Read-only structure or read-write.
+ * @return 1 if the parsing is successful; otherwise, 0
+ */
+short parseAccessFlags(enum GRAPHACCESS *accFlags, enum GRAPHACCESS *shareFlag, enum GRAPHACCESS *savedFlag,
+                       enum GRAPHACCESS *fileFlag, enum GRAPHACCESS *rwFlag) {
+    //retval used for future cases where illegitimate combinations may be used.
+    short retval = OP_FAIL;
+    if (*accFlags == DEFAULTSELECT) *accFlags = DEFAULTSHAREGRAPH;
+    //Create switch selectors for graph types
+    enum GRAPHACCESS sharetype = (SHARED) & *accFlags;
+    enum GRAPHACCESS savetype = (EXISTING) & *accFlags;
+    enum GRAPHACCESS memtype = (FILE_BASED) & *accFlags;
+    enum GRAPHACCESS rwtype = (GRAPH_WRITE) & *accFlags;
+
+    *shareFlag = sharetype;
+    *savedFlag = savetype;
+    *fileFlag = memtype;
+    *rwFlag = rwtype;
+
+    //write the cleaned-up values back to the reference
+    *accFlags = sharetype | savetype | memtype | rwtype;
+
+    retval = OP_SUCCESS;
+
+    return retval;
+}
 
 //Create operations
 /**

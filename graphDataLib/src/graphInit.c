@@ -5,10 +5,12 @@
 #include<graphInit.h>
 
 #include <util/crudops.h>
-#include "impl/array/arraygraph.h"
-#include "impl/array/arrayops.h"
-#include "impl/link/linkgraph.h"
-#include "impl/link/linkops.h"
+#include <impl/array/arraygraph.h>
+#include <impl/array/arrayops.h>
+#include <impl/link/linkgraph.h>
+#include <impl/link/linkops.h>
+#include <impl/memmap/mmapgraph.h>
+#include <impl/memmap//mmapops.h>
 
 const short OP_SUCCESS = 0;
 const short OP_FAIL = -1;
@@ -68,6 +70,33 @@ static void setLinkOps(struct graphops_t *gops) {
     gops->resetGraph = linkResetGraph;
 }
 
+static void setMMapOps(struct graphops_t *gops) {
+    //Node operations
+    gops->addNode = mmapAddNode;
+    gops->getNode = mmapGetNode;
+    gops->nodeCount = mmapNodeCount;
+    gops->getNeighbors = mmapGetNeighbors;
+    gops->removeNode = mmapRemoveNode;
+
+    //Edge operations
+    gops->addEdge = mmapAddEdge;
+    gops->getEdge = mmapGetEdge;
+    gops->getEdges = mmapGetEdges;
+    gops->removeEdge = mmapRemoveEdge;
+    gops->edgeCount = mmapEdgeCount;
+
+    //Value operations
+    gops->setCapacity = mmapSetCapacity;
+    gops->addCapacity = mmapAddCapacity;
+    gops->getCapacity = mmapGetCapacity;
+    gops->setFlow = mmapSetFlow;
+    gops->addFlow = mmapAddFlow;
+    gops->getFlow = mmapGetFlow;
+
+    //Reset operations
+    gops->resetGraph = mmapResetGraph;
+
+}
 
 /**
  * @brief Initialize a graph according to the flags set in the GRAPHDOMAIN value.
@@ -153,6 +182,64 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
  * @return reference to a fully initialized graph structure
  */
 struct graph_t * initSharedGraph(enum GRAPHDOMAIN typeFlags, enum GRAPHACCESS shareFlags, size_t lblCount, struct dimensions_t *dims, void *sharedMeta) {
+    struct graph_t *graph = NULL;
+
+    //Create switch selectors for graph types
+    enum GRAPHDOMAIN dirtype;
+    enum GRAPHDOMAIN imptype;
+    enum GRAPHDOMAIN labtype;
+    enum GRAPHDOMAIN domaintype;
+
+    enum GRAPHACCESS sharedFlag;
+    enum GRAPHACCESS savedFlag;
+    enum GRAPHACCESS fileFlag;
+    enum GRAPHACCESS rwFlag;
+
+    if (parseTypeFlags(&typeFlags, &dirtype, &imptype, &labtype, &domaintype) == OP_SUCCESS
+        && parseAccessFlags(&shareFlags, &sharedFlag, &savedFlag, &fileFlag, &rwFlag) == OP_SUCCESS) {
+        //need dimensions for array type
+        //TODO:  Better or more general way to handle ARRAY?
+        if (dims == NULL) {
+            return NULL;
+        }
+
+        //need label size for LABELED
+        if (lblCount == 0 && labtype == LABELED) {
+            return NULL;
+        }
+
+        graph = basicGraphInit();
+        if (graph != NULL) {
+            struct labels_t *labels = NULL;
+            if (labtype == LABELED) {
+                labels = initLabels(lblCount);
+            }
+
+            graph->gtype = typeFlags;
+            graph->dims = dims;
+            graph->labels = labels;
+            int initSuccess = 0;
+            switch(imptype) {
+                case ARRAY:
+                    initSuccess = arrayGraphInit(graph);
+                    break;
+                case HASHED:
+                    //initSuccess = hashGraphInit(g);
+                    break;
+                default:
+                    initSuccess = linkGraphInit(graph);
+                    break;
+            }
+            if (!initSuccess) {
+                //something went wrong--clean up
+                clearGraph(graph);
+                destroyGraph((void **)&(graph));
+            }
+        }
+
+    }
+
+    return graph;
     
 }
 

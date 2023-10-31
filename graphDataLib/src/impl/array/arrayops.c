@@ -231,7 +231,7 @@ struct edge_t * arrayGetEdges(const size_t *nodeid, const struct graph_t *g) {
         }
     }
 
-    return NULL;
+    return elist;
 }
 
 /**
@@ -258,7 +258,7 @@ short arrayGetCapacity(const size_t *uid, const size_t *vid, double *cap, const 
     }
 
     if (g->capImpl != NULL && g->metaImpl != NULL) {
-        if (findEdgeOffset(u, v, &eIdx, &eOffset, g)) {
+        if (findEdgeOffset(u, v, &eIdx, &eOffset, g) == OP_SUCCESS) {
             double *caparr = (double *)g->capImpl;
             *cap = *(caparr + eIdx + eOffset);
             retval = OP_SUCCESS;
@@ -292,14 +292,13 @@ short arrayGetFlow(const size_t *uid, const size_t *vid, double *flow, const str
     }
 
     if (g->flowImpl != NULL && g->metaImpl != NULL) {
-        if (findEdgeOffset(u, v, &eIdx, &eOffset, g)) {
+        if (findEdgeOffset(u, v, &eIdx, &eOffset, g) == OP_SUCCESS) {
             double *farr = (double *)g->flowImpl;
             *flow = *(farr + eIdx + eOffset) ;
             retval = OP_SUCCESS;
         }
     }
     return retval;
-
 }
 
 
@@ -392,7 +391,7 @@ short arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *grap
     }
 
     if (graph->metaImpl != NULL) {
-        if (findEdgeOffset(u, v, &eIdx, &eOffset, graph)) {
+        if (findEdgeOffset(u, v, &eIdx, &eOffset, graph) == OP_SUCCESS) {
             size_t *narr = (size_t *)graph->nodeImpl;
             *(narr + eIdx + eOffset) = 0;
             if (graph->capImpl != NULL) {
@@ -429,7 +428,7 @@ short arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, 
     }
 
     if (graph->capImpl != NULL && graph->metaImpl != NULL) {
-        if (findEdgeOffset(u, v, &eIdx, &eOffset, graph)) {
+        if (findEdgeOffset(u, v, &eIdx, &eOffset, graph) == OP_SUCCESS) {
             double *caparr = (double *)graph->capImpl;
             *(caparr + eIdx + eOffset) = *cap;
             retval = OP_SUCCESS;
@@ -526,7 +525,7 @@ short arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, str
         v = maxNode((size_t *) uid, (size_t *)vid);
     }
     if (graph->flowImpl != NULL && graph->metaImpl != NULL) {
-        if (findEdgeOffset(u, v, &eIdx, &eOffset, graph)) {
+        if (findEdgeOffset(u, v, &eIdx, &eOffset, graph) == OP_SUCCESS) {
             double *farr = (double *)graph->flowImpl;
             *(farr + eIdx + eOffset) += *flow;
             retval = OP_SUCCESS;
