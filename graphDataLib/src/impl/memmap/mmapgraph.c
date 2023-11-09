@@ -12,10 +12,91 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+static short rebuildExistingMMapGraph(struct graph_t *g, struct mmapdata_t *meta) {
+    
+}
+
+static short startFreshMMapGraph(struct graph_t *g, struct mmapdata_t *meta) {
+    size_t cartlen = cartesianIndexLength(g->dims);
+    size_t nodeLen = cartlen;
+    //if label graph, modify the array length accordingly
+    if (labtype == LABELED) {
+        nodeLen = g->labels->labelcount * cartlen;
+    }
+
+    if (nodeLen > 0) {
+        gmeta->nodelen = nodeLen;
+        gmeta->edgelen = nodeLen;
+        //undirected graphs use min-to-max pair connectivity
+        gmeta->degree = g->dims->dimcount;
+        //Create the supporting arrays
+        short writable = rwFlag == GRAPH_WRITE ? PROT_READ | PROT_WRITE : PROT_READ;
+        g->nodeImpl = initMmapInt(nodeLen, gmeta->degree, 1, writable)
+        //In this implementation, the node array also holds the edges, so we don't need the extra memory
+        g->edgeImpl = NULL;
+        g->capImpl = createDoubleArray(arrmeta->edgelen, arrmeta->degree);
+        g->flowImpl = createDoubleArray(arrmeta->edgelen, arrmeta->degree);
+        g->metaImpl = (void *) arrmeta;
+        if (g->nodeImpl != NULL && g->capImpl != NULL &&
+            g->flowImpl != NULL)
+            retval = OP_SUCCESS;
+    }
+}
+
 struct mmapdata_t * initMMapMeta(void *addr, int prot_flags, int mmap_flags, int metaFd) {
     struct mmapdata_t *meta = (struct mmapdata_t *)mmap(addr, sizeof(struct mmapdata_t), prot_flags, mmap_flags, metaFd, 0);
     return meta;
 }
+
+/**
+ * @brief Set up a graph with memory-mapped files backing data
+ *
+ * @param g Graph structure
+ * @param lblcount Number of labels to be used--may be zero, depending on the graph domain.
+ * @return 1 if successful; 0 if an error
+ */
+short mmapGraphInit(struct graph_t *g) {
+    short retval = OP_FAIL;
+    if (NULL == g) return OP_FAIL;
+    //Can't continue if no dimensions
+    if (g->dims == NULL) return OP_FAIL;
+    //Create switch selectors for graph types
+    enum GRAPHDOMAIN dirtype;
+    enum GRAPHDOMAIN imptype;
+    enum GRAPHDOMAIN labtype;
+    enum GRAPHDOMAIN domaintype;
+
+    enum GRAPHACCESS sharedFlag;
+    enum GRAPHACCESS savedFlag;
+    enum GRAPHACCESS fileFlag;
+    enum GRAPHACCESS rwFlag;
+    
+    //parse type flags, and quit if not parsable
+    if (parseTypeFlags(&g->gtype, &dirtype, &imptype, &labtype, &domaintype) == OP_FAIL
+    || parseAccessFlags(&g->gaccess, &sharedFlag, &savedFlag, &fileFlag, &rwFlag) == OP_FAIL) {
+        return OP_FAIL;
+    }
+
+    struct mmapdata_t *gmeta = (struct mmapdata_t *)g->metaImpl;
+
+    if (savedFlag != EXISTING) {
+        retval = startFreshMMapGraph(g, gmeta);
+    } else {
+        retval = rebuildExistingMMapGraph(g, gmeta);
+    }
+    return retval;
+}
+
+
+/**
+ * @brief Perform clearing operations to deallocate the memory-mapped addresses graph internal values and structures.
+ * @param g graph_t with array structures to be deallocated
+ * @return 1 if successful; otherwise, 0.
+ */
+short mmapGraphFree(struct graph_t *g) {
+    
+}
+
 
 void * initMmapInt(size_t nlen, size_t conlen, size_t zeroOut, int prot_flags, int mmap_flags, int nodeFd) {
     size_t fileLen = nlen * conlen;

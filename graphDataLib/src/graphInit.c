@@ -197,8 +197,7 @@ struct graph_t * initSharedGraph(enum GRAPHDOMAIN typeFlags, enum GRAPHACCESS sh
 
     if (parseTypeFlags(&typeFlags, &dirtype, &imptype, &labtype, &domaintype) == OP_SUCCESS
         && parseAccessFlags(&shareFlags, &sharedFlag, &savedFlag, &fileFlag, &rwFlag) == OP_SUCCESS) {
-        //need dimensions for array type
-        //TODO:  Better or more general way to handle ARRAY?
+        //need dimensions
         if (dims == NULL) {
             return NULL;
         }
@@ -210,27 +209,18 @@ struct graph_t * initSharedGraph(enum GRAPHDOMAIN typeFlags, enum GRAPHACCESS sh
 
         graph = basicGraphInit();
         if (graph != NULL) {
-            struct labels_t *labels = NULL;
-            if (labtype == LABELED) {
-                labels = initLabels(lblCount);
-            }
 
             graph->gtype = typeFlags;
+            graph->gaccess = shareFlags;
             graph->dims = dims;
-            graph->labels = labels;
-            int initSuccess = 0;
-            switch(imptype) {
-                case ARRAY:
-                    initSuccess = arrayGraphInit(graph);
-                    break;
-                case HASHED:
-                    //initSuccess = hashGraphInit(g);
-                    break;
-                default:
-                    initSuccess = linkGraphInit(graph);
-                    break;
+            graph->metaImpl = sharedMeta;
+            short initSuccess = OP_FAIL;
+            if (fileFlag == FILE_BASED) {
+                initSuccess = mmapGraphInit(graph);
+            } else {
+                //placeholder for shared memory graph
             }
-            if (!initSuccess) {
+            if (initSuccess == OP_FAIL) {
                 //something went wrong--clean up
                 clearGraph(graph);
                 destroyGraph((void **)&(graph));

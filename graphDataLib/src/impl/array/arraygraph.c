@@ -34,8 +34,8 @@ static struct arraydata_t * initArrayMeta() {
  * @param metaPtr pointer-to-pointer for metadata
  * @return 1 if successful; 0 if error.
  */
-static int freeArrayMeta(void** metaPtr) {
-    short retval = OP_FAIL;
+static short freeArrayMeta(void** metaPtr) {
+    short retVal = OP_FAIL;
     if (*metaPtr != NULL) {
         struct arraydata_t *mptr = (struct arraydata_t *)metaPtr;
         mptr->degree = 0;
