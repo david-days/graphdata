@@ -11,6 +11,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <uuid/uuid.h>
 
 short rebuildExistingMMapGraph(struct graph_t *g, struct mmapdata_t *meta) {
     return OP_FAIL;

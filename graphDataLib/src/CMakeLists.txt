@@ -11,7 +11,7 @@ add_library(${PROJECT_NAME} SHARED
         util/graphcomp.c
         util/hashes.c
         util/hashtable.c
-        util/strfuncs.c
+        util/stringpaths.c
 )
 
 set(BUILD_SHARED_LIBS 1)
