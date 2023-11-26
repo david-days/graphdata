@@ -92,14 +92,14 @@ START_TEST(coordFailTest) {
     struct dimensions_t *dim1 = createDimensions(3,100,100,100);
     ck_assert(NULL != dim1);
     int ret1 = cartesianFromIndex(&idx1, calc, dim1);
-    ck_assert( ret1 == 1);
+    ck_assert( ret1 == OP_FAIL);
     free(dim1);
 
     size_t idx2 = 26777216;
     struct dimensions_t *dim2 = createDimensions(3,256,256,256);
     ck_assert(NULL != dim2);
     int ret2 = cartesianFromIndex(&idx2, calc, dim2);
-    ck_assert(ret2 == 1);
+    ck_assert(ret2 == OP_FAIL);
     free(dim2);
 
     size_t idx3 = 65537;
@@ -107,7 +107,7 @@ START_TEST(coordFailTest) {
     struct dimensions_t *dim3 = createDimensions(2,256,256);
     ck_assert(NULL != dim3);
     int ret3 = cartesianFromIndex(&idx3, calc2, dim3);
-    ck_assert(ret3 == 1);
+    ck_assert(ret3 == OP_FAIL);
     free(dim3);
 }
 END_TEST
@@ -123,7 +123,7 @@ START_TEST(indexTest) {
     struct dimensions_t *dim1 = createDimensions(3,100,100,100);
     ck_assert(NULL != dim1);
     int ret1 = indexFromCartesian(dim1, &calc1, coord1);
-    ck_assert( ret1 == 0);
+    ck_assert( ret1 == OP_SUCCESS);
     ck_assert(calc1 == idx1);
     free(dim1);
 
@@ -133,7 +133,7 @@ START_TEST(indexTest) {
     struct dimensions_t *dim2 = createDimensions(3,256,256,256);
     ck_assert(NULL != dim2);
     int ret2 = indexFromCartesian(dim2, &calc2, coord2);
-    ck_assert(ret2 == 0);
+    ck_assert(ret2 == OP_SUCCESS);
     ck_assert(calc2 == idx2);
     free(dim2);
 
@@ -143,7 +143,7 @@ START_TEST(indexTest) {
     struct dimensions_t *dim3 = createDimensions(2,256,256);
     ck_assert(NULL != dim3);
     int ret3 = indexFromCartesian(dim3, &calc3, coord3);
-    ck_assert(ret3 == 0);
+    ck_assert(ret3 == OP_SUCCESS);
     ck_assert(calc3 == idx3);
     free(dim3);
 }
@@ -158,7 +158,7 @@ START_TEST(indexFailTest) {
     struct dimensions_t *dim1 = createDimensions(3,100,100,100);
     ck_assert(NULL != dim1);
     int ret1 = indexFromCartesian(dim1, &calc1, bad1);
-    ck_assert( ret1 == 1);
+    ck_assert( ret1 == OP_FAIL);
 
     free(dim1);
 
@@ -167,7 +167,7 @@ START_TEST(indexFailTest) {
     struct dimensions_t *dim2 = createDimensions(3,256,256,256);
     ck_assert(NULL != dim2);
     int ret2 = indexFromCartesian(dim2, &calc2, bad2);
-    ck_assert(ret2 == 1);
+    ck_assert(ret2 == OP_FAIL);
     free(dim2);
 
     size_t calc3 = 0;
@@ -175,7 +175,7 @@ START_TEST(indexFailTest) {
     struct dimensions_t *dim3 = createDimensions(2,256,256);
     ck_assert(NULL != dim3);
     int ret3 = indexFromCartesian(dim3, &calc3, bad3);
-    ck_assert(ret3 == 1);
+    ck_assert(ret3 == OP_FAIL);
     free(dim3);
 }
 END_TEST

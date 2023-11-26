@@ -68,3 +68,7 @@ add_test(NAME inittests COMMAND "inittests"
 add_test(NAME graphtests COMMAND "graphtests"
         WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
 )
+
+add_test(NAME strtests COMMAND "strtests"
+        WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
+)

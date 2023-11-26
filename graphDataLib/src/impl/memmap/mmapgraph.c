@@ -12,35 +12,55 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-static short rebuildExistingMMapGraph(struct graph_t *g, struct mmapdata_t *meta) {
-    
+short rebuildExistingMMapGraph(struct graph_t *g, struct mmapdata_t *meta) {
+    return OP_FAIL;
 }
 
-static short startFreshMMapGraph(struct graph_t *g, struct mmapdata_t *meta) {
-    size_t cartlen = cartesianIndexLength(g->dims);
-    size_t nodeLen = cartlen;
-    //if label graph, modify the array length accordingly
-    if (labtype == LABELED) {
-        nodeLen = g->labels->labelcount * cartlen;
-    }
+short startFreshMMapGraph(struct graph_t *g, struct mmapdata_t *gmeta) {
+    short retVal = OP_FAIL;
+    
+    enum GRAPHDOMAIN dirtype;
+    enum GRAPHDOMAIN imptype;
+    enum GRAPHDOMAIN labtype;
+    enum GRAPHDOMAIN domaintype;
 
-    if (nodeLen > 0) {
-        gmeta->nodelen = nodeLen;
-        gmeta->edgelen = nodeLen;
-        //undirected graphs use min-to-max pair connectivity
-        gmeta->degree = g->dims->dimcount;
-        //Create the supporting arrays
-        short writable = rwFlag == GRAPH_WRITE ? PROT_READ | PROT_WRITE : PROT_READ;
-        g->nodeImpl = initMmapInt(nodeLen, gmeta->degree, 1, writable)
-        //In this implementation, the node array also holds the edges, so we don't need the extra memory
-        g->edgeImpl = NULL;
-        g->capImpl = createDoubleArray(arrmeta->edgelen, arrmeta->degree);
-        g->flowImpl = createDoubleArray(arrmeta->edgelen, arrmeta->degree);
-        g->metaImpl = (void *) arrmeta;
-        if (g->nodeImpl != NULL && g->capImpl != NULL &&
-            g->flowImpl != NULL)
-            retval = OP_SUCCESS;
+    enum GRAPHACCESS sharedFlag;
+    enum GRAPHACCESS savedFlag;
+    enum GRAPHACCESS fileFlag;
+    enum GRAPHACCESS rwFlag;
+
+    if (parseTypeFlags(&g->gtype, &dirtype, &imptype, &labtype, &domaintype) == OP_SUCCESS
+        && parseAccessFlags(&g->gaccess, &sharedFlag, &savedFlag, &fileFlag, &rwFlag) == OP_SUCCESS) {
+        const size_t cartlen = cartesianIndexLength(g->dims);
+        size_t nodeLen = cartlen;
+        //if label graph, modify the array length accordingly
+        if (labtype == LABELED) {
+            nodeLen = g->labels->labelcount * cartlen;
+        }
+
+        if (nodeLen > 0) {
+            gmeta->nodelen = nodeLen;
+            gmeta->edgelen = nodeLen;
+            //undirected graphs use min-to-max pair connectivity
+            gmeta->degree = g->dims->dimcount;
+            //Create the supporting arrays
+            short writable = rwFlag == GRAPH_WRITE ? PROT_READ | PROT_WRITE : PROT_READ;
+            short sharing = sharedFlag == PRIVATE ? MAP_PRIVATE : MAP_SHARED;
+            int fdNode = -1;
+            g->nodeImpl = initMmapInt(nodeLen, gmeta->degree, 1, writable, sharing, fdNode);
+            //In this implementation, the node array also holds the edges, so we don't need the extra memory
+            g->edgeImpl = NULL;
+            g->capImpl = createDoubleArray(gmeta->edgelen, gmeta->degree);
+            g->flowImpl = createDoubleArray(gmeta->edgelen, gmeta->degree);
+            g->metaImpl = (void *) gmeta;
+            if (g->nodeImpl != NULL && g->capImpl != NULL &&
+                g->flowImpl != NULL)
+                retVal = OP_SUCCESS;
+        }
+
     }
+    
+    return retVal;
 }
 
 struct mmapdata_t * initMMapMeta(void *addr, int prot_flags, int mmap_flags, int metaFd) {
@@ -94,7 +114,7 @@ short mmapGraphInit(struct graph_t *g) {
  * @return 1 if successful; otherwise, 0.
  */
 short mmapGraphFree(struct graph_t *g) {
-    
+    return OP_FAIL;
 }
 
 

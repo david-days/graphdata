@@ -10,14 +10,14 @@
 //Read functions to extract data
 /**
  * @brief Function pointer definition for getting the node count;
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return Count of nodes, if graph is not null; otherwise, return 0
  */
 typedef size_t (*funcNodeCount)(struct graph_t *graph);
 
 /**
  * @brief Function pointer to extract count of edges
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return Count of edges, if graph is not null; otherwise, return 0
  */
 typedef size_t (*funcEdgeCount)(struct graph_t *graph);
@@ -28,7 +28,7 @@ typedef size_t (*funcEdgeCount)(struct graph_t *graph);
  * Implementation-specific on whether this
  * structure is part of the original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based).
  * @param nodeid Identifier of the node to be retrieved
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return pointer to the node structure, if found; otherwise, pointer to NULL
  */
 typedef struct node_t * (*funcGetNode)(const size_t *nodeid, const struct graph_t *graph);
@@ -40,7 +40,7 @@ typedef struct node_t * (*funcGetNode)(const size_t *nodeid, const struct graph_
  * original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based).
  * @param u nodeid of the starting edge.
  * @param v nodeid of the ending edge.
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return pointer to the edge structure, if found; otherwise, pointer to NULL.
  */
  //NOLINT readability-identifier-length
@@ -51,7 +51,7 @@ typedef struct edge_t * (*funcGetEdge)(const size_t *u, const size_t *v, const s
  *
  * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
  * @param nodeid Identifier of the node in question
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return linked-list of node references, starting with the given node, if found; otherwise, pointer to NULL.
  */
 typedef struct node_t * (*funcGetNeighbors)(const size_t *nodeid, const struct graph_t *graph);
@@ -60,7 +60,7 @@ typedef struct node_t * (*funcGetNeighbors)(const size_t *nodeid, const struct g
  * @brief Function pointer to retrieve linked-list of edges from a given node.
  * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
  * @param nodeid Identifier of the node in question
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return linked-list of edges starting from the given node, if found; otherwise, pointer to NULL.
  */
 typedef struct edge_t * (*funcGetEdges)(const size_t *nodeid, const struct graph_t *graph);
@@ -73,7 +73,7 @@ typedef struct edge_t * (*funcGetEdges)(const size_t *nodeid, const struct graph
  * @param uid Edge start identifier
  * @param vid Edge end identifier
  * @param cap Capacity value pointer to store the value
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
@@ -87,7 +87,7 @@ typedef short (*funcGetCapacity)(const size_t *uid, const size_t *vid, double *c
  * @param uid Edge start identifier
  * @param vid Edge end identifier
  * @param flow Flow value pointer to store the result
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
@@ -98,7 +98,7 @@ typedef short (*funcGetFlow)(const size_t *uid, const size_t *vid, double *flow,
  * @brief Function pointer to add a node to a given graph.
  * Not all implementations may use this (for example, fixed-size graphs such as spatial ARRAY implementations).
  * @param nodeid Node identifier to be added
- * @param g Graph structure to add the node
+ * @param graph Graph structure to add the node
  * @return 0 if there was an error, 1 if the node was successfully added
  */
 typedef short (*funcAddNode)(const size_t *nodeid, struct graph_t *graph);
@@ -108,7 +108,7 @@ typedef short (*funcAddNode)(const size_t *nodeid, struct graph_t *graph);
  *
  * Not all implementations will allow removal of nodes.
  * @param nodeid Node id to be added.
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return 0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful.
  */
 typedef short (*funcRemoveNode)(const size_t *nodeid, struct graph_t *graph);
@@ -119,7 +119,7 @@ typedef short (*funcRemoveNode)(const size_t *nodeid, struct graph_t *graph);
  * @param uid identifer for start of edge
  * @param vid identifier for end of edge
  * @param cap capacity value to be assigned
- * @param g graph structure in question
+ * @param graph graph structure in question
  * @return 0 if there was an error; 1 if the edge was successfully added.
  */
 typedef short (*funcAddEdge)(const size_t *uid, const size_t *vid, double *cap, struct graph_t *graph);
@@ -131,7 +131,7 @@ typedef short (*funcAddEdge)(const size_t *uid, const size_t *vid, double *cap, 
  *
  * @param uid Identifier for the edge start
  * @param vid Identifier for the edge end.
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return 0 if there was an error (e.g. the edge was not found); otherwise, 1 if the edge was removed.
  */
 typedef short (*funcRemoveEdge)(const size_t *uid, const size_t *vid, struct graph_t *graph);
@@ -141,7 +141,7 @@ typedef short (*funcRemoveEdge)(const size_t *uid, const size_t *vid, struct gra
  * @param uid identifier of the edge start
  * @param vid identifier of the edge ending.
  * @param cap capacity value to be set
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return 0 if there was an error; 1 if the capacity was successfully set
  */
 typedef short (*funcSetCapacity)(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph);
@@ -154,7 +154,7 @@ typedef short (*funcSetCapacity)(const size_t *uid, const size_t *vid, const dou
  * @param uid Identifier of the edge start
  * @param vid Identifier of the edge end.
  * @param cap Value to adjust the capacity
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return 0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted
  */
 typedef short (*funcAddCapacity)(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *graph);
@@ -167,7 +167,7 @@ typedef short (*funcAddCapacity)(const size_t *uid, const size_t *vid, const dou
  * @param uid Identifier of the edge start.
  * @param vid Identifier of the edge end.
  * @param flow Value to be set for the flow.
- * @param g Graph structure in question
+ * @param graph Graph structure in question
  * @return 0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set.
  */
 typedef short (*funcSetFlow)(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph);
@@ -180,7 +180,7 @@ typedef short (*funcSetFlow)(const size_t *uid, const size_t *vid, const double 
  * @param uid Identifier of the edge start
  * @param vid Identifier of the edge end.
  * @param flow The value to be added to adjust the flow value.
- * @param g The graph structure in question
+ * @param graph The graph structure in question
  * @return 0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted.
  */
 typedef short (*funcAddFlow)(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *graph);
@@ -190,7 +190,7 @@ typedef short (*funcAddFlow)(const size_t *uid, const size_t *vid, const double 
  *
  * For some implementations, it is more efficient to reuse the existing graph structure and perform a "zero-out"
  * of the data, rather than rebuilding from scratch.  This function pointer provides that option.
- * @param g Graph structure to be zeroed or modified according to reset logic
+ * @param graph Graph structure to be zeroed or modified according to reset logic
  * @param args Arguments to be used in the reset process, if necessary
  * @param callback Callback to be executed when graph has been reset.
  * @return 0 if there was an error during the reset; 1 if the reset completed;

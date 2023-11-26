@@ -71,12 +71,12 @@ START_TEST(arrayGraphTest) {
         size_t nexpected = cartesianIndexLength(dims);
         ck_assert(ncount == nexpected);
         int opsclear = destroyGraphops((void **)&gops);
-        ck_assert(opsclear == 1);
+        ck_assert(opsclear == OP_SUCCESS);
         ck_assert(gops == NULL);
         int graphclear = clearGraph(g);
-        ck_assert(graphclear == 1);
+        ck_assert(graphclear == OP_SUCCESS);
         int deallocsuccess = destroyGraph((void **)&g);
-        ck_assert(deallocsuccess == 1);
+        ck_assert(deallocsuccess == OP_SUCCESS);
         ck_assert(g == NULL);
 
 }
@@ -112,12 +112,12 @@ START_TEST(linkGraphTest) {
     }
 
     int opsclear = destroyGraphops((void **) &gops);
-    ck_assert(opsclear == 1);
+    ck_assert(opsclear == OP_SUCCESS);
     ck_assert(gops == NULL);
     int graphclear = clearGraph(g);
-    ck_assert(graphclear == 1);
+    ck_assert(graphclear == OP_SUCCESS);
     int deallocsuccess = destroyGraph((void **) &g);
-    ck_assert(deallocsuccess == 1);
+    ck_assert(deallocsuccess == OP_SUCCESS);
     ck_assert(g == NULL);
 }
 END_TEST
@@ -140,15 +140,15 @@ Suite * init_suite(void) {
 
 
 int main(void) {
-    int number_failed;
     Suite * s;
     SRunner *sr;
 
     s = init_suite();
     sr = srunner_create(s);
+    srunner_set_log(sr, "graphTestLog.txt");
     srunner_set_fork_status(sr, CK_NOFORK);
     srunner_run_all(sr, CK_VERBOSE);
-    number_failed = srunner_ntests_failed(sr);
+    const int number_failed = srunner_ntests_failed(sr);
     srunner_free(sr);
     return (number_failed == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
 }

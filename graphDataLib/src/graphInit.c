@@ -125,7 +125,7 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
     enum GRAPHDOMAIN labtype;
     enum GRAPHDOMAIN domaintype;
 
-    if (parseTypeFlags(&typeflags, &dirtype, &imptype, &labtype, &domaintype)) {
+    if (parseTypeFlags(&typeflags, &dirtype, &imptype, &labtype, &domaintype) == OP_SUCCESS) {
         //need dimensions for array type
         //TODO:  Better or more general way to handle ARRAY?
         if (imptype == ARRAY && dims == NULL) {
@@ -159,7 +159,7 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
                     initSuccess = linkGraphInit(graph);
                     break;
             }
-            if (!initSuccess) {
+            if (initSuccess == OP_FAIL) {
                 //something went wrong--clean up
                 clearGraph(graph);
                 destroyGraph((void **)&(graph));
@@ -174,14 +174,14 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
 /**
  * @brief Stand up a shared graph according to the settings. This may be as a memory-only or file-backed structure.
  * 
- * @param typeFlags Type of graph to create
- * @param shareFlags Sharing/access settings
+ * @param gtype_flags Type of graph to create
+ * @param gacc_flags Sharing/access settings
  * @param lblCount Number of labels to be used
  * @param dims Dimensional characteristics
  * @param sharedMeta Shared metaadata structure
  * @return reference to a fully initialized graph structure
  */
-struct graph_t * initSharedGraph(enum GRAPHDOMAIN typeFlags, enum GRAPHACCESS shareFlags, size_t lblCount, struct dimensions_t *dims, void *sharedMeta) {
+struct graph_t * initSharedGraph(enum GRAPHDOMAIN *gtype_flags, enum GRAPHACCESS *gacc_flags, const size_t lblCount, struct dimensions_t *dims, void *sharedMeta) {
     struct graph_t *graph = NULL;
 
     //Create switch selectors for graph types
@@ -195,8 +195,9 @@ struct graph_t * initSharedGraph(enum GRAPHDOMAIN typeFlags, enum GRAPHACCESS sh
     enum GRAPHACCESS fileFlag;
     enum GRAPHACCESS rwFlag;
 
-    if (parseTypeFlags(&typeFlags, &dirtype, &imptype, &labtype, &domaintype) == OP_SUCCESS
-        && parseAccessFlags(&shareFlags, &sharedFlag, &savedFlag, &fileFlag, &rwFlag) == OP_SUCCESS) {
+    if (parseTypeFlags(gtype_flags, &dirtype, &imptype, &labtype, &domaintype) == OP_SUCCESS
+        && parseAccessFlags(gacc_flags, &sharedFlag, &savedFlag, &fileFlag, &rwFlag) == OP_SUCCESS) {
+
         //need dimensions
         if (dims == NULL) {
             return NULL;
@@ -206,14 +207,14 @@ struct graph_t * initSharedGraph(enum GRAPHDOMAIN typeFlags, enum GRAPHACCESS sh
         if (lblCount == 0 && labtype == LABELED) {
             return NULL;
         }
-
+        
         graph = basicGraphInit();
         if (graph != NULL) {
-
-            graph->gtype = typeFlags;
-            graph->gaccess = shareFlags;
+            graph->gtype = *gtype_flags;
+            graph->gaccess = *gacc_flags;
             graph->dims = dims;
             graph->metaImpl = sharedMeta;
+            if (labtype == LABELED) graph->labels = initLabels(lblCount);
             short initSuccess = OP_FAIL;
             if (fileFlag == FILE_BASED) {
                 initSuccess = mmapGraphInit(graph);
@@ -224,6 +225,8 @@ struct graph_t * initSharedGraph(enum GRAPHDOMAIN typeFlags, enum GRAPHACCESS sh
                 //something went wrong--clean up
                 clearGraph(graph);
                 destroyGraph((void **)&(graph));
+            } else {
+                
             }
         }
 
@@ -254,7 +257,15 @@ struct graphops_t * getOperations(struct graph_t *graph) {
         enum GRAPHDOMAIN labtype;
         enum GRAPHDOMAIN domaintype;
         enum GRAPHDOMAIN gflags = graph->gtype;
-        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype)) {
+
+        enum GRAPHACCESS sharedFlag;
+        enum GRAPHACCESS savedFlag;
+        enum GRAPHACCESS fileFlag;
+        enum GRAPHACCESS rwFlag;
+        enum GRAPHACCESS accflags = graph->gaccess;
+        
+        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype) == OP_SUCCESS
+            && parseAccessFlags(&accflags, &sharedFlag, &savedFlag, &fileFlag, &rwFlag) == OP_SUCCESS) {
             gops = initGraphops();
             gops->graph = graph;
             switch (imptype) {
@@ -265,7 +276,14 @@ struct graphops_t * getOperations(struct graph_t *graph) {
                     setLinkOps(gops);
                     break;
                 default:
-                    //TODO:  Do the other implementations
+                    switch (fileFlag) {
+                        case FILE_BASED:
+                            setMMapOps(gops);
+                            break;
+                        default:
+
+                            break;
+                    }
                     break;
             }
         }

@@ -89,6 +89,26 @@ struct graph_t * basicGraphInit();
  */
 struct dimensions_t * createDimensions(size_t dimval, ...);
 
+
+/**
+ * @brief Utility method to create a size_t **array, returned as a void *
+ * @param alen Length of base array (nodes)
+ * @param conlen Connectivity count (how many neighbors, or dimensionality of the array)
+ * @return size_t **array as a void *.
+ */
+void * createNodeArray(size_t alen, size_t conlen);
+
+/**
+ * @brief Utility function to create a double **array, returned as a void *
+ *
+ * Returns a double **array initialized to zeroes, returned as a void *
+ * @param alen Length of base array (nodes)
+ * @param conlen Connectivity count (how many neighbors, or dimensionality of the array)
+ * @return double **array as a void *.
+ *
+ */
+void * createDoubleArray(size_t alen, size_t conlen);
+
 /**
  * @brief Create a raw label structure of the given size
  * @param lblcount Number of labels required

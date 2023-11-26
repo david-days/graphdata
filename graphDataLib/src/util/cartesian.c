@@ -27,9 +27,9 @@ short indexFromCartesian(struct dimensions_t *dims, size_t *idx, size_t *coords)
         }
         size_t dlen = cartesianIndexLength(dims);
         if (dxval >= dlen) {
-            retval = OP_SUCCESS;
-        } else {
             retval = OP_FAIL;
+        } else {
+            retval = OP_SUCCESS;
         }
         *idx = dxval;
     }

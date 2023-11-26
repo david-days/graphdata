@@ -60,13 +60,20 @@ struct mmapdata_t {
     /**
      * @brief memory-mapped file access flags.
      */
-    int mmap_flags;
-    
+    enum GRAPHACCESS mmap_flags;
+    /**
+     *
+     */
+    enum GRAPHDOMAIN gtype_flags;
     /**
      * @brief Address of the graph structure.  May be NULL
      */
     void *graphAddress;
 };
+
+short rebuildExistingMMapGraph(struct graph_t *g, struct mmapdata_t *meta);
+
+short startFreshMMapGraph(struct graph_t *g, struct mmapdata_t *gmeta); 
 
 /**
  * @brief Initialize a memory-mapped structure a node neighbors array 

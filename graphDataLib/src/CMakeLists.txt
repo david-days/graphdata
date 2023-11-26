@@ -11,9 +11,14 @@ add_library(${PROJECT_NAME} SHARED
         util/graphcomp.c
         util/hashes.c
         util/hashtable.c
+        util/strfuncs.c
 )
+
 set(BUILD_SHARED_LIBS 1)
 
+target_link_libraries(${PROJECT_NAME}
+        uuid
+)
 # Configure the directories to search for header files.
 target_include_directories(${PROJECT_NAME} PUBLIC 
         ${PROJECT_SOURCE_DIR}/include

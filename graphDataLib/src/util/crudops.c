@@ -128,6 +128,49 @@ struct dimensions_t * createDimensions(size_t dimsz, ...) {
     return dims;
 }
 
+
+/**
+ * @brief Utility method to create a size_t **array, returned as a void *
+ * @param alen Length of base array (nodes)
+ * @param conlen Connectivity count (how many neighbors, or dimensionality of the array)
+ * @return size_t **array as a void *.
+ */
+void * createNodeArray(size_t alen, size_t conlen) {
+    size_t arrlen = alen * conlen;
+    void *arrbase = malloc(sizeof(size_t *)*arrlen);
+    if (arrbase != NULL) {
+        size_t *arrvals = (size_t *) arrbase;
+        for (size_t *p = arrvals; p < arrvals+arrlen;p++) {
+            *p = 0;
+        }
+    }
+    return arrbase;
+}
+
+/**
+ * @brief Utility function to create a double **array, returned as a void *
+ *
+ * Returns a double **array initialized to zeroes, returned as a void *
+ * @param alen Length of base array (nodes)
+ * @param conlen Connectivity count (how many neighbors, or dimensionality of the array)
+ * @return double **array as a void *.
+ *
+ */
+void * createDoubleArray(size_t alen, size_t conlen) {
+    size_t arrlen = alen*conlen;
+    void *arrbase = malloc(sizeof(double *)*arrlen);
+    if (arrbase != NULL) {
+        double *arrvals = (double *) arrbase;
+        for (double *p = arrvals; p<arrvals+arrlen;p++) {
+            //TODO:  Would calloc() or some other method be better?
+            *p = 0.0;
+        }
+    }
+    return arrbase;
+}
+
+
+
 /**
  * @brief Create a raw label structure of the given size
  * @param lblcount Number of labels required

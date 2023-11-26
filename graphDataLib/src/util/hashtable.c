@@ -26,7 +26,7 @@ struct hash_table * init_hashtable(size_t exp_capacity, hashFunc hashFunction) {
 }
 
 short hashtable_add(void *keyVal, void *valVal, struct hash_table *ht) {
-    short retval = hashtable_check(ht);
+    short retVal = hashtable_check(ht);
     if (retVal == OP_SUCCESS) {
         size_t keyHash = ht->hash(keyVal);
         size_t hashMod = keyHash % ht->modulo;
