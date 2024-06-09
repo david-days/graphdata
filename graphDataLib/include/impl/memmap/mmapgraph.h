@@ -42,7 +42,31 @@ struct mmapdata_t {
      * @brief path to the node mmap file
      */
     char *nodeFile;
-    
+
+    /**
+     * @brief file descriptor for the node file (ephemeral)
+     */
+    int nodeFd;
+
+    /**
+     * @brief path to the capacity file 
+     */
+    char *capFile;
+
+    /**
+     * @brief file descriptor for the capacity file (ephemeral)
+     */
+    int capFd;
+ 
+    /**
+     * @brief path to the flow file
+     */
+    char *flowFile;
+
+    /**
+     * @brief file descriptor for the flow file (ephemeral)
+     */
+    int flowFd;
     /**
      * @brief path to the label mmap file
      */
