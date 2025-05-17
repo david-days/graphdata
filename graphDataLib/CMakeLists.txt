@@ -24,7 +24,6 @@ if(CMAKE_SYSTEM_NAME MATCHES Linux)
     # Linux configuration files
     configure_file(conf.in/linux-x64-runtime.nuspec.in ${PROJECT_SOURCE_DIR}/output/linux-x64-runtime.nuspec)
     configure_file(conf.in/linux_runtime.csproj.in ${PROJECT_SOURCE_DIR}/output/linux_runtime.csproj)
-    
 elseif(CMAKE_SYSTEM_NAME MATCHES Windows)
     message(STATUS "Configuring for Win-x64")
     #Windows configuration files
