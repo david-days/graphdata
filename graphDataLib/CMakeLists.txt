@@ -38,6 +38,8 @@ add_subdirectory(src)
 enable_testing()
 add_subdirectory(tests)
 
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/packaging.cmake)
+
 if( PRINT_ALL_VARS )
     get_cmake_property(_variableNames VARIABLES)
     foreach (_variableName ${_variableNames})

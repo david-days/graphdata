@@ -39,7 +39,7 @@ int linkGraphFree(struct graph_t *g) {
         if ((g->gtype & LINKED) == LINKED) {
             struct node_t *currnode = (struct node_t *)g->nodeImpl;
             while (currnode != NULL) {
-                retval = retval & destroyEdges((void **)&currnode->edges);
+                if (currnode->edges != NULL) retval = retval & destroyEdges((void **)&currnode->edges);
                 currnode = currnode->next;
             }
             //now clear out nodes

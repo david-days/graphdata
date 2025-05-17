@@ -69,6 +69,7 @@ if ($help) {
     Write-Host "	-test       Build and run tests, then exit"
     Write-Host "	-v          Print out CMAKE build variables and exit"
     Write-Host "	-vv         Print all CMAKE build variables used during build"
+    Write-Host "    -package    Generate platform installation package"
     Write-Host "	-help       Print this help and exit"
     exit 0
     ;;
