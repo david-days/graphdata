@@ -188,7 +188,7 @@ int destroyEdges(void** eptr);
  * The graph itself will not be cleared, only the reference to it.  The pointer itself will be changed to NULL
  *
  * @param optptr Graphops structuure to be cleared and deallocated
- * @return 1 if successful; 0 if error
+ * @return EXIT_SUCCESS if successful; EXIT_FAILURE if error
  */
 int destroyGraphops(void** opsptr);
 
@@ -198,7 +198,7 @@ int destroyGraphops(void** opsptr);
  * The pointer itself will be changed to NULL
  *
  * @param nptr Initial node pointer
- * @return 1 if successful; 0 if error
+ * @return EXIT_SUCCESS if successful; EXIT_FAILURE if error
  */
 int destroyNodes(void** nptr);
 
@@ -208,7 +208,7 @@ int destroyNodes(void** nptr);
  * The pointer itself will be changed to NULL
  *
  * @param fptr Initial feature pointer
- * @return 1 if successful; 0 if error
+ * @return EXIT_SUCCESS if successful; EXIT_FAILURE if error
  */
 int destroyFeatures(void** fptr);
 

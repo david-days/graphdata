@@ -37,7 +37,7 @@ struct node_t * arrayGetNode(const size_t *nodeid, const struct graph_t *g);
  *
  * @param nodeid Node id to be added.
  * @param g Graph structure in question
- * @return 0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful.
+ * @return EXIT_FAILURE if there was an error (node already exists or outside the bounds of the implementation); otherwise, EXIT_SUCCESS if successful.
  */
 int arrayRemoveNode(const size_t *nodeid, struct graph_t *g);
 /**
@@ -199,7 +199,7 @@ int arrayResetGraph(struct graph_t *g, void *args, void (*callback)(void));
  * Deallocates all unerlying arrays and the containing array.
  * @param arraylen Number of elements in the array
  * @param arr 2D array to be cleared
- * @return 1 if successful; 0 if error.
+ * @return EXIT_SUCCESS if successful; EXIT_FAILURE if error.
  */
 int freeGraphArray(size_t arraylen, void** arrptr);
 

@@ -24,7 +24,7 @@
  * @param lblcount Number of label nodes to be used within the graph.  Required for LABELED flag; ignored for all others.
  * @param dims Dimensional parameters structure.  Required for ARRAY graphs; otherwise, may be NULL.  The returned graph will
  * hold the reference to the structure that was passed.
- * @return If successful and valied, initialized graph structure, according to the flags.  Otherwise, a NULL pointer.
+ * @return If successful and valid, initialized graph structure, according to the flags.  Otherwise, a NULL pointer.
  */
 struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct dimensions_t *dims);
 
@@ -46,7 +46,7 @@ struct graphops_t * getOperations(struct graph_t *g);
  * All underlying graph structures will be cleared and the associated memory to the structures freed.
  *
  * @param g Graph to be cleared
- * @return 1 if successful; otherwise, 0.
+ * @return EXIT_SUCCESS if successful; otherwise, EXIT_FAILURE.
  */
 int clearGraph(struct graph_t *g);
 

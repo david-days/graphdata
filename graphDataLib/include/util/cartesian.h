@@ -16,7 +16,7 @@
  * @param idx size_t reference to be set
  * @param dimsz Number of dimensions in question--can pass dims->dimcount for consistency
  * @param ... zero-based spatial coordinates for calculation
- * @return 0 if successful; 1 if the coordinates are outside the bounds of the dimensions
+ * @return EXIT_SUCCESS if successful; 1 if the coordinates are outside the bounds of the dimensions
  */
 int indexFromCartesian(struct dimensions_t *dims, size_t *idx, size_t *coords);
 
@@ -29,7 +29,7 @@ int indexFromCartesian(struct dimensions_t *dims, size_t *idx, size_t *coords);
  * @param idx Index value to be used
  * @param coords Array to hold the result
  * @param dims Dimensional value to be calculated against
- * @return 0 if successful, 1 if the index is outside the bounds of the dimensions.
+ * @return EXIT_SUCCESS if successful, 1 if the index is outside the bounds of the dimensions.
  */
 int cartesianFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims);
 

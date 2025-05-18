@@ -71,12 +71,12 @@ START_TEST(arrayGraphTest) {
         size_t nexpected = cartesianIndexLength(dims);
         ck_assert(ncount == nexpected);
         int opsclear = destroyGraphops((void **)&gops);
-        ck_assert(opsclear == 1);
+        ck_assert(opsclear == EXIT_SUCCESS);
         ck_assert(gops == NULL);
         int graphclear = clearGraph(g);
-        ck_assert(graphclear == 1);
+        ck_assert(graphclear == EXIT_SUCCESS);
         int deallocsuccess = destroyGraph((void **)&g);
-        ck_assert(deallocsuccess == 1);
+        ck_assert(deallocsuccess == EXIT_SUCCESS);
         ck_assert(g == NULL);
 
 }
@@ -112,12 +112,12 @@ START_TEST(linkGraphTest) {
     }
 
     int opsclear = destroyGraphops((void **) &gops);
-    ck_assert(opsclear == 1);
+    ck_assert(opsclear == EXIT_SUCCESS);
     ck_assert(gops == NULL);
     int graphclear = clearGraph(g);
-    ck_assert(graphclear == 1);
+    ck_assert(graphclear == EXIT_SUCCESS);
     int deallocsuccess = destroyGraph((void **) &g);
-    ck_assert(deallocsuccess == 1);
+    ck_assert(deallocsuccess == EXIT_SUCCESS);
     ck_assert(g == NULL);
 }
 END_TEST

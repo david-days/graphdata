@@ -17,7 +17,7 @@
  *
  * @param gtype DIRECTED or UNDIRECTED graph
  * @param g Graph structure
- * @return 1 if successful; 0 if there was a problem.
+ * @return EXIT_SUCCESS if successful; EXIT_FAILURE if there was a problem.
  */
 int linkGraphInit(struct graph_t *g);
 

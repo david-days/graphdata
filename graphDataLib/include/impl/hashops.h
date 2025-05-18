@@ -104,7 +104,7 @@ int hashAddNode(const size_t *nodeid, struct graph_t *g);
  * Not all implementations will allow removal of nodes.
  * @param nodeid Node id to be added.
  * @param g Graph structure in question
- * @return 0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful.
+ * @return EXIT_FAILURE if there was an error (node already exists or outside the bounds of the implementation); otherwise, EXIT_SUCCESS if successful.
  */
 int hashRemoveNode(const size_t *nodeid, struct graph_t *g);
 

@@ -98,7 +98,7 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
     //Create switch selectors for graph types
     enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype;
 
-    if (parseTypeFlags(&typeflags, &dirtype, &imptype, &labtype, &domaintype)) {
+    if (parseTypeFlags(&typeflags, &dirtype, &imptype, &labtype, &domaintype) == EXIT_SUCCESS) {
         //need dimensions for array type
         //TODO:  Better or more general way to handle ARRAY?
         if (imptype == ARRAY && dims == NULL) {
@@ -120,7 +120,7 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
             g->gtype = typeflags;
             g->dims = dims;
             g->labels = labels;
-            int initSuccess = 0;
+            int initSuccess = EXIT_FAILURE;
             switch(imptype) {
                 case ARRAY:
                     initSuccess = arrayGraphInit(g);
@@ -132,7 +132,7 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
                     initSuccess = linkGraphInit(g);
                     break;
             }
-            if (!initSuccess) {
+            if (initSuccess != EXIT_SUCCESS) {
                 //something went wrong--clean up
                 clearGraph(g);
                 destroyGraph((void **)&(g));
@@ -162,7 +162,7 @@ struct graphops_t * getOperations(struct graph_t *g) {
     if (g != NULL) {
         enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype;
         enum GRAPHDOMAIN gflags = g->gtype;
-        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype)) {
+        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype) == EXIT_SUCCESS) {
             gops = initGraphops();
             gops->g = g;
             switch (imptype) {
@@ -188,10 +188,10 @@ struct graphops_t * getOperations(struct graph_t *g) {
  * All underlying graph structures will be cleared and the associated memory to the structures freed.
  *
  * @param g Graph to be cleared
- * @return 1 if successful; otherwise, 0.
+ * @return EXIT_SUCCESS if successful; otherwise, EXIT_FAILURE.
  */
 int clearGraph(struct graph_t *g) {
-    int retval = 1;
+    int retval = EXIT_SUCCESS;
     if (g != NULL) {
         enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype;
         enum GRAPHDOMAIN gflags = g->gtype;
@@ -199,10 +199,10 @@ int clearGraph(struct graph_t *g) {
 
             switch (imptype) {
                 case ARRAY:
-                    retval = retval & arrayGraphFree(g);
+                    retval = retval | arrayGraphFree(g);
                     break;
                 case LINKED:
-                    retval = retval & linkGraphFree(g);
+                    retval = retval | linkGraphFree(g);
                     break;
                 case HASHED:
                     //TODO:  implement clearing operations

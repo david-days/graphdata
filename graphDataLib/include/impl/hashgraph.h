@@ -11,7 +11,7 @@
  * @brief Initialize the graph using the hashtable adjacency list structure.
  *
  * @param g Graph structure to be operated upon.
- * @returns 1 if successful; 0 of there was a problem.
+ * @returns EXIT_SUCCESS if successful; EXIT_FAILURE of there was a problem.
  */
 int hashGraphInit(struct graph_t *g);
 

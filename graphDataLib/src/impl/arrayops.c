@@ -7,7 +7,6 @@
 #include <impl/arraygraph.h>
 #include <impl/arrayops.h>
 #include <util/graphcomp.h>
-#include <stdlib.h>
 
 /**
  * @brief Search the array for a given edge.
@@ -21,7 +20,7 @@
  * @return 1 if the edge was found and the idx value set; otherwise, 0.
  */
 static int findEdgeOffset(const size_t *u, const size_t *v, size_t *index, size_t *offset, const struct graph_t *g) {
-    int found = 0;
+    int found = EXIT_FAILURE;
     struct arraydata_t *gmeta = (struct arraydata_t *)g->metaImpl;
     size_t *nodearr = (size_t *)g->nodeImpl;
     size_t conn = gmeta->degree;
@@ -30,7 +29,7 @@ static int findEdgeOffset(const size_t *u, const size_t *v, size_t *index, size_
         if (*(nodearr+idx+i) == *v) {
             *index = idx;
             *offset = i;
-            found = 1;
+            found = EXIT_SUCCESS;
             break;
         }
     }
@@ -38,13 +37,13 @@ static int findEdgeOffset(const size_t *u, const size_t *v, size_t *index, size_
 }
 
 static int zeroDoubleArray(size_t ecount, size_t conncount, double *darr) {
-    int retval = 0;
+    int retval = EXIT_FAILURE;
     if (darr != NULL) {
         //TODO:  Prevent overwriting outside array?
         for (size_t i = 0;i<ecount*conncount;i++) {
             *(darr + i) = 0;
         }
-        retval = 1;
+        retval = EXIT_SUCCESS;
     }
     return retval;
 }
@@ -243,11 +242,11 @@ struct edge_t * arrayGetEdges(const size_t *nodeid, const struct graph_t *g) {
  * @param vid Edge end identifier
  * @param cap Capacity value pointer to store the value
  * @param g Graph structure in question
- * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
+ * @return EXIT_FAILURE if there was a problem retrieving the value (such as the edge not existing); otherwise, EXIT_SUCCESS for a successful
  * retrieval
  */
 int arrayGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g) {
-    int retval = 0;
+    int retval = EXIT_FAILURE;
     size_t eOffset = 0;
     size_t eIdx = 0;
     const size_t *u = uid;
@@ -261,7 +260,7 @@ int arrayGetCapacity(const size_t *uid, const size_t *vid, double *cap, const st
         if (findEdgeOffset(u, v, &eIdx, &eOffset, g)) {
             double *caparr = (double *)g->capImpl;
             *cap = *(caparr + eIdx + eOffset);
-            retval = 1;
+            retval = EXIT_SUCCESS;
         }
     }
     return retval;
@@ -277,11 +276,11 @@ int arrayGetCapacity(const size_t *uid, const size_t *vid, double *cap, const st
  * @param vid Edge end identifier
  * @param flow Flow value pointer to store the result
  * @param g Graph structure in question
- * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
+ * @return EXIT_FAILURE if there was a problem retrieving the value (such as the edge not existing); otherwise, EXIT_SUCCESS for a successful
  * retrieval
  */
 int arrayGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g) {
-    int retval = 0;
+    int retval = EXIT_FAILURE;
     size_t eOffset = 0;
     size_t eIdx = 0;
     const size_t *u = uid;
@@ -295,7 +294,7 @@ int arrayGetFlow(const size_t *uid, const size_t *vid, double *flow, const struc
         if (findEdgeOffset(u, v, &eIdx, &eOffset, g)) {
             double *farr = (double *)g->flowImpl;
             *flow = *(farr + eIdx + eOffset) ;
-            retval = 1;
+            retval = EXIT_SUCCESS;
         }
     }
     return retval;
@@ -309,10 +308,10 @@ int arrayGetFlow(const size_t *uid, const size_t *vid, double *flow, const struc
  * NOOP implementation for array-based graphs--the node counts are fixed at creation.
  * @param nodeid Node identifier to be added
  * @param g Graph structure to add the node
- * @return 0 if there was an error, 1 if the node was successfully added
+ * @return EXIT_SUCCESS
  */
 int arrayAddNode(const size_t *nodeid, struct graph_t *g){
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 /**
@@ -322,26 +321,26 @@ int arrayAddNode(const size_t *nodeid, struct graph_t *g){
  *
  * @param nodeid Node id to be added.
  * @param g Graph structure in question
- * @return 0 if there was an error (node already exists or outside the bounds of the implementation); otherwise, 1 if successful.
+ * @return EXIT_SUCCESS
  */
 int arrayRemoveNode(const size_t *nodeid, struct graph_t *g) {
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 /**
  * @brief Implementation to add an edge to a given graph.
  *
- * Adds a connecting-edge referece (if not already in place, and the degree of the graph allows it (there are unfilled spots available
+ * Adds a connecting-edge reference (if not already in place, and the degree of the graph allows it (there are unfilled spots available
  * for the given uid).
  *
  * @param uid identifer for start of edge
  * @param vid identifier for end of edge
  * @param cap capacity value to be assigned
  * @param g graph structure in question
- * @return 0 if there was an error; 1 if the edge was successfully added.
+ * @return EXIT_FAILURE if there was an error; EXIT_SUCCESS if the edge was successfully added.
  */
 int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g) {
-    int added = 0;
+    int added = EXIT_FAILURE;
     if (g != NULL) {
         if (g->metaImpl != NULL) {
             struct arraydata_t *meta = (struct arraydata_t *)g->metaImpl;
@@ -353,18 +352,16 @@ int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph
             double *farr = (double *)g->flowImpl;
             if (*u < meta->nodelen) {
                 size_t offset = 0;
-                while (!added && offset < meta->degree) {
+                while (added == EXIT_FAILURE && offset < meta->degree) {
                     if (*(nodarr + nidx + offset) == 0) {
                         *(nodarr + nidx + offset) = *v;
                         *(caparr + nidx + offset) = *cap;
                         *(farr + nidx + offset) = 0.0;
-                        added = 1;
+                        added = EXIT_SUCCESS;
                     }
+                    offset++;
                 }
-
             }
-
-
         }
     }
     return added;
@@ -381,7 +378,7 @@ int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph
  * @return 0 if there was an error (e.g. the edge was not found); otherwise, 1 if the edge was removed.
  */
 int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g) {
-    int removed = 0;
+    int removed = EXIT_FAILURE;
     size_t eOffset = 0;
     size_t eIdx = 0;
     const size_t *u = uid;
@@ -403,7 +400,7 @@ int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g) {
                 double *farr = (double *)g->flowImpl;
                 *(farr + eIdx + eOffset) = 0.0;
             }
-            removed = 1;
+            removed = EXIT_SUCCESS;
         }
     }
     return removed;
@@ -418,7 +415,7 @@ int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g) {
  * @return 0 if there was an error; 1 if the capacity was successfully set
  */
 int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g){
-    int retval = 0;
+    int retval = EXIT_FAILURE;
     size_t eOffset = 0;
     size_t eIdx = 0;
     const size_t *u = uid;
@@ -432,7 +429,7 @@ int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, st
         if (findEdgeOffset(u, v, &eIdx, &eOffset, g)) {
             double *caparr = (double *)g->capImpl;
             *(caparr + eIdx + eOffset) = *cap;
-            retval = 1;
+            retval = EXIT_SUCCESS;
         }
     }
     return retval;
@@ -452,7 +449,7 @@ int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, st
  * @return 0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted
  */
 int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g){
-    int retval = 0;
+    int retval = EXIT_FAILURE;
     size_t eIdx = 0;
     size_t eOffset = 0;
     const size_t *u = uid;
@@ -465,7 +462,7 @@ int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, st
         if (findEdgeOffset(u,v,&eIdx, &eOffset, g)) {
             double *caparr = (double *)g->capImpl;
             *(caparr + eIdx + eOffset) += *cap;
-            retval = 1;
+            retval = EXIT_SUCCESS;
         }
     }
     return retval;
@@ -483,7 +480,7 @@ int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, st
  * @return 0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set.
  */
 int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g){
-    int retval = 0;
+    int retval = EXIT_FAILURE;
     size_t eOffset = 0;
     size_t eIdx = 0;
     const size_t *u = uid;
@@ -497,7 +494,7 @@ int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struc
         if (findEdgeOffset(u, v, &eIdx, &eOffset, g)) {
             double *farr = (double *)g->flowImpl;
             *(farr + eIdx + eOffset) = *flow;
-            retval = 1;
+            retval = EXIT_SUCCESS;
         }
     }
     return retval;
@@ -516,7 +513,7 @@ int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  * @return 0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted.
  */
 int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g){
-    int retval = 0;
+    int retval = EXIT_FAILURE;
     size_t eIdx = 0;
     size_t eOffset = 0;
     const size_t *u = uid;
@@ -529,7 +526,7 @@ int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struc
         if (findEdgeOffset(u,v,&eIdx, &eOffset, g)) {
             double *farr = (double *)g->flowImpl;
             *(farr + eIdx + eOffset) += *flow;
-            retval = 1;
+            retval = EXIT_SUCCESS;
         }
     }
     return retval;
@@ -547,11 +544,10 @@ int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  * @return 0 if there was an error during the reset; 1 if the reset completed;
  */
 int arrayResetGraph(struct graph_t *g, void *args, void (*callback)(void)) {
-    int retval = 0;
+    int retval = EXIT_FAILURE;
     struct arraydata_t *gmeta = (struct arraydata_t *)g->metaImpl;
     if (gmeta != NULL) {
         retval = zeroDoubleArray(gmeta->edgelen, gmeta->degree, (double *)g->capImpl);
-        retval = retval & zeroDoubleArray(gmeta->edgelen, gmeta->degree, (double *)g->flowImpl);
     }
     return retval;
 }
@@ -562,14 +558,14 @@ int arrayResetGraph(struct graph_t *g, void *args, void (*callback)(void)) {
  * Deallocates all unerlying arrays and the containing array.
  * @param arraylen Number of elements in the array
  * @param arr 2D array to be cleared
- * @return 1 if successful; 0 if error.
+ * @return EXIT_SUCCESS if successful; EXIT_FAILURE if error.
  */
 int freeGraphArray(size_t arraylen, void** arrptr) {
-    int retval = 0;
+    int retval = EXIT_SUCCESS;
     if (*arrptr != NULL) {
         free(*arrptr);
         *arrptr = NULL;
-        retval = 1;
+        retval = EXIT_SUCCESS;
     }
     return retval;
 }

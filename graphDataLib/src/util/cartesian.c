@@ -13,7 +13,7 @@
  * @param dims Dimensions to be use for index calculation
  * @param idx size_t reference to be set
  * @param coords array pointer of length dims->dimcount, holding the coordinates in question
- * @return 0 if successful; 1 if the coordinates are outside the bounds of the dimensions; -1 if there is a problem with the
+ * @return EXIT_SUCCESS if successful; EXIT_FAILURE if the coordinates are outside the bounds of the dimensions; -1 if there is a problem with the
  * values passed.
  */
 int indexFromCartesian(struct dimensions_t *dims, size_t *idx, size_t *coords) {
@@ -27,9 +27,9 @@ int indexFromCartesian(struct dimensions_t *dims, size_t *idx, size_t *coords) {
         }
         size_t dlen = cartesianIndexLength(dims);
         if (dxval >= dlen) {
-            retval = 1;
+            retval = EXIT_FAILURE;
         } else {
-            retval = 0;
+            retval = EXIT_SUCCESS;
         }
         *idx = dxval;
     }
@@ -45,7 +45,7 @@ int indexFromCartesian(struct dimensions_t *dims, size_t *idx, size_t *coords) {
  * @param idx Index value to be used
  * @param coords Array to hold the result
  * @param dims Dimensional value to be calculated against
- * @return 0 if successful; 1 if the index is outside the bounds of the dimensions; -1 if there is a problem with the values passed.
+ * @return EXIT_SUCCESS if successful; EXIT_FAILURE if the index is outside the bounds of the dimensions; -1 if there is a problem with the values passed.
  */
 int cartesianFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims) {
     int retval = -1;
@@ -62,9 +62,9 @@ int cartesianFromIndex(size_t *idx, size_t *coords, struct dimensions_t *dims) {
                 }
                 coords[0] = remval;
             }
-            retval = 0;
+            retval = EXIT_SUCCESS;
         } else {
-            retval = 1;
+            retval = EXIT_FAILURE;
         }
     }
     return retval;

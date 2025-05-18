@@ -45,7 +45,7 @@ struct arraydata_t {
  *
  * @param g Graph structure
  * @param lblcount Number of labels to be used--may be zero, depending on the graph domain.
- * @return 1 if successful; 0 if an error
+ * @return EXIT_SUCCESS if successful; EXIT_FAILURE if an error
  */
 int arrayGraphInit(struct graph_t *g);
 
@@ -53,7 +53,7 @@ int arrayGraphInit(struct graph_t *g);
 /**
  * @brief Perform clearing operations to deallocate the array graph internal values and structures.
  * @param g graph_t with array structures to be deallocated
- * @return 1 if successful; otherwise, 0.
+ * @return EXIT_SUCCESS if successful; otherwise, EXIT_FAILURE.
  */
 int arrayGraphFree(struct graph_t *g);
 

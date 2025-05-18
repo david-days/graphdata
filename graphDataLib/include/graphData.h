@@ -8,6 +8,7 @@
 #define GRAPHDATA_H
 
 #include <stdio.h>
+#include <stdlib.h>
 
 /**
  * @brief Descriptor of the graph structure and usage.
