@@ -42,6 +42,12 @@ enum GRAPHDOMAIN {
      * Shared graph structures directly denote array-based graphs
      */
     SHARED_MEM  = 0x0004,
+    /**
+     * @brief Set the read-only flag for the graph structure.
+     *
+     * This flag is only honored and useful for SHARED_MMAP and SHARED_MEM graphs.
+     */
+    RD_ONLY     = 0x0008,
     //Underlying Implementation
     /**
      * @brief The underlying implementation is an array-based structure

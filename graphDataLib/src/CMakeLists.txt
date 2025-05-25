@@ -14,6 +14,8 @@ add_library(${PROJECT_NAME} SHARED
         util/crudops.c
         util/graphcomp.c
         util/hashes.c
+        ../include/util/memmgt.h
+        util/memmgt.c
 )
 set(BUILD_SHARED_LIBS 1)
 

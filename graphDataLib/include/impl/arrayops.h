@@ -78,7 +78,7 @@ struct edge_t * arrayGetEdges(const size_t *nodeid, const struct graph_t *g);
  * @param vid Edge end identifier
  * @param cap Capacity value pointer to store the value
  * @param g Graph structure in question
- * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
+ * @return EXIT_FAILURE if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
 int arrayGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g);
@@ -92,7 +92,7 @@ int arrayGetCapacity(const size_t *uid, const size_t *vid, double *cap, const st
  * @param vid Edge end identifier
  * @param flow Flow value pointer to store the result
  * @param g Graph structure in question
- * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
+ * @return EXIT_FAILURE if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
  * retrieval
  */
 int arrayGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g);
@@ -104,7 +104,7 @@ int arrayGetFlow(const size_t *uid, const size_t *vid, double *flow, const struc
  * Not all implementations may use this (for example, fixed-size graphs such as spatial ARRAY implementations).
  * @param nodeid Node identifier to be added
  * @param g Graph structure to add the node
- * @return 0 if there was an error, 1 if the node was successfully added
+ * @return EXIT_FAILURE if there was an error, EXIT_SUCCESS if the node was successfully added
  */
 int arrayAddNode(const size_t *nodeid, struct graph_t *g);
 /**
@@ -114,7 +114,7 @@ int arrayAddNode(const size_t *nodeid, struct graph_t *g);
  * @param vid identifier for end of edge
  * @param cap capacity value to be assigned
  * @param g graph structure in question
- * @return 0 if there was an error; 1 if the edge was successfully added.
+ * @return EXIT_FAILURE if there was an error; EXIT_SUCCESS if the edge was successfully added.
  */
 int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g);
 
@@ -126,7 +126,7 @@ int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph
  * @param uid Identifier for the edge start
  * @param vid Identifier for the edge end.
  * @param g Graph structure in question
- * @return 0 if there was an error (e.g. the edge was not found); otherwise, 1 if the edge was removed.
+ * @return EXIT_FAILURE if there was an error (e.g. the edge was not found); otherwise, EXIT_SUCCESS if the edge was removed.
  */
 int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
 
@@ -136,7 +136,7 @@ int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
  * @param vid identifier of the edge ending.
  * @param cap capacity value to be set
  * @param g Graph structure in question
- * @return 0 if there was an error; 1 if the capacity was successfully set
+ * @return EXIT_FAILURE if there was an error; EXIT_SUCCESS if the capacity was successfully set
  */
 int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
 
@@ -149,7 +149,7 @@ int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, st
  * @param vid Identifier of the edge end.
  * @param cap Value to adjust the capacity
  * @param g Graph structure in question
- * @return 0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted
+ * @return EXIT_FAILURE if there was an error (edge not found, for example); 1 of capacity was successfully adjusted
  */
 int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
 
@@ -163,7 +163,7 @@ int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, st
  * @param vid Identifier of the edge end.
  * @param flow Value to be set for the flow.
  * @param g Graph structure in question
- * @return 0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set.
+ * @return EXIT_FAILURE of there was an error (edge not found, for example); otherwise, EXIT_SUCCESS if the flow value as successfully set.
  */
 int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
 
@@ -176,7 +176,7 @@ int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  * @param vid Identifier of the edge end.
  * @param flow The value to be added to adjust the flow value.
  * @param g The graph structure in question
- * @return 0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted.
+ * @return EXIT_FAILURE if there was an error (such as the edge not found); otherwise, EXIT_SUCCESS if the flow value was successfully adjusted.
  */
 int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
 
@@ -189,7 +189,7 @@ int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  * @param g Graph structure to be zeroed or modified according to reset logic
  * @param args Arguments to be used in the reset process, if necessary
  * @param callback Callback to be executed when graph has been reset.
- * @return 0 if there was an error during the reset; 1 if the reset completed;
+ * @return EXIT_FAILURE if there was an error during the reset; EXIT_SUCCESS if the reset completed;
  */
 int arrayResetGraph(struct graph_t *g, void *args, void (*callback)(void));
 

@@ -39,6 +39,10 @@
  * @brief Default graph type returned, if no parameters passed
  */
 #define DEFAULTGRAPH UNDIRECTED | LINKED | GENERIC | UNLABELED
+/**
+ * @brief readonly graph data--used primarily for shared graph structures (shmem and mmap)
+ */
+#define READONLY RD_ONLY
 
 /**
  * @brief Parse the flag values passed, and write the evaluation into the separate references
@@ -51,10 +55,11 @@
  * @param impflag Implementation type result
  * @param lblflag Label type result
  * @param domflag Domain type result
+ * @param roflag Read only type result
  * @return 1 if the parsing is successful; otherwise, 0.
  */
 int parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum GRAPHDOMAIN *impflag,
-                   enum GRAPHDOMAIN *lblflag, enum GRAPHDOMAIN *domflag);
+                   enum GRAPHDOMAIN *lblflag, enum GRAPHDOMAIN *domflag, enum GRAPHDOMAIN *roflag);
 
 
 //Creation operations

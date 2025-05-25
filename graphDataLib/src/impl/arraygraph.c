@@ -99,11 +99,11 @@ int arrayGraphInit(struct graph_t *g) {
     int retval = EXIT_FAILURE;
     if (NULL == g) return EXIT_FAILURE;
     //Can't continue if no dimensions
-    if (g->dims == NULL) return 0;
+    if (g->dims == NULL) return EXIT_FAILURE;
     //Create switch selectors for graph types
-    enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype;
+    enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
     //parse type flags, and quit if not parsable
-    if (parseTypeFlags(&g->gtype, &dirtype, &imptype, &labtype, &domaintype) == EXIT_FAILURE) {
+    if (parseTypeFlags(&g->gtype, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == EXIT_FAILURE) {
         return EXIT_FAILURE;
     }
     size_t cartlen = cartesianIndexLength(g->dims);

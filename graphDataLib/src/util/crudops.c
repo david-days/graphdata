@@ -8,7 +8,7 @@
 
 
 int parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum GRAPHDOMAIN *impflag,
-                   enum GRAPHDOMAIN *lblflag, enum GRAPHDOMAIN *domflag) {
+                   enum GRAPHDOMAIN *lblflag, enum GRAPHDOMAIN *domflag, enum GRAPHDOMAIN *roflag) {
     //retval used for future cases where illegitimate combinations may be used.
     int retval = EXIT_FAILURE;
     if (*tflags == DEFAULTSELECT) *tflags = DEFAULTGRAPH;
@@ -17,20 +17,23 @@ int parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum GRA
     enum GRAPHDOMAIN imptype = (IMPLSELECT) & *tflags;
     enum GRAPHDOMAIN labtype = (LABELSELECT) & *tflags;
     enum GRAPHDOMAIN domaintype = (DOMAINSELECT) & *tflags;
+    enum GRAPHDOMAIN readtype = (READONLY) & *tflags;
 
     //check and set defaults for empty values
     if (dirtype == 0) dirtype = UNDIRECTED;
     if (imptype == 0) imptype = LINKED;
     if (labtype == 0) labtype = UNLABELED;
     if (domaintype == 0) domaintype = GENERIC;
+    if (readtype == READONLY) readtype = RD_ONLY;
 
     *dirflag = dirtype;
     *impflag = imptype;
     *lblflag = labtype;
     *domflag = domaintype;
+    *roflag = readtype;
 
     //write the cleaned-up values back to the reference
-    *tflags = dirtype | imptype | labtype | domaintype;
+    *tflags = dirtype | imptype | labtype | domaintype | readtype;
 
     retval = EXIT_SUCCESS;
 

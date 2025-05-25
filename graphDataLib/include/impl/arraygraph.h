@@ -44,7 +44,6 @@ struct arraydata_t {
  * @brief Set up a graph with array backing data
  *
  * @param g Graph structure
- * @param lblcount Number of labels to be used--may be zero, depending on the graph domain.
  * @return EXIT_SUCCESS if successful; EXIT_FAILURE if an error
  */
 int arrayGraphInit(struct graph_t *g);

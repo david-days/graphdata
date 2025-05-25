@@ -73,6 +73,33 @@ static void setLinkOps(struct graphops_t *gops) {
     gops->resetGraph = linkResetGraph;
 }
 
+static void setShmemOps(struct graphops_t *gops) {
+    //Node operations
+    gops->addNode = shmemAddNode;
+    gops->getNode = shmemGetNode;
+    gops->nodeCount = shmemNodeCount;
+    gops->getNeighbors = shmemGetNeighbors;
+    gops->removeNode = shmemRemoveNode;
+
+    //Edge operations
+    gops->addEdge = shmemAddEdge;
+    gops->getEdge = shmemGetEdge;
+    gops->getEdges = shmemGetEdges;
+    gops->removeEdge = shmemRemoveEdge;
+    gops->edgeCount = shmemEdgeCount;
+
+    //Value operations
+    gops->setCapacity = shmemSetCapacity;
+    gops->addCapacity = shmemAddCapacity;
+    gops->getCapacity = shmemGetCapacity;
+    gops->setFlow = shmemSetFlow;
+    gops->addFlow = shmemAddFlow;
+    gops->getFlow = shmemGetFlow;
+
+    //Reset operations
+    gops->resetGraph = shmemResetGraph;
+
+}
 
 /**
  * @brief Initialize a graph according to the flags set in the GRAPHDOMAIN value.
@@ -96,9 +123,9 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
     struct graph_t *g = NULL;
 
     //Create switch selectors for graph types
-    enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype;
+    enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
 
-    if (parseTypeFlags(&typeflags, &dirtype, &imptype, &labtype, &domaintype) == EXIT_SUCCESS) {
+    if (parseTypeFlags(&typeflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == EXIT_SUCCESS) {
         //need dimensions for array type
         //TODO:  Better or more general way to handle ARRAY?
         if (imptype == ARRAY && dims == NULL) {
@@ -127,6 +154,12 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
                     break;
                 case HASHED:
                     initSuccess = hashGraphInit(g);
+                    break;
+                case SHARED_MEM:
+                    initSuccess = shmemGraphInit(g);
+                    break;
+                case SHARED_MMAP:
+
                     break;
                 default:
                     initSuccess = linkGraphInit(g);
@@ -160,9 +193,9 @@ struct graphops_t * getOperations(struct graph_t *g) {
     //Create switch selectors for graph types
 
     if (g != NULL) {
-        enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype;
+        enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
         enum GRAPHDOMAIN gflags = g->gtype;
-        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype) == EXIT_SUCCESS) {
+        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == EXIT_SUCCESS) {
             gops = initGraphops();
             gops->g = g;
             switch (imptype) {
@@ -171,6 +204,9 @@ struct graphops_t * getOperations(struct graph_t *g) {
                     break;
                 case LINKED:
                     setLinkOps(gops);
+                    break;
+                case SHARED_MEM:
+                    setShmemOps(gops);
                     break;
                 default:
                     //TODO:  Do the other implementations
@@ -193,9 +229,9 @@ struct graphops_t * getOperations(struct graph_t *g) {
 int clearGraph(struct graph_t *g) {
     int retval = EXIT_SUCCESS;
     if (g != NULL) {
-        enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype;
+        enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
         enum GRAPHDOMAIN gflags = g->gtype;
-        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype)) {
+        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == EXIT_SUCCESS) {
 
             switch (imptype) {
                 case ARRAY:
@@ -206,6 +242,12 @@ int clearGraph(struct graph_t *g) {
                     break;
                 case HASHED:
                     //TODO:  implement clearing operations
+                    break;
+                case SHARED_MEM:
+                    retval = retval | shmemGraphFree(g);
+                    break;
+                case SHARED_MMAP:
+
                     break;
                 default:
                     break;
