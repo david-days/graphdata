@@ -3,3 +3,5 @@
 //
 
 #include <impl/sharedmmapgraph.h>
+#include <errno.h>
+

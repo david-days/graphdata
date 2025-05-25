@@ -54,4 +54,49 @@ int createShmem(size_t memLen, key_t key, int shmflags);
  */
 int freeShmem(key_t key, int shmid);
 
+/**
+ * Create node mmap using the given base info and flags
+ * @param shmmap graph implementation details
+ * @param protflags mmap PROT_* flags to use
+ * @param mapflags mmap MAP_* flags to use
+ * @return EXIT_SUCCESS if mmap is created; EXIT_FAILURE otherwise
+ */
+int createNodeMmap(struct shmmapdata_t * shmmap, int protflags, int mapflags);
+
+/**
+ * Create the capacity array implementation
+ * @param shmmap graph implementation details
+ * @param protflags mmap PROT_* flags to use
+ * @param mapflags mmap MAP_* flags to use
+ * @return EXIT_SUCCESS if the mmap is created; EXIT_FAILURE otherwise
+ */
+int createCapMmap(struct shmmapdata_t * shmmap, int protflags, int mapflags);
+
+/**
+ * Create the flow array implementation
+ * @param shmmap graph implementation details
+ * @param protflags mmap PROT_* flags to use
+ * @param mapflags mmap MAP_* flags to use
+ * @return EXIT_SUCCESS if mmap is created; otherwise, EXIT_FAILURE
+ */
+int createFlowMmap(struct shmmapdata_t * shmmap, int protflags, int mapflags);
+
+/**
+ * Create a specific memory mapping
+ * @param memLen size_t length to use
+ * @param fd file descriptor to be mapped to
+ * @param protflags PROT_* flags to use
+ * @param mapflags MAP_* flags to use
+ * @return pointer to mmap address; pointer is <= 0 if there is an error or problem
+ */
+void *createMmap(size_t memLen, int fd, int protflags, int mapflags);
+
+/**
+ * clear a memory mapping at the given address
+ * @param mapaddr mmap address
+ * @param mlen length of the mapped memory
+ * @return EXIT_SUCCESS if the mapping was clears; otherwise, EXIT_FAILURE
+ */
+int freeMapMem(void * mapaddr, size_t mlen);
+
 #endif //MEMMGT_H
