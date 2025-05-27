@@ -59,37 +59,37 @@ int freeShmem(key_t key, int shmid);
  * @param shmmap graph implementation details
  * @param protflags mmap PROT_* flags to use
  * @param mapflags mmap MAP_* flags to use
- * @return EXIT_SUCCESS if mmap is created; EXIT_FAILURE otherwise
+ * @return pointer to memory address if successful; otherwise value <= 0
  */
-int createNodeMmap(struct shmmapdata_t * shmmap, int protflags, int mapflags);
+void * createNodeMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int protflags, int mapflags);
 
 /**
  * Create the capacity array implementation
  * @param shmmap graph implementation details
  * @param protflags mmap PROT_* flags to use
  * @param mapflags mmap MAP_* flags to use
- * @return EXIT_SUCCESS if the mmap is created; EXIT_FAILURE otherwise
+ * @return pointer to memory address if successful; otherwise value <= 0
  */
-int createCapMmap(struct shmmapdata_t * shmmap, int protflags, int mapflags);
+void * createCapMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int protflags, int mapflags);
 
 /**
  * Create the flow array implementation
  * @param shmmap graph implementation details
  * @param protflags mmap PROT_* flags to use
  * @param mapflags mmap MAP_* flags to use
- * @return EXIT_SUCCESS if mmap is created; otherwise, EXIT_FAILURE
+* @return pointer to memory address if successful; otherwise value <= 0
  */
-int createFlowMmap(struct shmmapdata_t * shmmap, int protflags, int mapflags);
+void * createFlowMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int protflags, int mapflags);
 
 /**
  * Create a specific memory mapping
  * @param memLen size_t length to use
- * @param fd file descriptor to be mapped to
+ * @param fpath file path template (mkstemp format, with last 6 characters XXXXXX) to be mapped to
  * @param protflags PROT_* flags to use
  * @param mapflags MAP_* flags to use
  * @return pointer to mmap address; pointer is <= 0 if there is an error or problem
  */
-void *createMmap(size_t memLen, int fd, int protflags, int mapflags);
+void * createMmap(size_t memLen, char *fpath, enum GRAPHDOMAIN roflag, int protflags, int mapflags);
 
 /**
  * clear a memory mapping at the given address

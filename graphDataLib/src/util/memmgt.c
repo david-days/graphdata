@@ -2,12 +2,16 @@
 // Created by david on 5/20/25.
 //
 
+#include <sharedmmapgraph.h>
 #include <util/memmgt.h>
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include <sys/mman.h>
 
 static char* nodeFile = NULL;
 static char* flowFile = NULL;
@@ -197,3 +201,130 @@ int freeShmem(key_t key, int shmid) {
     return retval;
 }
 
+
+void * createNodeMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int protflags, int mapflags) {
+    size_t nodeCount = shmmap->nodelen * shmmap->degree;
+    char * nodeFile = shmmap->nodefile;
+    if (nodeFile == NULL) {
+        //We'll need to create the node file
+        nodeFile = "mmapNodeXXXXXX";
+        int nodefd = mkstemp(nodeFile);
+        if (nodefd == -1) {
+            perror("mkstemp()");
+            return NULL;
+        }
+        close(nodefd);
+        shmmap->nodefile = nodeFile;
+    }
+    void * mmapAddr = createMmap(nodeCount, nodeFile, roflag, protflags, mapflags);
+    if (mmapAddr > 0 && roflag != RD_ONLY) {
+        size_t *nodeVals = (size_t *) mmapAddr;
+        for (size_t *p = nodeVals; p < nodeVals + nodeCount; p++) {
+            *p = 0;
+        }
+    }
+    return mmapAddr;
+}
+
+void * createCapMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int protflags, int mapflags) {
+    size_t caplen = sizeof(double *) * shmmap->nodelen;
+    size_t capCount = caplen * shmmap->degree;
+    char * capFile = shmmap->capfile;
+    if (capFile == NULL) {
+        //We'll need to create the node file
+        capFile = "mmapCapacityXXXXXX";
+        int capfd = mkstemp(capFile);
+        if (capfd == -1) {
+            perror("mkstemp()");
+            return NULL;
+        }
+        close(capfd);
+        shmmap->capfile = capFile;
+    }
+    void * mmapAddr = createMmap(capCount, capFile, roflag, protflags, mapflags);
+    if (mmapAddr > 0 && roflag != RD_ONLY) {
+        double *capVals = (double *) mmapAddr;
+        for (double *p = capVals; p < capVals + capCount; p++) {
+            *p = 0.0;
+        }
+    }
+    return mmapAddr;
+}
+
+void * createFlowMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int protflags, int mapflags) {
+    size_t flowlen = sizeof(double *) * shmmap->nodelen;
+    size_t flowCount = flowlen * shmmap->degree;
+    char * flowFile = shmmap->flowfile;
+    if (flowFile == NULL) {
+        //We'll need to create the node file
+        flowFile = "mmapFlowXXXXXX";
+        int flowfd = mkstemp(flowFile);
+        if (flowfd == -1) {
+            perror("mkstemp()");
+            return NULL;
+        }
+        close(flowfd);
+        shmmap->flowfile = flowFile;
+    }
+    void * mmapAddr = createMmap(flowCount, flowFile, roflag, protflags, mapflags);
+    if (mmapAddr > 0 && roflag != RD_ONLY) {
+        double *flowVals = (double *) mmapAddr;
+        for (double *p = flowVals; p < flowVals + flowCount; p++) {
+            *p = 0.0;
+        }
+    }
+    return mmapAddr;
+}
+
+void * createMmap(size_t memLen, char *fpath, enum GRAPHDOMAIN roflag, int protflags, int mapflags) {
+    mode_t writemode = 0600;
+    int oflags = O_RDWR | O_CREAT | O_TRUNC;
+    if (roflag == RD_ONLY) {
+        writemode = 0400;
+        oflags = O_RDONLY;
+    }
+    int fd = open(fpath, oflags, writemode);
+    if (fd == -1) {
+        //opening the file failed
+        fprintf(stderr, "Error opening %s\n", fpath);
+        perror("open()");
+        printErrMessage();
+        return NULL;
+    }
+    if (roflag != RD_ONLY) {
+        size_t result = lseek(fd, memLen-1, SEEK_SET);
+        if (result == -1) {
+            close(fd);
+            perror("Error calling lseek() to 'stretch' the file");
+            return NULL;
+        }
+
+        result = write(fd, "", 1);
+        if (result != 1) {
+            close(fd);
+            perror("Error writing last byte of the file");
+            exit(EXIT_FAILURE);
+        }
+    }
+    // now the file is ready to be mmapped
+    void *map = mmap(0, memLen, protflags, mapflags, fd, 0);
+    // can close without causing issues.
+    close(fd);
+    if (map == MAP_FAILED) {
+        perror("Error mmapping the file");
+        return NULL;
+    }
+    return map;
+}
+
+int freeMapMem(void * mapaddr, size_t mlen) {
+    int retval = EXIT_FAILURE;
+
+    int unmapped = munmap(mapaddr, mlen);
+    if (unmapped == -1) {
+        perror("munmap()");
+    } else {
+        retval = EXIT_SUCCESS;
+    }
+    return retval;
+}

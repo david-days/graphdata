@@ -7,8 +7,8 @@
 #include <bits/ipc.h>
 #include <bits/shm.h>
 
-#include "cartesian.h"
-#include "crudops.h"
+#include <cartesian.h>
+#include <crudops.h>
 
 static struct shmemdata_t * initShmemMeta() {
     struct shmemdata_t *shmmeta = NULL;
@@ -53,16 +53,10 @@ int shmemGraphInit(struct graph_t *g) {
     if (parseTypeFlags(&g->gtype, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == EXIT_FAILURE) {
         return EXIT_FAILURE;
     }
-    if ((g->gtype & RD_ONLY) == RD_ONLY) {
-        rdtype = RD_ONLY;
-    } else {
-        rdtype = 0;
-    }
-
     size_t cartlen = cartesianIndexLength(g->dims);
-    size_t arrlen = cartlen;
+    size_t nlen = cartlen;
     if (labtype == LABELED) {
-        arrlen = g->labels->labelcount * cartlen;
+        nlen = g->labels->labelcount * cartlen;
     }
 
     // generate the shared memory flags, based on requested usage
@@ -74,10 +68,12 @@ int shmemGraphInit(struct graph_t *g) {
         attFlags = SHM_RDONLY;
     }
 
-    if (arrlen > 0) {
+    if (nlen > 0) {
         struct shmemdata_t *shmmeta = initShmemMeta();
-        shmmeta->nodelen = arrlen;
+        shmmeta->roflag = rdtype;
+        shmmeta->nodelen = nlen;
         shmmeta->degree = g->dims->dimcount;
+        shmmeta->arraylen = nlen * shmmeta->degree;
         g->nodeImpl = createNodeShmem(shmmeta, createFlags, attFlags);
         g->edgeImpl = NULL;
         g->capImpl = createCapacityShmem(shmmeta, createFlags, attFlags);

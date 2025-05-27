@@ -101,6 +101,33 @@ static void setShmemOps(struct graphops_t *gops) {
 
 }
 
+static void setMmapOps(struct graphops_t *gops) {
+    //Node operations
+    gops->addNode = shmapAddNode;
+    gops->getNode = shmapGetNode;
+    gops->nodeCount = shmapNodeCount;
+    gops->getNeighbors = shmapGetNeighbors;
+    gops->removeNode = shmapRemoveNode;
+
+    //Edge operations
+    gops->addEdge = shmapAddEdge;
+    gops->getEdge = shmapGetEdge;
+    gops->getEdges = shmapGetEdges;
+    gops->removeEdge = shmapRemoveEdge;
+    gops->edgeCount = shmapEdgeCount;
+
+    //Value operations
+    gops->setCapacity = shmapSetCapacity;
+    gops->addCapacity = shmapAddCapacity;
+    gops->getCapacity = shmapGetCapacity;
+    gops->setFlow = shmapSetFlow;
+    gops->addFlow = shmapAddFlow;
+    gops->getFlow = shmapGetFlow;
+
+    //Reset operations
+    gops->resetGraph = shmapResetGraph;
+}
+
 /**
  * @brief Initialize a graph according to the flags set in the GRAPHDOMAIN value.
  *
@@ -159,7 +186,7 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
                     initSuccess = shmemGraphInit(g);
                     break;
                 case SHARED_MMAP:
-
+                    initSuccess = shmmapGraphInit(g);
                     break;
                 default:
                     initSuccess = linkGraphInit(g);
@@ -208,6 +235,9 @@ struct graphops_t * getOperations(struct graph_t *g) {
                 case SHARED_MEM:
                     setShmemOps(gops);
                     break;
+                case SHARED_MMAP:
+                    setMmapOps(gops);
+                    break;
                 default:
                     //TODO:  Do the other implementations
                     break;
@@ -247,7 +277,7 @@ int clearGraph(struct graph_t *g) {
                     retval = retval | shmemGraphFree(g);
                     break;
                 case SHARED_MMAP:
-
+                    retval = retval | shmmapGraphFree(g);
                     break;
                 default:
                     break;

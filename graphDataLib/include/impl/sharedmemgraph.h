@@ -14,6 +14,10 @@
 
 struct shmemdata_t {
     /**
+     * @brief read-only flag for this graph
+     */
+    enum GRAPHDOMAIN roflag;
+    /**
      * @brief Length of the node array
      */
     size_t nodelen;

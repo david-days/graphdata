@@ -25,6 +25,7 @@ static struct arraydata_t * initArrayMeta() {
         ameta->nodelen = 0;
         ameta->edgelen = 0;
         ameta->degree = 0;
+        ameta->arraylen = 0;
     }
     return ameta;
 }
@@ -41,6 +42,7 @@ static int freeArrayMeta(void** metaptr) {
         mptr->degree = 0;
         mptr->edgelen = 0;
         mptr->nodelen = 0;
+        mptr->arraylen = 0;
         free(*metaptr);
         *metaptr = NULL;
         retval = EXIT_SUCCESS;
@@ -54,12 +56,11 @@ static int freeArrayMeta(void** metaptr) {
  * @param conlen Connectivity count (how many neighbors, or dimensionality of the array)
  * @return size_t **array as a void *.
  */
-static void * createNodeArray(size_t alen, size_t conlen) {
-    size_t arrlen = alen * conlen;
-    void *arrbase = malloc(sizeof(size_t *)*arrlen);
+static void * createNodeArray(size_t arraylen) {
+    void *arrbase = malloc(sizeof(size_t *)*arraylen);
     if (arrbase != NULL) {
         size_t *arrvals = (size_t *) arrbase;
-        for (size_t *p = arrvals; p < arrvals+arrlen;p++) {
+        for (size_t *p = arrvals; p < arrvals+arraylen;p++) {
             *p = 0;
         }
     }
@@ -75,12 +76,11 @@ static void * createNodeArray(size_t alen, size_t conlen) {
  * @return double **array as a void *.
  *
  */
-static void * createDoubleArray(size_t alen, size_t conlen) {
-    size_t arrlen = alen*conlen;
-    void *arrbase = malloc(sizeof(double *)*arrlen);
+static void * createDoubleArray(size_t arraylen) {
+    void *arrbase = malloc(sizeof(double *)*arraylen);
     if (arrbase != NULL) {
         double *arrvals = (double *) arrbase;
-        for (double *p = arrvals; p<arrvals+arrlen;p++) {
+        for (double *p = arrvals; p<arrvals+arraylen;p++) {
             //TODO:  Would calloc() or some other method be better?
             *p = 0.0;
         }
@@ -117,14 +117,15 @@ int arrayGraphInit(struct graph_t *g) {
         struct arraydata_t *arrmeta = initArrayMeta();
         arrmeta->nodelen = arrlen;
         arrmeta->edgelen = arrlen;
+        arrmeta->arraylen = arrlen * g->dims->dimcount;
         //undirected graphs use min-to-max pair connectivity
         arrmeta->degree = g->dims->dimcount;
         //Create the supporting arrays
-        g->nodeImpl = createNodeArray(arrmeta->nodelen, arrmeta->degree);
+        g->nodeImpl = createNodeArray(arrmeta->arraylen);
         //In this implementation, the node array also holds the edges, so we don't need the extra memory
         g->edgeImpl = NULL;
-        g->capImpl = createDoubleArray(arrmeta->edgelen, arrmeta->degree);
-        g->flowImpl = createDoubleArray(arrmeta->edgelen, arrmeta->degree);
+        g->capImpl = createDoubleArray(arrmeta->arraylen);
+        g->flowImpl = createDoubleArray(arrmeta->arraylen);
         g->metaImpl = (void *)arrmeta;
         if (g->nodeImpl != NULL && g->capImpl != NULL && g->flowImpl != NULL)
             retval = EXIT_SUCCESS;
