@@ -102,7 +102,7 @@ int arrayGraphInit(struct graph_t *g) {
     //Create switch selectors for graph types
     enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
     //parse type flags, and quit if not parsable
-    if (parseTypeFlags(&g->gtype, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == EXIT_FAILURE) {
+    if (parseTypeFlags(&g->gtype, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == GRAPH_ERR) {
         return EXIT_FAILURE;
     }
     size_t cartlen = cartesianIndexLength(g->dims);

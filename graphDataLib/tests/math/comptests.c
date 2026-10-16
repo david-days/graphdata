@@ -54,6 +54,27 @@ START_TEST(maxValTest) {
 }
 END_TEST
 
+START_TEST(minMaxCapacityTest) {
+    ck_assert(minCapacity(NULL) < 0.0);
+    ck_assert(maxCapacity(NULL) < 0.0);
+
+    struct edge_t e1 = {0};
+    struct edge_t e2 = {0};
+    struct edge_t e3 = {0};
+    e1.u = 0; e1.v = 1; e1.cap = 10.0; e1.next = &e2;
+    e2.u = 1; e2.v = 2; e2.cap = 3.0;  e2.prev = &e1; e2.next = &e3;
+    e3.u = 2; e3.v = 3; e3.cap = 7.0;  e3.prev = &e2;
+
+    ck_assert(minCapacity(&e1) == 3.0);
+    ck_assert(maxCapacity(&e1) == 10.0);
+
+    /* Single-edge path */
+    e1.next = NULL;
+    ck_assert(minCapacity(&e1) == 10.0);
+    ck_assert(maxCapacity(&e1) == 10.0);
+}
+END_TEST
+
 Suite * init_suite(void)
 {
     Suite *s;
@@ -68,6 +89,7 @@ Suite * init_suite(void)
     tcase_add_test(tc_core, maxNodeTest);
     tcase_add_test(tc_core, minValTest);
     tcase_add_test(tc_core, maxValTest);
+    tcase_add_test(tc_core, minMaxCapacityTest);
 
     suite_add_tcase(s, tc_core);
 

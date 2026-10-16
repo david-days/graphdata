@@ -47,16 +47,19 @@
 /**
  * @brief Parse the flag values passed, and write the evaluation into the separate references
  *
- * Parses out the separate possibilities for the flags. If the flag are empty, the default values
- * are written back to the tflags reference.
+ * Parses out the separate possibilities for the flags. If a selector group is empty, its default
+ * is applied (UNDIRECTED, LINKED, UNLABELED, GENERIC). Exactly one implementation bit from
+ * {ARRAY, LINKED, HASHED, SHARED_MEM, SHARED_MMAP} may be set (none → LINKED). Label and domain
+ * groups likewise allow at most one bit each (LABELED vs UNLABELED, GENERIC vs SPATIAL).
+ * On failure, outputs and *tflags are left unchanged.
  *
- * @param tflags Flag values passed to be evaluated
+ * @param tflags Flag values passed to be evaluated (cleaned combination written back on success)
  * @param dirflag Directionality result of the operation
  * @param impflag Implementation type result
  * @param lblflag Label type result
  * @param domflag Domain type result
  * @param roflag Read only type result
- * @return 1 if the parsing is successful; otherwise, 0.
+ * @return GRAPH_OK if parsing succeeded; GRAPH_ERR on null args or conflicting implementation flags
  */
 int parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum GRAPHDOMAIN *impflag,
                    enum GRAPHDOMAIN *lblflag, enum GRAPHDOMAIN *domflag, enum GRAPHDOMAIN *roflag);

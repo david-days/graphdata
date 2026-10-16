@@ -56,7 +56,7 @@ int shmemGraphInit(struct graph_t *g) {
     if (NULL == g) return EXIT_FAILURE;
     if (g->dims == NULL) return EXIT_FAILURE;
     enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
-    if (parseTypeFlags(&g->gtype, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == EXIT_FAILURE) {
+    if (parseTypeFlags(&g->gtype, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == GRAPH_ERR) {
         return EXIT_FAILURE;
     }
     size_t cartlen = cartesianIndexLength(g->dims);

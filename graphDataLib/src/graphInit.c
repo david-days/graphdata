@@ -152,14 +152,18 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
     //Create switch selectors for graph types
     enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
 
-    if (parseTypeFlags(&typeflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == EXIT_SUCCESS) {
-        //need dimensions for array type
-        //TODO:  Better or more general way to handle ARRAY?
-        if (imptype == ARRAY && dims == NULL) {
+    if (parseTypeFlags(&typeflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == GRAPH_OK) {
+        // Dimensional backends need an explicit dimensions structure
+        if ((imptype == ARRAY || imptype == SHARED_MEM || imptype == SHARED_MMAP) && dims == NULL) {
             return NULL;
         }
 
-        //need label size for LABELED
+        // RD_ONLY is only meaningful for shared backends
+        if (rdtype == RD_ONLY && imptype != SHARED_MEM && imptype != SHARED_MMAP) {
+            return NULL;
+        }
+
+        // need label size for LABELED
         if (lblcount == 0 && labtype == LABELED) {
             return NULL;
         }
@@ -211,7 +215,7 @@ struct graph_t * attachReadonlyGraph(struct graph_t *src) {
 
     enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
     enum GRAPHDOMAIN gflags = src->gtype;
-    if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) != EXIT_SUCCESS) {
+    if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) != GRAPH_OK) {
         return NULL;
     }
     if (imptype != SHARED_MEM && imptype != SHARED_MMAP) {
@@ -263,7 +267,7 @@ struct graphops_t * getOperations(struct graph_t *g) {
     if (g != NULL) {
         enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
         enum GRAPHDOMAIN gflags = g->gtype;
-        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == EXIT_SUCCESS) {
+        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == GRAPH_OK) {
             gops = initGraphops();
             gops->g = g;
             switch (imptype) {
@@ -302,7 +306,7 @@ int clearGraph(struct graph_t *g) {
     if (g != NULL) {
         enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
         enum GRAPHDOMAIN gflags = g->gtype;
-        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == EXIT_SUCCESS) {
+        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == GRAPH_OK) {
 
             switch (imptype) {
                 case ARRAY:

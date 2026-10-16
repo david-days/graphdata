@@ -9,22 +9,80 @@
 
 int parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum GRAPHDOMAIN *impflag,
                    enum GRAPHDOMAIN *lblflag, enum GRAPHDOMAIN *domflag, enum GRAPHDOMAIN *roflag) {
-    //retval used for future cases where illegitimate combinations may be used.
-    int retval = EXIT_FAILURE;
-    if (*tflags == DEFAULTSELECT) *tflags = DEFAULTGRAPH;
-    //Create switch selectors for graph types
-    enum GRAPHDOMAIN dirtype = (DIRSELECT) & *tflags;
-    enum GRAPHDOMAIN imptype = (IMPLSELECT) & *tflags;
-    enum GRAPHDOMAIN labtype = (LABELSELECT) & *tflags;
-    enum GRAPHDOMAIN domaintype = (DOMAINSELECT) & *tflags;
-    enum GRAPHDOMAIN readtype = (READONLY) & *tflags;
+    if (tflags == NULL || dirflag == NULL || impflag == NULL ||
+        lblflag == NULL || domflag == NULL || roflag == NULL) {
+        return GRAPH_ERR;
+    }
 
-    //check and set defaults for empty values
-    if (dirtype == 0) dirtype = UNDIRECTED;
-    if (imptype == 0) imptype = LINKED;
-    if (labtype == 0) labtype = UNLABELED;
-    if (domaintype == 0) domaintype = GENERIC;
-    if (readtype == READONLY) readtype = RD_ONLY;
+    enum GRAPHDOMAIN raw = *tflags;
+    if (raw == DEFAULTSELECT) {
+        raw = DEFAULTGRAPH;
+    }
+
+    enum GRAPHDOMAIN dirtype = (DIRSELECT) & raw;
+    enum GRAPHDOMAIN imptype = (IMPLSELECT) & raw;
+    enum GRAPHDOMAIN labtype = (LABELSELECT) & raw;
+    enum GRAPHDOMAIN domaintype = (DOMAINSELECT) & raw;
+    enum GRAPHDOMAIN readtype = (READONLY) & raw;
+
+    int implbits = 0;
+    if (imptype & ARRAY) {
+        implbits++;
+    }
+    if (imptype & LINKED) {
+        implbits++;
+    }
+    if (imptype & HASHED) {
+        implbits++;
+    }
+    if (imptype & SHARED_MEM) {
+        implbits++;
+    }
+    if (imptype & SHARED_MMAP) {
+        implbits++;
+    }
+    if (implbits > 1) {
+        return GRAPH_ERR;
+    }
+
+    int lblbits = 0;
+    if (labtype & LABELED) {
+        lblbits++;
+    }
+    if (labtype & UNLABELED) {
+        lblbits++;
+    }
+    if (lblbits > 1) {
+        return GRAPH_ERR;
+    }
+
+    int dombits = 0;
+    if (domaintype & GENERIC) {
+        dombits++;
+    }
+    if (domaintype & SPATIAL) {
+        dombits++;
+    }
+    if (dombits > 1) {
+        return GRAPH_ERR;
+    }
+
+    // Defaults for empty selector groups
+    if (dirtype == 0) {
+        dirtype = UNDIRECTED;
+    }
+    if (implbits == 0) {
+        imptype = LINKED;
+    }
+    if (lblbits == 0) {
+        labtype = UNLABELED;
+    }
+    if (dombits == 0) {
+        domaintype = GENERIC;
+    }
+    if (readtype == READONLY) {
+        readtype = RD_ONLY;
+    }
 
     *dirflag = dirtype;
     *impflag = imptype;
@@ -32,12 +90,8 @@ int parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum GRA
     *domflag = domaintype;
     *roflag = readtype;
 
-    //write the cleaned-up values back to the reference
     *tflags = dirtype | imptype | labtype | domaintype | readtype;
-
-    retval = EXIT_SUCCESS;
-
-    return retval;
+    return GRAPH_OK;
 }
 
 
@@ -82,7 +136,7 @@ struct dimensions_t * createDimensions(size_t dimsz, ...) {
     if (NULL != dims && NULL != dimarr) {
         va_start(dlist, dimsz);
         size_t *dp = dimarr;
-        for (size_t i=0; i<dimsz;i++) {
+        for (size_t i=0;i<dimsz;i++) {
             *(dp+i) = va_arg(dlist, size_t);
         }
         dims->dimcount = dimsz;
@@ -422,7 +476,7 @@ int destroyNodes(void** nptr) {
  *
  * The pointer itself will be changed to NULL
  *
- * @param fptr pointer-to-pointer for initial feature structure
+ * @param fptr pointer-to-pointer for feature structure
  * @return EXIT_SUCCESS if successful; EXIT_FAILURE if error
  */
 int destroyFeatures(void** fptr) {
@@ -438,6 +492,5 @@ int destroyFeatures(void** fptr) {
         *fptr = NULL;
         retval = EXIT_SUCCESS;
     }
-
     return retval;
 }
