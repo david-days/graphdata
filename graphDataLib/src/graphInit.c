@@ -11,6 +11,7 @@
 #include <impl/linkgraph.h>
 #include <impl/linkops.h>
 #include <impl/hashgraph.h>
+#include <impl/hashops.h>
 #include <impl/sharedmemgraph.h>
 #include <impl/sharedmemops.h>
 #include <impl/sharedmmapgraph.h>
@@ -71,6 +72,30 @@ static void setLinkOps(struct graphops_t *gops) {
 
     //Reset operations
     gops->resetGraph = linkResetGraph;
+}
+
+static void setHashOps(struct graphops_t *gops) {
+    // Node ops implemented for this slice; edge/value ops stub to GRAPH_ERR/NULL
+    gops->addNode = hashAddNode;
+    gops->getNode = hashGetNode;
+    gops->nodeCount = hashNodeCount;
+    gops->getNeighbors = hashGetNeighbors;
+    gops->removeNode = hashRemoveNode;
+
+    gops->addEdge = hashAddEdge;
+    gops->getEdge = hashGetEdge;
+    gops->getEdges = hashGetEdges;
+    gops->removeEdge = hashRemoveEdge;
+    gops->edgeCount = hashEdgeCount;
+
+    gops->setCapacity = hashSetCapacity;
+    gops->addCapacity = hashAddCapacity;
+    gops->getCapacity = hashGetCapacity;
+    gops->setFlow = hashSetFlow;
+    gops->addFlow = hashAddFlow;
+    gops->getFlow = hashGetFlow;
+
+    gops->resetGraph = hashResetGraph;
 }
 
 static void setShmemOps(struct graphops_t *gops) {
@@ -277,6 +302,9 @@ struct graphops_t * getOperations(struct graph_t *g) {
                 case LINKED:
                     setLinkOps(gops);
                     break;
+                case HASHED:
+                    setHashOps(gops);
+                    break;
                 case SHARED_MEM:
                     setShmemOps(gops);
                     break;
@@ -284,7 +312,6 @@ struct graphops_t * getOperations(struct graph_t *g) {
                     setMmapOps(gops);
                     break;
                 default:
-                    //TODO:  Do the other implementations
                     break;
             }
         }
@@ -316,7 +343,7 @@ int clearGraph(struct graph_t *g) {
                     retval = retval | linkGraphFree(g);
                     break;
                 case HASHED:
-                    //TODO:  implement clearing operations
+                    retval = retval | hashGraphFree(g);
                     break;
                 case SHARED_MEM:
                     retval = retval | shmemGraphFree(g);

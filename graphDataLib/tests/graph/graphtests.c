@@ -486,6 +486,248 @@ START_TEST(shmmapGraphTest) {
 }
 END_TEST
 
+/**
+ * HASHED: init, add/get nodes, grow past initial load, reject duplicates, free.
+ */
+START_TEST(hashGraphNodeTest) {
+    struct graph_t *g = initGraph(HASHED | DIRECTED | GENERIC, 0, NULL);
+    ck_assert(g != NULL);
+    ck_assert((g->gtype & HASHED) == HASHED);
+
+    struct graphops_t *gops = getOperations(g);
+    ck_assert(gops != NULL);
+    ck_assert(gops->nodeCount(g) == 0);
+
+    /* Initial table is 17 buckets / grow_at ~12 — insert enough to force a rehash */
+    const size_t n = 40;
+    for (size_t i = 0; i < n; i++) {
+        ck_assert(gops->addNode(&i, g) == GRAPH_OK);
+    }
+    ck_assert(gops->nodeCount(g) == n);
+
+    for (size_t i = 0; i < n; i++) {
+        struct node_t *node = gops->getNode(&i, g);
+        ck_assert(node != NULL);
+        ck_assert(node->nodeid == i);
+    }
+
+    size_t missing = n + 100;
+    ck_assert(gops->getNode(&missing, g) == NULL);
+
+    size_t dup = 7;
+    ck_assert(gops->addNode(&dup, g) == GRAPH_ERR);
+    ck_assert(gops->nodeCount(g) == n);
+
+    ck_assert(destroyGraphops((void **)&gops) == EXIT_SUCCESS);
+    ck_assert(clearGraph(g) == EXIT_SUCCESS);
+    ck_assert(destroyGraph((void **)&g) == EXIT_SUCCESS);
+    ck_assert(g == NULL);
+}
+END_TEST
+
+/**
+ * HASHED directed edges: add/get/list/remove + capacity/flow + duplicate reject.
+ */
+START_TEST(hashGraphDirectedEdgeTest) {
+    struct graph_t *g = initGraph(HASHED | DIRECTED | GENERIC, 0, NULL);
+    ck_assert(g != NULL);
+    struct graphops_t *gops = getOperations(g);
+    ck_assert(gops != NULL);
+
+    size_t a = 10, b = 20, c = 30;
+    double cap = LINK_CAP_VAL;
+    double flow = LINK_FLOW_VAL;
+    double got = 0.0;
+
+    ck_assert(gops->addNode(&a, g) == GRAPH_OK);
+    ck_assert(gops->addNode(&b, g) == GRAPH_OK);
+    ck_assert(gops->addNode(&c, g) == GRAPH_OK);
+
+    ck_assert(gops->addEdge(&a, &b, &cap, g) == GRAPH_OK);
+    ck_assert(gops->addEdge(&a, &c, &cap, g) == GRAPH_OK);
+    ck_assert(gops->edgeCount(g) == 2);
+    ck_assert(gops->addEdge(&a, &b, &cap, g) == GRAPH_ERR);
+
+    struct edge_t *e = gops->getEdge(&a, &b, g);
+    ck_assert(e != NULL);
+    ck_assert(e->u == a && e->v == b);
+    ck_assert(e->cap == LINK_CAP_VAL);
+    ck_assert(gops->getEdge(&b, &a, g) == NULL);
+
+    struct edge_t *elist = gops->getEdges(&a, g);
+    ck_assert(elist != NULL);
+    ck_assert(countAndFreeEdges(elist) == 2);
+    ck_assert(gops->getEdges(&b, g) == NULL);
+
+    ck_assert(gops->setFlow(&a, &b, &flow, g) == GRAPH_OK);
+    ck_assert(gops->getFlow(&a, &b, &got, g) == GRAPH_OK);
+    ck_assert(got == LINK_FLOW_VAL);
+    ck_assert(gops->addCapacity(&a, &b, &flow, g) == GRAPH_OK);
+    ck_assert(gops->getCapacity(&a, &b, &got, g) == GRAPH_OK);
+    ck_assert(got == LINK_CAP_VAL + LINK_FLOW_VAL);
+
+    ck_assert(gops->removeEdge(&a, &b, g) == GRAPH_OK);
+    ck_assert(gops->getEdge(&a, &b, g) == NULL);
+    ck_assert(gops->edgeCount(g) == 1);
+    ck_assert(gops->removeEdge(&a, &b, g) == GRAPH_ERR);
+
+    destroyGraphops((void **)&gops);
+    clearGraph(g);
+    destroyGraph((void **)&g);
+}
+END_TEST
+
+/**
+ * HASHED undirected: both directions stored; either order resolves; remove clears both.
+ */
+START_TEST(hashGraphUndirectedEdgeTest) {
+    struct graph_t *g = initGraph(HASHED | UNDIRECTED | GENERIC, 0, NULL);
+    ck_assert(g != NULL);
+    ck_assert(GRAPH_IS_UNDIRECTED(g->gtype));
+    struct graphops_t *gops = getOperations(g);
+    ck_assert(gops != NULL);
+
+    size_t a = 1, b = 2, c = 3;
+    double cap = LINK_CAP_VAL;
+    double newcap = 99.0;
+    double got = 0.0;
+
+    ck_assert(gops->addNode(&a, g) == GRAPH_OK);
+    ck_assert(gops->addNode(&b, g) == GRAPH_OK);
+    ck_assert(gops->addNode(&c, g) == GRAPH_OK);
+
+    ck_assert(gops->addEdge(&a, &b, &cap, g) == GRAPH_OK);
+    ck_assert(gops->edgeCount(g) == 2);
+    ck_assert(gops->getEdge(&a, &b, g) != NULL);
+    ck_assert(gops->getEdge(&b, &a, g) != NULL);
+    ck_assert(gops->addEdge(&b, &a, &cap, g) == GRAPH_ERR);
+
+    ck_assert(gops->setCapacity(&b, &a, &newcap, g) == GRAPH_OK);
+    ck_assert(gops->getCapacity(&a, &b, &got, g) == GRAPH_OK);
+    ck_assert(got == newcap);
+    ck_assert(gops->getCapacity(&b, &a, &got, g) == GRAPH_OK);
+    ck_assert(got == newcap);
+
+    ck_assert(gops->addEdge(&a, &c, &cap, g) == GRAPH_OK);
+    ck_assert(gops->edgeCount(g) == 4);
+
+    struct edge_t *from_a = gops->getEdges(&a, g);
+    ck_assert(countAndFreeEdges(from_a) == 2);
+
+    ck_assert(gops->removeEdge(&b, &a, g) == GRAPH_OK);
+    ck_assert(gops->getEdge(&a, &b, g) == NULL);
+    ck_assert(gops->getEdge(&b, &a, g) == NULL);
+    ck_assert(gops->edgeCount(g) == 2);
+
+    destroyGraphops((void **)&gops);
+    clearGraph(g);
+    destroyGraph((void **)&g);
+}
+END_TEST
+
+/**
+ * HASHED neighbors + directed removeNode (incoming and outgoing scrubbed).
+ */
+START_TEST(hashGraphNeighborRemoveTest) {
+    struct graph_t *g = initGraph(HASHED | DIRECTED | GENERIC, 0, NULL);
+    ck_assert(g != NULL);
+    struct graphops_t *gops = getOperations(g);
+    ck_assert(gops != NULL);
+
+    size_t a = 0, b = 1, c = 2;
+    double cap = LINK_CAP_VAL;
+    ck_assert(gops->addNode(&a, g) == GRAPH_OK);
+    ck_assert(gops->addNode(&b, g) == GRAPH_OK);
+    ck_assert(gops->addNode(&c, g) == GRAPH_OK);
+    ck_assert(gops->addEdge(&a, &b, &cap, g) == GRAPH_OK);
+    ck_assert(gops->addEdge(&a, &c, &cap, g) == GRAPH_OK);
+    ck_assert(gops->addEdge(&b, &c, &cap, g) == GRAPH_OK);
+    ck_assert(gops->edgeCount(g) == 3);
+
+    struct node_t *neighbors = gops->getNeighbors(&a, g);
+    ck_assert(neighbors != NULL);
+    ck_assert(countAndFreeNodes(neighbors) == 2);
+    ck_assert(gops->getNeighbors(&c, g) == NULL);
+
+    ck_assert(gops->removeNode(&c, g) == GRAPH_OK);
+    ck_assert(gops->getNode(&c, g) == NULL);
+    ck_assert(gops->nodeCount(g) == 2);
+    ck_assert(gops->getEdge(&a, &c, g) == NULL);
+    ck_assert(gops->getEdge(&b, &c, g) == NULL);
+    ck_assert(gops->edgeCount(g) == 1);
+    ck_assert(gops->getEdge(&a, &b, g) != NULL);
+
+    ck_assert(gops->removeNode(&c, g) == GRAPH_ERR);
+
+    destroyGraphops((void **)&gops);
+    clearGraph(g);
+    destroyGraph((void **)&g);
+}
+END_TEST
+
+/**
+ * HASHED undirected removeNode clears both-direction records.
+ */
+START_TEST(hashGraphUndirectedRemoveTest) {
+    struct graph_t *g = initGraph(HASHED | UNDIRECTED | GENERIC, 0, NULL);
+    ck_assert(g != NULL);
+    struct graphops_t *gops = getOperations(g);
+    ck_assert(gops != NULL);
+
+    size_t a = 5, b = 6, c = 7;
+    double cap = LINK_CAP_VAL;
+    ck_assert(gops->addNode(&a, g) == GRAPH_OK);
+    ck_assert(gops->addNode(&b, g) == GRAPH_OK);
+    ck_assert(gops->addNode(&c, g) == GRAPH_OK);
+    ck_assert(gops->addEdge(&a, &b, &cap, g) == GRAPH_OK);
+    ck_assert(gops->addEdge(&a, &c, &cap, g) == GRAPH_OK);
+    ck_assert(gops->edgeCount(g) == 4);
+
+    ck_assert(gops->removeNode(&a, g) == GRAPH_OK);
+    ck_assert(gops->nodeCount(g) == 2);
+    ck_assert(gops->edgeCount(g) == 0);
+    ck_assert(gops->getEdge(&b, &a, g) == NULL);
+    ck_assert(gops->getNeighbors(&b, g) == NULL);
+
+    destroyGraphops((void **)&gops);
+    clearGraph(g);
+    destroyGraph((void **)&g);
+}
+END_TEST
+
+/**
+ * HASHED resetGraph zeroes cap/flow but keeps structure.
+ */
+START_TEST(hashGraphResetTest) {
+    struct graph_t *g = initGraph(HASHED | DIRECTED | GENERIC, 0, NULL);
+    ck_assert(g != NULL);
+    struct graphops_t *gops = getOperations(g);
+    ck_assert(gops != NULL);
+
+    size_t a = 0, b = 1;
+    double cap = LINK_CAP_VAL;
+    double flow = LINK_FLOW_VAL;
+    double got = -1.0;
+
+    ck_assert(gops->addNode(&a, g) == GRAPH_OK);
+    ck_assert(gops->addNode(&b, g) == GRAPH_OK);
+    ck_assert(gops->addEdge(&a, &b, &cap, g) == GRAPH_OK);
+    ck_assert(gops->setFlow(&a, &b, &flow, g) == GRAPH_OK);
+    ck_assert(gops->resetGraph(g, NULL, NULL) == GRAPH_OK);
+
+    ck_assert(gops->getCapacity(&a, &b, &got, g) == GRAPH_OK);
+    ck_assert(got == 0.0);
+    ck_assert(gops->getFlow(&a, &b, &got, g) == GRAPH_OK);
+    ck_assert(got == 0.0);
+    ck_assert(gops->getEdge(&a, &b, g) != NULL);
+    ck_assert(gops->nodeCount(g) == 2);
+
+    destroyGraphops((void **)&gops);
+    clearGraph(g);
+    destroyGraph((void **)&g);
+}
+END_TEST
+
 Suite * init_suite(void) {
     Suite * s;
     TCase *tc_core;
@@ -505,6 +747,12 @@ Suite * init_suite(void) {
     tcase_add_test(tc_core, linkNeighborTest);
     tcase_add_test(tc_core, linkRemoveTest);
     tcase_add_test(tc_core, linkResetTest);
+    tcase_add_test(tc_core, hashGraphNodeTest);
+    tcase_add_test(tc_core, hashGraphDirectedEdgeTest);
+    tcase_add_test(tc_core, hashGraphUndirectedEdgeTest);
+    tcase_add_test(tc_core, hashGraphNeighborRemoveTest);
+    tcase_add_test(tc_core, hashGraphUndirectedRemoveTest);
+    tcase_add_test(tc_core, hashGraphResetTest);
     tcase_add_test(tc_core, shmemGraphTest);
     tcase_add_test(tc_core, shmmapGraphTest);
     suite_add_tcase(s, tc_core);
