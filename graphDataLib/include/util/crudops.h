@@ -22,7 +22,7 @@
 /**
  * @brief Selector for underlying structure
  */
-#define IMPLSELECT ARRAY | LINKED | HASHED
+#define IMPLSELECT ARRAY | LINKED | HASHED | SHARED_MEM | SHARED_MMAP
 /**
  * @brief Selector for domain
  */

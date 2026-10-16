@@ -3,19 +3,17 @@
 //
 
 #include <sharedmmapgraph.h>
+#include <sharedmemgraph.h>
 #include <util/memmgt.h>
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/mman.h>
-
-static char* nodeFile = NULL;
-static char* flowFile = NULL;
-static char* capFile = NULL;
 
 void printErrMessage() {
     switch (errno) {
@@ -49,202 +47,175 @@ void printErrMessage() {
     }
 }
 
-void * createNodeShmem(struct shmemdata_t *shmmeta, int createflags, int attflags) {
-    key_t nodekey;
-    size_t nodeCount = shmmeta->nodelen * shmmeta->degree;
-    if (createflags == 0 && attflags == 0) {
-        //create RW shared memory segment
-        nodekey = ftok(nodeFile, rand());
-        if (nodeFile == NULL) {
-            char* nodeTemplate = "nodeXXXXXX";
-            int nodefd = mkstemp(nodeTemplate);
-            if (nodefd == -1) {
-                perror("mkstemp()");
-                printErrMessage();
-                return NULL;
-            }
-            nodeFile = nodeTemplate;
-        }
-        if (nodekey == -1) {
-            perror("ftok()");
-            printErrMessage();
+/**
+ * Create a unique temp path for ftok(), then unlink the file (key stays valid).
+ */
+static key_t makeShmemKey(char projid) {
+    char *path = strdup("/tmp/graphdataXXXXXX");
+    if (path == NULL) {
+        return (key_t) -1;
+    }
+    int fd = mkstemp(path);
+    if (fd == -1) {
+        perror("mkstemp()");
+        printErrMessage();
+        free(path);
+        return (key_t) -1;
+    }
+    close(fd);
+
+    key_t key = ftok(path, projid);
+    unlink(path);
+    free(path);
+
+    if (key == (key_t) -1) {
+        perror("ftok()");
+        printErrMessage();
+    }
+    return key;
+}
+
+static void * attachShmem(size_t nbytes, key_t *key_inout, int *memid_out,
+                          int createflags, int attflags, char projid) {
+    key_t key;
+    if (createflags & IPC_CREAT) {
+        key = makeShmemKey(projid);
+        if (key == (key_t) -1) {
             return NULL;
         }
-        shmmeta->nodekey = nodekey;
+        *key_inout = key;
     } else {
-        //create a readonly connection
-        nodekey = shmmeta->nodekey;
+        key = *key_inout;
+        if (key == (key_t) -1) {
+            fprintf(stderr, "attachShmem(): missing shared-memory key for attach\n");
+            return NULL;
+        }
     }
 
-    int nodeid = createShmem(nodeCount, nodekey, createflags);
-    if (nodeid == -1) {
+    int shmid = createShmem(nbytes, key, createflags);
+    if (shmid == -1) {
         perror("createShmem()");
         printErrMessage();
         return NULL;
     }
-    shmmeta->nodememid = nodeid;
+    *memid_out = shmid;
 
-    void * nodeMem = shmat(nodeid, NULL, attflags);
-    if (nodeMem == (void *) -1) {
+    void *mem = shmat(shmid, NULL, attflags);
+    if (mem == (void *) -1) {
         perror("shmat()");
         printErrMessage();
+        shmctl(shmid, IPC_RMID, NULL);
         return NULL;
     }
-    return nodeMem;
+
+    return mem;
+}
+
+void * createNodeShmem(struct shmemdata_t *shmmeta, int createflags, int attflags) {
+    size_t nbytes = shmmeta->arraylen * sizeof(size_t);
+    void *mem = attachShmem(nbytes, &shmmeta->nodekey, &shmmeta->nodememid,
+                            createflags, attflags, 'N');
+    if (mem != NULL && (createflags & IPC_CREAT) && !(attflags & SHM_RDONLY)) {
+        size_t *slots = (size_t *)mem;
+        for (size_t i = 0; i < shmmeta->arraylen; i++) {
+            slots[i] = GRAPH_SLOT_EMPTY;
+        }
+    }
+    return mem;
 }
 
 void * createFlowShmem(struct shmemdata_t *shmmeta, int createflags, int attflags) {
-    key_t flowkey;
-    size_t flowlen = sizeof(double *) * shmmeta->nodelen;
-    size_t flowcount = flowlen * shmmeta->degree;
-    if (createflags == 0 && attflags == 0) {
-        flowkey = ftok(flowFile, rand());
-        if (flowFile == NULL) {
-            char* flowTemplate = "flowXXXXXX";
-            int flowfd = mkstemp(flowTemplate);
-            if (flowfd == -1) {
-                perror("mkstemp()");
-                printErrMessage();
-                return NULL;
-            }
-            flowFile = flowTemplate;
-
-            if (flowkey == -1) {
-                perror("ftok()");
-                printErrMessage();
-                return NULL;
-            }
-            shmmeta->flowkey = flowkey;
-        }
-    } else {
-        flowkey = shmmeta->flowkey;
+    size_t nbytes = shmmeta->arraylen * sizeof(double);
+    void *mem = attachShmem(nbytes, &shmmeta->flowkey, &shmmeta->flowmemid,
+                            createflags, attflags, 'F');
+    if (mem != NULL && (createflags & IPC_CREAT) && !(attflags & SHM_RDONLY)) {
+        memset(mem, 0, nbytes);
     }
-
-
-    int flowid = createShmem(flowcount, flowkey, createflags);
-    if (flowid == -1) {
-        perror("createShmem()");
-        printErrMessage();
-        return NULL;
-    }
-    shmmeta->flowmemid = flowid;
-    void * flowMem = shmat(flowid, NULL, attflags);
-    if (flowMem == (void *) -1) {
-        perror("shmat()");
-        printErrMessage();
-        return NULL;
-    }
-    return flowMem;
+    return mem;
 }
 
 void * createCapacityShmem(struct shmemdata_t *shmmeta, int createflags, int attflags) {
-    key_t capkey;
-    size_t caplen = sizeof(double *) * shmmeta->nodelen;
-    size_t capcount = caplen * shmmeta->degree;
-    if (createflags == 0 && attflags == 0) {
-        capkey = ftok(capFile, rand());
-        if (capFile == NULL) {
-            char* capTemplate = "capXXXXXX";
-            int capfd = mkstemp(capTemplate);
-            if (capfd == -1) {
-                perror("mkstemp()");
-                printErrMessage();
-                return NULL;
-            }
-            capFile = capTemplate;
-            if (capkey == -1) {
-                perror("ftok()");
-                printErrMessage();
-                return NULL;
-            }
-            shmmeta->capkey = capkey;
-        }
-    } else {
-        capkey = shmmeta->capkey;
+    size_t nbytes = shmmeta->arraylen * sizeof(double);
+    void *mem = attachShmem(nbytes, &shmmeta->capkey, &shmmeta->capmemid,
+                            createflags, attflags, 'C');
+    if (mem != NULL && (createflags & IPC_CREAT) && !(attflags & SHM_RDONLY)) {
+        memset(mem, 0, nbytes);
     }
-    int capid = createShmem(capcount, capkey, createflags);
-    if (capid == -1) {
-        perror("createShmem()");
-        printErrMessage();
-        return NULL;
-    }
-    shmmeta->capmemid = capid;
-    void * capMem = shmat(capid, NULL, attflags);
-    if (capMem == (void *) -1) {
-        perror("shmat()");
-        printErrMessage();
-        return NULL;
-    }
-    return capMem;
+    return mem;
 }
 
 int createShmem(size_t memLen, key_t key, int shmflags) {
-    int shmId = shmget(key, memLen, shmflags);
-    return shmId;
+    return shmget(key, memLen, shmflags);
 }
 
-int freeShmem(key_t key, int shmid) {
-    int retval = EXIT_FAILURE;
-    int detval = shmdt(key);
-    if (detval == -1) {
-        perror("shmdt()");
-        printErrMessage();
-    } else {
-        retval = EXIT_SUCCESS;
+int freeShmem(void *addr, int shmid) {
+    int retval = EXIT_SUCCESS;
+
+    if (addr != NULL && addr != (void *) -1) {
+        if (shmdt(addr) == -1) {
+            perror("shmdt()");
+            printErrMessage();
+            retval = EXIT_FAILURE;
+        }
     }
-    int rmval = shmctl(shmid, IPC_RMID, NULL);
-    if (rmval == -1) {
-        perror("shmctl()");
-        printErrMessage();
+
+    if (shmid >= 0) {
+        if (shmctl(shmid, IPC_RMID, NULL) == -1) {
+            perror("shmctl()");
+            printErrMessage();
+            retval = EXIT_FAILURE;
+        }
+    } else {
         retval = EXIT_FAILURE;
     }
     return retval;
 }
 
+static char * makeMmapPath(const char *template) {
+    char *path = strdup(template);
+    if (path == NULL) {
+        return NULL;
+    }
+    int fd = mkstemp(path);
+    if (fd == -1) {
+        perror("mkstemp()");
+        free(path);
+        return NULL;
+    }
+    close(fd);
+    return path;
+}
 
 void * createNodeMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int protflags, int mapflags) {
-    size_t nodeCount = shmmap->nodelen * shmmap->degree;
-    char * nodeFile = shmmap->nodefile;
-    if (nodeFile == NULL) {
-        //We'll need to create the node file
-        nodeFile = "mmapNodeXXXXXX";
-        int nodefd = mkstemp(nodeFile);
-        if (nodefd == -1) {
-            perror("mkstemp()");
+    size_t nbytes = shmmap->arraylen * sizeof(size_t);
+    if (shmmap->nodefile == NULL) {
+        shmmap->nodefile = makeMmapPath("/tmp/mmapNodeXXXXXX");
+        if (shmmap->nodefile == NULL) {
             return NULL;
         }
-        close(nodefd);
-        shmmap->nodefile = nodeFile;
     }
-    void * mmapAddr = createMmap(nodeCount, nodeFile, roflag, protflags, mapflags);
-    if (mmapAddr > 0 && roflag != RD_ONLY) {
+    void * mmapAddr = createMmap(nbytes, shmmap->nodefile, roflag, protflags, mapflags);
+    if (mmapAddr != NULL && roflag != RD_ONLY) {
         size_t *nodeVals = (size_t *) mmapAddr;
-        for (size_t *p = nodeVals; p < nodeVals + nodeCount; p++) {
-            *p = 0;
+        for (size_t *p = nodeVals; p < nodeVals + shmmap->arraylen; p++) {
+            *p = GRAPH_SLOT_EMPTY;
         }
     }
     return mmapAddr;
 }
 
 void * createCapMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int protflags, int mapflags) {
-    size_t caplen = sizeof(double *) * shmmap->nodelen;
-    size_t capCount = caplen * shmmap->degree;
-    char * capFile = shmmap->capfile;
-    if (capFile == NULL) {
-        //We'll need to create the node file
-        capFile = "mmapCapacityXXXXXX";
-        int capfd = mkstemp(capFile);
-        if (capfd == -1) {
-            perror("mkstemp()");
+    size_t nbytes = shmmap->arraylen * sizeof(double);
+    if (shmmap->capfile == NULL) {
+        shmmap->capfile = makeMmapPath("/tmp/mmapCapacityXXXXXX");
+        if (shmmap->capfile == NULL) {
             return NULL;
         }
-        close(capfd);
-        shmmap->capfile = capFile;
     }
-    void * mmapAddr = createMmap(capCount, capFile, roflag, protflags, mapflags);
-    if (mmapAddr > 0 && roflag != RD_ONLY) {
+    void * mmapAddr = createMmap(nbytes, shmmap->capfile, roflag, protflags, mapflags);
+    if (mmapAddr != NULL && roflag != RD_ONLY) {
         double *capVals = (double *) mmapAddr;
-        for (double *p = capVals; p < capVals + capCount; p++) {
+        for (double *p = capVals; p < capVals + shmmap->arraylen; p++) {
             *p = 0.0;
         }
     }
@@ -252,24 +223,17 @@ void * createCapMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int 
 }
 
 void * createFlowMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int protflags, int mapflags) {
-    size_t flowlen = sizeof(double *) * shmmap->nodelen;
-    size_t flowCount = flowlen * shmmap->degree;
-    char * flowFile = shmmap->flowfile;
-    if (flowFile == NULL) {
-        //We'll need to create the node file
-        flowFile = "mmapFlowXXXXXX";
-        int flowfd = mkstemp(flowFile);
-        if (flowfd == -1) {
-            perror("mkstemp()");
+    size_t nbytes = shmmap->arraylen * sizeof(double);
+    if (shmmap->flowfile == NULL) {
+        shmmap->flowfile = makeMmapPath("/tmp/mmapFlowXXXXXX");
+        if (shmmap->flowfile == NULL) {
             return NULL;
         }
-        close(flowfd);
-        shmmap->flowfile = flowFile;
     }
-    void * mmapAddr = createMmap(flowCount, flowFile, roflag, protflags, mapflags);
-    if (mmapAddr > 0 && roflag != RD_ONLY) {
+    void * mmapAddr = createMmap(nbytes, shmmap->flowfile, roflag, protflags, mapflags);
+    if (mmapAddr != NULL && roflag != RD_ONLY) {
         double *flowVals = (double *) mmapAddr;
-        for (double *p = flowVals; p < flowVals + flowCount; p++) {
+        for (double *p = flowVals; p < flowVals + shmmap->arraylen; p++) {
             *p = 0.0;
         }
     }
@@ -285,30 +249,26 @@ void * createMmap(size_t memLen, char *fpath, enum GRAPHDOMAIN roflag, int protf
     }
     int fd = open(fpath, oflags, writemode);
     if (fd == -1) {
-        //opening the file failed
         fprintf(stderr, "Error opening %s\n", fpath);
         perror("open()");
         printErrMessage();
         return NULL;
     }
     if (roflag != RD_ONLY) {
-        size_t result = lseek(fd, memLen-1, SEEK_SET);
+        off_t result = lseek(fd, (off_t) memLen - 1, SEEK_SET);
         if (result == -1) {
             close(fd);
             perror("Error calling lseek() to 'stretch' the file");
             return NULL;
         }
 
-        result = write(fd, "", 1);
-        if (result != 1) {
+        if (write(fd, "", 1) != 1) {
             close(fd);
             perror("Error writing last byte of the file");
-            exit(EXIT_FAILURE);
+            return NULL;
         }
     }
-    // now the file is ready to be mmapped
     void *map = mmap(0, memLen, protflags, mapflags, fd, 0);
-    // can close without causing issues.
     close(fd);
     if (map == MAP_FAILED) {
         perror("Error mmapping the file");
@@ -319,6 +279,10 @@ void * createMmap(size_t memLen, char *fpath, enum GRAPHDOMAIN roflag, int protf
 
 int freeMapMem(void * mapaddr, size_t mlen) {
     int retval = EXIT_FAILURE;
+
+    if (mapaddr == NULL || mapaddr == MAP_FAILED) {
+        return EXIT_FAILURE;
+    }
 
     int unmapped = munmap(mapaddr, mlen);
     if (unmapped == -1) {

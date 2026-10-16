@@ -9,6 +9,34 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <stdint.h>
+
+/**
+ * @brief Boolean results for predicates (found/not-found, etc.).
+ *
+ * Prefer these for helpers used in `if (pred())` — unlike EXIT_SUCCESS (0),
+ * GRAPH_TRUE is truthy in C conditionals.
+ */
+#define GRAPH_TRUE  true
+#define GRAPH_FALSE false
+
+/**
+ * @brief Success/failure for graphops mutators and value getters.
+ *
+ * Matches the public graphOps typedef contract (0 = error, 1 = success),
+ * so `if (setCapacity(...))` means success. Prefer these over EXIT_* in
+ * array/link/shared op implementations.
+ */
+#define GRAPH_OK    1
+#define GRAPH_ERR   0
+
+/**
+ * @brief Sentinel for an unused adjacency slot in ARRAY-style node arrays.
+ *
+ * Must not be a valid node index. Using 0 for "empty" collides with node id 0.
+ */
+#define GRAPH_SLOT_EMPTY SIZE_MAX
 
 /**
  * @brief Descriptor of the graph structure and usage.
@@ -81,6 +109,15 @@ enum GRAPHDOMAIN {
      */
     LABELED     = 0x2000
 };
+
+/**
+ * @brief Direction helpers for GRAPHDOMAIN bitmasks.
+ *
+ * UNDIRECTED is 0x0, so `(gtype & UNDIRECTED) == UNDIRECTED` is always true —
+ * never use that pattern. Test the DIRECTED bit instead.
+ */
+#define GRAPH_IS_DIRECTED(gtype)   (((gtype) & DIRECTED) == DIRECTED)
+#define GRAPH_IS_UNDIRECTED(gtype) (!GRAPH_IS_DIRECTED(gtype))
 
 /**
  * @brief Feature/attribute structure for a graph item.

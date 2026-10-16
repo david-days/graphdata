@@ -4,8 +4,8 @@
 
 #include <impl/sharedmemgraph.h>
 #include <errno.h>
-#include <bits/ipc.h>
-#include <bits/shm.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
 
 #include <cartesian.h>
 #include <crudops.h>
@@ -15,7 +15,10 @@ static struct shmemdata_t * initShmemMeta() {
     shmmeta = (struct shmemdata_t *)malloc(sizeof(struct shmemdata_t));
     if (shmmeta != NULL) {
         shmmeta->nodelen = 0;
+        shmmeta->edgelen = 0;
         shmmeta->degree = 0;
+        shmmeta->arraylen = 0;
+        shmmeta->roflag = 0;
         shmmeta->nodekey = -1;
         shmmeta->flowkey = -1;
         shmmeta->capkey = -1;
@@ -28,10 +31,12 @@ static struct shmemdata_t * initShmemMeta() {
 
 static int freeShmemMeta(void** metaptr) {
     int retVal = EXIT_FAILURE;
-    if (*metaptr != NULL) {
-        struct shmemdata_t *shmmeta = (struct shmemdata_t *) metaptr;
+    if (metaptr != NULL && *metaptr != NULL) {
+        struct shmemdata_t *shmmeta = (struct shmemdata_t *) *metaptr;
         shmmeta->nodelen = 0;
+        shmmeta->edgelen = 0;
         shmmeta->degree = 0;
+        shmmeta->arraylen = 0;
         shmmeta->nodekey = -1;
         shmmeta->flowkey = -1;
         shmmeta->capkey = -1;
@@ -59,26 +64,33 @@ int shmemGraphInit(struct graph_t *g) {
         nlen = g->labels->labelcount * cartlen;
     }
 
-    // generate the shared memory flags, based on requested usage
+    // Creator (writable): exclusive create + RW attach.
+    // Attacher (RD_ONLY): look up existing keys already stored in meta + RO attach.
     int createFlags = 0;
     int attFlags = 0;
 
-    if (rdtype != RD_ONLY) {
-        createFlags = IPC_CREAT | IPC_EXCL;
+    if (rdtype == RD_ONLY) {
         attFlags = SHM_RDONLY;
+    } else {
+        createFlags = IPC_CREAT | IPC_EXCL | 0600;
+        attFlags = 0;
     }
 
     if (nlen > 0) {
         struct shmemdata_t *shmmeta = initShmemMeta();
+        if (shmmeta == NULL) {
+            return EXIT_FAILURE;
+        }
         shmmeta->roflag = rdtype;
         shmmeta->nodelen = nlen;
+        shmmeta->edgelen = nlen;
         shmmeta->degree = g->dims->dimcount;
         shmmeta->arraylen = nlen * shmmeta->degree;
+        g->metaImpl = (void *)shmmeta;
         g->nodeImpl = createNodeShmem(shmmeta, createFlags, attFlags);
         g->edgeImpl = NULL;
         g->capImpl = createCapacityShmem(shmmeta, createFlags, attFlags);
         g->flowImpl = createFlowShmem(shmmeta, createFlags, attFlags);
-        g->metaImpl = (void *)shmmeta;
         if (g->nodeImpl != NULL && g->capImpl != NULL && g->flowImpl != NULL)
             retval = EXIT_SUCCESS;
     }
@@ -89,13 +101,13 @@ int shmemGraphInit(struct graph_t *g) {
 
 int shmemGraphFree(struct graph_t *g) {
     int retval = EXIT_SUCCESS;
-    if (NULL != g) {
+    if (NULL != g && g->metaImpl != NULL) {
         struct shmemdata_t *shmmeta = (struct shmemdata_t *) g->metaImpl;
-        retval = retval | freeShmem(shmmeta->nodekey, shmmeta->nodememid);
+        retval = retval | freeShmem(g->nodeImpl, shmmeta->nodememid);
         g->nodeImpl = NULL;
-        retval = retval | freeShmem(shmmeta->capkey, shmmeta->capmemid);
+        retval = retval | freeShmem(g->capImpl, shmmeta->capmemid);
         g->capImpl = NULL;
-        retval = retval | freeShmem(shmmeta->flowkey, shmmeta->flowmemid);
+        retval = retval | freeShmem(g->flowImpl, shmmeta->flowmemid);
         g->flowImpl = NULL;
         retval = retval | freeShmemMeta(&(g->metaImpl));
         g->metaImpl = NULL;

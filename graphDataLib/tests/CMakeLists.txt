@@ -28,6 +28,8 @@ add_link_options(
 add_subdirectory(crud)
 add_subdirectory(graph)
 add_subdirectory(math)
+add_subdirectory(shmem)
+add_subdirectory(shmmap)
 add_subdirectory(spatial)
 add_subdirectory(util)
 
@@ -49,13 +51,13 @@ add_test(NAME comptests COMMAND "comptests"
         WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
 )
 
-# Utility functions
-add_test(NAME hashtests COMMAND "hashtests"
+# Graph manipulation
+add_test(NAME graphtests COMMAND "graphtests"
         WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
 )
 
-# Spatial ops and calculations
-add_test(NAME spatialtests COMMAND "spatialtests"
+# Utility functions
+add_test(NAME hashtests COMMAND "hashtests"
         WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
 )
 
@@ -64,7 +66,18 @@ add_test(NAME inittests COMMAND "inittests"
         WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
 )
 
-# Graph manipulation
-add_test(NAME graphtests COMMAND "graphtests"
+# Shared memory graph tests
+add_test(NAME shmemtests COMMAND "shmemtests"
+        WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
+)
+
+# Mapped memory graph tests
+add_test(NAME shmmaptests COMMAND "shmmaptests"
+        WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
+)
+
+
+# Spatial ops and calculations
+add_test(NAME spatialtests COMMAND "spatialtests"
         WORKING_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
 )

@@ -6,7 +6,9 @@
 #define MEMMGT_H
 
 #include <sys/types.h>
-#include <sharedmemgraph.h>
+
+struct shmemdata_t;
+struct shmmapdata_t;
 
 /**
  * Print message associated with current errno value.
@@ -47,12 +49,12 @@ void * createCapacityShmem(struct shmemdata_t *shmmeta, int createflags, int att
 int createShmem(size_t memLen, key_t key, int shmflags);
 
 /**
- * Free the shared memory segment described by the given key and id values
- * @param key shared memory key
+ * Detach and mark-for-removal the shared memory segment at addr / shmid.
+ * @param addr previously attached shared memory address (from shmat)
  * @param shmid shared memory id
- * @return EXIT_SUCCESS if succeeded; otherwise EXIT_FAILED
+ * @return EXIT_SUCCESS if succeeded; otherwise EXIT_FAILURE
  */
-int freeShmem(key_t key, int shmid);
+int freeShmem(void *addr, int shmid);
 
 /**
  * Create node mmap using the given base info and flags

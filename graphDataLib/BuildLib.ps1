@@ -23,7 +23,6 @@ $binaryOutDir = Join-Path $projectDir "output"
 $testDir = Join-Path $projectDir "tests"
 $testBinaries = Join-Path $testDir "bin"
 $toolChainDir = Join-Path $projectDir "cmake"
-$nupkgDir = Join-Path $binaryOutDir "nupkgs"
 
 
 # toolchain files
@@ -31,48 +30,35 @@ $linuxToolchain = Join-Path $toolChainDir "linux-x64.cmake"
 $winToolchain = Join-Path $toolChainDir "win-x64.cmake"
 $osxToolchain = Join-Path $toolChainDir "osx.cmake"
 
-# nuspec and NuGet build projects
-$linuxRuntimeProj = Join-Path $binaryOutDir "linux_runtime.csproj"
-$winRuntimeProj = Join-Path $binaryOutDir "win_runtime.csproj"
-# TODO:  set up OSX
-
-
 $toolChainFile = $null
 $projBuildDir = $null
-$runtimeProject = $null
-$nugetRuntime = $null
 
 if ($IsMacOS) {
     $toolChainFile = $osxToolchain
     $projBuildDir = $osxBuildDir
-    # TODO:  Set up OSX .csproj and nuget runtime option
 } elseif ($IsLinux) {
     $toolChainFile = $linuxToolchain
     $projBuildDir = $linuxBuildDir
-    $runtimeProject = $linuxRuntimeProj
-    $nugetRuntime = "linux-x64"
 } elseif ($IsWindows) {
     $toolChainFile = $winToolchain
     $projBuildDir = $winBuildDir
-    $runtimeProject = $winRuntimeProj
-    $nugetRuntime = "win-x64"
 } else {
     Write-Error "Unsupported host.  Host type not detected or recognized"
     exit 1;
 }
 
 if ($help) {
-    Write-Host "Usage: ./BuildgraphData.ps1 [-clean] [-test] [-install] [-v] [-vv] [-package] [-help]"
+    Write-Host "Usage: ./BuildLib.ps1 [-clean] [-test] [-install] [-v] [-vv] [-package] [-d] [-help]"
     Write-Host "    No args     (Re)Build"
     Write-Host "	-clean      Clean output folders and exit"
     Write-Host "	-install    Build and install"
     Write-Host "	-test       Build and run tests, then exit"
     Write-Host "	-v          Print out CMAKE build variables and exit"
     Write-Host "	-vv         Print all CMAKE build variables used during build"
-    Write-Host "    -package    Generate platform installation package"
+    Write-Host "    -package    Generate platform installation package (CPack)"
+    Write-Host "	-d          Build Doxygen documentation after the library build"
     Write-Host "	-help       Print this help and exit"
     exit 0
-    ;;
 }
 
 # Create the build directory if it doesn't exist
@@ -109,10 +95,15 @@ if ($v) {
 
 $printAllVars = 0
 if ($vv) {
-    $printAllVars = 1
+   $printAllVars = 1
 }
 
-& cmake . --toolchain $toolChainFile -B $projBuildDir -DPRINT_ALL_VARS=$printAllVars 
+$buildDoc = "OFF"
+if ($d) {
+    $buildDoc = "ON"
+}
+
+& cmake . --toolchain $toolChainFile -B $projBuildDir -DPRINT_ALL_VARS=$printAllVars -DBUILD_DOC=$buildDoc
 & cd $projBuildDir 
 & make all 
 
@@ -123,13 +114,10 @@ if ($d) {
 }
 
 if ($test) {
-    & make test
+    ctest
 }
 
 if ($package) {
     # build the cmake packages
     & make package
-    # Native runtime NuGet package
-    & dotnet restore $runtimeProject
-    & dotnet pack $runtimeProject --include-symbols --no-build -o $nupkgDir --runtime $nugetRuntime -c Release
 }

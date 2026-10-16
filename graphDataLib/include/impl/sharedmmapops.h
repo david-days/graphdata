@@ -5,6 +5,9 @@
 #ifndef GRAPHDATA_SHAREDMMAPOPS_H
 #define GRAPHDATA_SHAREDMMAPOPS_H
 
+#include <stddef.h>
+#include <graphData.h>
+
 //Read functions to extract data
 /**
  * @brief Implementation for getting the node count;
@@ -121,7 +124,7 @@ int shmapAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph
  * @param g Graph structure in question
  * @return EXIT_FAILURE if there was an error (e.g. the edge was not found); otherwise, EXIT_SUCCESS if the edge was removed.
  */
-int shmapRemoveEdge(const size_t *uid, const size_t *vid, struct graph _t *g);
+int shmapRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
 /**
  * @brief Implementation to set the capacity (cost, weight, etc.) of an edge in the given graph.
  * @param uid identifier of the edge start

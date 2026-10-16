@@ -59,7 +59,7 @@ int shmapGetFlow(const size_t *uid, const size_t *vid, double *flow, const struc
 //Write functions to modify graph
 int shmapAddNode(const size_t *nodeid, struct graph_t *g) {
     //check for readonly
-    struct shmmapdata_t * meta = (struct shmapdata_t *)g->metaImpl;
+    struct shmmapdata_t * meta = (struct shmmapdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
         return EXIT_FAILURE;
     }
@@ -68,7 +68,7 @@ int shmapAddNode(const size_t *nodeid, struct graph_t *g) {
 
 int shmapAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g) {
     //check for readonly
-    struct shmmapdata_t * meta = (struct shmapdata_t *)g->metaImpl;
+    struct shmmapdata_t * meta = (struct shmmapdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
         return EXIT_FAILURE;
     }
@@ -77,7 +77,7 @@ int shmapAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph
 
 int shmapRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g) {
     //check for readonly
-    struct shmmapdata_t * meta = (struct shmapdata_t *)g->metaImpl;
+    struct shmmapdata_t * meta = (struct shmmapdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
         return EXIT_FAILURE;
     }
@@ -86,7 +86,7 @@ int shmapRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g) {
 
 int shmapSetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g) {
     //check for readonly
-    struct shmmapdata_t * meta = (struct shmapdata_t *)g->metaImpl;
+    struct shmmapdata_t * meta = (struct shmmapdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
         return EXIT_FAILURE;
     }
@@ -95,7 +95,7 @@ int shmapSetCapacity(const size_t *uid, const size_t *vid, const double *cap, st
 
 int shmapAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g) {
     //check for readonly
-    struct shmmapdata_t * meta = (struct shmapdata_t *)g->metaImpl;
+    struct shmmapdata_t * meta = (struct shmmapdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
         return EXIT_FAILURE;
     }
@@ -104,7 +104,7 @@ int shmapAddCapacity(const size_t *uid, const size_t *vid, const double *cap, st
 
 int shmapSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g) {
     //check for readonly
-    struct shmmapdata_t * meta = (struct shmapdata_t *)g->metaImpl;
+    struct shmmapdata_t * meta = (struct shmmapdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
         return EXIT_FAILURE;
     }
@@ -113,7 +113,7 @@ int shmapSetFlow(const size_t *uid, const size_t *vid, const double *flow, struc
 
 int shmapAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g) {
     //check for readonly
-    struct shmmapdata_t * meta = (struct shmapdata_t *)g->metaImpl;
+    struct shmmapdata_t * meta = (struct shmmapdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
         return EXIT_FAILURE;
     }
@@ -122,7 +122,7 @@ int shmapAddFlow(const size_t *uid, const size_t *vid, const double *flow, struc
 
 int shmapResetGraph(struct graph_t *g, void *args, void (*callback)(void)) {
     //check for readonly
-    struct shmmapdata_t * meta = (struct shmapdata_t *)g->metaImpl;
+    struct shmmapdata_t * meta = (struct shmmapdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
         return EXIT_FAILURE;
     }

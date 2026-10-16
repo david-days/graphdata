@@ -15,16 +15,10 @@ The C project's overall structure is as follows:
 │   └──🔧 packaging.cmake Platform-based installer package configurations
 │
 ├──🔧 conf.in
-│   └──🔧 linux-x64-runtime.nuspec.in Template for Linux NuGet runtime package
-│   └──🔧 linux_runtime.csproj.in Template for Linux NuGet package build project
-│   └──🔧 win-x64-runtime.nuspec.in Template for Windows NuGet runtime package
-│   └──🔧 win_runtime.csproj.in Template for Windows NuGet package build project
+│   └──🔧 Doxyfile.in Template for optional Doxygen documentation builds
 │
 ├──⚒️  include
 |  └── Build and install headers 
-│
-├──📂 runtimes
-|  └── Windows and Linux x64 libraries for supporting runtime nuget packages
 │
 ├──⚒️ src
 |  └── Central wrapper code
@@ -33,7 +27,7 @@ The C project's overall structure is as follows:
 |  └── CMake testing subproject with data, code, and configuration to run build-time tests
 │
 └──🏗️ buildLinux.sh
-└──🏗️ BuildgraphData.ps1
+└──🏗️ BuildLib.ps1
 └──📜 CMakeLists.txt
 └──🗒️ README.md
 
@@ -54,7 +48,7 @@ settings are mixed in, comments and buildtime/runtime checks are included.
 The general setup and build files are described here.
 
 * `🏗️ buildLinux.sh` This is the build script for Linux.  Simply run it with `./buildLinux.sh -h` to see all options.
-* `🏗️ BuildgraphData.ps1` This is the cross-platform build script.  Simply run it with `./BuildgraphData.ps1 -help` to see all options.
+* `🏗️ BuildLib.ps1` This is the cross-platform build script.  Simply run it with `./BuildLib.ps1 -help` to see all options.
 * `🔧 linux-x64.cmake`  CMake build and install settings for Linux.  Make os-specific changes here, if possible
 * `🔧 osx.cmake`  CMake build and install settings for OSX.  Make os-specific changes here, if possible
 * `🔧 win-x64.cmake`  CMake build and install settings for Windows.  Make os-specific changes here, if possible
@@ -64,7 +58,7 @@ The general setup and build files are described here.
   will be placed under this folder.
 * `📂 build-win-x64` Created by the build script.  When the built on a Windows machine, the intermediate products and settings (including all the relevant Makefile output)
   will be placed under this folder.
-* `📂 output` Created by build script.  Final output products (NuGet package definitions, binaries, etc.) are placed here. 
+* `📂 output` Created by build script.  Final output products (binaries, optional CPack packages, etc.) are placed here. 
 
 # Testing
 See the file [Test.md](tests/Testing.md) for specifics.

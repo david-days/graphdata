@@ -57,11 +57,11 @@ static int freeArrayMeta(void** metaptr) {
  * @return size_t **array as a void *.
  */
 static void * createNodeArray(size_t arraylen) {
-    void *arrbase = malloc(sizeof(size_t *)*arraylen);
+    void *arrbase = malloc(sizeof(size_t) * arraylen);
     if (arrbase != NULL) {
         size_t *arrvals = (size_t *) arrbase;
-        for (size_t *p = arrvals; p < arrvals+arraylen;p++) {
-            *p = 0;
+        for (size_t *p = arrvals; p < arrvals + arraylen; p++) {
+            *p = GRAPH_SLOT_EMPTY;
         }
     }
     return arrbase;
@@ -77,11 +77,10 @@ static void * createNodeArray(size_t arraylen) {
  *
  */
 static void * createDoubleArray(size_t arraylen) {
-    void *arrbase = malloc(sizeof(double *)*arraylen);
+    void *arrbase = malloc(sizeof(double) * arraylen);
     if (arrbase != NULL) {
         double *arrvals = (double *) arrbase;
-        for (double *p = arrvals; p<arrvals+arraylen;p++) {
-            //TODO:  Would calloc() or some other method be better?
+        for (double *p = arrvals; p < arrvals + arraylen; p++) {
             *p = 0.0;
         }
      }

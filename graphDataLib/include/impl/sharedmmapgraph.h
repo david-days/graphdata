@@ -8,26 +8,34 @@
 #include <graphData.h>
 #include <util/memmgt.h>
 
+/**
+ * Metadata for memory-mapped graphs.
+ *
+ * The first four fields mirror arraydata_t so mmap ops can reuse
+ * the array implementation helpers safely.
+ */
 struct shmmapdata_t {
-    /**
-     * @brief read-only flag for this graph
-     */
-    enum GRAPHDOMAIN roflag;
-
     /**
      * length of the node array
      */
     size_t nodelen;
     /**
+     * length of the edge array (matches ARRAY: same as nodelen)
+     */
+    size_t edgelen;
+    /**
      * degree of nodes (number of possible edges for each node)
      */
     size_t degree;
     /**
-     * Length of the arrays
-     *
-     * This length is actually the value of nodelen * degree
+     * Length of the arrays (nodelen * degree)
      */
     size_t arraylen;
+
+    /**
+     * @brief read-only flag for this graph
+     */
+    enum GRAPHDOMAIN roflag;
 
     char *nodefile;
     char *flowfile;

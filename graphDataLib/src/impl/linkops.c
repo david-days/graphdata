@@ -97,7 +97,7 @@ struct edge_t * linkGetEdge(const size_t *u, const size_t *v, const struct graph
     if ((g->gtype & LINKED) == LINKED) {
         size_t eu = *u;
         size_t ev = *v;
-        if ((g->gtype & UNDIRECTED) == UNDIRECTED) {
+        if (GRAPH_IS_UNDIRECTED(g->gtype)) {
             eu = *(minNode((size_t *)u,(size_t *)v));
             ev = *(maxNode((size_t *)u,(size_t *)v));
         }
@@ -293,8 +293,15 @@ int linkRemoveNode(const size_t *nodeid, struct graph_t *g) {
             rnode->prev = NULL;
             rnode->next = NULL;
             free(rnode);
-            if (prev != NULL) prev->next = next;
-            if (next != NULL) next->prev = prev;
+            if (prev != NULL) {
+                prev->next = next;
+            } else {
+                // Removed the list head
+                g->nodeImpl = next;
+            }
+            if (next != NULL) {
+                next->prev = prev;
+            }
             retval = 1;
         }
     }
@@ -318,7 +325,7 @@ int linkAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_
         //Is there a node?
         size_t u = *uid;
         size_t v = *vid;
-        if ((g->gtype & UNDIRECTED) == UNDIRECTED) {
+        if (GRAPH_IS_UNDIRECTED(g->gtype)) {
             u = *(minNode((size_t *)uid, (size_t *)vid));
             v = *(maxNode((size_t *)uid, (size_t *)vid));
         }
@@ -359,8 +366,13 @@ int linkAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_
 int linkRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g) {
     int retval = 0;
     if ((g->gtype & LINKED) == LINKED) {
+        size_t eu = *uid;
+        if (GRAPH_IS_UNDIRECTED(g->gtype)) {
+            eu = *(minNode((size_t *)uid, (size_t *)vid));
+        }
+        struct node_t *node = linkGetNode(&eu, g);
         struct edge_t *redge = linkGetEdge(uid, vid, g);
-        if (redge != NULL) {
+        if (node != NULL && redge != NULL) {
             struct edge_t *prev = redge->prev;
             struct edge_t *next = redge->next;
             destroyFeatures((void **)&(redge->attrs));
@@ -368,8 +380,15 @@ int linkRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g) {
             redge->next = NULL;
             redge->cap = 0.0;
             free(redge);
-            if (prev != NULL) prev->next = next;
-            if (next != NULL) next->prev = prev;
+            if (prev != NULL) {
+                prev->next = next;
+            } else {
+                // Removed the head of this node's edge list
+                node->edges = next;
+            }
+            if (next != NULL) {
+                next->prev = prev;
+            }
             retval = 1;
         }
     }

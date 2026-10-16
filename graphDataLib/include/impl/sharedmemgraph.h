@@ -7,30 +7,36 @@
 
 #include <graphData.h>
 #include <util/memmgt.h>
+#include <sys/types.h>
 
 /**
  * @brief Metadata structure for shared memory graphs
+ *
+ * The first four fields mirror arraydata_t so shared-memory ops can reuse
+ * the array implementation helpers safely.
  */
-
 struct shmemdata_t {
-    /**
-     * @brief read-only flag for this graph
-     */
-    enum GRAPHDOMAIN roflag;
     /**
      * @brief Length of the node array
      */
     size_t nodelen;
     /**
-     * @brief Degree of the nodes (number of possible edges coming out
+     * @brief Length of the edge array (matches ARRAY: same as nodelen)
+     */
+    size_t edgelen;
+    /**
+     * @brief Degree of the nodes (number of possible edges coming out)
      */
     size_t degree;
     /**
-     * @brief Length of the arrays
-     *
-     * This length is actually the value of nodelen * degree, like the ARRAY implementation
+     * @brief Length of the arrays (nodelen * degree)
      */
     size_t arraylen;
+
+    /**
+     * @brief read-only flag for this graph
+     */
+    enum GRAPHDOMAIN roflag;
 
     key_t nodekey;
     key_t flowkey;
