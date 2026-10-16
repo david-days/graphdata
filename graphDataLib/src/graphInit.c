@@ -204,6 +204,47 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
     return g;
 }
 
+struct graph_t * attachReadonlyGraph(struct graph_t *src) {
+    if (src == NULL || src->dims == NULL) {
+        return NULL;
+    }
+
+    enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
+    enum GRAPHDOMAIN gflags = src->gtype;
+    if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) != EXIT_SUCCESS) {
+        return NULL;
+    }
+    if (imptype != SHARED_MEM && imptype != SHARED_MMAP) {
+        return NULL;
+    }
+    if (rdtype == RD_ONLY) {
+        return NULL;
+    }
+
+    struct graph_t *g = basicGraphInit();
+    if (g == NULL) {
+        return NULL;
+    }
+
+    g->dims = src->dims;
+    g->labels = src->labels;
+    g->gtype = (src->gtype | RD_ONLY);
+
+    int ok = EXIT_FAILURE;
+    if (imptype == SHARED_MEM) {
+        ok = shmemGraphAttachReadonly(g, src);
+    } else {
+        ok = shmmapGraphAttachReadonly(g, src);
+    }
+
+    if (ok != EXIT_SUCCESS) {
+        clearGraph(g);
+        destroyGraph((void **)&g);
+        return NULL;
+    }
+    return g;
+}
+
 
 /**
  * @brief Create and fill the graphops_t structure that handles basic operations for the graph

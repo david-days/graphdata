@@ -30,7 +30,7 @@ int shmemRemoveNode(const size_t *nodeid, struct graph_t *g) {
     //check for readonly
     struct shmemdata_t * meta = (struct shmemdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
     return arrayRemoveNode(nodeid, g);
 }
@@ -60,7 +60,7 @@ int shmemAddNode(const size_t *nodeid, struct graph_t *g) {
     //check for readonly
     struct shmemdata_t * meta = (struct shmemdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
     return arrayAddNode(nodeid, g);
 }
@@ -69,7 +69,7 @@ int shmemAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph
     //check for readonly
     struct shmemdata_t * meta = (struct shmemdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
     return arrayAddEdge(uid, vid, cap, g);
 }
@@ -78,7 +78,7 @@ int shmemRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g) {
     //check for readonly
     struct shmemdata_t * meta = (struct shmemdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
     return arrayRemoveEdge(uid, vid, g);
 }
@@ -87,7 +87,7 @@ int shmemSetCapacity(const size_t *uid, const size_t *vid, const double *cap, st
     //check for readonly
     struct shmemdata_t * meta = (struct shmemdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
     return arraySetCapacity(uid, vid, cap, g);
 }
@@ -96,7 +96,7 @@ int shmemAddCapacity(const size_t *uid, const size_t *vid, const double *cap, st
     //check for readonly
     struct shmemdata_t * meta = (struct shmemdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
     return arrayAddCapacity(uid, vid, cap, g);
 }
@@ -105,7 +105,7 @@ int shmemSetFlow(const size_t *uid, const size_t *vid, const double *flow, struc
     //check for readonly
     struct shmemdata_t * meta = (struct shmemdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
     return arraySetFlow(uid, vid, flow, g);
 }
@@ -114,7 +114,7 @@ int shmemAddFlow(const size_t *uid, const size_t *vid, const double *flow, struc
     //check for readonly
     struct shmemdata_t * meta = (struct shmemdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
     return arrayAddFlow(uid, vid, flow, g);
 }
@@ -123,7 +123,7 @@ int shmemResetGraph(struct graph_t *g, void *args, void (*callback)(void)) {
     //check for readonly
     struct shmemdata_t * meta = (struct shmemdata_t *)g->metaImpl;
     if (meta->roflag == RD_ONLY) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
     return arrayResetGraph(g, args, callback);
 }

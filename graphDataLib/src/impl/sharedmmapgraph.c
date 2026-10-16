@@ -6,6 +6,7 @@
 #include <impl/sharedmmapgraph.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <cartesian.h>
 #include <crudops.h>
@@ -27,20 +28,22 @@ static struct shmmapdata_t * initShmmapMeta() {
     return mapmeta;
 }
 
-static void clearMmapFile(char **pathptr) {
+static void clearMmapFile(char **pathptr, int unlink_file) {
     if (pathptr != NULL && *pathptr != NULL) {
-        unlink(*pathptr);
+        if (unlink_file) {
+            unlink(*pathptr);
+        }
         free(*pathptr);
         *pathptr = NULL;
     }
 }
 
-static int freeShmmapMeta(struct shmmapdata_t *meta) {
+static int freeShmmapMeta(struct shmmapdata_t *meta, int unlink_files) {
     int retVal = EXIT_FAILURE;
     if (meta != NULL) {
-        clearMmapFile(&meta->nodefile);
-        clearMmapFile(&meta->capfile);
-        clearMmapFile(&meta->flowfile);
+        clearMmapFile(&meta->nodefile, unlink_files);
+        clearMmapFile(&meta->capfile, unlink_files);
+        clearMmapFile(&meta->flowfile, unlink_files);
         meta->nodelen = 0;
         meta->edgelen = 0;
         meta->degree = 0;
@@ -95,17 +98,59 @@ int shmmapGraphInit(struct graph_t *g) {
 
 }
 
+int shmmapGraphAttachReadonly(struct graph_t *g, const struct graph_t *src) {
+    if (g == NULL || src == NULL || src->metaImpl == NULL) {
+        return EXIT_FAILURE;
+    }
+    struct shmmapdata_t *srcmeta = (struct shmmapdata_t *)src->metaImpl;
+    if (srcmeta->roflag == RD_ONLY) {
+        return EXIT_FAILURE;
+    }
+    if (srcmeta->nodefile == NULL || srcmeta->capfile == NULL || srcmeta->flowfile == NULL) {
+        return EXIT_FAILURE;
+    }
+
+    struct shmmapdata_t *mapmeta = initShmmapMeta();
+    if (mapmeta == NULL) {
+        return EXIT_FAILURE;
+    }
+    mapmeta->nodelen = srcmeta->nodelen;
+    mapmeta->edgelen = srcmeta->edgelen;
+    mapmeta->degree = srcmeta->degree;
+    mapmeta->arraylen = srcmeta->arraylen;
+    mapmeta->roflag = RD_ONLY;
+    mapmeta->nodefile = strdup(srcmeta->nodefile);
+    mapmeta->capfile = strdup(srcmeta->capfile);
+    mapmeta->flowfile = strdup(srcmeta->flowfile);
+    if (mapmeta->nodefile == NULL || mapmeta->capfile == NULL || mapmeta->flowfile == NULL) {
+        freeShmmapMeta(mapmeta, 0);
+        return EXIT_FAILURE;
+    }
+
+    g->metaImpl = (void *)mapmeta;
+    g->edgeImpl = NULL;
+    g->nodeImpl = createNodeMmap(mapmeta, RD_ONLY, PROT_READ, MAP_SHARED);
+    g->capImpl = createCapMmap(mapmeta, RD_ONLY, PROT_READ, MAP_SHARED);
+    g->flowImpl = createFlowMmap(mapmeta, RD_ONLY, PROT_READ, MAP_SHARED);
+
+    if (g->nodeImpl != NULL && g->capImpl != NULL && g->flowImpl != NULL) {
+        return EXIT_SUCCESS;
+    }
+    return EXIT_FAILURE;
+}
+
 int shmmapGraphFree(struct graph_t *g) {
     int retVal = EXIT_SUCCESS;
     if (NULL != g && g->metaImpl != NULL) {
         struct shmmapdata_t *mapmeta = (struct shmmapdata_t *) g->metaImpl;
+        int unlink_files = (mapmeta->roflag != RD_ONLY);
         retVal = retVal | freeMapMem(g->nodeImpl, mapmeta->arraylen * sizeof(size_t));
         g->nodeImpl = NULL;
         retVal = retVal | freeMapMem(g->capImpl, mapmeta->arraylen * sizeof(double));
         g->capImpl = NULL;
         retVal = retVal | freeMapMem(g->flowImpl, mapmeta->arraylen * sizeof(double));
         g->flowImpl = NULL;
-        retVal = retVal | freeShmmapMeta(mapmeta);
+        retVal = retVal | freeShmmapMeta(mapmeta, unlink_files);
         g->metaImpl = NULL;
     }
     return retVal;

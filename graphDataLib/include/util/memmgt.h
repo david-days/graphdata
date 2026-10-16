@@ -49,12 +49,13 @@ void * createCapacityShmem(struct shmemdata_t *shmmeta, int createflags, int att
 int createShmem(size_t memLen, key_t key, int shmflags);
 
 /**
- * Detach and mark-for-removal the shared memory segment at addr / shmid.
+ * Detach a shared memory segment, optionally marking it for removal.
  * @param addr previously attached shared memory address (from shmat)
  * @param shmid shared memory id
+ * @param remove_segment if true (non-zero), also shmctl(IPC_RMID); readers should pass 0
  * @return EXIT_SUCCESS if succeeded; otherwise EXIT_FAILURE
  */
-int freeShmem(void *addr, int shmid);
+int freeShmem(void *addr, int shmid, int remove_segment);
 
 /**
  * Create node mmap using the given base info and flags

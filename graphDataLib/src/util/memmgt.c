@@ -148,7 +148,7 @@ int createShmem(size_t memLen, key_t key, int shmflags) {
     return shmget(key, memLen, shmflags);
 }
 
-int freeShmem(void *addr, int shmid) {
+int freeShmem(void *addr, int shmid, int remove_segment) {
     int retval = EXIT_SUCCESS;
 
     if (addr != NULL && addr != (void *) -1) {
@@ -159,14 +159,16 @@ int freeShmem(void *addr, int shmid) {
         }
     }
 
-    if (shmid >= 0) {
-        if (shmctl(shmid, IPC_RMID, NULL) == -1) {
-            perror("shmctl()");
-            printErrMessage();
+    if (remove_segment) {
+        if (shmid >= 0) {
+            if (shmctl(shmid, IPC_RMID, NULL) == -1) {
+                perror("shmctl()");
+                printErrMessage();
+                retval = EXIT_FAILURE;
+            }
+        } else {
             retval = EXIT_FAILURE;
         }
-    } else {
-        retval = EXIT_FAILURE;
     }
     return retval;
 }

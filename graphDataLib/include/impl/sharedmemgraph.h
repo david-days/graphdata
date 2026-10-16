@@ -55,6 +55,18 @@ struct shmemdata_t {
 int shmemGraphInit(struct graph_t *g);
 
 /**
+ * PROVISIONAL: Attach a read-only view of an existing writable SHARED_MEM graph.
+ *
+ * Copies SysV keys from src and attaches with SHM_RDONLY. This is an in-process
+ * helper for policy testing — not the eventual multi-process reader/discovery API.
+ *
+ * @param g destination graph (basic fields already set; dims shared with src)
+ * @param src writable source graph
+ * @return EXIT_SUCCESS if attached; otherwise EXIT_FAILURE
+ */
+int shmemGraphAttachReadonly(struct graph_t *g, const struct graph_t *src);
+
+/**
  * @brief Perform operations to release and deallocate all of the resources used to support this graph.
  * @param g Graph whose resources are to be freed
  * @return EXIT_SUCCESS if all resources freed; otherwise, EXIT_FAILURE

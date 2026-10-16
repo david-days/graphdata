@@ -4,6 +4,7 @@
 
 #include <impl/sharedmemgraph.h>
 #include <errno.h>
+#include <string.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
 
@@ -98,16 +99,54 @@ int shmemGraphInit(struct graph_t *g) {
     return retval;
 }
 
+int shmemGraphAttachReadonly(struct graph_t *g, const struct graph_t *src) {
+    if (g == NULL || src == NULL || src->metaImpl == NULL) {
+        return EXIT_FAILURE;
+    }
+    struct shmemdata_t *srcmeta = (struct shmemdata_t *)src->metaImpl;
+    if (srcmeta->roflag == RD_ONLY) {
+        return EXIT_FAILURE;
+    }
+    if (srcmeta->nodekey == (key_t)-1 || srcmeta->capkey == (key_t)-1 || srcmeta->flowkey == (key_t)-1) {
+        return EXIT_FAILURE;
+    }
+
+    struct shmemdata_t *shmmeta = initShmemMeta();
+    if (shmmeta == NULL) {
+        return EXIT_FAILURE;
+    }
+    shmmeta->nodelen = srcmeta->nodelen;
+    shmmeta->edgelen = srcmeta->edgelen;
+    shmmeta->degree = srcmeta->degree;
+    shmmeta->arraylen = srcmeta->arraylen;
+    shmmeta->roflag = RD_ONLY;
+    shmmeta->nodekey = srcmeta->nodekey;
+    shmmeta->capkey = srcmeta->capkey;
+    shmmeta->flowkey = srcmeta->flowkey;
+
+    g->metaImpl = (void *)shmmeta;
+    g->edgeImpl = NULL;
+    g->nodeImpl = createNodeShmem(shmmeta, 0, SHM_RDONLY);
+    g->capImpl = createCapacityShmem(shmmeta, 0, SHM_RDONLY);
+    g->flowImpl = createFlowShmem(shmmeta, 0, SHM_RDONLY);
+
+    if (g->nodeImpl != NULL && g->capImpl != NULL && g->flowImpl != NULL) {
+        return EXIT_SUCCESS;
+    }
+    return EXIT_FAILURE;
+}
+
 
 int shmemGraphFree(struct graph_t *g) {
     int retval = EXIT_SUCCESS;
     if (NULL != g && g->metaImpl != NULL) {
         struct shmemdata_t *shmmeta = (struct shmemdata_t *) g->metaImpl;
-        retval = retval | freeShmem(g->nodeImpl, shmmeta->nodememid);
+        int remove_segment = (shmmeta->roflag != RD_ONLY);
+        retval = retval | freeShmem(g->nodeImpl, shmmeta->nodememid, remove_segment);
         g->nodeImpl = NULL;
-        retval = retval | freeShmem(g->capImpl, shmmeta->capmemid);
+        retval = retval | freeShmem(g->capImpl, shmmeta->capmemid, remove_segment);
         g->capImpl = NULL;
-        retval = retval | freeShmem(g->flowImpl, shmmeta->flowmemid);
+        retval = retval | freeShmem(g->flowImpl, shmmeta->flowmemid, remove_segment);
         g->flowImpl = NULL;
         retval = retval | freeShmemMeta(&(g->metaImpl));
         g->metaImpl = NULL;

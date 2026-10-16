@@ -51,6 +51,18 @@ struct shmmapdata_t {
 int shmmapGraphInit(struct graph_t *g);
 
 /**
+ * PROVISIONAL: Attach a read-only view of an existing writable SHARED_MMAP graph.
+ *
+ * Re-maps the source file paths with PROT_READ. In-process helper for policy
+ * testing — not the eventual multi-process reader/discovery API.
+ *
+ * @param g destination graph (basic fields already set; dims shared with src)
+ * @param src writable source graph
+ * @return EXIT_SUCCESS if attached; otherwise EXIT_FAILURE
+ */
+int shmmapGraphAttachReadonly(struct graph_t *g, const struct graph_t *src);
+
+/**
  * Perform the operations to clean up and free the graph structure
  * @param g Graph structure to clean up
  * @return EXIT_SUCCESS if all resources freed; othewise, EXIT_FAILURE
