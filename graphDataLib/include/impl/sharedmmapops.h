@@ -182,6 +182,9 @@ int shmapAddFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  */
 int shmapResetGraph(struct graph_t *g, void *args, void (*callback)(void));
 
+struct node_t * shmapListNodes(const struct graph_t *g);
+
+int shmapForeachNode(const struct graph_t *g, int (*visit)(const size_t *nodeid, void *ctx), void *ctx);
 
 
 #endif //GRAPHDATA_SHAREDMMAPOPS_H

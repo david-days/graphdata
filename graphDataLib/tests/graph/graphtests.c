@@ -274,6 +274,7 @@ START_TEST(linkGraphTest) {
             if (i != j) {
                 ck_assert(e != NULL);
                 ck_assert(e->cap == LINK_CAP_VAL);
+                destroyEdges((void **)&e);
             } else {
                 ck_assert(e == NULL);
             }
@@ -425,7 +426,9 @@ START_TEST(linkResetTest) {
     ck_assert(got == 0.0);
     ck_assert(gops->getFlow(&a, &b, &got, g) == GRAPH_OK);
     ck_assert(got == 0.0);
-    ck_assert(gops->getEdge(&a, &b, g) != NULL);
+    struct edge_t *kept = gops->getEdge(&a, &b, g);
+    ck_assert(kept != NULL);
+    destroyEdges((void **)&kept);
     ck_assert(gops->nodeCount(g) == 2);
 
     destroyGraphops((void **)&gops);
@@ -509,6 +512,7 @@ START_TEST(hashGraphNodeTest) {
         struct node_t *node = gops->getNode(&i, g);
         ck_assert(node != NULL);
         ck_assert(node->nodeid == i);
+        destroyNodes((void **)&node);
     }
 
     size_t missing = n + 100;
@@ -552,6 +556,7 @@ START_TEST(hashGraphDirectedEdgeTest) {
     ck_assert(e != NULL);
     ck_assert(e->u == a && e->v == b);
     ck_assert(e->cap == LINK_CAP_VAL);
+    destroyEdges((void **)&e);
     ck_assert(gops->getEdge(&b, &a, g) == NULL);
 
     struct edge_t *elist = gops->getEdges(&a, g);
@@ -598,8 +603,12 @@ START_TEST(hashGraphUndirectedEdgeTest) {
 
     ck_assert(gops->addEdge(&a, &b, &cap, g) == GRAPH_OK);
     ck_assert(gops->edgeCount(g) == 2);
-    ck_assert(gops->getEdge(&a, &b, g) != NULL);
-    ck_assert(gops->getEdge(&b, &a, g) != NULL);
+    struct edge_t *ab = gops->getEdge(&a, &b, g);
+    struct edge_t *ba = gops->getEdge(&b, &a, g);
+    ck_assert(ab != NULL);
+    ck_assert(ba != NULL);
+    destroyEdges((void **)&ab);
+    destroyEdges((void **)&ba);
     ck_assert(gops->addEdge(&b, &a, &cap, g) == GRAPH_ERR);
 
     ck_assert(gops->setCapacity(&b, &a, &newcap, g) == GRAPH_OK);
@@ -655,7 +664,9 @@ START_TEST(hashGraphNeighborRemoveTest) {
     ck_assert(gops->getEdge(&a, &c, g) == NULL);
     ck_assert(gops->getEdge(&b, &c, g) == NULL);
     ck_assert(gops->edgeCount(g) == 1);
-    ck_assert(gops->getEdge(&a, &b, g) != NULL);
+    struct edge_t *kept = gops->getEdge(&a, &b, g);
+    ck_assert(kept != NULL);
+    destroyEdges((void **)&kept);
 
     ck_assert(gops->removeNode(&c, g) == GRAPH_ERR);
 
@@ -719,12 +730,306 @@ START_TEST(hashGraphResetTest) {
     ck_assert(got == 0.0);
     ck_assert(gops->getFlow(&a, &b, &got, g) == GRAPH_OK);
     ck_assert(got == 0.0);
-    ck_assert(gops->getEdge(&a, &b, g) != NULL);
+    struct edge_t *kept = gops->getEdge(&a, &b, g);
+    ck_assert(kept != NULL);
+    destroyEdges((void **)&kept);
     ck_assert(gops->nodeCount(g) == 2);
 
     destroyGraphops((void **)&gops);
     clearGraph(g);
     destroyGraph((void **)&g);
+}
+END_TEST
+
+#define ENUM_MAX 64
+
+struct idbag {
+    size_t ids[ENUM_MAX];
+    size_t count;
+};
+
+struct stopbag {
+    size_t seen;
+    size_t limit;
+};
+
+static int collectId(const size_t *nodeid, void *ctx) {
+    struct idbag *bag = (struct idbag *)ctx;
+    if (nodeid == NULL || bag->count >= ENUM_MAX) {
+        return GRAPH_ERR;
+    }
+    bag->ids[bag->count++] = *nodeid;
+    return GRAPH_OK;
+}
+
+static int bagHasOnce(const struct idbag *bag, size_t id) {
+    size_t hits = 0;
+    for (size_t i = 0; i < bag->count; i++) {
+        if (bag->ids[i] == id) {
+            hits++;
+        }
+    }
+    return hits == 1;
+}
+
+static int stopAfter(const size_t *nodeid, void *ctx) {
+    struct stopbag *stop = (struct stopbag *)ctx;
+    (void)nodeid;
+    stop->seen++;
+    if (stop->seen >= stop->limit) {
+        return GRAPH_ERR;
+    }
+    return GRAPH_OK;
+}
+
+/**
+ * List and foreach visit exactly the expected ids, and destroying the list
+ * leaves the live graph in place.
+ */
+static void assertEnumMatches(struct graphops_t *gops, struct graph_t *g,
+                              const size_t *expected, size_t n) {
+    struct node_t *list = NULL;
+    struct idbag from_list;
+    struct idbag from_each;
+    size_t before = 0;
+
+    ck_assert(gops->listNodes != NULL);
+    ck_assert(gops->foreachNode != NULL);
+    ck_assert(n <= ENUM_MAX);
+    ck_assert(gops->nodeCount(g) == n);
+
+    from_list.count = 0;
+    from_each.count = 0;
+    list = gops->listNodes(g);
+    if (n == 0) {
+        ck_assert(list == NULL);
+    }
+    for (struct node_t *curr = list; curr != NULL; curr = curr->next) {
+        ck_assert(collectId(&curr->nodeid, &from_list) == GRAPH_OK);
+    }
+    ck_assert(from_list.count == n);
+    for (size_t i = 0; i < n; i++) {
+        ck_assert(bagHasOnce(&from_list, expected[i]));
+    }
+
+    before = gops->nodeCount(g);
+    if (list != NULL) {
+        ck_assert(destroyNodes((void **)&list) == EXIT_SUCCESS);
+        ck_assert(list == NULL);
+    }
+    ck_assert(gops->nodeCount(g) == before);
+    for (size_t i = 0; i < n; i++) {
+        struct node_t *again = gops->getNode(&expected[i], g);
+        ck_assert(again != NULL);
+        ck_assert(again->nodeid == expected[i]);
+        destroyNodes((void **)&again);
+    }
+
+    ck_assert(gops->foreachNode(g, collectId, &from_each) == GRAPH_OK);
+    ck_assert(from_each.count == n);
+    for (size_t i = 0; i < n; i++) {
+        ck_assert(bagHasOnce(&from_each, expected[i]));
+    }
+}
+
+static void assertSnapshotIsolation(struct graphops_t *gops, struct graph_t *g,
+                                    size_t a, size_t b) {
+    struct node_t *node = gops->getNode(&a, g);
+    struct node_t *again = NULL;
+    struct edge_t *edge = NULL;
+    struct edge_t *still = NULL;
+    double got = 0.0;
+
+    ck_assert(node != NULL);
+    ck_assert(node->nodeid == a);
+    ck_assert(node->edges == NULL);
+    ck_assert(destroyNodes((void **)&node) == EXIT_SUCCESS);
+    again = gops->getNode(&a, g);
+    ck_assert(again != NULL);
+    ck_assert(again->nodeid == a);
+    destroyNodes((void **)&again);
+
+    edge = gops->getEdge(&a, &b, g);
+    ck_assert(edge != NULL);
+    edge->cap = -12345.0;
+    edge->flow = -99.0;
+    destroyEdges((void **)&edge);
+
+    ck_assert(gops->getCapacity(&a, &b, &got, g) == GRAPH_OK);
+    ck_assert(got == LINK_CAP_VAL);
+    ck_assert(gops->getFlow(&a, &b, &got, g) == GRAPH_OK);
+    ck_assert(got == LINK_FLOW_VAL);
+
+    still = gops->getEdge(&a, &b, g);
+    ck_assert(still != NULL);
+    ck_assert(still->cap == LINK_CAP_VAL);
+    ck_assert(still->flow == LINK_FLOW_VAL);
+    destroyEdges((void **)&still);
+}
+
+START_TEST(arrayEnumTest) {
+    struct dimensions_t *dims = createDimensions(3, ARRAY_DIM_SMALL, ARRAY_DIM_SMALL, ARRAY_DIM_SMALL);
+    struct graph_t *g = NULL;
+    struct graphops_t *gops = NULL;
+    size_t expected[ENUM_MAX];
+    size_t n = 0;
+    struct stopbag stop;
+    struct idbag ignored;
+
+    ck_assert(dims != NULL);
+    g = initGraph(ARRAY | UNDIRECTED | GENERIC, 0, dims);
+    ck_assert(g != NULL);
+    gops = getOperations(g);
+    ck_assert(gops != NULL);
+
+    n = gops->nodeCount(g);
+    ck_assert(n > 1);
+    ck_assert(n <= ENUM_MAX);
+    for (size_t i = 0; i < n; i++) {
+        expected[i] = i;
+    }
+    assertEnumMatches(gops, g, expected, n);
+
+    stop.seen = 0;
+    stop.limit = 1;
+    ck_assert(gops->foreachNode(g, stopAfter, &stop) == GRAPH_ERR);
+    ck_assert(stop.seen == 1);
+
+    ignored.count = 0;
+    ck_assert(gops->foreachNode(NULL, collectId, &ignored) == GRAPH_ERR);
+    ck_assert(gops->foreachNode(g, NULL, NULL) == GRAPH_ERR);
+    ck_assert(gops->listNodes(NULL) == NULL);
+
+    destroyGraphops((void **)&gops);
+    clearGraph(g);
+    destroyGraph((void **)&g);
+}
+END_TEST
+
+START_TEST(linkEnumAndCopyTest) {
+    struct graph_t *g = initGraph(LINKED | DIRECTED | GENERIC, 0, NULL);
+    struct graphops_t *gops = NULL;
+    size_t ids[] = {2, 9, 100};
+    size_t remain[] = {2, 100};
+    double cap = LINK_CAP_VAL;
+    double flow = LINK_FLOW_VAL;
+    struct stopbag stop;
+
+    ck_assert(g != NULL);
+    gops = getOperations(g);
+    ck_assert(gops != NULL);
+    assertEnumMatches(gops, g, ids, 0);
+
+    ck_assert(gops->addNode(&ids[0], g) == GRAPH_OK);
+    ck_assert(gops->addNode(&ids[1], g) == GRAPH_OK);
+    ck_assert(gops->addNode(&ids[2], g) == GRAPH_OK);
+    ck_assert(gops->addEdge(&ids[0], &ids[1], &cap, g) == GRAPH_OK);
+    ck_assert(gops->setFlow(&ids[0], &ids[1], &flow, g) == GRAPH_OK);
+    assertEnumMatches(gops, g, ids, 3);
+    assertSnapshotIsolation(gops, g, ids[0], ids[1]);
+
+    ck_assert(gops->removeNode(&ids[1], g) == GRAPH_OK);
+    assertEnumMatches(gops, g, remain, 2);
+
+    stop.seen = 0;
+    stop.limit = 1;
+    ck_assert(gops->foreachNode(g, stopAfter, &stop) == GRAPH_ERR);
+    ck_assert(stop.seen == 1);
+
+    destroyGraphops((void **)&gops);
+    clearGraph(g);
+    destroyGraph((void **)&g);
+}
+END_TEST
+
+START_TEST(hashEnumAndCopyTest) {
+    struct graph_t *g = initGraph(HASHED | DIRECTED | GENERIC, 0, NULL);
+    struct graphops_t *gops = NULL;
+    size_t sparse[] = {2, 9, 100};
+    size_t remain[] = {2, 100};
+    size_t dense[40];
+    double cap = LINK_CAP_VAL;
+    double flow = LINK_FLOW_VAL;
+
+    ck_assert(g != NULL);
+    gops = getOperations(g);
+    ck_assert(gops != NULL);
+    assertEnumMatches(gops, g, sparse, 0);
+
+    ck_assert(gops->addNode(&sparse[0], g) == GRAPH_OK);
+    ck_assert(gops->addNode(&sparse[1], g) == GRAPH_OK);
+    ck_assert(gops->addNode(&sparse[2], g) == GRAPH_OK);
+    ck_assert(gops->addEdge(&sparse[0], &sparse[1], &cap, g) == GRAPH_OK);
+    ck_assert(gops->setFlow(&sparse[0], &sparse[1], &flow, g) == GRAPH_OK);
+    assertEnumMatches(gops, g, sparse, 3);
+    assertSnapshotIsolation(gops, g, sparse[0], sparse[1]);
+
+    ck_assert(gops->removeNode(&sparse[1], g) == GRAPH_OK);
+    assertEnumMatches(gops, g, remain, 2);
+
+    clearGraph(g);
+    destroyGraph((void **)&g);
+    destroyGraphops((void **)&gops);
+
+    g = initGraph(HASHED | DIRECTED | GENERIC, 0, NULL);
+    ck_assert(g != NULL);
+    gops = getOperations(g);
+    ck_assert(gops != NULL);
+    for (size_t i = 0; i < 40; i++) {
+        dense[i] = i;
+        ck_assert(gops->addNode(&dense[i], g) == GRAPH_OK);
+    }
+    assertEnumMatches(gops, g, dense, 40);
+
+    destroyGraphops((void **)&gops);
+    clearGraph(g);
+    destroyGraph((void **)&g);
+}
+END_TEST
+
+static void assertDenseSharedEnum(enum GRAPHDOMAIN impl) {
+    struct dimensions_t *dims = createDimensions(3, 2, 2, 2);
+    struct graph_t *g = NULL;
+    struct graph_t *ro = NULL;
+    struct graphops_t *gops = NULL;
+    struct graphops_t *rops = NULL;
+    size_t expected[ENUM_MAX];
+    size_t n = 0;
+
+    ck_assert(dims != NULL);
+    g = initGraph(impl | UNDIRECTED | GENERIC, 0, dims);
+    ck_assert(g != NULL);
+    gops = getOperations(g);
+    ck_assert(gops != NULL);
+    n = gops->nodeCount(g);
+    ck_assert(n > 0);
+    ck_assert(n <= ENUM_MAX);
+    for (size_t i = 0; i < n; i++) {
+        expected[i] = i;
+    }
+    assertEnumMatches(gops, g, expected, n);
+
+    ro = attachReadonlyGraph(g);
+    ck_assert(ro != NULL);
+    rops = getOperations(ro);
+    ck_assert(rops != NULL);
+    assertEnumMatches(rops, ro, expected, n);
+
+    destroyGraphops((void **)&rops);
+    clearGraph(ro);
+    destroyGraph((void **)&ro);
+    destroyGraphops((void **)&gops);
+    clearGraph(g);
+    destroyGraph((void **)&g);
+}
+
+START_TEST(shmemEnumTest) {
+    assertDenseSharedEnum(SHARED_MEM);
+}
+END_TEST
+
+START_TEST(shmmapEnumTest) {
+    assertDenseSharedEnum(SHARED_MMAP);
 }
 END_TEST
 
@@ -755,6 +1060,11 @@ Suite * init_suite(void) {
     tcase_add_test(tc_core, hashGraphResetTest);
     tcase_add_test(tc_core, shmemGraphTest);
     tcase_add_test(tc_core, shmmapGraphTest);
+    tcase_add_test(tc_core, arrayEnumTest);
+    tcase_add_test(tc_core, linkEnumAndCopyTest);
+    tcase_add_test(tc_core, hashEnumAndCopyTest);
+    tcase_add_test(tc_core, shmemEnumTest);
+    tcase_add_test(tc_core, shmmapEnumTest);
     suite_add_tcase(s, tc_core);
 
     return s;

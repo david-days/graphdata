@@ -194,6 +194,16 @@ int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struc
 int arrayResetGraph(struct graph_t *g, void *args, void (*callback)(void));
 
 /**
+ * @brief Visit each array node id in index order, 0 .. nodelen-1.
+ */
+int arrayForeachNode(const struct graph_t *g, int (*visit)(const size_t *nodeid, void *ctx), void *ctx);
+
+/**
+ * @brief Caller-owned list of array node ids. Built from arrayForeachNode.
+ */
+struct node_t * arrayListNodes(const struct graph_t *g);
+
+/**
  * @brief Utility method to free up an array
  *
  * Deallocates all unerlying arrays and the containing array.

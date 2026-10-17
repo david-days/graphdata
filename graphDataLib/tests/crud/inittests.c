@@ -24,6 +24,8 @@ START_TEST(rawGraphopsTest) {
     ck_assert(NULL == gops->nodeCount);
     ck_assert(NULL == gops->resetGraph);
     ck_assert(NULL == gops->setCapacity);
+    ck_assert(NULL == gops->listNodes);
+    ck_assert(NULL == gops->foreachNode);
     ck_assert(destroyGraphops((void **)&gops) == EXIT_SUCCESS);
     ck_assert(gops == NULL);
 }

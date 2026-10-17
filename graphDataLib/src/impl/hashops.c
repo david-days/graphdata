@@ -89,7 +89,7 @@ size_t hashEdgeCount(struct graph_t *g) {
     return ((struct hashdata_t *)g->metaImpl)->edgecount;
 }
 
-struct node_t * hashGetNode(const size_t *nodeid, const struct graph_t *g) {
+static struct node_t * hashFindNode(const size_t *nodeid, const struct graph_t *g) {
     if (nodeid == NULL || g == NULL || (g->gtype & HASHED) != HASHED) {
         return NULL;
     }
@@ -181,7 +181,7 @@ static void unlinkEdgeOnNode(struct node_t *node, struct edge_t *redge) {
  * @brief Remove one directed record (u→v) and decrement edgecount if found.
  */
 static int removeOneDirected(struct graph_t *g, size_t u, size_t v) {
-    struct node_t *node = hashGetNode(&u, g);
+    struct node_t *node = hashFindNode(&u, g);
     struct edge_t *redge = findEdgeOnNode(node, v);
     if (node == NULL || redge == NULL) {
         return GRAPH_ERR;
@@ -194,19 +194,27 @@ static int removeOneDirected(struct graph_t *g, size_t u, size_t v) {
     return GRAPH_OK;
 }
 
-struct edge_t * hashGetEdge(const size_t *u, const size_t *v, const struct graph_t *g) {
+static struct edge_t * hashFindEdge(const size_t *u, const size_t *v, const struct graph_t *g) {
     if (u == NULL || v == NULL || g == NULL || (g->gtype & HASHED) != HASHED) {
         return NULL;
     }
-    struct node_t *node = hashGetNode(u, g);
+    struct node_t *node = hashFindNode(u, g);
     return findEdgeOnNode(node, *v);
+}
+
+struct node_t * hashGetNode(const size_t *nodeid, const struct graph_t *g) {
+    return cloneNode(hashFindNode(nodeid, g));
+}
+
+struct edge_t * hashGetEdge(const size_t *u, const size_t *v, const struct graph_t *g) {
+    return cloneEdge(hashFindEdge(u, v, g));
 }
 
 struct node_t * hashGetNeighbors(const size_t *nodeid, const struct graph_t *g) {
     if (nodeid == NULL || g == NULL || (g->gtype & HASHED) != HASHED) {
         return NULL;
     }
-    struct node_t *n = hashGetNode(nodeid, g);
+    struct node_t *n = hashFindNode(nodeid, g);
     if (n == NULL) {
         return NULL;
     }
@@ -237,7 +245,7 @@ struct edge_t * hashGetEdges(const size_t *nodeid, const struct graph_t *g) {
     if (nodeid == NULL || g == NULL || (g->gtype & HASHED) != HASHED) {
         return NULL;
     }
-    struct node_t *n = hashGetNode(nodeid, g);
+    struct node_t *n = hashFindNode(nodeid, g);
     if (n == NULL) {
         return NULL;
     }
@@ -267,7 +275,7 @@ int hashGetCapacity(const size_t *uid, const size_t *vid, double *cap, const str
     if (cap == NULL) {
         return GRAPH_ERR;
     }
-    struct edge_t *e = hashGetEdge(uid, vid, g);
+    struct edge_t *e = hashFindEdge(uid, vid, g);
     if (e == NULL) {
         return GRAPH_ERR;
     }
@@ -279,7 +287,7 @@ int hashGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct
     if (flow == NULL) {
         return GRAPH_ERR;
     }
-    struct edge_t *e = hashGetEdge(uid, vid, g);
+    struct edge_t *e = hashFindEdge(uid, vid, g);
     if (e == NULL) {
         return GRAPH_ERR;
     }
@@ -291,7 +299,7 @@ int hashAddNode(const size_t *nodeid, struct graph_t *g) {
     if (nodeid == NULL || g == NULL || (g->gtype & HASHED) != HASHED) {
         return GRAPH_ERR;
     }
-    if (hashGetNode(nodeid, g) != NULL) {
+    if (hashFindNode(nodeid, g) != NULL) {
         return GRAPH_ERR;
     }
     if (hashGrowIfNeeded(g) != GRAPH_OK) {
@@ -326,7 +334,7 @@ int hashRemoveNode(const size_t *nodeid, struct graph_t *g) {
         return GRAPH_ERR;
     }
 
-    struct node_t *rnode = hashGetNode(nodeid, g);
+    struct node_t *rnode = hashFindNode(nodeid, g);
     if (rnode == NULL) {
         return GRAPH_ERR;
     }
@@ -399,8 +407,8 @@ int hashAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_
     struct hashdata_t *meta = (struct hashdata_t *)g->metaImpl;
 
     if (GRAPH_IS_UNDIRECTED(g->gtype)) {
-        struct node_t *unode = hashGetNode(&u, g);
-        struct node_t *vnode = hashGetNode(&v, g);
+        struct node_t *unode = hashFindNode(&u, g);
+        struct node_t *vnode = hashFindNode(&v, g);
         if (unode == NULL || vnode == NULL) {
             return GRAPH_ERR;
         }
@@ -425,7 +433,7 @@ int hashAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_
     }
 
     /* Directed: require start node; reject duplicates */
-    struct node_t *unode = hashGetNode(&u, g);
+    struct node_t *unode = hashFindNode(&u, g);
     if (unode == NULL) {
         return GRAPH_ERR;
     }
@@ -464,13 +472,13 @@ int hashSetCapacity(const size_t *uid, const size_t *vid, const double *cap, str
     if (cap == NULL) {
         return GRAPH_ERR;
     }
-    struct edge_t *e = hashGetEdge(uid, vid, g);
+    struct edge_t *e = hashFindEdge(uid, vid, g);
     if (e == NULL) {
         return GRAPH_ERR;
     }
     e->cap = *cap;
     if (g != NULL && GRAPH_IS_UNDIRECTED(g->gtype) && uid != NULL && vid != NULL && *uid != *vid) {
-        struct edge_t *rev = hashGetEdge(vid, uid, g);
+        struct edge_t *rev = hashFindEdge(vid, uid, g);
         if (rev != NULL) {
             rev->cap = *cap;
         }
@@ -482,13 +490,13 @@ int hashAddCapacity(const size_t *uid, const size_t *vid, const double *cap, str
     if (cap == NULL) {
         return GRAPH_ERR;
     }
-    struct edge_t *e = hashGetEdge(uid, vid, g);
+    struct edge_t *e = hashFindEdge(uid, vid, g);
     if (e == NULL) {
         return GRAPH_ERR;
     }
     e->cap += *cap;
     if (g != NULL && GRAPH_IS_UNDIRECTED(g->gtype) && uid != NULL && vid != NULL && *uid != *vid) {
-        struct edge_t *rev = hashGetEdge(vid, uid, g);
+        struct edge_t *rev = hashFindEdge(vid, uid, g);
         if (rev != NULL) {
             rev->cap += *cap;
         }
@@ -500,13 +508,13 @@ int hashSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct
     if (flow == NULL) {
         return GRAPH_ERR;
     }
-    struct edge_t *e = hashGetEdge(uid, vid, g);
+    struct edge_t *e = hashFindEdge(uid, vid, g);
     if (e == NULL) {
         return GRAPH_ERR;
     }
     e->flow = *flow;
     if (g != NULL && GRAPH_IS_UNDIRECTED(g->gtype) && uid != NULL && vid != NULL && *uid != *vid) {
-        struct edge_t *rev = hashGetEdge(vid, uid, g);
+        struct edge_t *rev = hashFindEdge(vid, uid, g);
         if (rev != NULL) {
             rev->flow = *flow;
         }
@@ -518,13 +526,13 @@ int hashAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct
     if (flow == NULL) {
         return GRAPH_ERR;
     }
-    struct edge_t *e = hashGetEdge(uid, vid, g);
+    struct edge_t *e = hashFindEdge(uid, vid, g);
     if (e == NULL) {
         return GRAPH_ERR;
     }
     e->flow += *flow;
     if (g != NULL && GRAPH_IS_UNDIRECTED(g->gtype) && uid != NULL && vid != NULL && *uid != *vid) {
-        struct edge_t *rev = hashGetEdge(vid, uid, g);
+        struct edge_t *rev = hashFindEdge(vid, uid, g);
         if (rev != NULL) {
             rev->flow += *flow;
         }
@@ -561,4 +569,31 @@ int hashResetGraph(struct graph_t *g, void *args, void (*callback)(void)) {
         callback();
     }
     return GRAPH_OK;
+}
+
+int hashForeachNode(const struct graph_t *g, int (*visit)(const size_t *nodeid, void *ctx), void *ctx) {
+    struct hashdata_t *meta = NULL;
+    struct node_t **buckets = NULL;
+    if (g == NULL || visit == NULL || (g->gtype & HASHED) != HASHED
+        || g->metaImpl == NULL || g->nodeImpl == NULL) {
+        return GRAPH_ERR;
+    }
+    meta = (struct hashdata_t *)g->metaImpl;
+    buckets = (struct node_t **)g->nodeImpl;
+    for (size_t i = 0; i < meta->bucketcount; i++) {
+        struct node_t *curr = buckets[i];
+        while (curr != NULL) {
+            struct node_t *next = curr->next;
+            size_t nodeid = curr->nodeid;
+            if (visit(&nodeid, ctx) != GRAPH_OK) {
+                return GRAPH_ERR;
+            }
+            curr = next;
+        }
+    }
+    return GRAPH_OK;
+}
+
+struct node_t * hashListNodes(const struct graph_t *g) {
+    return listNodesByWalk(g, hashForeachNode);
 }

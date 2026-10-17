@@ -199,6 +199,8 @@ struct graphops_t * initGraphops() {
         gops->nodeCount = NULL;
         gops->resetGraph = NULL;
         gops->setCapacity = NULL;
+        gops->listNodes = NULL;
+        gops->foreachNode = NULL;
     }
     return gops;
 }
@@ -259,6 +261,52 @@ struct feature_t * initFeature() {
 }
 
 
+
+struct node_list_build {
+    struct node_t *head;
+    struct node_t *tail;
+    int failed;
+};
+
+static int appendListedNode(const size_t *nodeid, void *ctx) {
+    struct node_list_build *build = (struct node_list_build *)ctx;
+    struct node_t *node = NULL;
+    if (nodeid == NULL) {
+        build->failed = 1;
+        return GRAPH_ERR;
+    }
+    node = initNode();
+    if (node == NULL) {
+        build->failed = 1;
+        return GRAPH_ERR;
+    }
+    node->nodeid = *nodeid;
+    if (build->head == NULL) {
+        build->head = node;
+        build->tail = node;
+    } else {
+        build->tail->next = node;
+        node->prev = build->tail;
+        build->tail = node;
+    }
+    return GRAPH_OK;
+}
+
+struct node_t *listNodesByWalk(const struct graph_t *g, funcForeachNode walk) {
+    struct node_list_build build;
+    build.head = NULL;
+    build.tail = NULL;
+    build.failed = 0;
+    if (g == NULL || walk == NULL) {
+        return NULL;
+    }
+    walk(g, appendListedNode, &build);
+    if (build.failed) {
+        destroyNodes((void **)&build.head);
+        return NULL;
+    }
+    return build.head;
+}
 
 //Clone operations
 
@@ -439,6 +487,8 @@ int destroyGraphops(void** opsptr) {
         gops->edgeCount = NULL;
         gops->addNode = NULL;
         gops->addEdge = NULL;
+        gops->listNodes = NULL;
+        gops->foreachNode = NULL;
         free(*opsptr);
         *opsptr = NULL;
         retval = EXIT_SUCCESS;

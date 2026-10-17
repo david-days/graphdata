@@ -181,5 +181,9 @@ int shmemAddFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  */
 int shmemResetGraph(struct graph_t *g, void *args, void (*callback)(void));
 
+struct node_t * shmemListNodes(const struct graph_t *g);
+
+int shmemForeachNode(const struct graph_t *g, int (*visit)(const size_t *nodeid, void *ctx), void *ctx);
+
 
 #endif //GRAPHDATA_SHAREDMEMOPS_H

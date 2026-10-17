@@ -155,6 +155,19 @@ struct edge_t * cloneEdge(const struct edge_t *oedge);
  */
 struct feature_t * cloneFeature(const struct feature_t *ofeat);
 
+/**
+ * @brief Build a caller-owned node-id list by walking with a foreach implementation.
+ *
+ * Backend listNodes functions call this so the list and the walk cannot drift.
+ * An empty walk returns NULL. If a node allocation fails, any partial chain is
+ * freed and the result is NULL.
+ *
+ * @param g Graph to enumerate
+ * @param walk Backend foreach implementation
+ * @return caller-owned node chain, or NULL when empty or on allocation failure
+ */
+struct node_t *listNodesByWalk(const struct graph_t *g, funcForeachNode walk);
+
 
 //Free operations.
 /**

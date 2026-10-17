@@ -397,6 +397,25 @@ int arrayResetGraph(struct graph_t *g, void *args, void (*callback)(void)) {
     return retval;
 }
 
+int arrayForeachNode(const struct graph_t *g, int (*visit)(const size_t *nodeid, void *ctx), void *ctx) {
+    struct arraydata_t *meta = NULL;
+    if (g == NULL || g->metaImpl == NULL || visit == NULL) {
+        return GRAPH_ERR;
+    }
+    meta = (struct arraydata_t *)g->metaImpl;
+    for (size_t id = 0; id < meta->nodelen; id++) {
+        size_t nodeid = id;
+        if (visit(&nodeid, ctx) != GRAPH_OK) {
+            return GRAPH_ERR;
+        }
+    }
+    return GRAPH_OK;
+}
+
+struct node_t * arrayListNodes(const struct graph_t *g) {
+    return listNodesByWalk(g, arrayForeachNode);
+}
+
 int freeGraphArray(size_t arraylen, void** arrptr) {
     (void)arraylen;
     int retval = EXIT_SUCCESS;

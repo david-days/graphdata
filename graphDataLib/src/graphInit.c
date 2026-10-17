@@ -45,6 +45,8 @@ static void setArrayOps(struct graphops_t *gops) {
     //Reset operations
     gops->resetGraph = arrayResetGraph;
 
+    gops->listNodes = arrayListNodes;
+    gops->foreachNode = arrayForeachNode;
 }
 
 static void setLinkOps(struct graphops_t *gops) {
@@ -72,6 +74,9 @@ static void setLinkOps(struct graphops_t *gops) {
 
     //Reset operations
     gops->resetGraph = linkResetGraph;
+
+    gops->listNodes = linkListNodes;
+    gops->foreachNode = linkForeachNode;
 }
 
 static void setHashOps(struct graphops_t *gops) {
@@ -96,6 +101,9 @@ static void setHashOps(struct graphops_t *gops) {
     gops->getFlow = hashGetFlow;
 
     gops->resetGraph = hashResetGraph;
+
+    gops->listNodes = hashListNodes;
+    gops->foreachNode = hashForeachNode;
 }
 
 static void setShmemOps(struct graphops_t *gops) {
@@ -124,6 +132,8 @@ static void setShmemOps(struct graphops_t *gops) {
     //Reset operations
     gops->resetGraph = shmemResetGraph;
 
+    gops->listNodes = shmemListNodes;
+    gops->foreachNode = shmemForeachNode;
 }
 
 static void setMmapOps(struct graphops_t *gops) {
@@ -151,6 +161,9 @@ static void setMmapOps(struct graphops_t *gops) {
 
     //Reset operations
     gops->resetGraph = shmapResetGraph;
+
+    gops->listNodes = shmapListNodes;
+    gops->foreachNode = shmapForeachNode;
 }
 
 /**

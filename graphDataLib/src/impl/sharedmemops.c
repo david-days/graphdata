@@ -127,3 +127,11 @@ int shmemResetGraph(struct graph_t *g, void *args, void (*callback)(void)) {
     }
     return arrayResetGraph(g, args, callback);
 }
+
+struct node_t * shmemListNodes(const struct graph_t *g) {
+    return arrayListNodes(g);
+}
+
+int shmemForeachNode(const struct graph_t *g, int (*visit)(const size_t *nodeid, void *ctx), void *ctx) {
+    return arrayForeachNode(g, visit, ctx);
+}

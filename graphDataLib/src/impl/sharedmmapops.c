@@ -128,3 +128,11 @@ int shmapResetGraph(struct graph_t *g, void *args, void (*callback)(void)) {
     }
     return arrayResetGraph(g, args, callback);
 }
+
+struct node_t * shmapListNodes(const struct graph_t *g) {
+    return arrayListNodes(g);
+}
+
+int shmapForeachNode(const struct graph_t *g, int (*visit)(const size_t *nodeid, void *ctx), void *ctx) {
+    return arrayForeachNode(g, visit, ctx);
+}
