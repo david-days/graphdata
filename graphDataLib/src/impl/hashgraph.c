@@ -51,22 +51,22 @@ static void freeAllBuckets(struct node_t **buckets, size_t bucketcount) {
  * @brief Initialize the graph using the hashtable adjacency list structure.
  *
  * @param g Graph structure to be operated upon.
- * @returns EXIT_SUCCESS if successful; EXIT_FAILURE of there was a problem.
+ * @returns GRAPH_OK if successful; GRAPH_ERR of there was a problem.
  */
 int hashGraphInit(struct graph_t *g) {
     if (g == NULL) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
 
     size_t bound = HASH_INIT_PRIME_BOUND;
     size_t bucketsz = maxEratosthenesPrime(&bound);
     if (bucketsz < 2u) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
 
     struct hashdata_t *meta = (struct hashdata_t *)malloc(sizeof(struct hashdata_t));
     if (meta == NULL) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
     meta->bucketcount = bucketsz;
     meta->nodecount = 0;
@@ -76,7 +76,7 @@ int hashGraphInit(struct graph_t *g) {
     struct node_t **buckets = allocBuckets(bucketsz);
     if (buckets == NULL) {
         free(meta);
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
 
     g->metaImpl = meta;
@@ -84,18 +84,18 @@ int hashGraphInit(struct graph_t *g) {
     g->edgeImpl = NULL;
     g->capImpl = NULL;
     g->flowImpl = NULL;
-    return EXIT_SUCCESS;
+    return GRAPH_OK;
 }
 
 /**
  * @brief Clear out the underlying data structures for the given HASHED graph.
  *
  * @param g Graph to be cleared and memory deallocated
- * @return EXIT_SUCCESS if successful; otherwise, EXIT_FAILURE.
+ * @return GRAPH_OK if successful; otherwise, GRAPH_ERR.
  */
 int hashGraphFree(struct graph_t *g) {
     if (g == NULL || (g->gtype & HASHED) != HASHED) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
 
     struct hashdata_t *meta = (struct hashdata_t *)g->metaImpl;
@@ -113,5 +113,5 @@ int hashGraphFree(struct graph_t *g) {
     g->edgeImpl = NULL;
     g->capImpl = NULL;
     g->flowImpl = NULL;
-    return EXIT_SUCCESS;
+    return GRAPH_OK;
 }

@@ -35,19 +35,21 @@ struct edge_t * linkGetEdge(const size_t *u, const size_t *v, const struct graph
 /**
  * @brief Function pointer to retrieve linked-list of nodes that are currently defined as neighbors to the given node.
  *
- * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
+ * Caller-owned list of neighbor ids. The queried node is not included.
+ * Release the chain with destroyNodes. NULL when the node is absent or has no neighbors.
  * @param nodeid Identifier of the node in question
  * @param g Graph structure in question
- * @return linked-list of node references, starting with the given node, if found; otherwise, pointer to NULL.
+ * @return caller-owned neighbor chain, or NULL
  */
 struct node_t * linkGetNeighbors(const size_t *nodeid, const struct graph_t *g);
 
 /**
  * @brief Function pointer to retrieve linked-list of edges from a given node.
- * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
+ * Caller-owned copies of the node's edges. Release the chain with destroyEdges.
+ * NULL when the node is absent or has no edges.
  * @param nodeid Identifier of the node in question
  * @param g Graph structure in question
- * @return linked-list of edges starting from the given node, if found; otherwise, pointer to NULL.
+ * @return caller-owned edge chain, or NULL
  */
 struct edge_t * linkGetEdges(const size_t *nodeid, const struct graph_t *g);
 
@@ -60,8 +62,7 @@ struct edge_t * linkGetEdges(const size_t *nodeid, const struct graph_t *g);
  * @param vid Edge end identifier
  * @param cap Capacity value pointer to store the value
  * @param g Graph structure in question
- * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
- * retrieval
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int linkGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g);
 
@@ -74,8 +75,7 @@ int linkGetCapacity(const size_t *uid, const size_t *vid, double *cap, const str
  * @param vid Edge end identifier
  * @param flow Flow value pointer to store the result
  * @param g Graph structure in question
- * @return 0 if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
- * retrieval
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int linkGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g);
 
@@ -85,7 +85,7 @@ int linkGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct
  * Not all implementations may use this (for example, fixed-size graphs such as spatial ARRAY implementations).
  * @param nodeid Node identifier to be added
  * @param g Graph structure to add the node
- * @return 0 if there was an error, 1 if the node was successfully added
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int linkAddNode(const size_t *nodeid, struct graph_t *g);
 
@@ -93,20 +93,19 @@ int linkAddNode(const size_t *nodeid, struct graph_t *g);
  * @brief Remove a node from the graph.
  *
  * Not all implementations will allow removal of nodes.
- * @param nodeid Node id to be added.
+ * @param nodeid Node id to be removed.
  * @param g Graph structure in question
- * @return EXIT_FAILURE if there was an error (node already exists or outside the bounds of the implementation); otherwise, EXIT_SUCCESS if successful.
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int linkRemoveNode(const size_t *nodeid, struct graph_t *g);
 
 /**
- * @brief Function pointer to add an edge to a given graph.
- * Not all implementations may use this (for example, fixed-size ARRAY implementations representing a set domain of nodes and relationships).
+ * @brief Add an edge to a linked graph.
  * @param uid identifer for start of edge
  * @param vid identifier for end of edge
  * @param cap capacity value to be assigned
  * @param g graph structure in question
- * @return 0 if there was an error; 1 if the edge was successfully added.
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int linkAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g);
 
@@ -118,7 +117,7 @@ int linkAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_
  * @param uid Identifier for the edge start
  * @param vid Identifier for the edge end.
  * @param g Graph structure in question
- * @return 0 if there was an error (e.g. the edge was not found); otherwise, 1 if the edge was removed.
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int linkRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
 
@@ -128,7 +127,7 @@ int linkRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
  * @param vid identifier of the edge ending.
  * @param cap capacity value to be set
  * @param g Graph structure in question
- * @return 0 if there was an error; 1 if the capacity was successfully set
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int linkSetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
 
@@ -141,7 +140,7 @@ int linkSetCapacity(const size_t *uid, const size_t *vid, const double *cap, str
  * @param vid Identifier of the edge end.
  * @param cap Value to adjust the capacity
  * @param g Graph structure in question
- * @return 0 if there was an error (edge not found, for example); 1 of capacity was successfully adjusted
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int linkAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
 
@@ -154,7 +153,7 @@ int linkAddCapacity(const size_t *uid, const size_t *vid, const double *cap, str
  * @param vid Identifier of the edge end.
  * @param flow Value to be set for the flow.
  * @param g Graph structure in question
- * @return 0 of there was an error (edge not found, for example); otherwise, 1 if the flow value as successfully set.
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int linkSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
 
@@ -167,7 +166,7 @@ int linkSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct
  * @param vid Identifier of the edge end.
  * @param flow The value to be added to adjust the flow value.
  * @param g The graph structure in question
- * @return 0 if there was an error (such as the edge not found); otherwise, 1 if the flow value was successfully adjusted.
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int linkAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
 
@@ -179,7 +178,7 @@ int linkAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct
  * @param g Graph structure to be zeroed or modified according to reset logic
  * @param args Arguments to be used in the reset process, if necessary
  * @param callback Callback to be executed when graph has been reset.
- * @return 0 if there was an error during the reset; 1 if the reset completed;
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int linkResetGraph(struct graph_t *g, void *args, void (*callback)(void));
 

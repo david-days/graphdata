@@ -46,7 +46,7 @@ struct shmmapdata_t {
 /**
  * Initialize a memory-mapped graph structure
  * @param g graph_t with metadata
- * @return EXIT_SUCCESS if successfully initialize; otherwise, EXIT_FAILURE
+ * @return GRAPH_OK if successfully initialize; otherwise, GRAPH_ERR
  */
 int shmmapGraphInit(struct graph_t *g);
 
@@ -58,14 +58,14 @@ int shmmapGraphInit(struct graph_t *g);
  *
  * @param g destination graph (basic fields already set; dims shared with src)
  * @param src writable source graph
- * @return EXIT_SUCCESS if attached; otherwise EXIT_FAILURE
+ * @return GRAPH_OK if attached; otherwise GRAPH_ERR
  */
 int shmmapGraphAttachReadonly(struct graph_t *g, const struct graph_t *src);
 
 /**
  * Perform the operations to clean up and free the graph structure
  * @param g Graph structure to clean up
- * @return EXIT_SUCCESS if all resources freed; othewise, EXIT_FAILURE
+ * @return GRAPH_OK if all resources freed; othewise, GRAPH_ERR
  */
 int shmmapGraphFree(struct graph_t *g);
 

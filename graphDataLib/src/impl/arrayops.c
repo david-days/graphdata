@@ -418,11 +418,11 @@ struct node_t * arrayListNodes(const struct graph_t *g) {
 
 int freeGraphArray(size_t arraylen, void** arrptr) {
     (void)arraylen;
-    int retval = EXIT_SUCCESS;
+    int retval = GRAPH_OK;
     if (*arrptr != NULL) {
         free(*arrptr);
         *arrptr = NULL;
-        retval = EXIT_SUCCESS;
+        retval = GRAPH_OK;
     }
     return retval;
 }

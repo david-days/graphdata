@@ -33,10 +33,10 @@ static struct arraydata_t * initArrayMeta() {
 /**
  * @brief Utilty function to free up allocated memory for array-graph metadata
  * @param metaptr pointer-to-pointer for metadata
- * @return EXIT_SUCCESS if successful; EXIT_FAILURE if error.
+ * @return GRAPH_OK if successful; GRAPH_ERR if error.
  */
 static int freeArrayMeta(void** metaptr) {
-    int retval = EXIT_FAILURE;
+    int retval = GRAPH_ERR;
     if (*metaptr != NULL) {
         struct arraydata_t *mptr = (struct arraydata_t *)metaptr;
         mptr->degree = 0;
@@ -45,7 +45,7 @@ static int freeArrayMeta(void** metaptr) {
         mptr->arraylen = 0;
         free(*metaptr);
         *metaptr = NULL;
-        retval = EXIT_SUCCESS;
+        retval = GRAPH_OK;
     }
     return retval;
 }
@@ -90,20 +90,19 @@ static void * createDoubleArray(size_t arraylen) {
 /**
  * @brief Set up a graph with array backing data
  *
- * @param g Graph structure
- * @param lblcount Number of labels to be used--may be zero, depending on the graph domain.
- * @return EXIT_SUCCESS if successful; EXIT_FAILURE if an error
+ * @param g Graph structure. Requires a non-NULL dims.
+ * @return GRAPH_OK when the arrays are allocated; GRAPH_ERR otherwise
  */
 int arrayGraphInit(struct graph_t *g) {
-    int retval = EXIT_FAILURE;
-    if (NULL == g) return EXIT_FAILURE;
+    int retval = GRAPH_ERR;
+    if (NULL == g) return GRAPH_ERR;
     //Can't continue if no dimensions
-    if (g->dims == NULL) return EXIT_FAILURE;
+    if (g->dims == NULL) return GRAPH_ERR;
     //Create switch selectors for graph types
     enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
     //parse type flags, and quit if not parsable
     if (parseTypeFlags(&g->gtype, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == GRAPH_ERR) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
     size_t cartlen = cartesianIndexLength(g->dims);
     size_t arrlen = cartlen;
@@ -117,7 +116,7 @@ int arrayGraphInit(struct graph_t *g) {
         arrmeta->nodelen = arrlen;
         arrmeta->edgelen = arrlen;
         arrmeta->arraylen = arrlen * g->dims->dimcount;
-        //undirected graphs use min-to-max pair connectivity
+        /* Degree is the dimension count for both directed and undirected graphs. */
         arrmeta->degree = g->dims->dimcount;
         //Create the supporting arrays
         g->nodeImpl = createNodeArray(arrmeta->arraylen);
@@ -127,7 +126,7 @@ int arrayGraphInit(struct graph_t *g) {
         g->flowImpl = createDoubleArray(arrmeta->arraylen);
         g->metaImpl = (void *)arrmeta;
         if (g->nodeImpl != NULL && g->capImpl != NULL && g->flowImpl != NULL)
-            retval = EXIT_SUCCESS;
+            retval = GRAPH_OK;
     }
     return retval;
 }
@@ -137,10 +136,10 @@ int arrayGraphInit(struct graph_t *g) {
 /**
  * @brief Perform clearing operations to deallocate the array graph internal values and structures.
  * @param g graph_t with array structures to be deallocated
- * @return EXIT_SUCCESS if successful; otherwise, EXIT_FAILURE.
+ * @return GRAPH_OK if successful; otherwise, GRAPH_ERR.
  */
 int arrayGraphFree(struct graph_t *g) {
-    int retval = EXIT_FAILURE;
+    int retval = GRAPH_ERR;
     if (NULL != g) {
         //First, use the arrayMeta to clean up the graph arrays
         struct arraydata_t *arrmeta = (struct arraydata_t *)g->metaImpl;
@@ -149,7 +148,7 @@ int arrayGraphFree(struct graph_t *g) {
         freeGraphArray(arrmeta->edgelen, &(g->capImpl));
         //Lastly, free up the arraydata_t memory
         freeArrayMeta(&(g->metaImpl));
-        retval = EXIT_SUCCESS;
+        retval = GRAPH_OK;
     }
     return retval;
 }

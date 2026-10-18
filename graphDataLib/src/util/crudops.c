@@ -121,8 +121,8 @@ struct graph_t * basicGraphInit() {
 /**
  * @brief Create a dimension structure containing the given values in order (x, y, z, etc)
  *
- * This is used to initialize (and contain) the ordered size of the spatial dimensions given.  Consumers are responsible
- * for calling free() on the structure, or passing it to a standard clearing function
+ * The first argument is the number of dimensions. The remaining arguments are
+ * that many sizes, in order. Release the result with destroyDimensions.
  *
  * @param dimsz Number of dimensions
  * @param ... Additional dimension values passed
@@ -317,7 +317,7 @@ struct node_t *listNodesByWalk(const struct graph_t *g, funcForeachNode walk) {
  * delineating paths, without unintentionally altering the underlying graph structure.
  *
  * @param onode Original node_t to be cloned
- * @return pointer to the cloned structure, if successful; otherwise, a pointer to NULL
+ * @return pointer to the cloned structure, if successful; otherwise, NULL
  */
 struct node_t * cloneNode(const struct node_t *onode) {
     struct node_t *nnode = NULL;
@@ -337,7 +337,7 @@ struct node_t * cloneNode(const struct node_t *onode) {
  * processing stacks, queues, and paths, without unintentionally altering the underlying graph structure.
  *
  * @param oedge Original edge_t structure to be cloned.
- * @return pointer to the cloned data, if successful; otherwise, a pointer to NULL
+ * @return pointer to the cloned data, if successful; otherwise, NULL
  */
 struct edge_t * cloneEdge(const struct edge_t *oedge) {
     struct edge_t *nedge = NULL;
@@ -357,7 +357,7 @@ struct edge_t * cloneEdge(const struct edge_t *oedge) {
  * @brief Create a copy of the given feature data
  *
  * @param ofeat Original feature to be copied.
- * @return pointer to the cloned data, if successful; otherwise, a pointer to NULL
+ * @return pointer to the cloned data, if successful; otherwise, NULL
  */
 struct feature_t * cloneFeature(const struct feature_t *ofeat) {
     struct feature_t *nf = NULL;
@@ -378,19 +378,20 @@ struct feature_t * cloneFeature(const struct feature_t *ofeat) {
 //Destroy/clearing operations
 
 /**
- * @brief Clear the graph and all underlying standard structures
+ * @brief Free the graph_t shell.
  *
- * The pointer itself will be changed to NULL
+ * Does not free backing storage, dimensions, or labels. The caller's pointer
+ * is set to NULL.
  *
  * @param gptr pointer-to-pointer for graph_t structure to be cleared
- * @return 1 if success; 0 if error
+ * @return GRAPH_OK when the shell was freed; GRAPH_ERR when *gptr is NULL
  */
 int destroyGraph(void** gptr) {
-    int retval = EXIT_FAILURE;
+    int retval = GRAPH_ERR;
     if (NULL != *gptr) {
         free(*gptr);
         *gptr = NULL;
-        retval = EXIT_SUCCESS;
+        retval = GRAPH_OK;
     }
     return retval;
 }
@@ -398,10 +399,10 @@ int destroyGraph(void** gptr) {
 /**
  * @brief Clear out the dimensions and all underlying structures
  * @param dptr pointer-to-pointer for dimensions_t structure to be cleared
- * @return 1 if success; 0 if error
+ * @return GRAPH_OK when the structure was freed; GRAPH_ERR when *dptr is NULL
  */
 int destroyDimensions(void** dptr) {
-    int retval = EXIT_FAILURE;
+    int retval = GRAPH_ERR;
     if (NULL != *dptr) {
         struct dimensions_t *dims = *dptr;
         size_t *dimarr = dims->dimarr;
@@ -412,7 +413,7 @@ int destroyDimensions(void** dptr) {
         dims->dimcount = 0;
         free(*dptr);
         *dptr = NULL;
-        retval = EXIT_SUCCESS;
+        retval = GRAPH_OK;
     }
     return retval;
 }
@@ -420,10 +421,10 @@ int destroyDimensions(void** dptr) {
 /**
  * @brief Clear out the label and all underlying structures
  * @param labels pointer-to-pointer for labels_t structure to be cleared
- * @return 1 if success; 0 if error
+ * @return GRAPH_OK, including when *lptr is already NULL
  */
 int destroyLabels(void** lptr) {
-    int retval = EXIT_SUCCESS;
+    int retval = GRAPH_OK;
     if (NULL != *lptr) {
         struct labels_t *labels = *lptr;
         size_t *larr = labels->labelarr;
@@ -434,7 +435,7 @@ int destroyLabels(void** lptr) {
         labels->labelcount = 0;
         free(*lptr);
         *lptr = NULL;
-        retval = EXIT_SUCCESS;
+        retval = GRAPH_OK;
     }
     return retval;
 }
@@ -445,10 +446,10 @@ int destroyLabels(void** lptr) {
  * The pointer itself will be changed to NULL
  *
  * @param eptr pointer-to-pointer for initial edge pointer
- * @return 1 if success; 0 if error.
+ * @return GRAPH_OK when the chain was freed; GRAPH_ERR when *eptr is NULL
  */
 int destroyEdges(void** eptr) {
-    int retval = EXIT_FAILURE;
+    int retval = GRAPH_ERR;
     if (*eptr != NULL) {
         struct edge_t *curr = (struct edge_t *)*eptr;
         struct edge_t *next;
@@ -458,7 +459,7 @@ int destroyEdges(void** eptr) {
             curr = next;
         }
         *eptr = NULL;
-        retval = EXIT_SUCCESS;
+        retval = GRAPH_OK;
     }
 
     return retval;
@@ -470,10 +471,10 @@ int destroyEdges(void** eptr) {
  * The graph itself will not be cleared, only the reference to it.  The pointer itself will be changed to NULL
  *
  * @param opsptr pointer-to-pointer for graphops_t structuure to be cleared and deallocated
- * @return EXIT_SUCCESS if successful; EXIT_FAILURE if error
+ * @return GRAPH_OK if successful; GRAPH_ERR if error
  */
 int destroyGraphops(void** opsptr) {
-    int retval = EXIT_FAILURE;
+    int retval = GRAPH_ERR;
     if (NULL != *opsptr) {
         struct graphops_t *gops = *opsptr;
         gops->g = NULL;
@@ -491,7 +492,7 @@ int destroyGraphops(void** opsptr) {
         gops->foreachNode = NULL;
         free(*opsptr);
         *opsptr = NULL;
-        retval = EXIT_SUCCESS;
+        retval = GRAPH_OK;
     }
     return retval;
 }
@@ -502,10 +503,10 @@ int destroyGraphops(void** opsptr) {
  * The pointer itself will be changed to NULL
  *
  * @param nptr pointer-to-pointer for initial node structure
- * @return EXIT_SUCCESS if successful; EXIT_FAILURE if error
+ * @return GRAPH_OK if successful; GRAPH_ERR if error
  */
 int destroyNodes(void** nptr) {
-    int retval = EXIT_FAILURE;
+    int retval = GRAPH_ERR;
     if (*nptr != NULL) {
         struct node_t *curr = (struct node_t *)*nptr;
         struct node_t *next;
@@ -515,7 +516,7 @@ int destroyNodes(void** nptr) {
             curr = next;
         }
         *nptr = NULL;
-        retval = EXIT_SUCCESS;
+        retval = GRAPH_OK;
     }
 
     return retval;
@@ -527,10 +528,10 @@ int destroyNodes(void** nptr) {
  * The pointer itself will be changed to NULL
  *
  * @param fptr pointer-to-pointer for feature structure
- * @return EXIT_SUCCESS if successful; EXIT_FAILURE if error
+ * @return GRAPH_OK if successful; GRAPH_ERR if error
  */
 int destroyFeatures(void** fptr) {
-    int retval = EXIT_FAILURE;
+    int retval = GRAPH_ERR;
     if (*fptr != NULL) {
         struct feature_t *curr = (struct feature_t *)*fptr;
         struct feature_t *next;
@@ -540,7 +541,7 @@ int destroyFeatures(void** fptr) {
             curr = next;
         }
         *fptr = NULL;
-        retval = EXIT_SUCCESS;
+        retval = GRAPH_OK;
     }
     return retval;
 }

@@ -22,8 +22,8 @@
  *
  * @param gtype Type of graph implementation to be created. Flag values set underlying structures and metadata.
  * @param lblcount Number of label nodes to be used within the graph.  Required for LABELED flag; ignored for all others.
- * @param dims Dimensional parameters structure.  Required for ARRAY graphs; otherwise, may be NULL.  The returned graph will
- * hold the reference to the structure that was passed.
+ * @param dims Dimensional parameters structure. Required for ARRAY, SHARED_MEM,
+ * and SHARED_MMAP. LINKED and HASHED accept NULL. The graph stores this pointer.
  * @return If successful and valid, initialized graph structure, according to the flags.  Otherwise, a NULL pointer.
  */
 struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct dimensions_t *dims);
@@ -53,7 +53,7 @@ struct graph_t * attachReadonlyGraph(struct graph_t *src);
  * for the given graph.
  *
  * @param g Graph structure being used
- * @return Pointer to a new graphops_t structure, if successful; otherwise, a pointer to NULL
+ * @return Pointer to a new graphops_t structure, if successful; otherwise, NULL
  *
  */
 struct graphops_t * getOperations(struct graph_t *g);
@@ -64,7 +64,7 @@ struct graphops_t * getOperations(struct graph_t *g);
  * All underlying graph structures will be cleared and the associated memory to the structures freed.
  *
  * @param g Graph to be cleared
- * @return EXIT_SUCCESS if successful; otherwise, EXIT_FAILURE.
+ * @return GRAPH_OK if successful; otherwise, GRAPH_ERR.
  */
 int clearGraph(struct graph_t *g);
 

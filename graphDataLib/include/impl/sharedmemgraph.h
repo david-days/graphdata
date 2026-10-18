@@ -50,7 +50,7 @@ struct shmemdata_t {
 /**
  * Initialize the shared memory graph (nodes, edges, identifiers)
  * @param g graph_t with metadata
- * @return EXIT_SUCCESS if successfully initialized the graph; otherwise, EXIT_FAILURE
+ * @return GRAPH_OK if successfully initialized the graph; otherwise, GRAPH_ERR
  */
 int shmemGraphInit(struct graph_t *g);
 
@@ -62,14 +62,14 @@ int shmemGraphInit(struct graph_t *g);
  *
  * @param g destination graph (basic fields already set; dims shared with src)
  * @param src writable source graph
- * @return EXIT_SUCCESS if attached; otherwise EXIT_FAILURE
+ * @return GRAPH_OK if attached; otherwise GRAPH_ERR
  */
 int shmemGraphAttachReadonly(struct graph_t *g, const struct graph_t *src);
 
 /**
  * @brief Perform operations to release and deallocate all of the resources used to support this graph.
  * @param g Graph whose resources are to be freed
- * @return EXIT_SUCCESS if all resources freed; otherwise, EXIT_FAILURE
+ * @return GRAPH_OK if all resources freed; otherwise, GRAPH_ERR
  */
 int shmemGraphFree(struct graph_t *g);
 

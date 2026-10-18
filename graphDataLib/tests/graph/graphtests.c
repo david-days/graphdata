@@ -82,12 +82,12 @@ START_TEST(arrayGraphTest) {
         size_t nexpected = cartesianIndexLength(dims);
         ck_assert(ncount == nexpected);
         int opsclear = destroyGraphops((void **)&gops);
-        ck_assert(opsclear == EXIT_SUCCESS);
+        ck_assert(opsclear == GRAPH_OK);
         ck_assert(gops == NULL);
         int graphclear = clearGraph(g);
-        ck_assert(graphclear == EXIT_SUCCESS);
+        ck_assert(graphclear == GRAPH_OK);
         int deallocsuccess = destroyGraph((void **)&g);
-        ck_assert(deallocsuccess == EXIT_SUCCESS);
+        ck_assert(deallocsuccess == GRAPH_OK);
         ck_assert(g == NULL);
 
 }
@@ -282,12 +282,12 @@ START_TEST(linkGraphTest) {
     }
 
     int opsclear = destroyGraphops((void **) &gops);
-    ck_assert(opsclear == EXIT_SUCCESS);
+    ck_assert(opsclear == GRAPH_OK);
     ck_assert(gops == NULL);
     int graphclear = clearGraph(g);
-    ck_assert(graphclear == EXIT_SUCCESS);
+    ck_assert(graphclear == GRAPH_OK);
     int deallocsuccess = destroyGraph((void **)&g);
-    ck_assert(deallocsuccess == EXIT_SUCCESS);
+    ck_assert(deallocsuccess == GRAPH_OK);
     ck_assert(g == NULL);
 }
 END_TEST
@@ -453,12 +453,12 @@ START_TEST(shmemGraphTest) {
     size_t nexpected = cartesianIndexLength(dims);
     ck_assert(ncount == nexpected);
     int opsclear = destroyGraphops((void **)&gops);
-    ck_assert(opsclear == EXIT_SUCCESS);
+    ck_assert(opsclear == GRAPH_OK);
     ck_assert(gops == NULL);
     int graphclear = clearGraph(g);
-    ck_assert(graphclear == EXIT_SUCCESS);
+    ck_assert(graphclear == GRAPH_OK);
     int deallocsuccess = destroyGraph((void **)&g);
-    ck_assert(deallocsuccess == EXIT_SUCCESS);
+    ck_assert(deallocsuccess == GRAPH_OK);
     ck_assert(g == NULL);
 }
 END_TEST
@@ -479,12 +479,12 @@ START_TEST(shmmapGraphTest) {
     size_t nexpected = cartesianIndexLength(dims);
     ck_assert(ncount == nexpected);
     int opsclear = destroyGraphops((void **)&gops);
-    ck_assert(opsclear == EXIT_SUCCESS);
+    ck_assert(opsclear == GRAPH_OK);
     ck_assert(gops == NULL);
     int graphclear = clearGraph(g);
-    ck_assert(graphclear == EXIT_SUCCESS);
+    ck_assert(graphclear == GRAPH_OK);
     int deallocsuccess = destroyGraph((void **)&g);
-    ck_assert(deallocsuccess == EXIT_SUCCESS);
+    ck_assert(deallocsuccess == GRAPH_OK);
     ck_assert(g == NULL);
 }
 END_TEST
@@ -522,9 +522,9 @@ START_TEST(hashGraphNodeTest) {
     ck_assert(gops->addNode(&dup, g) == GRAPH_ERR);
     ck_assert(gops->nodeCount(g) == n);
 
-    ck_assert(destroyGraphops((void **)&gops) == EXIT_SUCCESS);
-    ck_assert(clearGraph(g) == EXIT_SUCCESS);
-    ck_assert(destroyGraph((void **)&g) == EXIT_SUCCESS);
+    ck_assert(destroyGraphops((void **)&gops) == GRAPH_OK);
+    ck_assert(clearGraph(g) == GRAPH_OK);
+    ck_assert(destroyGraph((void **)&g) == GRAPH_OK);
     ck_assert(g == NULL);
 }
 END_TEST
@@ -814,7 +814,7 @@ static void assertEnumMatches(struct graphops_t *gops, struct graph_t *g,
 
     before = gops->nodeCount(g);
     if (list != NULL) {
-        ck_assert(destroyNodes((void **)&list) == EXIT_SUCCESS);
+        ck_assert(destroyNodes((void **)&list) == GRAPH_OK);
         ck_assert(list == NULL);
     }
     ck_assert(gops->nodeCount(g) == before);
@@ -843,7 +843,7 @@ static void assertSnapshotIsolation(struct graphops_t *gops, struct graph_t *g,
     ck_assert(node != NULL);
     ck_assert(node->nodeid == a);
     ck_assert(node->edges == NULL);
-    ck_assert(destroyNodes((void **)&node) == EXIT_SUCCESS);
+    ck_assert(destroyNodes((void **)&node) == GRAPH_OK);
     again = gops->getNode(&a, g);
     ck_assert(again != NULL);
     ck_assert(again->nodeid == a);

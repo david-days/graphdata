@@ -1,13 +1,9 @@
 /**
- * @brief Array implementation of the graph structure for fixed-size, fixed-degree, UNDIRECTED graphs.
+ * @brief Array implementation for a fixed node index and a fixed degree.
  *
- * The array implementation of the graph structure is based on an UNDIRECTED, fixed-size and
- * fixed maximum degree for the nodes.
- *
- * Because the graph is UNDIRECTED, the start of each edge will actually be minNode(u,v) and the
- * end of each edge will be maxNode(u,v).  Thus, node 0 can connect "upwards", but no higher nodes
- * can connect down to node 0.  In all the underlying operations, having 0 in a node reference value
- * indicates an unused edge reference.
+ * Node ids are 0 .. nodelen-1. Degree is dimensions_t.dimcount.
+ * Undirected edges are stored as min(u,v) -> max(u,v). Directed edges are
+ * stored as given. An unused adjacency slot is GRAPH_SLOT_EMPTY, not 0.
  */
 
 #ifndef GRAPHDATA_ARRAYGRAPH_H
@@ -44,7 +40,7 @@ struct arraydata_t {
  * @brief Set up a graph with array backing data
  *
  * @param g Graph structure
- * @return EXIT_SUCCESS if successful; EXIT_FAILURE if an error
+ * @return GRAPH_OK if successful; GRAPH_ERR if an error
  */
 int arrayGraphInit(struct graph_t *g);
 
@@ -52,7 +48,7 @@ int arrayGraphInit(struct graph_t *g);
 /**
  * @brief Perform clearing operations to deallocate the array graph internal values and structures.
  * @param g graph_t with array structures to be deallocated
- * @return EXIT_SUCCESS if successful; otherwise, EXIT_FAILURE.
+ * @return GRAPH_OK if successful; otherwise, GRAPH_ERR.
  */
 int arrayGraphFree(struct graph_t *g);
 

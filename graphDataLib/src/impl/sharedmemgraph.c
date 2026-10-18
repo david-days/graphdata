@@ -31,7 +31,7 @@ static struct shmemdata_t * initShmemMeta() {
 }
 
 static int freeShmemMeta(void** metaptr) {
-    int retVal = EXIT_FAILURE;
+    int retVal = GRAPH_ERR;
     if (metaptr != NULL && *metaptr != NULL) {
         struct shmemdata_t *shmmeta = (struct shmemdata_t *) *metaptr;
         shmmeta->nodelen = 0;
@@ -46,18 +46,18 @@ static int freeShmemMeta(void** metaptr) {
         shmmeta->capmemid = -1;
         free(*metaptr);
         *metaptr = NULL;
-        retVal = EXIT_SUCCESS;
+        retVal = GRAPH_OK;
     }
     return retVal;
 }
 
 int shmemGraphInit(struct graph_t *g) {
-    int retval = EXIT_FAILURE;
-    if (NULL == g) return EXIT_FAILURE;
-    if (g->dims == NULL) return EXIT_FAILURE;
+    int retval = GRAPH_ERR;
+    if (NULL == g) return GRAPH_ERR;
+    if (g->dims == NULL) return GRAPH_ERR;
     enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
     if (parseTypeFlags(&g->gtype, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == GRAPH_ERR) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
     size_t cartlen = cartesianIndexLength(g->dims);
     size_t nlen = cartlen;
@@ -80,7 +80,7 @@ int shmemGraphInit(struct graph_t *g) {
     if (nlen > 0) {
         struct shmemdata_t *shmmeta = initShmemMeta();
         if (shmmeta == NULL) {
-            return EXIT_FAILURE;
+            return GRAPH_ERR;
         }
         shmmeta->roflag = rdtype;
         shmmeta->nodelen = nlen;
@@ -93,7 +93,7 @@ int shmemGraphInit(struct graph_t *g) {
         g->capImpl = createCapacityShmem(shmmeta, createFlags, attFlags);
         g->flowImpl = createFlowShmem(shmmeta, createFlags, attFlags);
         if (g->nodeImpl != NULL && g->capImpl != NULL && g->flowImpl != NULL)
-            retval = EXIT_SUCCESS;
+            retval = GRAPH_OK;
     }
 
     return retval;
@@ -101,19 +101,19 @@ int shmemGraphInit(struct graph_t *g) {
 
 int shmemGraphAttachReadonly(struct graph_t *g, const struct graph_t *src) {
     if (g == NULL || src == NULL || src->metaImpl == NULL) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
     struct shmemdata_t *srcmeta = (struct shmemdata_t *)src->metaImpl;
     if (srcmeta->roflag == RD_ONLY) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
     if (srcmeta->nodekey == (key_t)-1 || srcmeta->capkey == (key_t)-1 || srcmeta->flowkey == (key_t)-1) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
 
     struct shmemdata_t *shmmeta = initShmemMeta();
     if (shmmeta == NULL) {
-        return EXIT_FAILURE;
+        return GRAPH_ERR;
     }
     shmmeta->nodelen = srcmeta->nodelen;
     shmmeta->edgelen = srcmeta->edgelen;
@@ -131,24 +131,32 @@ int shmemGraphAttachReadonly(struct graph_t *g, const struct graph_t *src) {
     g->flowImpl = createFlowShmem(shmmeta, 0, SHM_RDONLY);
 
     if (g->nodeImpl != NULL && g->capImpl != NULL && g->flowImpl != NULL) {
-        return EXIT_SUCCESS;
+        return GRAPH_OK;
     }
-    return EXIT_FAILURE;
+    return GRAPH_ERR;
 }
 
 
 int shmemGraphFree(struct graph_t *g) {
-    int retval = EXIT_SUCCESS;
+    int retval = GRAPH_OK;
     if (NULL != g && g->metaImpl != NULL) {
         struct shmemdata_t *shmmeta = (struct shmemdata_t *) g->metaImpl;
         int remove_segment = (shmmeta->roflag != RD_ONLY);
-        retval = retval | freeShmem(g->nodeImpl, shmmeta->nodememid, remove_segment);
+        if (freeShmem(g->nodeImpl, shmmeta->nodememid, remove_segment) != EXIT_SUCCESS) {
+            retval = GRAPH_ERR;
+        }
         g->nodeImpl = NULL;
-        retval = retval | freeShmem(g->capImpl, shmmeta->capmemid, remove_segment);
+        if (freeShmem(g->capImpl, shmmeta->capmemid, remove_segment) != EXIT_SUCCESS) {
+            retval = GRAPH_ERR;
+        }
         g->capImpl = NULL;
-        retval = retval | freeShmem(g->flowImpl, shmmeta->flowmemid, remove_segment);
+        if (freeShmem(g->flowImpl, shmmeta->flowmemid, remove_segment) != EXIT_SUCCESS) {
+            retval = GRAPH_ERR;
+        }
         g->flowImpl = NULL;
-        retval = retval | freeShmemMeta(&(g->metaImpl));
+        if (freeShmemMeta(&(g->metaImpl)) != GRAPH_OK) {
+            retval = GRAPH_ERR;
+        }
         g->metaImpl = NULL;
     }
     return retval;
