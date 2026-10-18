@@ -1,0 +1,46 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    container: fedora:43
+    steps:
+      - name: Install build dependencies
+        run: dnf install -y --setopt=install_weak_deps=False git cmake gcc make pkgconf check-devel rpm-build gh
+
+      - uses: actions/checkout@v4
+
+      - name: Build, test, and package
+        working-directory: graphDataLib
+        run: ./buildLinux.sh -t -p
+
+      - name: Source archive
+        working-directory: graphDataLib
+        run: make -C build-linux-x64 package_source
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        working-directory: graphDataLib
+        run: |
+          mapfile -t files < <(find output build-linux-x64 -type f \
+            \( -name '*.rpm' -o -name '*.tar.gz' \) \
+            ! -path '*/_CPack_Packages/*')
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "No RPM or tar.gz packages were produced."
+            exit 1
+          fi
+          printf 'Attaching:\n'
+          printf '  %s\n' "${files[@]}"
+          gh release create "${GITHUB_REF_NAME}" \
+            --title "${GITHUB_REF_NAME}" \
+            --notes "Fedora RPM, binary archive, and source archive built from this tag." \
+            "${files[@]}"

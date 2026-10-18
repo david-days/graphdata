@@ -100,9 +100,17 @@ fi
 # From here on we're in the build directory unless other actions are taken
 if [ "${RUN_TESTS}" == "TEST" ]; then
 	make test
+	TEST_STATUS=$?
+	if [ ${TEST_STATUS} -ne 0 ]; then
+		exit ${TEST_STATUS}
+	fi
 fi
 
 if [ "${PACKAGE}" == "true" ]; then
 	# Native installer for this platform (CPack)
 	make package
+	PACKAGE_STATUS=$?
+	if [ ${PACKAGE_STATUS} -ne 0 ]; then
+		exit ${PACKAGE_STATUS}
+	fi
 fi
