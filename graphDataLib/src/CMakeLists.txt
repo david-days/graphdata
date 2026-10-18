@@ -44,6 +44,7 @@ install(FILES
         ${PROJECT_SOURCE_DIR}/include/graphData.h
         ${PROJECT_SOURCE_DIR}/include/graphInit.h
         ${PROJECT_SOURCE_DIR}/include/graphOps.h
+        ${PROJECT_SOURCE_DIR}/include/graphCrud.h
         DESTINATION "include"
 )
 

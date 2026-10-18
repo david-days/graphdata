@@ -24,6 +24,7 @@ add_subdirectory(src)
 # Unit testing
 enable_testing()
 add_subdirectory(tests)
+add_subdirectory(examples)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/packaging.cmake)
 

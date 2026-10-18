@@ -87,5 +87,14 @@ macro(configPackaging)
         # set(CPACK_WIX_PRODUCT_ICON custom.ico)
     endif()
 
+    configure_file(
+            ${PROJECT_SOURCE_DIR}/conf.in/graphdata.pc.in
+            ${CMAKE_CURRENT_BINARY_DIR}/graphdata.pc
+            @ONLY
+    )
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/graphdata.pc
+            DESTINATION "lib/pkgconfig"
+    )
+
     include(CPack)
 endmacro()
