@@ -31,6 +31,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         working-directory: graphDataLib
         run: |
+          git config --global --add safe.directory "${GITHUB_WORKSPACE}"
           mapfile -t files < <(find output build-linux-x64 -type f \
             \( -name '*.rpm' -o -name '*.tar.gz' \) \
             ! -path '*/_CPack_Packages/*')
