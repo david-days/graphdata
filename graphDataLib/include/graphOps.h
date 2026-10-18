@@ -23,25 +23,25 @@ typedef size_t (*funcNodeCount)(struct graph_t *g);
 typedef size_t (*funcEdgeCount)(struct graph_t *g);
 
 /**
- * @brief Function pointer to retrieve a node structure reference.
+ * @brief Function pointer to retrieve a caller-owned copy of a node.
  *
- * Implementation-specific on whether this
- * structure is part of the original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based).
+ * The snapshot carries nodeid only. Mutating it does not change the live graph.
+ * Release it with destroyNodes. Returns NULL if the node is not present.
  * @param nodeid Identifier of the node to be retrieved
  * @param g Graph structure in question
- * @return pointer to the node structure, if found; otherwise, pointer to NULL
+ * @return caller-owned node copy, if found; otherwise NULL
  */
 typedef struct node_t * (*funcGetNode)(const size_t *nodeid, const struct graph_t *g);
 
 /**
- * @brief Function pointer to retrieve a edge structure reference.
+ * @brief Function pointer to retrieve a caller-owned copy of an edge.
  *
- * Implementation-specific on whether this structure is part of the
- * original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based).
+ * The snapshot carries u, v, cap, and flow. Mutating it does not change the
+ * live edge. Release it with destroyEdges. Returns NULL if the edge is absent.
  * @param u nodeid of the starting edge.
  * @param v nodeid of the ending edge.
  * @param g Graph structure in question
- * @return pointer to the edge structure, if found; otherwise, pointer to NULL.
+ * @return caller-owned edge copy, if found; otherwise NULL
  */
 typedef struct edge_t * (*funcGetEdge)(const size_t *u, const size_t *v, const struct graph_t *g);
 
@@ -196,6 +196,40 @@ typedef int (*funcAddFlow)(const size_t *uid, const size_t *vid, const double *f
  */
 typedef int (*funcResetGraph)(struct graph_t *g, void *args, void (*callback)(void));
 
+/**
+ * @brief Visitor for node enumeration.
+ *
+ * @param nodeid Present node id. The pointer is valid only for this call.
+ * @param ctx Caller context passed through foreachNode.
+ * @return GRAPH_OK to continue; GRAPH_ERR to stop the walk.
+ */
+typedef int (*funcNodeVisitor)(const size_t *nodeid, void *ctx);
+
+/**
+ * @brief Visit each present node id once.
+ *
+ * Order is backend-defined and matches listNodes on an unchanged graph.
+ * The visitor must not add or remove nodes.
+ * @param g Graph to walk
+ * @param visit Callback invoked once per present node id
+ * @param ctx Context forwarded to visit
+ * @return GRAPH_OK if every present node was visited, including an empty graph;
+ *         GRAPH_ERR if visit stopped early, or if g or visit is NULL
+ */
+typedef int (*funcForeachNode)(const struct graph_t *g, funcNodeVisitor visit, void *ctx);
+
+/**
+ * @brief Caller-owned list of present node ids.
+ *
+ * Each node_t carries nodeid only (attrs and edges are NULL). Release the
+ * chain with destroyNodes. An empty graph returns NULL. NULL when nodeCount
+ * is greater than zero means allocation failed. Destroying the list does not
+ * remove live nodes. Order matches foreachNode on an unchanged graph.
+ * @param g Graph to enumerate
+ * @return caller-owned node chain, or NULL if the graph is empty or allocation failed
+ */
+typedef struct node_t *(*funcListNodes)(const struct graph_t *g);
+
 
 /**
  * @brief Structure relating graph data to implementations
@@ -292,6 +326,16 @@ struct graphops_t {
      * or creating a new graph structure.
      */
     funcResetGraph resetGraph;
+
+    /**
+     * @brief Caller-owned list of present node ids. Release with destroyNodes.
+     */
+    funcListNodes listNodes;
+
+    /**
+     * @brief Visit each present node id once.
+     */
+    funcForeachNode foreachNode;
 };
 
 #endif //GRAPHDATA_GRAPHOPS_H

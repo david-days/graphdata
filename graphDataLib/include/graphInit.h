@@ -29,6 +29,24 @@
 struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct dimensions_t *dims);
 
 /**
+ * @brief PROVISIONAL: Attach a read-only accessor to an existing shared graph.
+ *
+ * Supported for SHARED_MEM and SHARED_MMAP sources only. Creates a second graph_t
+ * that maps the same backing store as @p src with RD_ONLY semantics so write ops
+ * fail via graphops policy (and OS read-only attach where applicable).
+ *
+ * This is intentionally not the long-term multi-process reader API (no key/path
+ * publication, handshake, or versioning). That work is deferred.
+ *
+ * The returned graph shares @p src->dims (do not destroy dims until both graphs
+ * are cleared). Free the readonly graph before the writable owner.
+ *
+ * @param src existing writable SHARED_MEM or SHARED_MMAP graph
+ * @return new RD_ONLY graph on success; NULL on failure
+ */
+struct graph_t * attachReadonlyGraph(struct graph_t *src);
+
+/**
  * @brief Create and fill the graphOps_t structure that handles basic operations for the graph
  *
  * Using the graph_t implementation pass, this function creates a graphops_t structure necessary to handle basic functions

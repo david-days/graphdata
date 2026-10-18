@@ -1,0 +1,27 @@
+name: build-and-test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-and-test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: fedora:43
+    steps:
+      # checkout needs git, and the Fedora image does not ship it.
+      - name: Install build dependencies
+        run: dnf install -y --setopt=install_weak_deps=False git cmake gcc make pkgconf check-devel
+
+      - uses: actions/checkout@v4
+
+      - name: Build and test
+        working-directory: graphDataLib
+        run: ./buildLinux.sh -t

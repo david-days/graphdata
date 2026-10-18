@@ -47,7 +47,7 @@ while getopts ":cithvxpd" option; do
  			OUTPUT_ALL_VARS=1
  			;;
 		d)
-			# [d]ocumentation
+			# [d]ocumentation (explicit opt-in)
 			GEN_DOCS=1
 			;;
   		h)
@@ -59,6 +59,8 @@ while getopts ":cithvxpd" option; do
   			echo "	-t Test.  Build and run tests, then exit"
   			echo "	-v Verbose.  Print out CMAKE build variables and exit"
   			echo "	-x Extra verbose.  Print all CMAKE build variables used"
+  			echo "	-d Docs.  Build Doxygen documentation after the library build"
+  			echo "	-p Package.  Generate CPack installer package"
   			echo "	-h Help.  Print this help and exit"
   			exit 0
   			;;
@@ -76,22 +78,39 @@ if [ "${OUTPUT_VARS}" == "true" ]; then
 	exit 0
 fi
 
-cmake . --toolchain "${LINUX_TOOLCHAIN}" -B "${LINUX_BUILD_DIR}" -DPRINT_ALL_VARS="${OUTPUT_ALL_VARS}" && cd "${LINUX_BUILD_DIR}" && make all
+BUILD_DOC_FLAG=OFF
+if [ "${GEN_DOCS}" = "1" ]; then
+	BUILD_DOC_FLAG=ON
+fi
 
-if [ ${GEN_DOCS} ]; then
+cmake . --toolchain "${LINUX_TOOLCHAIN}" -B "${LINUX_BUILD_DIR}" \
+	-DPRINT_ALL_VARS="${OUTPUT_ALL_VARS}" \
+	-DBUILD_DOC="${BUILD_DOC_FLAG}" \
+	&& cd "${LINUX_BUILD_DIR}" && make all
+BUILD_STATUS=$?
+
+if [ ${BUILD_STATUS} -ne 0 ]; then
+	exit ${BUILD_STATUS}
+fi
+
+if [ "${GEN_DOCS}" = "1" ]; then
 	make docs
 fi
 
 # From here on we're in the build directory unless other actions are taken
 if [ "${RUN_TESTS}" == "TEST" ]; then
 	make test
+	TEST_STATUS=$?
+	if [ ${TEST_STATUS} -ne 0 ]; then
+		exit ${TEST_STATUS}
+	fi
 fi
 
 if [ "${PACKAGE}" == "true" ]; then
-	# Native installer for this platform
+	# Native installer for this platform (CPack)
 	make package
-	# Native runtime NuGet package
-	dotnet restore "${BINARY_OUT_DIR}/linux_runtime.csproj"
-	dotnet pack "${BINARY_OUT_DIR}/linux_runtime.csproj" --include-symbols --no-build -o "${BINARY_OUT_DIR}/nupkgs" --runtime linux-x64 -c Release
-
+	PACKAGE_STATUS=$?
+	if [ ${PACKAGE_STATUS} -ne 0 ]; then
+		exit ${PACKAGE_STATUS}
+	fi
 fi

@@ -23,25 +23,12 @@ size_t linkNodeCount(struct graph_t *g);
 size_t linkEdgeCount(struct graph_t *g);
 
 /**
- * @brief Function pointer to retrieve a node structure reference.
- *
- * Implementation-specific on whether this
- * structure is part of the original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based).
- * @param nodeid Identifier of the node to be retrieved
- * @param g Graph structure in question
- * @return pointer to the node structure, if found; otherwise, pointer to NULL
+ * @brief Caller-owned copy of a linked node. Release with destroyNodes.
  */
 struct node_t * linkGetNode(const size_t *nodeid, const struct graph_t *g);
 
 /**
- * @brief Function pointer to retrieve a edge structure reference.
- *
- * Implementation-specific on whether this structure is part of the
- * original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based).
- * @param u nodeid of the starting edge.
- * @param v nodeid of the ending edge.
- * @param g Graph structure in question
- * @return pointer to the edge structure, if found; otherwise, pointer to NULL.
+ * @brief Caller-owned copy of a linked edge. Release with destroyEdges.
  */
 struct edge_t * linkGetEdge(const size_t *u, const size_t *v, const struct graph_t *g);
 
@@ -195,6 +182,16 @@ int linkAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct
  * @return 0 if there was an error during the reset; 1 if the reset completed;
  */
 int linkResetGraph(struct graph_t *g, void *args, void (*callback)(void));
+
+/**
+ * @brief Visit each linked node id once, in chain order.
+ */
+int linkForeachNode(const struct graph_t *g, int (*visit)(const size_t *nodeid, void *ctx), void *ctx);
+
+/**
+ * @brief Caller-owned list of linked node ids. Built from linkForeachNode.
+ */
+struct node_t * linkListNodes(const struct graph_t *g);
 
 
 #endif //GRAPHDATA_LINKOPS_H

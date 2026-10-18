@@ -9,6 +9,7 @@
 
 #include <check.h>
 #include <stdlib.h>
+#include <string.h>
 #include <util/hashes.h>
 
 /**
@@ -58,6 +59,23 @@ START_TEST(primeNumberTest) {
 }
 END_TEST
 
+START_TEST(superFastHashTest) {
+    ck_assert(SuperFastHash(NULL, 5) == 0);
+    ck_assert(SuperFastHash("abc", 0) == 0);
+    ck_assert(SuperFastHash("abc", -1) == 0);
+
+    const char *s = "graphdata-label";
+    size_t h1 = SuperFastHash(s, (int)strlen(s));
+    size_t h2 = SuperFastHash(s, (int)strlen(s));
+    ck_assert(h1 != 0);
+    ck_assert(h1 == h2);
+
+    const char *t = "graphdata-label!";
+    size_t h3 = SuperFastHash(t, (int)strlen(t));
+    ck_assert(h3 != h1);
+}
+END_TEST
+
 Suite * init_suite(void) {
     Suite * s;
     TCase *tc_core;
@@ -68,6 +86,7 @@ Suite * init_suite(void) {
     tc_core = tcase_create("Core");
 
     tcase_add_test(tc_core, primeNumberTest);
+    tcase_add_test(tc_core, superFastHashTest);
     suite_add_tcase(s, tc_core);
 
     return s;

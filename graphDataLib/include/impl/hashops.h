@@ -23,21 +23,12 @@ size_t hashNodeCount(struct graph_t *g);
 size_t hashEdgeCount(struct graph_t *g);
 
 /**
- * @brief Function pointer to retrieve a node structure reference.
- *
- * @param nodeid Identifier of the node to be retrieved
- * @param g Graph structure in question
- * @return pointer to the node structure, if found; otherwise, pointer to NULL
+ * @brief Caller-owned copy of a hashed node. Release with destroyNodes.
  */
 struct node_t * hashGetNode(const size_t *nodeid, const struct graph_t *g);
 
 /**
- * @brief Function pointer to retrieve a edge structure reference.
- *
- * @param u nodeid of the starting edge.
- * @param v nodeid of the ending edge.
- * @param g Graph structure in question
- * @return pointer to the edge structure, if found; otherwise, pointer to NULL.
+ * @brief Caller-owned copy of a hashed edge. Release with destroyEdges.
  */
 struct edge_t * hashGetEdge(const size_t *u, const size_t *v, const struct graph_t *g);
 
@@ -192,6 +183,15 @@ int hashAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct
  */
 int hashResetGraph(struct graph_t *g, void *args, void (*callback)(void));
 
+/**
+ * @brief Visit each hashed node id once, in bucket order.
+ */
+int hashForeachNode(const struct graph_t *g, int (*visit)(const size_t *nodeid, void *ctx), void *ctx);
+
+/**
+ * @brief Caller-owned list of hashed node ids. Built from hashForeachNode.
+ */
+struct node_t * hashListNodes(const struct graph_t *g);
 
 
 #endif //GRAPHDATA_HASHOPS_H

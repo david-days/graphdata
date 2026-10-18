@@ -67,7 +67,7 @@ size_t linkEdgeCount(struct graph_t *g) {
  * @param g Graph structure in question
  * @return pointer to the node structure, if found; otherwise, pointer to NULL
  */
-struct node_t * linkGetNode(const size_t *nodeid, const struct graph_t *g) {
+static struct node_t * linkFindNode(const size_t *nodeid, const struct graph_t *g) {
     struct node_t *n = NULL;
     if ((g->gtype & LINKED) == LINKED) {
         struct node_t *curr = (struct node_t *)g->nodeImpl;
@@ -92,16 +92,16 @@ struct node_t * linkGetNode(const size_t *nodeid, const struct graph_t *g) {
  * @param g Graph structure in question
  * @return pointer to the edge structure, if found; otherwise, pointer to NULL.
  */
-struct edge_t * linkGetEdge(const size_t *u, const size_t *v, const struct graph_t *g) {
+static struct edge_t * linkFindEdge(const size_t *u, const size_t *v, const struct graph_t *g) {
     struct edge_t *found = NULL;
     if ((g->gtype & LINKED) == LINKED) {
         size_t eu = *u;
         size_t ev = *v;
-        if ((g->gtype & UNDIRECTED) == UNDIRECTED) {
+        if (GRAPH_IS_UNDIRECTED(g->gtype)) {
             eu = *(minNode((size_t *)u,(size_t *)v));
             ev = *(maxNode((size_t *)u,(size_t *)v));
         }
-        struct node_t *node = linkGetNode(&eu,g);
+        struct node_t *node = linkFindNode(&eu,g);
         if (node != NULL) {
             struct edge_t *curr = node->edges;
             while (curr != NULL) {
@@ -114,6 +114,14 @@ struct edge_t * linkGetEdge(const size_t *u, const size_t *v, const struct graph
         }
     }
     return found;
+}
+
+struct node_t * linkGetNode(const size_t *nodeid, const struct graph_t *g) {
+    return cloneNode(linkFindNode(nodeid, g));
+}
+
+struct edge_t * linkGetEdge(const size_t *u, const size_t *v, const struct graph_t *g) {
+    return cloneEdge(linkFindEdge(u, v, g));
 }
 
 /**
@@ -129,7 +137,7 @@ struct edge_t * linkGetEdge(const size_t *u, const size_t *v, const struct graph
 struct node_t * linkGetNeighbors(const size_t *nodeid, const struct graph_t *g) {
     struct node_t *neighbors = NULL;
     if ((g->gtype & LINKED) == LINKED) {
-        struct node_t *n = linkGetNode(nodeid, g);
+        struct node_t *n = linkFindNode(nodeid, g);
         if (n != NULL) {
             struct edge_t *curredge = n->edges;
             struct node_t *currnode = NULL;
@@ -164,7 +172,7 @@ struct node_t * linkGetNeighbors(const size_t *nodeid, const struct graph_t *g) 
 struct edge_t * linkGetEdges(const size_t *nodeid, const struct graph_t *g) {
     struct edge_t *elist = NULL;
     if ((g->gtype & LINKED) == LINKED) {
-        struct node_t *n = linkGetNode(nodeid, g);
+        struct node_t *n = linkFindNode(nodeid, g);
         if (n != NULL) {
             struct edge_t *curr = n->edges;
             struct edge_t *currclone = NULL;
@@ -199,7 +207,7 @@ struct edge_t * linkGetEdges(const size_t *nodeid, const struct graph_t *g) {
  */
 int linkGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g) {
     int retval = 0;
-    struct edge_t *e = linkGetEdge(uid, vid, g);
+    struct edge_t *e = linkFindEdge(uid, vid, g);
     if (e != NULL) {
         *cap = e->cap;
         retval = 1;
@@ -221,7 +229,7 @@ int linkGetCapacity(const size_t *uid, const size_t *vid, double *cap, const str
  */
 int linkGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g) {
     int retval = 0;
-    struct edge_t *e = linkGetEdge(uid, vid, g);
+    struct edge_t *e = linkFindEdge(uid, vid, g);
     if (e != NULL) {
         *flow = e->flow;
         retval = 1;
@@ -242,7 +250,7 @@ int linkGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct
 int linkAddNode(const size_t *nodeid, struct graph_t *g) {
     int retval = 0;
     if ((g->gtype & LINKED) == LINKED) {
-        struct node_t *exists = linkGetNode(nodeid, g);
+        struct node_t *exists = linkFindNode(nodeid, g);
         if (exists == NULL) {
             struct node_t *nnode = initNode();
             nnode->nodeid = *nodeid;
@@ -274,7 +282,7 @@ int linkAddNode(const size_t *nodeid, struct graph_t *g) {
 int linkRemoveNode(const size_t *nodeid, struct graph_t *g) {
     int retval = 0;
     if ((g->gtype & LINKED) == LINKED) {
-        struct node_t *rnode = linkGetNode(nodeid, g);
+        struct node_t *rnode = linkFindNode(nodeid, g);
         if (rnode != NULL) {
             struct node_t *prev = rnode->prev;
             struct node_t *next = rnode->next;
@@ -293,8 +301,15 @@ int linkRemoveNode(const size_t *nodeid, struct graph_t *g) {
             rnode->prev = NULL;
             rnode->next = NULL;
             free(rnode);
-            if (prev != NULL) prev->next = next;
-            if (next != NULL) next->prev = prev;
+            if (prev != NULL) {
+                prev->next = next;
+            } else {
+                // Removed the list head
+                g->nodeImpl = next;
+            }
+            if (next != NULL) {
+                next->prev = prev;
+            }
             retval = 1;
         }
     }
@@ -318,12 +333,12 @@ int linkAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_
         //Is there a node?
         size_t u = *uid;
         size_t v = *vid;
-        if ((g->gtype & UNDIRECTED) == UNDIRECTED) {
+        if (GRAPH_IS_UNDIRECTED(g->gtype)) {
             u = *(minNode((size_t *)uid, (size_t *)vid));
             v = *(maxNode((size_t *)uid, (size_t *)vid));
         }
 
-        struct node_t *n = linkGetNode(&u, g);
+        struct node_t *n = linkFindNode(&u, g);
         if (n != NULL) {
             struct edge_t *nedge = initEdge();
             nedge->u = u;
@@ -359,8 +374,13 @@ int linkAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_
 int linkRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g) {
     int retval = 0;
     if ((g->gtype & LINKED) == LINKED) {
-        struct edge_t *redge = linkGetEdge(uid, vid, g);
-        if (redge != NULL) {
+        size_t eu = *uid;
+        if (GRAPH_IS_UNDIRECTED(g->gtype)) {
+            eu = *(minNode((size_t *)uid, (size_t *)vid));
+        }
+        struct node_t *node = linkFindNode(&eu, g);
+        struct edge_t *redge = linkFindEdge(uid, vid, g);
+        if (node != NULL && redge != NULL) {
             struct edge_t *prev = redge->prev;
             struct edge_t *next = redge->next;
             destroyFeatures((void **)&(redge->attrs));
@@ -368,8 +388,15 @@ int linkRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g) {
             redge->next = NULL;
             redge->cap = 0.0;
             free(redge);
-            if (prev != NULL) prev->next = next;
-            if (next != NULL) next->prev = prev;
+            if (prev != NULL) {
+                prev->next = next;
+            } else {
+                // Removed the head of this node's edge list
+                node->edges = next;
+            }
+            if (next != NULL) {
+                next->prev = prev;
+            }
             retval = 1;
         }
     }
@@ -386,7 +413,7 @@ int linkRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g) {
  */
 int linkSetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g) {
     int retval = 0;
-    struct edge_t *e = linkGetEdge(uid, vid, g);
+    struct edge_t *e = linkFindEdge(uid, vid, g);
     if (e != NULL) {
         e->cap = *cap;
         retval = 1;
@@ -408,7 +435,7 @@ int linkSetCapacity(const size_t *uid, const size_t *vid, const double *cap, str
 int linkAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g) {
     int retval = 0;
     if ((g->gtype & LINKED) == LINKED) {
-        struct edge_t *e = linkGetEdge(uid, vid, g);
+        struct edge_t *e = linkFindEdge(uid, vid, g);
         if (e != NULL) {
             e->cap += *cap;
             retval = 1;
@@ -431,7 +458,7 @@ int linkAddCapacity(const size_t *uid, const size_t *vid, const double *cap, str
 int linkSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g) {
     int retval = 0;
     if ((g->gtype & LINKED) == LINKED) {
-        struct edge_t *e = linkGetEdge(uid, vid, g);
+        struct edge_t *e = linkFindEdge(uid, vid, g);
         if (e != NULL) {
             e->flow = *flow;
             retval = 1;
@@ -454,7 +481,7 @@ int linkSetFlow(const size_t *uid, const size_t *vid, const double *flow, struct
 int linkAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g) {
     int retval = 0;
     if ((g->gtype & LINKED) == LINKED) {
-        struct edge_t *e = linkGetEdge(uid, vid, g);
+        struct edge_t *e = linkFindEdge(uid, vid, g);
         if (e != NULL) {
             e->flow += *flow;
             retval = 1;
@@ -491,5 +518,26 @@ int linkResetGraph(struct graph_t *g, void *args, void (*callback)(void)) {
     }
     if (callback != NULL) callback();
     return retval;
+}
+
+int linkForeachNode(const struct graph_t *g, int (*visit)(const size_t *nodeid, void *ctx), void *ctx) {
+    struct node_t *curr = NULL;
+    if (g == NULL || visit == NULL || (g->gtype & LINKED) != LINKED) {
+        return GRAPH_ERR;
+    }
+    curr = (struct node_t *)g->nodeImpl;
+    while (curr != NULL) {
+        struct node_t *next = curr->next;
+        size_t nodeid = curr->nodeid;
+        if (visit(&nodeid, ctx) != GRAPH_OK) {
+            return GRAPH_ERR;
+        }
+        curr = next;
+    }
+    return GRAPH_OK;
+}
+
+struct node_t * linkListNodes(const struct graph_t *g) {
+    return listNodesByWalk(g, linkForeachNode);
 }
 

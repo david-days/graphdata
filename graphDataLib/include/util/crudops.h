@@ -22,7 +22,7 @@
 /**
  * @brief Selector for underlying structure
  */
-#define IMPLSELECT ARRAY | LINKED | HASHED
+#define IMPLSELECT ARRAY | LINKED | HASHED | SHARED_MEM | SHARED_MMAP
 /**
  * @brief Selector for domain
  */
@@ -39,22 +39,30 @@
  * @brief Default graph type returned, if no parameters passed
  */
 #define DEFAULTGRAPH UNDIRECTED | LINKED | GENERIC | UNLABELED
+/**
+ * @brief readonly graph data--used primarily for shared graph structures (shmem and mmap)
+ */
+#define READONLY RD_ONLY
 
 /**
  * @brief Parse the flag values passed, and write the evaluation into the separate references
  *
- * Parses out the separate possibilities for the flags. If the flag are empty, the default values
- * are written back to the tflags reference.
+ * Parses out the separate possibilities for the flags. If a selector group is empty, its default
+ * is applied (UNDIRECTED, LINKED, UNLABELED, GENERIC). Exactly one implementation bit from
+ * {ARRAY, LINKED, HASHED, SHARED_MEM, SHARED_MMAP} may be set (none → LINKED). Label and domain
+ * groups likewise allow at most one bit each (LABELED vs UNLABELED, GENERIC vs SPATIAL).
+ * On failure, outputs and *tflags are left unchanged.
  *
- * @param tflags Flag values passed to be evaluated
+ * @param tflags Flag values passed to be evaluated (cleaned combination written back on success)
  * @param dirflag Directionality result of the operation
  * @param impflag Implementation type result
  * @param lblflag Label type result
  * @param domflag Domain type result
- * @return 1 if the parsing is successful; otherwise, 0.
+ * @param roflag Read only type result
+ * @return GRAPH_OK if parsing succeeded; GRAPH_ERR on null args or conflicting implementation flags
  */
 int parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum GRAPHDOMAIN *impflag,
-                   enum GRAPHDOMAIN *lblflag, enum GRAPHDOMAIN *domflag);
+                   enum GRAPHDOMAIN *lblflag, enum GRAPHDOMAIN *domflag, enum GRAPHDOMAIN *roflag);
 
 
 //Creation operations
@@ -146,6 +154,19 @@ struct edge_t * cloneEdge(const struct edge_t *oedge);
  * @return pointer to the cloned data, if successful; otherwise, a pointer to NULL
  */
 struct feature_t * cloneFeature(const struct feature_t *ofeat);
+
+/**
+ * @brief Build a caller-owned node-id list by walking with a foreach implementation.
+ *
+ * Backend listNodes functions call this so the list and the walk cannot drift.
+ * An empty walk returns NULL. If a node allocation fails, any partial chain is
+ * freed and the result is NULL.
+ *
+ * @param g Graph to enumerate
+ * @param walk Backend foreach implementation
+ * @return caller-owned node chain, or NULL when empty or on allocation failure
+ */
+struct node_t *listNodesByWalk(const struct graph_t *g, funcForeachNode walk);
 
 
 //Free operations.

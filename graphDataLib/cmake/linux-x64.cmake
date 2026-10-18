@@ -6,10 +6,6 @@ add_definitions(
         -D__linux__
 )
 
-# Default to what cmake detects so we have a value of some sort
-set(CMAKE_OS_NAME ${CMAKE_SYSTEM_NAME} CACHE STRING "Default operating system name" FORCE)
-set(CMAKE_OS_VERSION "all" CACHE STRING "Default distribution version" FORCE)
-
 # OS-specific detection based on https://gist.github.com/lbaehren/2413369
 if (UNIX)
 
@@ -84,9 +80,11 @@ if (UNIX)
                     COMMAND source /etc/os-release && echo $VERSION_ID
                     OUTPUT_VARIABLE CMAKE_OS_VERSION
             )
+
         elseif (REDHAT_FOUND)
             set (CMAKE_OS_NAME "redhat" CACHE STRING "Operating system name" FORCE)
             file (STRINGS "/etc/redhat-release" CMAKE_OS_VERSION)
+
         endif (DEBIAN_FOUND)
 
     endif (OSRELEASE_FOUND)

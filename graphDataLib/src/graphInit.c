@@ -11,6 +11,7 @@
 #include <impl/linkgraph.h>
 #include <impl/linkops.h>
 #include <impl/hashgraph.h>
+#include <impl/hashops.h>
 #include <impl/sharedmemgraph.h>
 #include <impl/sharedmemops.h>
 #include <impl/sharedmmapgraph.h>
@@ -44,6 +45,8 @@ static void setArrayOps(struct graphops_t *gops) {
     //Reset operations
     gops->resetGraph = arrayResetGraph;
 
+    gops->listNodes = arrayListNodes;
+    gops->foreachNode = arrayForeachNode;
 }
 
 static void setLinkOps(struct graphops_t *gops) {
@@ -71,8 +74,97 @@ static void setLinkOps(struct graphops_t *gops) {
 
     //Reset operations
     gops->resetGraph = linkResetGraph;
+
+    gops->listNodes = linkListNodes;
+    gops->foreachNode = linkForeachNode;
 }
 
+static void setHashOps(struct graphops_t *gops) {
+    // Node ops implemented for this slice; edge/value ops stub to GRAPH_ERR/NULL
+    gops->addNode = hashAddNode;
+    gops->getNode = hashGetNode;
+    gops->nodeCount = hashNodeCount;
+    gops->getNeighbors = hashGetNeighbors;
+    gops->removeNode = hashRemoveNode;
+
+    gops->addEdge = hashAddEdge;
+    gops->getEdge = hashGetEdge;
+    gops->getEdges = hashGetEdges;
+    gops->removeEdge = hashRemoveEdge;
+    gops->edgeCount = hashEdgeCount;
+
+    gops->setCapacity = hashSetCapacity;
+    gops->addCapacity = hashAddCapacity;
+    gops->getCapacity = hashGetCapacity;
+    gops->setFlow = hashSetFlow;
+    gops->addFlow = hashAddFlow;
+    gops->getFlow = hashGetFlow;
+
+    gops->resetGraph = hashResetGraph;
+
+    gops->listNodes = hashListNodes;
+    gops->foreachNode = hashForeachNode;
+}
+
+static void setShmemOps(struct graphops_t *gops) {
+    //Node operations
+    gops->addNode = shmemAddNode;
+    gops->getNode = shmemGetNode;
+    gops->nodeCount = shmemNodeCount;
+    gops->getNeighbors = shmemGetNeighbors;
+    gops->removeNode = shmemRemoveNode;
+
+    //Edge operations
+    gops->addEdge = shmemAddEdge;
+    gops->getEdge = shmemGetEdge;
+    gops->getEdges = shmemGetEdges;
+    gops->removeEdge = shmemRemoveEdge;
+    gops->edgeCount = shmemEdgeCount;
+
+    //Value operations
+    gops->setCapacity = shmemSetCapacity;
+    gops->addCapacity = shmemAddCapacity;
+    gops->getCapacity = shmemGetCapacity;
+    gops->setFlow = shmemSetFlow;
+    gops->addFlow = shmemAddFlow;
+    gops->getFlow = shmemGetFlow;
+
+    //Reset operations
+    gops->resetGraph = shmemResetGraph;
+
+    gops->listNodes = shmemListNodes;
+    gops->foreachNode = shmemForeachNode;
+}
+
+static void setMmapOps(struct graphops_t *gops) {
+    //Node operations
+    gops->addNode = shmapAddNode;
+    gops->getNode = shmapGetNode;
+    gops->nodeCount = shmapNodeCount;
+    gops->getNeighbors = shmapGetNeighbors;
+    gops->removeNode = shmapRemoveNode;
+
+    //Edge operations
+    gops->addEdge = shmapAddEdge;
+    gops->getEdge = shmapGetEdge;
+    gops->getEdges = shmapGetEdges;
+    gops->removeEdge = shmapRemoveEdge;
+    gops->edgeCount = shmapEdgeCount;
+
+    //Value operations
+    gops->setCapacity = shmapSetCapacity;
+    gops->addCapacity = shmapAddCapacity;
+    gops->getCapacity = shmapGetCapacity;
+    gops->setFlow = shmapSetFlow;
+    gops->addFlow = shmapAddFlow;
+    gops->getFlow = shmapGetFlow;
+
+    //Reset operations
+    gops->resetGraph = shmapResetGraph;
+
+    gops->listNodes = shmapListNodes;
+    gops->foreachNode = shmapForeachNode;
+}
 
 /**
  * @brief Initialize a graph according to the flags set in the GRAPHDOMAIN value.
@@ -96,16 +188,20 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
     struct graph_t *g = NULL;
 
     //Create switch selectors for graph types
-    enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype;
+    enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
 
-    if (parseTypeFlags(&typeflags, &dirtype, &imptype, &labtype, &domaintype) == EXIT_SUCCESS) {
-        //need dimensions for array type
-        //TODO:  Better or more general way to handle ARRAY?
-        if (imptype == ARRAY && dims == NULL) {
+    if (parseTypeFlags(&typeflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == GRAPH_OK) {
+        // Dimensional backends need an explicit dimensions structure
+        if ((imptype == ARRAY || imptype == SHARED_MEM || imptype == SHARED_MMAP) && dims == NULL) {
             return NULL;
         }
 
-        //need label size for LABELED
+        // RD_ONLY is only meaningful for shared backends
+        if (rdtype == RD_ONLY && imptype != SHARED_MEM && imptype != SHARED_MMAP) {
+            return NULL;
+        }
+
+        // need label size for LABELED
         if (lblcount == 0 && labtype == LABELED) {
             return NULL;
         }
@@ -128,6 +224,12 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
                 case HASHED:
                     initSuccess = hashGraphInit(g);
                     break;
+                case SHARED_MEM:
+                    initSuccess = shmemGraphInit(g);
+                    break;
+                case SHARED_MMAP:
+                    initSuccess = shmmapGraphInit(g);
+                    break;
                 default:
                     initSuccess = linkGraphInit(g);
                     break;
@@ -141,6 +243,47 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
 
     }
 
+    return g;
+}
+
+struct graph_t * attachReadonlyGraph(struct graph_t *src) {
+    if (src == NULL || src->dims == NULL) {
+        return NULL;
+    }
+
+    enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
+    enum GRAPHDOMAIN gflags = src->gtype;
+    if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) != GRAPH_OK) {
+        return NULL;
+    }
+    if (imptype != SHARED_MEM && imptype != SHARED_MMAP) {
+        return NULL;
+    }
+    if (rdtype == RD_ONLY) {
+        return NULL;
+    }
+
+    struct graph_t *g = basicGraphInit();
+    if (g == NULL) {
+        return NULL;
+    }
+
+    g->dims = src->dims;
+    g->labels = src->labels;
+    g->gtype = (src->gtype | RD_ONLY);
+
+    int ok = EXIT_FAILURE;
+    if (imptype == SHARED_MEM) {
+        ok = shmemGraphAttachReadonly(g, src);
+    } else {
+        ok = shmmapGraphAttachReadonly(g, src);
+    }
+
+    if (ok != EXIT_SUCCESS) {
+        clearGraph(g);
+        destroyGraph((void **)&g);
+        return NULL;
+    }
     return g;
 }
 
@@ -160,9 +303,9 @@ struct graphops_t * getOperations(struct graph_t *g) {
     //Create switch selectors for graph types
 
     if (g != NULL) {
-        enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype;
+        enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
         enum GRAPHDOMAIN gflags = g->gtype;
-        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype) == EXIT_SUCCESS) {
+        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == GRAPH_OK) {
             gops = initGraphops();
             gops->g = g;
             switch (imptype) {
@@ -172,8 +315,16 @@ struct graphops_t * getOperations(struct graph_t *g) {
                 case LINKED:
                     setLinkOps(gops);
                     break;
+                case HASHED:
+                    setHashOps(gops);
+                    break;
+                case SHARED_MEM:
+                    setShmemOps(gops);
+                    break;
+                case SHARED_MMAP:
+                    setMmapOps(gops);
+                    break;
                 default:
-                    //TODO:  Do the other implementations
                     break;
             }
         }
@@ -193,9 +344,9 @@ struct graphops_t * getOperations(struct graph_t *g) {
 int clearGraph(struct graph_t *g) {
     int retval = EXIT_SUCCESS;
     if (g != NULL) {
-        enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype;
+        enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
         enum GRAPHDOMAIN gflags = g->gtype;
-        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype)) {
+        if (parseTypeFlags(&gflags, &dirtype, &imptype, &labtype, &domaintype, &rdtype) == GRAPH_OK) {
 
             switch (imptype) {
                 case ARRAY:
@@ -205,7 +356,13 @@ int clearGraph(struct graph_t *g) {
                     retval = retval | linkGraphFree(g);
                     break;
                 case HASHED:
-                    //TODO:  implement clearing operations
+                    retval = retval | hashGraphFree(g);
+                    break;
+                case SHARED_MEM:
+                    retval = retval | shmemGraphFree(g);
+                    break;
+                case SHARED_MMAP:
+                    retval = retval | shmmapGraphFree(g);
                     break;
                 default:
                     break;
