@@ -66,7 +66,7 @@ int parseTypeFlags(enum GRAPHDOMAIN *tflags, enum GRAPHDOMAIN *dirflag, enum GRA
 
 /**
  * @brief Utility method to create and preset graph structure.
- * @return A pointer to a graph_t structure, if successful; otherwise, a pointer to NULL
+ * @return A pointer to a graph_t structure, if successful; otherwise, NULL
  */
 struct graph_t * basicGraphInit();
 
@@ -81,8 +81,7 @@ struct labels_t * initLabels(size_t lblcount);
 /**
  * @brief Raw initializer for graphops_t structure
  *
- * Consumers of this object are responsible for calling free() on the pointer when finished, or passing it to
- * a standard cleanup function.
+ * Release the result with destroyGraphops.
  *
  * @return Pointer to a graphOps structure, or NULL if there was a problem with memory allocation
  */

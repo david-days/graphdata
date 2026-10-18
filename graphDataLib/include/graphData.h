@@ -24,9 +24,10 @@
 /**
  * @brief Success/failure for graphops mutators and value getters.
  *
- * Matches the public graphOps typedef contract (0 = error, 1 = success),
- * so `if (setCapacity(...))` means success. Prefer these over EXIT_* in
- * array/link/shared op implementations.
+ * GRAPH_OK is 1 and GRAPH_ERR is 0, so `if (setCapacity(...))` means success.
+ * Graph operations, destroy*, clearGraph, and the backend init and free helpers
+ * return these. freeShmem, freeMapMem, and the cartesian converters return
+ * EXIT_SUCCESS and EXIT_FAILURE. The converters also return -1 for a NULL argument.
  */
 #define GRAPH_OK    1
 #define GRAPH_ERR   0

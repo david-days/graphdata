@@ -62,7 +62,7 @@ int freeShmem(void *addr, int shmid, int remove_segment);
  * @param shmmap graph implementation details
  * @param protflags mmap PROT_* flags to use
  * @param mapflags mmap MAP_* flags to use
- * @return pointer to memory address if successful; otherwise value <= 0
+ * @return mapped address if successful; otherwise NULL
  */
 void * createNodeMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int protflags, int mapflags);
 
@@ -71,7 +71,7 @@ void * createNodeMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int
  * @param shmmap graph implementation details
  * @param protflags mmap PROT_* flags to use
  * @param mapflags mmap MAP_* flags to use
- * @return pointer to memory address if successful; otherwise value <= 0
+ * @return mapped address if successful; otherwise NULL
  */
 void * createCapMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int protflags, int mapflags);
 
@@ -80,7 +80,7 @@ void * createCapMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int 
  * @param shmmap graph implementation details
  * @param protflags mmap PROT_* flags to use
  * @param mapflags mmap MAP_* flags to use
-* @return pointer to memory address if successful; otherwise value <= 0
+ * @return mapped address if successful; otherwise NULL
  */
 void * createFlowMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int protflags, int mapflags);
 
@@ -90,7 +90,7 @@ void * createFlowMmap(struct shmmapdata_t * shmmap, enum GRAPHDOMAIN roflag, int
  * @param fpath file path template (mkstemp format, with last 6 characters XXXXXX) to be mapped to
  * @param protflags PROT_* flags to use
  * @param mapflags MAP_* flags to use
- * @return pointer to mmap address; pointer is <= 0 if there is an error or problem
+ * @return mapped address if successful; otherwise NULL
  */
 void * createMmap(size_t memLen, char *fpath, enum GRAPHDOMAIN roflag, int protflags, int mapflags);
 
@@ -98,7 +98,7 @@ void * createMmap(size_t memLen, char *fpath, enum GRAPHDOMAIN roflag, int protf
  * clear a memory mapping at the given address
  * @param mapaddr mmap address
  * @param mlen length of the mapped memory
- * @return EXIT_SUCCESS if the mapping was clears; otherwise, EXIT_FAILURE
+ * @return EXIT_SUCCESS when the mapping was removed; EXIT_FAILURE when mapaddr is NULL, MAP_FAILED, or munmap fails
  */
 int freeMapMem(void * mapaddr, size_t mlen);
 

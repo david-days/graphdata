@@ -40,7 +40,7 @@ struct hashdata_t {
  * Allocates a small prime-sized bucket array (start-small, grow-on-load).
  *
  * @param g Graph structure to be operated upon.
- * @returns EXIT_SUCCESS if successful; EXIT_FAILURE if there was a problem.
+ * @returns GRAPH_OK if successful; GRAPH_ERR if there was a problem.
  */
 int hashGraphInit(struct graph_t *g);
 
@@ -48,7 +48,7 @@ int hashGraphInit(struct graph_t *g);
  * @brief Clear out the underlying data structures for the given HASHED graph.
  *
  * @param g Graph to be cleared and memory deallocated
- * @return EXIT_SUCCESS if successful; otherwise, EXIT_FAILURE.
+ * @return GRAPH_OK if successful; otherwise, GRAPH_ERR.
  */
 int hashGraphFree(struct graph_t *g);
 

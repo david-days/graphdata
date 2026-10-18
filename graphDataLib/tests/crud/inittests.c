@@ -26,7 +26,7 @@ START_TEST(rawGraphopsTest) {
     ck_assert(NULL == gops->setCapacity);
     ck_assert(NULL == gops->listNodes);
     ck_assert(NULL == gops->foreachNode);
-    ck_assert(destroyGraphops((void **)&gops) == EXIT_SUCCESS);
+    ck_assert(destroyGraphops((void **)&gops) == GRAPH_OK);
     ck_assert(gops == NULL);
 }
 END_TEST
@@ -49,7 +49,7 @@ START_TEST(dimTest)
             for (int i=0;i<t1size;i++) {
                 ck_assert(dim1->dimarr[i] == t1arr[i]);
             }
-            ck_assert(destroyDimensions((void **)&dim1) == EXIT_SUCCESS);
+            ck_assert(destroyDimensions((void **)&dim1) == GRAPH_OK);
             ck_assert(dim1 == NULL);
 
             struct dimensions_t *dim2 = createDimensions(5, 10,20,30,40,50);
@@ -58,7 +58,7 @@ START_TEST(dimTest)
             for (int i=0;i<t2size;i++) {
                 ck_assert(dim2->dimarr[i] == t2arr[i]);
             }
-            ck_assert(destroyDimensions((void **)&dim2) == EXIT_SUCCESS);
+            ck_assert(destroyDimensions((void **)&dim2) == GRAPH_OK);
             ck_assert(dim2 == NULL);
 
             struct dimensions_t *dim3 = createDimensions(2, 255,255);
@@ -67,7 +67,7 @@ START_TEST(dimTest)
             for (int i=0;i<t3size;i++) {
                 ck_assert(dim3->dimarr[i] == t3arr[i]);
             }
-            ck_assert(destroyDimensions((void **)&dim3) == EXIT_SUCCESS);
+            ck_assert(destroyDimensions((void **)&dim3) == GRAPH_OK);
             ck_assert(dim3 == NULL);
         }
 END_TEST
@@ -76,9 +76,9 @@ START_TEST(destroyDimensionsTest) {
     struct dimensions_t *dims = createDimensions(2, 4, 8);
     ck_assert(dims != NULL);
     ck_assert(dims->dimarr != NULL);
-    ck_assert(destroyDimensions((void **)&dims) == EXIT_SUCCESS);
+    ck_assert(destroyDimensions((void **)&dims) == GRAPH_OK);
     ck_assert(dims == NULL);
-    ck_assert(destroyDimensions((void **)&dims) == EXIT_FAILURE);
+    ck_assert(destroyDimensions((void **)&dims) == GRAPH_ERR);
 }
 END_TEST
 
@@ -163,7 +163,7 @@ START_TEST(labelLifecycleTest) {
     ck_assert(labels != NULL);
     ck_assert(labels->labelcount == 4);
     ck_assert(labels->labelarr != NULL);
-    ck_assert(destroyLabels((void **)&labels) == EXIT_SUCCESS);
+    ck_assert(destroyLabels((void **)&labels) == GRAPH_OK);
     ck_assert(labels == NULL);
 }
 END_TEST

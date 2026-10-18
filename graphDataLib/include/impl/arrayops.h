@@ -23,49 +23,46 @@ size_t arrayEdgeCount(struct graph_t *g);
 /**
  * @brief Implementation to retrieve a node structure reference.
  *
- * Implementation-specific on whether this
- * structure is part of the original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based).
+ * Caller-owned copy (nodeid only). Release with destroyNodes.
  * @param nodeid Identifier of the node to be retrieved
  * @param g Graph structure in question
- * @return pointer to the node structure, if found; otherwise, pointer to NULL
+ * @return pointer to the node structure, if found; otherwise, NULL
  */
 struct node_t * arrayGetNode(const size_t *nodeid, const struct graph_t *g);
 /**
- * @brief Remove a node from the graph.
- *
- * NOOP implementation.  ARRAY-based graphs are defined at initialization and do not allow removing nodes.
- *
- * @param nodeid Node id to be added.
- * @param g Graph structure in question
- * @return EXIT_FAILURE if there was an error (node already exists or outside the bounds of the implementation); otherwise, EXIT_SUCCESS if successful.
+ * @brief No-op. Array node ids are the fixed index range.
+ * @param nodeid Unused
+ * @param g Unused
+ * @return GRAPH_OK
  */
 int arrayRemoveNode(const size_t *nodeid, struct graph_t *g);
 /**
  * @brief Implementation to retrieve a edge structure reference.
  *
- * Implementation-specific on whether this structure is part of the
- * original graph (LINK-based implementations) or must use free() when usage is finished (ARRAY-based).
+ * Caller-owned copy (u, v, cap, and flow). Release with destroyEdges.
  * @param u nodeid of the starting edge.
  * @param v nodeid of the ending edge.
  * @param g Graph structure in question
- * @return pointer to the edge structure, if found; otherwise, pointer to NULL.
+ * @return pointer to the edge structure, if found; otherwise, NULL.
  */
 struct edge_t * arrayGetEdge(const size_t *u, const size_t *v, const struct graph_t *g);
 /**
  * @brief Implementation to retrieve linked-list of nodes that are currently defined as neighbors to the given node.
  *
- * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
+ * Caller-owned list of neighbor ids. The queried node is not included.
+ * Release the chain with destroyNodes. NULL when the node is absent or has no neighbors.
  * @param nodeid Identifier of the node in question
  * @param g Graph structure in question
- * @return linked-list of node references, starting with the given node, if found; otherwise, pointer to NULL.
+ * @return caller-owned neighbor chain, or NULL
  */
 struct node_t * arrayGetNeighbors(const size_t *nodeid, const struct graph_t *g);
 /**
  * @brief Implementation to retrieve linked-list of edges from a given node.
- * Returned linked-list is distinct from the graph structure, and consumers must use free() when finished.
+ * Caller-owned copies of the node's edges. Release the chain with destroyEdges.
+ * NULL when the node is absent or has no edges.
  * @param nodeid Identifier of the node in question
  * @param g Graph structure in question
- * @return linked-list of edges starting from the given node, if found; otherwise, pointer to NULL.
+ * @return caller-owned edge chain, or NULL
  */
 struct edge_t * arrayGetEdges(const size_t *nodeid, const struct graph_t *g);
 
@@ -78,8 +75,7 @@ struct edge_t * arrayGetEdges(const size_t *nodeid, const struct graph_t *g);
  * @param vid Edge end identifier
  * @param cap Capacity value pointer to store the value
  * @param g Graph structure in question
- * @return EXIT_FAILURE if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
- * retrieval
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int arrayGetCapacity(const size_t *uid, const size_t *vid, double *cap, const struct graph_t *g);
 
@@ -92,29 +88,27 @@ int arrayGetCapacity(const size_t *uid, const size_t *vid, double *cap, const st
  * @param vid Edge end identifier
  * @param flow Flow value pointer to store the result
  * @param g Graph structure in question
- * @return EXIT_FAILURE if there was a problem retrieving the value (such as the edge not existing); otherwise, 1 for a successful
- * retrieval
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int arrayGetFlow(const size_t *uid, const size_t *vid, double *flow, const struct graph_t *g);
 
 
 //Write functions to modify graph
 /**
- * @brief Implementation to add a node to a given graph.
- * Not all implementations may use this (for example, fixed-size graphs such as spatial ARRAY implementations).
- * @param nodeid Node identifier to be added
- * @param g Graph structure to add the node
- * @return EXIT_FAILURE if there was an error, EXIT_SUCCESS if the node was successfully added
+ * @brief No-op. Array node ids are the fixed index range.
+ * @param nodeid Unused
+ * @param g Unused
+ * @return GRAPH_OK
  */
 int arrayAddNode(const size_t *nodeid, struct graph_t *g);
 /**
  * @brief Implementation to add an edge to a given graph.
- * Not all implementations may use this (for example, fixed-size ARRAY implementations representing a set domain of nodes and relationships).
+ * Returns GRAPH_ERR when every adjacency slot on the start node is full.
  * @param uid identifer for start of edge
  * @param vid identifier for end of edge
  * @param cap capacity value to be assigned
  * @param g graph structure in question
- * @return EXIT_FAILURE if there was an error; EXIT_SUCCESS if the edge was successfully added.
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph_t *g);
 
@@ -126,7 +120,7 @@ int arrayAddEdge(const size_t *uid, const size_t *vid, double *cap, struct graph
  * @param uid Identifier for the edge start
  * @param vid Identifier for the edge end.
  * @param g Graph structure in question
- * @return EXIT_FAILURE if there was an error (e.g. the edge was not found); otherwise, EXIT_SUCCESS if the edge was removed.
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
 
@@ -136,7 +130,7 @@ int arrayRemoveEdge(const size_t *uid, const size_t *vid, struct graph_t *g);
  * @param vid identifier of the edge ending.
  * @param cap capacity value to be set
  * @param g Graph structure in question
- * @return EXIT_FAILURE if there was an error; EXIT_SUCCESS if the capacity was successfully set
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
 
@@ -149,7 +143,7 @@ int arraySetCapacity(const size_t *uid, const size_t *vid, const double *cap, st
  * @param vid Identifier of the edge end.
  * @param cap Value to adjust the capacity
  * @param g Graph structure in question
- * @return EXIT_FAILURE if there was an error (edge not found, for example); 1 of capacity was successfully adjusted
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, struct graph_t *g);
 
@@ -163,7 +157,7 @@ int arrayAddCapacity(const size_t *uid, const size_t *vid, const double *cap, st
  * @param vid Identifier of the edge end.
  * @param flow Value to be set for the flow.
  * @param g Graph structure in question
- * @return EXIT_FAILURE of there was an error (edge not found, for example); otherwise, EXIT_SUCCESS if the flow value as successfully set.
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
 
@@ -176,7 +170,7 @@ int arraySetFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  * @param vid Identifier of the edge end.
  * @param flow The value to be added to adjust the flow value.
  * @param g The graph structure in question
- * @return EXIT_FAILURE if there was an error (such as the edge not found); otherwise, EXIT_SUCCESS if the flow value was successfully adjusted.
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struct graph_t *g);
 
@@ -189,7 +183,7 @@ int arrayAddFlow(const size_t *uid, const size_t *vid, const double *flow, struc
  * @param g Graph structure to be zeroed or modified according to reset logic
  * @param args Arguments to be used in the reset process, if necessary
  * @param callback Callback to be executed when graph has been reset.
- * @return EXIT_FAILURE if there was an error during the reset; EXIT_SUCCESS if the reset completed;
+ * @return GRAPH_OK on success; GRAPH_ERR on failure.
  */
 int arrayResetGraph(struct graph_t *g, void *args, void (*callback)(void));
 
@@ -206,10 +200,10 @@ struct node_t * arrayListNodes(const struct graph_t *g);
 /**
  * @brief Utility method to free up an array
  *
- * Deallocates all unerlying arrays and the containing array.
- * @param arraylen Number of elements in the array
- * @param arr 2D array to be cleared
- * @return EXIT_SUCCESS if successful; EXIT_FAILURE if error.
+ * Frees *arrptr when it is non-NULL and sets it to NULL.
+ * @param arraylen Unused
+ * @param arrptr Pointer to the array pointer to free
+ * @return GRAPH_OK
  */
 int freeGraphArray(size_t arraylen, void** arrptr);
 

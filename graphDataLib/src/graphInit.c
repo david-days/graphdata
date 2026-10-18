@@ -179,9 +179,9 @@ static void setMmapOps(struct graphops_t *gops) {
  *
  * @param gtype Type of graph implementation to be created. Flag values set underlying structures and metadata.
  * @param lblcount Number of label nodes to be used within the graph.  Required for LABELED flag; ignored for all others.
- * @param dims Dimensional parameters structure.  Required for ARRAY | SPATIAL graphs; otherwise, may be NULL.  The returned graph will
- * hold the reference to the structure that was passed.
- * @return If successful and valied, initialized graph structure, according to the flags.  Otherwise, a NULL pointer.
+ * @param dims Dimensional parameters structure. Required for ARRAY, SHARED_MEM,
+ * and SHARED_MMAP. LINKED and HASHED accept NULL. The graph stores this pointer.
+ * @return Initialized graph structure, or NULL when the flags or dimensions are rejected.
  */
 struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct dimensions_t *dims) {
 
@@ -216,7 +216,7 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
             g->gtype = typeflags;
             g->dims = dims;
             g->labels = labels;
-            int initSuccess = EXIT_FAILURE;
+            int initSuccess = GRAPH_ERR;
             switch(imptype) {
                 case ARRAY:
                     initSuccess = arrayGraphInit(g);
@@ -234,7 +234,7 @@ struct graph_t * initGraph(enum GRAPHDOMAIN typeflags, size_t lblcount, struct d
                     initSuccess = linkGraphInit(g);
                     break;
             }
-            if (initSuccess != EXIT_SUCCESS) {
+            if (initSuccess != GRAPH_OK) {
                 //something went wrong--clean up
                 clearGraph(g);
                 destroyGraph((void **)&(g));
@@ -272,14 +272,14 @@ struct graph_t * attachReadonlyGraph(struct graph_t *src) {
     g->labels = src->labels;
     g->gtype = (src->gtype | RD_ONLY);
 
-    int ok = EXIT_FAILURE;
+    int ok = GRAPH_ERR;
     if (imptype == SHARED_MEM) {
         ok = shmemGraphAttachReadonly(g, src);
     } else {
         ok = shmmapGraphAttachReadonly(g, src);
     }
 
-    if (ok != EXIT_SUCCESS) {
+    if (ok != GRAPH_OK) {
         clearGraph(g);
         destroyGraph((void **)&g);
         return NULL;
@@ -295,7 +295,7 @@ struct graph_t * attachReadonlyGraph(struct graph_t *src) {
  * for the given graph.
  *
  * @param g Graph structure being used
- * @return Pointer to a new graphops_t structure, if successful; otherwise, a pointer to NULL
+ * @return Pointer to a new graphops_t structure, if successful; otherwise, NULL
  *
  */
 struct graphops_t * getOperations(struct graph_t *g) {
@@ -339,10 +339,10 @@ struct graphops_t * getOperations(struct graph_t *g) {
  * All underlying graph structures will be cleared and the associated memory to the structures freed.
  *
  * @param g Graph to be cleared
- * @return EXIT_SUCCESS if successful; otherwise, EXIT_FAILURE.
+ * @return GRAPH_OK if successful; otherwise, GRAPH_ERR.
  */
 int clearGraph(struct graph_t *g) {
-    int retval = EXIT_SUCCESS;
+    int retval = GRAPH_OK;
     if (g != NULL) {
         enum GRAPHDOMAIN dirtype, imptype, labtype, domaintype, rdtype;
         enum GRAPHDOMAIN gflags = g->gtype;
@@ -350,19 +350,19 @@ int clearGraph(struct graph_t *g) {
 
             switch (imptype) {
                 case ARRAY:
-                    retval = retval | arrayGraphFree(g);
+                    retval = arrayGraphFree(g);
                     break;
                 case LINKED:
-                    retval = retval | linkGraphFree(g);
+                    retval = linkGraphFree(g);
                     break;
                 case HASHED:
-                    retval = retval | hashGraphFree(g);
+                    retval = hashGraphFree(g);
                     break;
                 case SHARED_MEM:
-                    retval = retval | shmemGraphFree(g);
+                    retval = shmemGraphFree(g);
                     break;
                 case SHARED_MMAP:
-                    retval = retval | shmmapGraphFree(g);
+                    retval = shmmapGraphFree(g);
                     break;
                 default:
                     break;

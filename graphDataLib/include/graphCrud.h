@@ -14,14 +14,14 @@
 #include <graphOps.h>
 
 /**
- * @brief Create a dimension structure containing the given values in order (x, y, z, etc)
+ * @brief Create a dimension structure for the given sizes.
  *
- * This is used to initialize (and contain) the ordered size of the spatial dimensions given.  Consumers are responsible
- * for calling destroyDimensions() on the structure when finished.
+ * The first argument is the number of dimensions. The remaining arguments are
+ * that many sizes, in order. Release the result with destroyDimensions.
  *
- * @param dimval First dimension in the ordered list of dimension limits
- * @param ... Additional dimension values passed
- * @return Pointer to a dimensions_t structure that holds the count and values of the structure
+ * @param dimval Number of dimensions
+ * @param ... One size_t extent per dimension
+ * @return New dimensions_t, or NULL if allocation fails
  */
 struct dimensions_t * createDimensions(size_t dimval, ...);
 
@@ -51,7 +51,7 @@ struct feature_t * initFeature();
  * delineating paths, without unintentionally altering the underlying graph structure.
  *
  * @param onode Original node_t to be cloned
- * @return pointer to the cloned structure, if successful; otherwise, a pointer to NULL
+ * @return pointer to the cloned structure, if successful; otherwise, NULL
  */
 struct node_t * cloneNode(const struct node_t *onode);
 
@@ -62,7 +62,7 @@ struct node_t * cloneNode(const struct node_t *onode);
  * processing stacks, queues, and paths, without unintentionally altering the underlying graph structure.
  *
  * @param oedge Original edge_t structure to be cloned.
- * @return pointer to the cloned data, if successful; otherwise, a pointer to NULL
+ * @return pointer to the cloned data, if successful; otherwise, NULL
  */
 struct edge_t * cloneEdge(const struct edge_t *oedge);
 
@@ -70,7 +70,7 @@ struct edge_t * cloneEdge(const struct edge_t *oedge);
  * @brief Create a copy of the given feature data
  *
  * @param ofeat Original feature to be copied.
- * @return pointer to the cloned data, if successful; otherwise, a pointer to NULL
+ * @return pointer to the cloned data, if successful; otherwise, NULL
  */
 struct feature_t * cloneFeature(const struct feature_t *ofeat);
 
@@ -81,21 +81,21 @@ struct feature_t * cloneFeature(const struct feature_t *ofeat);
  * pointer itself will be changed to NULL. This does not free dims or labels.
  *
  * @param gptr Graph structure to be cleared
- * @return 1 if success; 0 if error
+ * @return GRAPH_OK when the shell was freed; GRAPH_ERR when *gptr is NULL
  */
 int destroyGraph(void** gptr);
 
 /**
  * @brief Clear out the dimensions and all underlying structures
  * @param dimptr Dimensions structure to be cleared
- * @return 1 if success; 0 if error
+ * @return GRAPH_OK when the structure was freed; GRAPH_ERR when *dimptr is NULL
  */
 int destroyDimensions(void** dimptr);
 
 /**
  * @brief Clear out the label and all underlying structures
  * @param lblptr Label structure to be cleared
- * @return 1 if success; 0 if error
+ * @return GRAPH_OK, including when *lblptr is already NULL
  */
 int destroyLabels(void** lblptr);
 
@@ -105,7 +105,7 @@ int destroyLabels(void** lblptr);
  * The pointer itself will be changed to NULL
  *
  * @param eptr Initial edge pointer
- * @return 1 if success; 0 if error.
+ * @return GRAPH_OK when the chain was freed; GRAPH_ERR when *eptr is NULL
  */
 int destroyEdges(void** eptr);
 
@@ -114,7 +114,7 @@ int destroyEdges(void** eptr);
  * The graph itself will not be cleared, only the reference to it.  The pointer itself will be changed to NULL
  *
  * @param optptr Graphops structuure to be cleared and deallocated
- * @return EXIT_SUCCESS if successful; EXIT_FAILURE if error
+ * @return GRAPH_OK if successful; GRAPH_ERR if error
  */
 int destroyGraphops(void** opsptr);
 
@@ -125,7 +125,7 @@ int destroyGraphops(void** opsptr);
  * getNeighbors, and listNodes results.
  *
  * @param nptr Initial node pointer
- * @return EXIT_SUCCESS if successful; EXIT_FAILURE if error
+ * @return GRAPH_OK if successful; GRAPH_ERR if error
  */
 int destroyNodes(void** nptr);
 
@@ -135,7 +135,7 @@ int destroyNodes(void** nptr);
  * The pointer itself will be changed to NULL
  *
  * @param fptr Initial feature pointer
- * @return EXIT_SUCCESS if successful; EXIT_FAILURE if error
+ * @return GRAPH_OK if successful; GRAPH_ERR if error
  */
 int destroyFeatures(void** fptr);
 
