@@ -74,3 +74,6 @@ docs/html
 docs/latex
 docs/man
 
+# Codacy CLI local config/cache
+.codacy/
+
