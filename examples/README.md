@@ -17,7 +17,7 @@ The shortest path from 10 to 90 is `10 -> 30 -> 70 -> 90`, distance 3.
 
 ## Build
 
-From `graphDataLib`, `./buildLinux.sh -t` compiles the example and runs it as the `bfs_demo` test. A passing run prints one line per backend:
+From the repo root, `./buildLinux.sh -t` compiles the example and runs it as the `bfs_demo` test. A passing run prints one line per backend:
 
 ```
 LINKED: 10 -> 30 -> 70 -> 90 (distance 3)

@@ -4,10 +4,10 @@
 answer to “what did I just get, and how do I free it?”
 
 **Related:** design note
-[`001-getter-ownership-always-copy`](../graphDataLib/docs/design/001-getter-ownership-always-copy.md)
+[`001-getter-ownership-always-copy`](design/001-getter-ownership-always-copy.md)
 (why always-copy); undirected neighbor asymmetry in the
 [README](../README.md#undirected-edge-storage) and
-[`003-undirected-storage`](../graphDataLib/docs/design/003-undirected-storage.md);
+[`003-undirected-storage`](design/003-undirected-storage.md);
 shared backends [SHARED_MEM](shared-mem.md) / [SHARED_MMAP](shared-mmap.md).
 
 ## Rule in one line

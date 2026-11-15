@@ -77,3 +77,12 @@ docs/man
 # Codacy CLI local config/cache
 .codacy/
 
+# Build products
+**/output
+**/build-*
+**/nupkgs
+**/tests/bin
+
+# Test data
+**/tests/data
+

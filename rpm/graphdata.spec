@@ -5,7 +5,7 @@ Summary:        Efficient implementation for common graph data operations
 
 License:        MIT
 URL:            https://github.com/david-days/graphdata
-# GitHub tag archive (includes LICENSE; CMake lives under graphDataLib/).
+# GitHub tag archive (includes LICENSE; CMake at repo root).
 # Prefer this over the CPack *-src.tar.gz until that tarball is cleaned up.
 # The #/ fragment sets the local SOURCES filename for rpmbuild/spectool.
 Source0:        https://github.com/david-days/graphdata/archive/refs/tags/v%{version}.tar.gz#/graphdata-%{version}.tar.gz
@@ -30,8 +30,8 @@ Headers and pkg-config file for building against %{name}.
 %autosetup -n graphdata-%{version}
 
 %build
-# Second -S wins over the macro's default; build only the library (skip tests/examples).
-%cmake -S graphDataLib
+# Build only the library target (skip tests/examples).
+%cmake
 %cmake_build --target graphData
 
 %install

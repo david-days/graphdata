@@ -1,7 +1,7 @@
 # SHARED_MMAP — array layout in memory-mapped files
 
 **Audience:** choosing or wiring `SHARED_MMAP` graphs.  
-**Related:** [README backends](../README.md#available-backends), [SHARED_MEM](shared-mem.md), [ownership](ownership.md), ARRAY undirected rules in [003-undirected-storage](../graphDataLib/docs/design/003-undirected-storage.md).
+**Related:** [README backends](../README.md#available-backends), [SHARED_MEM](shared-mem.md), [ownership](ownership.md), ARRAY undirected rules in [003-undirected-storage](design/003-undirected-storage.md).
 
 ## What it is
 

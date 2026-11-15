@@ -2,9 +2,9 @@ PROJECT_NAME		= "Graph Data Shared Library"
 PROJECT_BRIEF		= "Library for graph structure models and core operations"
 
 OUTPUT_DIRECTORY	= docs
-INPUT				= graphDataLib/src
-INPUT				+= graphDataLib/include
-INPUT				+= graphDataLib/docs
+INPUT				= src
+INPUT				+= include
+INPUT				+= docs
 
 EXCLUDE				= .git bin data
 

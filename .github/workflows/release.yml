@@ -19,17 +19,14 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build, test, and package
-        working-directory: graphDataLib
         run: ./buildLinux.sh -t -p
 
       - name: Source archive
-        working-directory: graphDataLib
         run: make -C build-linux-x64 package_source
 
       - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
-        working-directory: graphDataLib
         run: |
           git config --global --add safe.directory "${GITHUB_WORKSPACE}"
           mapfile -t files < <(find output build-linux-x64 -type f \

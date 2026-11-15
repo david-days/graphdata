@@ -1,7 +1,7 @@
 # SHARED_MEM — array layout in SysV shared memory
 
 **Audience:** choosing or wiring `SHARED_MEM` graphs.  
-**Related:** [README backends](../README.md#available-backends), [SHARED_MMAP](shared-mmap.md), [ownership](ownership.md), ARRAY undirected rules in [003-undirected-storage](../graphDataLib/docs/design/003-undirected-storage.md).
+**Related:** [README backends](../README.md#available-backends), [SHARED_MMAP](shared-mmap.md), [ownership](ownership.md), ARRAY undirected rules in [003-undirected-storage](design/003-undirected-storage.md).
 
 ## What it is
 

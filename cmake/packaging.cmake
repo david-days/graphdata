@@ -11,7 +11,8 @@ macro(configPackaging)
     set(GRAPHDATA_PROJECT_HOME "https://github.com/david-days/graphdata")
     
     # packaging specific settings
-    set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY 0)
+    # Match GitHub-style source archives: one top-level directory.
+    set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY 1)
     set(CPACK_PACKAGE_DIRECTORY "${PROJECT_SOURCE_DIR}/output/${CMAKE_OS_NAME}/${CMAKE_OS_VERSION}/${CMAKE_SYSTEM_PROCESSOR}")
     set(CPACK_PACKAGE_VERSION ${GRAPHDATA_PKG_VERSION})
     set(CPACK_PACKAGE_NAME ${GRAPHDATA_PKG_NAME})
@@ -24,6 +25,7 @@ macro(configPackaging)
             /.*\\.gz
             /.*\\.zip
             /.*build.*/
+            /output/
             \\.deps
             /autogen\\.sh
             /autom4te\\.cache

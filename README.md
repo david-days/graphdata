@@ -88,10 +88,9 @@ Do not compare `edgeCount` across backends as if it meant the same thing, and do
 
 ## Building
 
-The library is C, built with CMake 3.25 or newer. Compiler warnings are errors (`-Wall -Werror`). The Linux build lives in `graphDataLib`.
+The library is C, built with CMake 3.25 or newer. Compiler warnings are errors (`-Wall -Werror`). The repository root is the CMake project root.
 
 ```sh
-cd graphDataLib
 ./buildLinux.sh        # configure and build
 ./buildLinux.sh -t     # build and run the test suite
 ./buildLinux.sh -p     # also build the RPM and the binary tar.gz
@@ -131,11 +130,11 @@ destroyGraph((void **)&g);
 
 Public getters are **always-copy**: you own the snapshots and release them with `destroyNodes` / `destroyEdges`. Graph teardown (`clearGraph` / `destroyGraph`) and dimensions/labels are separate. Full table, empty-vs-OOM on `listNodes`, and common mistakes: **[docs/ownership.md](docs/ownership.md)**.
 
-`graphDataLib/examples` is a breadth-first shortest path on all five backends. It is also the `bfs_demo` test. Against an install, the same sources build with the pkg-config line above.
+`examples/` is a breadth-first shortest path on all five backends. It is also the `bfs_demo` test. Against an install, the same sources build with the pkg-config line above.
 
 ## Contributing
 
-Pull requests target `trunk`. From `graphDataLib`, `./buildLinux.sh -t` is the check that has to pass.
+Pull requests target `trunk`. `./buildLinux.sh -t` is the check that has to pass.
 
 No IDE project files are required. The command line above is enough to build and test. Editor settings stay on your machine.
 
