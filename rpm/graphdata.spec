@@ -1,5 +1,5 @@
 Name:           graphdata
-Version:        1.0.0
+Version:        1.0.1
 Release:        1%{?dist}
 Summary:        Efficient implementation for common graph data operations
 
@@ -53,5 +53,8 @@ Headers and pkg-config file for building against %{name}.
 %{_libdir}/pkgconfig/graphdata.pc
 
 %changelog
+* Sat Nov 14 2026 David C Days <david.c.days@gmail.com> - 1.0.1-1
+- Flatten source tree so CMake lives at the repository root
+
 * Sat Nov 14 2026 David C Days <david.c.days@gmail.com> - 1.0.0-1
 - Initial COPR / Fedora-style package
