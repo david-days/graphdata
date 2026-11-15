@@ -33,10 +33,17 @@ struct node_t * linkGetNode(const size_t *nodeid, const struct graph_t *g);
 struct edge_t * linkGetEdge(const size_t *u, const size_t *v, const struct graph_t *g);
 
 /**
- * @brief Function pointer to retrieve linked-list of nodes that are currently defined as neighbors to the given node.
+ * @brief Caller-owned list of neighbor ids from this node's edge list.
  *
- * Caller-owned list of neighbor ids. The queried node is not included.
- * Release the chain with destroyNodes. NULL when the node is absent or has no neighbors.
+ * Walks only edges stored on @p nodeid (each edge's @c v). The queried node is
+ * not included. Release with destroyNodes. NULL when absent or no edges.
+ *
+ * On LINKED|UNDIRECTED, addEdge stores a single record on min(u,v)→max(u,v).
+ * Neighbor lists are therefore not symmetric: the larger endpoint does not see
+ * that edge here. Pairwise getEdge / setCapacity / removeEdge still canonicalize
+ * and work from either order. For undirected traversal, prefer LINKED|DIRECTED
+ * with both arcs, or HASHED|UNDIRECTED (both directions stored).
+ *
  * @param nodeid Identifier of the node in question
  * @param g Graph structure in question
  * @return caller-owned neighbor chain, or NULL
@@ -44,9 +51,11 @@ struct edge_t * linkGetEdge(const size_t *u, const size_t *v, const struct graph
 struct node_t * linkGetNeighbors(const size_t *nodeid, const struct graph_t *g);
 
 /**
- * @brief Function pointer to retrieve linked-list of edges from a given node.
- * Caller-owned copies of the node's edges. Release the chain with destroyEdges.
- * NULL when the node is absent or has no edges.
+ * @brief Caller-owned copies of edges stored on this node.
+ *
+ * Same LINKED|UNDIRECTED asymmetry as linkGetNeighbors: only records hung on
+ * this node. Release with destroyEdges. NULL when absent or no edges.
+ *
  * @param nodeid Identifier of the node in question
  * @param g Graph structure in question
  * @return caller-owned edge chain, or NULL
@@ -101,6 +110,10 @@ int linkRemoveNode(const size_t *nodeid, struct graph_t *g);
 
 /**
  * @brief Add an edge to a linked graph.
+ *
+ * Directed: stored as given on @p uid. Undirected: one record on
+ * min(uid,vid)→max(uid,vid) (see linkGetNeighbors for traversal impact).
+ *
  * @param uid identifer for start of edge
  * @param vid identifier for end of edge
  * @param cap capacity value to be assigned

@@ -16,9 +16,14 @@
 typedef size_t (*funcNodeCount)(struct graph_t *g);
 
 /**
- * @brief Function pointer to extract count of edges
+ * @brief Count of edge *records* as stored by the backend (not always “logical links”).
+ *
+ * LINKED undirected: one record per link (min→max). HASHED undirected: two
+ * records per link (both directions). ARRAY / SHARED_*: length of the
+ * adjacency/cap/flow arrays (slot capacity), not the number of occupied slots.
+ *
  * @param g Graph structure in question
- * @return Count of edges, if graph is not null; otherwise, return 0
+ * @return Count of edges/records/slots, if graph is not null; otherwise 0
  */
 typedef size_t (*funcEdgeCount)(struct graph_t *g);
 
@@ -46,10 +51,17 @@ typedef struct node_t * (*funcGetNode)(const size_t *nodeid, const struct graph_
 typedef struct edge_t * (*funcGetEdge)(const size_t *u, const size_t *v, const struct graph_t *g);
 
 /**
- * @brief Function pointer to retrieve linked-list of nodes that are currently defined as neighbors to the given node.
+ * @brief Caller-owned list of neighbor ids as stored for @p nodeid.
  *
- * Caller-owned list of neighbor ids. The queried node is not included.
- * Release the chain with destroyNodes. NULL when the node is absent or has no neighbors.
+ * The queried node is not included. Release with destroyNodes. NULL when the
+ * node is absent or has no stored neighbors.
+ *
+ * On LINKED|UNDIRECTED and ARRAY undirected (including SHARED_*), undirected
+ * edges are a single min(u,v)→max(u,v) record, so this list is not symmetric.
+ * HASHED|UNDIRECTED stores both directions. Pairwise getEdge / setCapacity /
+ * removeEdge still canonicalize. See the graphData README “Undirected edge
+ * storage” section.
+ *
  * @param nodeid Identifier of the node in question
  * @param g Graph structure in question
  * @return caller-owned neighbor chain, or NULL
@@ -57,9 +69,11 @@ typedef struct edge_t * (*funcGetEdge)(const size_t *u, const size_t *v, const s
 typedef struct node_t * (*funcGetNeighbors)(const size_t *nodeid, const struct graph_t *g);
 
 /**
- * @brief Function pointer to retrieve linked-list of edges from a given node.
- * Caller-owned copies of the node's edges. Release the chain with destroyEdges.
- * NULL when the node is absent or has no edges.
+ * @brief Caller-owned copies of edges stored on @p nodeid.
+ *
+ * Same undirected asymmetry as getNeighbors on LINKED/ARRAY. Release with
+ * destroyEdges. NULL when the node is absent or has no edges.
+ *
  * @param nodeid Identifier of the node in question
  * @param g Graph structure in question
  * @return caller-owned edge chain, or NULL

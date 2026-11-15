@@ -47,19 +47,27 @@ int arrayRemoveNode(const size_t *nodeid, struct graph_t *g);
  */
 struct edge_t * arrayGetEdge(const size_t *u, const size_t *v, const struct graph_t *g);
 /**
- * @brief Implementation to retrieve linked-list of nodes that are currently defined as neighbors to the given node.
+ * @brief Caller-owned list of neighbor ids from this node's adjacency slots.
  *
- * Caller-owned list of neighbor ids. The queried node is not included.
- * Release the chain with destroyNodes. NULL when the node is absent or has no neighbors.
+ * The queried node is not included. Release with destroyNodes. NULL when absent
+ * or no occupied slots.
+ *
+ * On ARRAY|UNDIRECTED, edges occupy a min(u,v)→max(u,v) slot, so neighbor lists
+ * are not symmetric (same contract as LINKED undirected). Pairwise getEdge /
+ * setCapacity / removeEdge still canonicalize. For undirected traversal prefer
+ * DIRECTED with both arcs, or HASHED|UNDIRECTED.
+ *
  * @param nodeid Identifier of the node in question
  * @param g Graph structure in question
  * @return caller-owned neighbor chain, or NULL
  */
 struct node_t * arrayGetNeighbors(const size_t *nodeid, const struct graph_t *g);
 /**
- * @brief Implementation to retrieve linked-list of edges from a given node.
- * Caller-owned copies of the node's edges. Release the chain with destroyEdges.
- * NULL when the node is absent or has no edges.
+ * @brief Caller-owned copies of edges from this node's adjacency slots.
+ *
+ * Same ARRAY|UNDIRECTED asymmetry as arrayGetNeighbors. Release with
+ * destroyEdges. NULL when absent or no edges.
+ *
  * @param nodeid Identifier of the node in question
  * @param g Graph structure in question
  * @return caller-owned edge chain, or NULL

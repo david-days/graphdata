@@ -118,12 +118,11 @@ struct edge_t * linkGetEdge(const size_t *u, const size_t *v, const struct graph
 }
 
 /**
- * @brief Function pointer to retrieve linked-list of nodes that are currently defined as neighbors to the given node.
+ * @brief Caller-owned neighbor ids from this node's edge list (each edge's v).
  *
- * Caller-owned neighbor ids taken from this node's edges (each edge's v).
- * On a directed graph those are the outgoing neighbors. The queried node is
- * not included. Release the chain with destroyNodes. NULL if the node is
- * absent or has no edges.
+ * Directed: outgoing neighbors. Undirected LINKED: only edges stored on this
+ * node (min→max), so the list is not symmetric — see linkops.h.
+ * Release with destroyNodes. NULL if absent or no edges.
  */
 struct node_t * linkGetNeighbors(const size_t *nodeid, const struct graph_t *g) {
     struct node_t *neighbors = NULL;
@@ -150,11 +149,10 @@ struct node_t * linkGetNeighbors(const size_t *nodeid, const struct graph_t *g) 
 }
 
 /**
- * @brief Function pointer to retrieve linked-list of edges from a given node.
+ * @brief Caller-owned copies of edges stored on this node.
  *
- * Caller-owned copies of this node's edges. On a directed graph those are
- * the outgoing edges. Release the chain with destroyEdges. NULL if the node
- * is absent or has no edges.
+ * Directed: outgoing edges. Undirected LINKED: same min→max asymmetry as
+ * linkGetNeighbors. Release with destroyEdges. NULL if absent or no edges.
  */
 struct edge_t * linkGetEdges(const size_t *nodeid, const struct graph_t *g) {
     struct edge_t *elist = NULL;

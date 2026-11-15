@@ -4,6 +4,8 @@
  * Node ids are 0 .. nodelen-1. Degree is dimensions_t.dimcount.
  * Undirected edges are stored as min(u,v) -> max(u,v). Directed edges are
  * stored as given. An unused adjacency slot is GRAPH_SLOT_EMPTY, not 0.
+ * Because undirected storage is one-sided, getNeighbors / getEdges from a
+ * node are not symmetric; see arrayops.h and the graphData README.
  */
 
 #ifndef GRAPHDATA_ARRAYGRAPH_H

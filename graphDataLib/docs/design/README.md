@@ -7,6 +7,7 @@ these (with tests) in graphData before introducing a separate graphAlg package.
 |------|--------|---------|
 | [001-getter-ownership-always-copy](001-getter-ownership-always-copy.md) | Accepted; LINKED/HASHED getters copy | Public getters return caller-owned snapshots |
 | [002-iterators-and-scratch](002-iterators-and-scratch.md) | Implemented | Backend iterators under `impl/`; public list + foreach; scratch stays in Alg |
+| [003-undirected-storage](003-undirected-storage.md) | Accepted as-is; documented | Undirected min→max vs HASHED dual-store; neighbor asymmetry |
 
 ## Package target (notional)
 

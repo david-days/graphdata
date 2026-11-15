@@ -20,29 +20,71 @@ The structures and functions in `graphData` are self-contained implementations. 
 
 ## Available Backends
 
-This version of `graphData` has several graph structures available.  Below is a table listing the available data structure types and a very general explanation of the best uses of that structure:
+| Backend | Structure | Id space | Growth | Undirected `getNeighbors` | Generally best for… |
+| --- | --- | --- | --- | --- | --- |
+| `LINKED` | Doubly linked nodes + per-node edge lists | Arbitrary | Add nodes/edges freely | Not symmetric (min→max store) | Modest sparse graphs; size unknown up front |
+| `HASHED` | Hash table of those node chains | Arbitrary | Add + rehash | Symmetric (both directions) | Larger sparse graphs; frequent lookup by id |
+| `ARRAY` | Fixed adjacency / cap / flow arrays | `0 .. n-1` | Fixed at init | Not symmetric (min→max slots) | Grids / dense graphs with known size and max degree |
+| `SHARED_MEM` | ARRAY layout in SysV shared memory | Same as ARRAY | Fixed at init | Same as ARRAY | Same-machine process(es) sharing one live graph |
+| `SHARED_MMAP` | ARRAY layout in mapped files | Same as ARRAY | Fixed at init | Same as ARRAY | Graph that should persist on disk and be mapped again |
 
-| Backend Type | Underlying Structure | Generally Best for... |
-| --- | --- | --- |
-| `LINKED` | Doubly linked nodes, with an edge list on each node | Small or modest sparse graphs with arbitrary ids, when the size is not known ahead of time |
-| `HASHED` | Hash table of those node chains; grows as nodes are added | Larger sparse graphs, when nodes are looked up by id |
-| `ARRAY` | Fixed index `0 .. size-1`, degree limited by the dimension count | Grids and other dense graphs whose size and maximum degree are known up front |
-| `SHARED_MEM` | The array layout, stored in shared memory | A fixed graph that another process on the same machine will attach to |
-| `SHARED_MMAP` | The array layout, stored in mapped files | A fixed graph that should remain on disk and be mapped again |
+### Choosing a backend
+
+- **Sparse + arbitrary ids, in-process:** `LINKED` or `HASHED`. For neighbor-walk algorithms (BFS/DFS/CC), prefer `HASHED|UNDIRECTED`, or `LINKED|DIRECTED` with both arcs — not bare `LINKED|UNDIRECTED` (see [Undirected edge storage](#undirected-edge-storage)).
+- **Fixed index + fixed degree:** `ARRAY` (and the shared variants below when you need IPC or durability).
+- **Same machine, share one ARRAY-shaped graph:** `SHARED_MEM` — short note below; details in [docs/shared-mem.md](docs/shared-mem.md).
+- **On-disk ARRAY-shaped graph:** `SHARED_MMAP` — short note below; details in [docs/shared-mmap.md](docs/shared-mmap.md).
+
+There is no single “best” backend; the public `graphops_t` API is the same. Pick the layout that matches id space, growth, and how you walk neighbors.
+
+### Shared backends (short)
+
+Both shared types reuse the **ARRAY** layout (fixed ids, fixed degree, same undirected neighbor rules and `edgeCount` meaning). They differ in *where* the arrays live and how a second view attaches.
+
+- **`SHARED_MEM`** — SysV shared-memory segments for nodes, capacity, and flow. Creator process builds a writable graph; a read-only view attaches to the same keys. Segments vanish when the last (owner) teardown removes them — not a durable store. See **[docs/shared-mem.md](docs/shared-mem.md)**.
+- **`SHARED_MMAP`** — file-backed `mmap` of the same arrays. Suitable when the graph should survive process exit and be mapped again from known paths. See **[docs/shared-mmap.md](docs/shared-mmap.md)**.
+
+`RD_ONLY` is valid only on these two backends. `attachReadonlyGraph` (in `graphInit.h`) is the current in-process helper for a second read-only `graph_t` on the same backing store; multi-process discovery/handshake is still provisional — details in the linked docs.
 
 ## Initialization
 
 `initGraph` takes a flag combination, a label count, and an optional dimensions pointer. Omit a group and that group uses its default. Passing no flags yields `UNDIRECTED | LINKED | GENERIC | UNLABELED`.
 
+That default is convenient for small CRUD demos, but it is a poor default for neighbor-walk algorithms: `LINKED|UNDIRECTED` does not give symmetric `getNeighbors` (see below). Prefer an explicit combo such as `LINKED | DIRECTED | GENERIC` (as in the Usage snippet), and add both arcs when you need undirected traversal on LINKED.
+
 | Group | Options | Default | Notes |
 | --- | --- | --- | --- |
-| Direction | `UNDIRECTED`, `DIRECTED` | `UNDIRECTED` | Directed edges are stored as given. An undirected edge is one link |
+| Direction | `UNDIRECTED`, `DIRECTED` | `UNDIRECTED` | Directed edges are stored as given. Undirected storage differs by backend (see below) |
 | Backend | the five above | `LINKED` | Choose one. Naming two backends is rejected |
 | Domain | `GENERIC`, `SPATIAL` | `GENERIC` | Stored on the graph. This version does not change the layout from it |
 | Labels | `UNLABELED`, `LABELED` | `UNLABELED` | `LABELED` requires a label count greater than zero |
 | Access | omit, or `RD_ONLY` | writable | `RD_ONLY` is accepted only on `SHARED_MEM` and `SHARED_MMAP` |
 
 `ARRAY`, `SHARED_MEM`, and `SHARED_MMAP` require a dimensions pointer. `LINKED` and `HASHED` take `NULL`. On the array-layout backends, `LABELED` also multiplies the node count by the label count.
+
+### Undirected edge storage
+
+`UNDIRECTED` does not mean the same physical layout on every backend:
+
+| Backend | Undirected edge record | `getNeighbors` / `getEdges` |
+| --- | --- | --- |
+| `LINKED` | One record on `min(u,v)` → `max(u,v)` | Not symmetric: only the endpoint that owns the record lists the other |
+| `ARRAY` (and shared array layouts) | Same min→max slot convention | Same asymmetry for neighbor iteration |
+| `HASHED` | Both directions stored | Symmetric neighbor lists |
+
+Pairwise edge APIs (`getEdge`, `setCapacity`, `removeEdge`, and related) canonicalize undirected endpoints, so either argument order works for “is there an edge between these two?” Traversal algorithms that walk `getNeighbors` as undirected incidence need either a backend that stores both directions (`HASHED`), or `DIRECTED` with both arcs added explicitly (common for `LINKED`).
+
+### `edgeCount`
+
+`ops->edgeCount(g)` counts **stored records** (or slots), not a portable “number of logical undirected links”:
+
+| Backend | What `edgeCount` returns |
+| --- | --- |
+| `LINKED` | Number of `edge_t` records (undirected: one per link) |
+| `HASHED` | Number of directed adjacency records (undirected: **two** per link) |
+| `ARRAY` / `SHARED_*` | Length of the adjacency/cap/flow arrays (slot capacity), not how many slots are occupied |
+
+Do not compare `edgeCount` across backends as if it meant the same thing, and do not assume `edgeCount == 1` after one undirected `addEdge` on HASHED.
 
 ## Building
 
@@ -71,6 +113,7 @@ gcc example.c $(pkg-config --cflags --libs graphdata)
 A graph is a `graph_t` plus a `graphops_t` function table. `GRAPH_OK` means the call succeeded. `LINKED` and `HASHED` take a `NULL` dimensions pointer. `ARRAY`, `SHARED_MEM`, and `SHARED_MMAP` need one from `createDimensions`, whose first argument is the number of dimensions.
 
 ```c
+/* Explicit DIRECTED: safer for getNeighbors walks than the UNDIRECTED|LINKED default */
 struct graph_t *g = initGraph(LINKED | DIRECTED | GENERIC, 0, NULL);
 struct graphops_t *ops = getOperations(g);
 
@@ -86,7 +129,7 @@ clearGraph(g);
 destroyGraph((void **)&g);
 ```
 
-`getNode`, `getNeighbors`, and `listNodes` return caller-owned node chains. Release them with `destroyNodes`. `getEdge` and `getEdges` return caller-owned edge chains. Release them with `destroyEdges`. `clearGraph` frees the backing store. `destroyGraph` frees the `graph_t` shell and does not free dimensions or labels. Release those with `destroyDimensions` and `destroyLabels`.
+Public getters are **always-copy**: you own the snapshots and release them with `destroyNodes` / `destroyEdges`. Graph teardown (`clearGraph` / `destroyGraph`) and dimensions/labels are separate. Full table, empty-vs-OOM on `listNodes`, and common mistakes: **[docs/ownership.md](docs/ownership.md)**.
 
 `graphDataLib/examples` is a breadth-first shortest path on all five backends. It is also the `bfs_demo` test. Against an install, the same sources build with the pkg-config line above.
 
