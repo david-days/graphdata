@@ -37,7 +37,9 @@ include(${PROJECT_SOURCE_DIR}/cmake/packaging.cmake)
 include(${PROJECT_SOURCE_DIR}/cmake/docs.cmake)
 
 install(TARGETS ${PROJECT_NAME}
-        DESTINATION "lib"
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 install(FILES
@@ -45,7 +47,7 @@ install(FILES
         ${PROJECT_SOURCE_DIR}/include/graphInit.h
         ${PROJECT_SOURCE_DIR}/include/graphOps.h
         ${PROJECT_SOURCE_DIR}/include/graphCrud.h
-        DESTINATION "include"
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
 configPackaging()

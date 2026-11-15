@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.25)
 project(graphData LANGUAGES C)
 
+include(GNUInstallDirs)
+
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-# C compiler settings
-set(C_STANDARD 17)
-set(CMAKE_C_FLAGS "-Wall")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-format-truncation")
+# C compiler settings (append — do not clobber distro/rpmbuild CFLAGS)
+set(CMAKE_C_STANDARD 17)
+add_compile_options(-Wall -Werror -Wno-format-truncation)
 
 set(PROJECT_AUTHOR "David C. Days")
 set(PROJECT_VENDOR "Silicon Holler")
